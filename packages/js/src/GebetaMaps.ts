@@ -1,6 +1,7 @@
 import maplibre from 'maplibre-gl';
 import type { Map as MapLibreMap } from 'maplibre-gl';
 import { DirectionsManager } from './Directions/DirectionsManager';
+import { ClusteringManager } from './Clustering/ClusteringManager';
 import { GeocodingManager } from '@gebeta/maps-core';
 import { API, ValidationError, PlatformError } from '@gebeta/maps-api';
 
@@ -8,6 +9,7 @@ export class GebetaMaps {
   private readonly apiKey: string;
   private map: MapLibreMap | null = null;
   private directionsManager: DirectionsManager | null = null;
+  private clusteringManager: ClusteringManager | null = null;
   private _geocodingManager: GeocodingManager | null = null;
 
   get geocodingManager(): GeocodingManager {
@@ -26,7 +28,10 @@ export class GebetaMaps {
       throw new ValidationError('API key is required', 'apiKey');
     }
     this.apiKey = options.apiKey;
+    this.clusteringOptions = options.clustering;
   }
+
+  private readonly clusteringOptions?: API.Clustering.Types.Options;
 
   private initManagers(): void {
     if (!this.map) {
@@ -38,6 +43,9 @@ export class GebetaMaps {
     }
     this._geocodingManager = new GeocodingManager(this.apiKey);
     this.directionsManager = new DirectionsManager(this.map, this.apiKey);
+    if (this.clusteringOptions?.enabled) {
+      this.clusteringManager = new ClusteringManager(this.map, this.clusteringOptions);
+    }
   }
 
   init(options: API.Map.Types.InitOptions): MapLibreMap {
@@ -140,6 +148,17 @@ export class GebetaMaps {
   updateRouteStyle(style: API.Routing.Types.RouteStyleOptions): void {
     if (!this.directionsManager) return;
     this.directionsManager.updateRouteStyle(style);
+  }
+
+  get clustering(): ClusteringManager {
+    if (!this.clusteringManager) {
+      throw new PlatformError(
+        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
+        'Clustering manager not initialized. Enable clustering in constructor options and call init() first.',
+        { method: 'clustering' }
+      );
+    }
+    return this.clusteringManager;
   }
 
   getMap(): MapLibreMap | null {

@@ -15,6 +15,31 @@ module.exports = {
       },
     ],
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(supercluster|kdbush)/)',
+  ],
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          moduleResolution: 'node',
+          lib: ['ES2020', 'DOM'],
+          types: ['jest', 'node'],
+        },
+      },
+    ],
+    '^.+\\.js$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          moduleResolution: 'node',
+          lib: ['ES2020', 'DOM'],
+          types: ['jest', 'node'],
+        },
+      },
+    ],
+  },
   collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts', '!src/**/__tests__/**'],
   moduleNameMapper: {
     '^@gebeta/maps-api$': '<rootDir>/../api/src/index.ts',

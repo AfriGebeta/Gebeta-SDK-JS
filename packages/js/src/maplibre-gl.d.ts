@@ -13,6 +13,9 @@ declare module 'maplibre-gl' {
     setPaintProperty(layer: string, name: string, value: unknown): this;
     setLayoutProperty(layer: string, name: string, value: unknown): this;
     fitBounds(bounds: LngLatBounds, options?: { padding?: number; duration?: number }): this;
+    getBounds(): LngLatBounds;
+    getZoom(): number;
+    easeTo(options: { center: [number, number]; zoom: number }): this;
   }
 
   export class Marker {
@@ -20,11 +23,24 @@ declare module 'maplibre-gl' {
     setLngLat(lngLat: [number, number]): this;
     addTo(map: Map): this;
     remove(): void;
+    setPopup(popup: Popup | null): this;
+  }
+
+  export class Popup {
+    constructor(options?: { offset?: number; closeOnClick?: boolean });
+    setHTML(html: string): this;
+    setDOMContent(element: HTMLElement): this;
+    setLngLat(lngLat: [number, number]): this;
+    addTo(map: Map): this;
   }
 
   export class LngLatBounds {
     constructor();
     extend(point: [number, number]): this;
+    getWest(): number;
+    getSouth(): number;
+    getEast(): number;
+    getNorth(): number;
   }
 
   export class NavigationControl {
@@ -35,5 +51,5 @@ declare module 'maplibre-gl' {
     setData(data: GeoJSON.Feature<GeoJSON.Geometry>): void;
   }
 
-  export default { Map, Marker, LngLatBounds, NavigationControl };
+  export default { Map, Marker, LngLatBounds, NavigationControl, Popup };
 }

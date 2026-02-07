@@ -17,7 +17,8 @@
   "dependencies": {
     "@gebeta/maps-api": "workspace:*",
     "@gebeta/maps-core": "workspace:*",
-    "maplibre-gl": "^4.0.0"
+    "maplibre-gl": "^4.0.0",
+    "supercluster": "^8.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.0.0",

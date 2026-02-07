@@ -2429,6 +2429,7 @@ const RAW_RUNTIME_STATE =
           ["@gebeta/maps-core", "workspace:packages/core"],\
           ["@types/jest", "npm:29.5.14"],\
           ["@types/node", "npm:20.19.32"],\
+          ["@types/supercluster", "npm:7.1.3"],\
           ["@typescript-eslint/eslint-plugin", "virtual:6a70f5858b2313b913a462d9e62107beb545cddfaf58e933c3bf9eeac5520ba00666ee803a1e069809630c4ba4f8698c6df1cd45218d30a3e8f30d6198db46e5#npm:6.21.0"],\
           ["@typescript-eslint/parser", "virtual:6a70f5858b2313b913a462d9e62107beb545cddfaf58e933c3bf9eeac5520ba00666ee803a1e069809630c4ba4f8698c6df1cd45218d30a3e8f30d6198db46e5#npm:6.21.0"],\
           ["eslint", "npm:8.57.1"],\
@@ -2436,6 +2437,7 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:0932d00e6c26aa0aed0c86054e30cfae8b97f6225f0ec8477d70a15a7cbadd04910637317f0e1b742fe8432b752cf63d46ae0f63db42f4a0a3be41e6064901cf#npm:29.7.0"],\
           ["jest-util", "npm:29.7.0"],\
           ["prettier", "npm:3.8.1"],\
+          ["supercluster", "npm:8.0.1"],\
           ["ts-jest", "virtual:0932d00e6c26aa0aed0c86054e30cfae8b97f6225f0ec8477d70a15a7cbadd04910637317f0e1b742fe8432b752cf63d46ae0f63db42f4a0a3be41e6064901cf#npm:29.4.6"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"]\
         ],\
@@ -2455,6 +2457,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-config-prettier", "virtual:6a70f5858b2313b913a462d9e62107beb545cddfaf58e933c3bf9eeac5520ba00666ee803a1e069809630c4ba4f8698c6df1cd45218d30a3e8f30d6198db46e5#npm:9.1.2"],\
           ["maplibre-gl", "npm:4.7.1"],\
           ["prettier", "npm:3.8.1"],\
+          ["supercluster", "npm:8.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
           ["vite", "virtual:1f003f0deb4357c7d9e09d9071616788f505c5b5a64fdf080f6b43e6e7d489a70ed2b28353793088ada3f05969824b79988f917716d11c2f2179457e2e8c06ae#npm:5.4.21"]\
         ],\

@@ -1,5 +1,5 @@
 import type { CornerPosition, LngLat, Position, Precision, Role } from './common';
-import type { RouteData } from './data';
+import type { RouteData, ClusterData } from './data';
 
 /**
  * Options for constructing a GebetaMaps instance (imperative JS API).
@@ -62,7 +62,7 @@ export interface ClusteringOptions {
   /** Custom image URL for cluster markers */
   clusterImage?: string | null;
   /** Custom click handler for clusters. If not provided, defaults to zooming into cluster. */
-  clusterOnClick?: ((cluster: any, event: any) => void) | null;
+  clusterOnClick?: ((cluster: ClusterData, event: MouseEvent) => void) | null;
   /** Show count badge on cluster markers (default: false) */
   showClusterCount?: boolean;
 }
