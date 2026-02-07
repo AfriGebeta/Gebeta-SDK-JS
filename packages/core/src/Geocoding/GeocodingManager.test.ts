@@ -1,5 +1,11 @@
 import { GeocodingManager } from './GeocodingManager';
 import { API } from '@gebeta/maps-api';
+import {
+  ValidationError,
+  NetworkError,
+  GeocodingError,
+  BadRequestError,
+} from '@gebeta/maps-api';
 import { getRandomString } from '../_test_utilities/specialCharacters';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';
@@ -38,9 +44,7 @@ describe('GeocodingManager', () => {
         // WHEN creating a GeocodingManager instance
         // THEN test should throw an error about missing API key
         //@ts-expect-error - Testing constructor with invalid API key
-        expect(() => new GeocodingManager(givenApiKey)).toThrow(
-          'API key is required for GeocodingManager'
-        );
+        expect(() => new GeocodingManager(givenApiKey)).toThrow(ValidationError);
       }
     );
 
@@ -60,7 +64,7 @@ describe('GeocodingManager', () => {
         // WHEN calling geocode method
         // THEN test should throw an error about missing name
         //@ts-expect-error - Testing geocode method with invalid name
-        await expect(manager.geocode(givenName)).rejects.toThrow('Name is required for geocoding');
+        await expect(manager.geocode(givenName)).rejects.toThrow(ValidationError);
       }
     );
 
@@ -126,8 +130,8 @@ describe('GeocodingManager', () => {
       fetchSpy = setupFetchSpy(400, givenAPIResponse, 'application/json;charset=UTF-8');
 
       // WHEN calling geocode method
-      // THEN it should throw an error about geocoding failure
-      await expect(manager.geocode('foo')).rejects.toThrow('Geocoding failed');
+      // THEN it should throw a BadRequestError (400 status)
+      await expect(manager.geocode('foo')).rejects.toThrow(BadRequestError);
     });
 
     test('should handle network errors', async () => {
@@ -137,8 +141,8 @@ describe('GeocodingManager', () => {
       fetchSpy.mockRejectedValue(new Error('Network error'));
 
       // WHEN calling geocode method
-      // THEN it should throw an error about network error=
-      await expect(manager.geocode('foo')).rejects.toThrow('Network error');
+      // THEN it should throw a NetworkError
+      await expect(manager.geocode('foo')).rejects.toThrow(NetworkError);
     });
   });
 
@@ -161,7 +165,7 @@ describe('GeocodingManager', () => {
         // THEN it should throw an error about missing latitude or longitude
         await expect(
           manager.reverseGeocode(givenLngLat as API.Common.Types.LngLat)
-        ).rejects.toThrow('Latitude and longitude are required for reverse geocoding');
+        ).rejects.toThrow(ValidationError);
       }
     );
 
@@ -233,9 +237,9 @@ describe('GeocodingManager', () => {
       );
 
       // WHEN calling reverseGeocode method
-      // THEN it should throw an error about reverse geocoding failure
+      // THEN it should throw a BadRequestError (400 status)
       await expect(manager.reverseGeocode({ lat: 9.0, lng: 38.7 })).rejects.toThrow(
-        'Reverse geocoding failed'
+        BadRequestError
       );
     });
   });

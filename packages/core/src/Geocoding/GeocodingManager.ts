@@ -1,5 +1,13 @@
 import { API } from '@gebeta/maps-api';
 import type { GeocodingApiResponse, RawGeocodeResult } from './types';
+import {
+  ValidationError,
+  NetworkError,
+  GeocodingError,
+  ApiError,
+  createApiError,
+  parseApiErrorResponse,
+} from '@gebeta/maps-api';
 
 /**
  * GeocodingManager handles forward and reverse geocoding operations.
@@ -11,7 +19,7 @@ export class GeocodingManager {
 
   constructor(apiKey: string) {
     if (!apiKey) {
-      throw new Error('API key is required for GeocodingManager');
+      throw new ValidationError('API key is required for GeocodingManager', 'apiKey');
     }
     this.apiKey = apiKey;
     this.baseUrl = API.Geocoding.Constants.API_URL;
@@ -24,7 +32,7 @@ export class GeocodingManager {
    */
   async geocode(name: string): Promise<API.Geocoding.Types.Result[]> {
     if (!name) {
-      throw new Error('Name is required for geocoding');
+      throw new ValidationError('Name is required for geocoding', 'name');
     }
 
     const params = new URLSearchParams({
@@ -34,30 +42,43 @@ export class GeocodingManager {
 
     const url = `${this.baseUrl}/geocoding?${params.toString()}`;
 
+    let response: Response;
     try {
-      const response = await fetch(url);
-      const data: GeocodingApiResponse = await response.json();
-
-      if (response.ok && data.msg === 'ok') {
-        return (data.data || []).map((item: RawGeocodeResult) => ({
-          name: item.name,
-          lngLat: {
-            lng: item.lng!,
-            lat: item.lat!,
-          },
-          ...Object.fromEntries(
-            Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
-          ),
-        }));
-      }
-
-      throw new Error(data.error?.message || data.msg || 'Geocoding failed');
+      response = await fetch(url);
     } catch (error) {
-      if (error instanceof Error) {
-        throw error;
-      }
-      throw new Error('Geocoding request failed');
+      throw new NetworkError(
+        error instanceof Error
+          ? `Geocoding request failed: ${error.message}`
+          : 'Geocoding request failed',
+        API.Errors.Codes.NETWORK_REQUEST_FAILED,
+        error instanceof Error ? error : undefined
+      );
     }
+
+    if (!response.ok) {
+      const errorResponse = await parseApiErrorResponse(response);
+      throw createApiError(response.status, errorResponse);
+    }
+
+    const data: GeocodingApiResponse = await response.json();
+
+    if (data.msg === 'ok') {
+      return (data.data || []).map((item: RawGeocodeResult) => ({
+        name: item.name,
+        lngLat: {
+          lng: item.lng!,
+          lat: item.lat!,
+        },
+        ...Object.fromEntries(
+          Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
+        ),
+      }));
+    }
+
+    throw new GeocodingError(
+      API.Errors.Codes.GEOCODING_REQUEST_FAILED,
+      data.error?.message || data.msg || 'Geocoding failed'
+    );
   }
 
   /**
@@ -66,8 +87,12 @@ export class GeocodingManager {
    * @param latlng
    */
   async reverseGeocode(latlng: API.Common.Types.LngLat): Promise<API.Geocoding.Types.Result[]> {
-    if (!latlng || latlng.lat == null || latlng.lng == null) {
-      throw new Error('Latitude and longitude are required for reverse geocoding');
+    if (latlng?.lat == null || latlng.lng == null) {
+      throw new ValidationError(
+        'Latitude and longitude are required for reverse geocoding',
+        'latlng',
+        { lat: latlng?.lat, lng: latlng?.lng }
+      );
     }
 
     const params = new URLSearchParams({
@@ -78,29 +103,42 @@ export class GeocodingManager {
 
     const url = `${this.baseUrl}/revgeocoding?${params.toString()}`;
 
+    let response: Response;
     try {
-      const response = await fetch(url);
-      const data: GeocodingApiResponse = await response.json();
-
-      if (response.ok && data.msg === 'ok') {
-        return (data.data || []).map((item: RawGeocodeResult) => ({
-          name: item.name,
-          lngLat: {
-            lng: item.lng!,
-            lat: item.lat!,
-          },
-          ...Object.fromEntries(
-            Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
-          ),
-        }));
-      }
-
-      throw new Error(data.error?.message || data.msg || 'Reverse geocoding failed');
+      response = await fetch(url);
     } catch (error) {
-      if (error instanceof Error) {
-        throw error;
-      }
-      throw new Error('Reverse geocoding request failed');
+      throw new NetworkError(
+        error instanceof Error
+          ? `Reverse geocoding request failed: ${error.message}`
+          : 'Reverse geocoding request failed',
+        API.Errors.Codes.NETWORK_REQUEST_FAILED,
+        error instanceof Error ? error : undefined
+      );
     }
+
+    if (!response.ok) {
+      const errorResponse = await parseApiErrorResponse(response);
+      throw createApiError(response.status, errorResponse);
+    }
+
+    const data: GeocodingApiResponse = await response.json();
+
+    if (data.msg === 'ok') {
+      return (data.data || []).map((item: RawGeocodeResult) => ({
+        name: item.name,
+        lngLat: {
+          lng: item.lng!,
+          lat: item.lat!,
+        },
+        ...Object.fromEntries(
+          Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
+        ),
+      }));
+    }
+
+    throw new GeocodingError(
+      API.Errors.Codes.GEOCODING_REQUEST_FAILED,
+      data.error?.message || data.msg || 'Reverse geocoding failed'
+    );
   }
 }
