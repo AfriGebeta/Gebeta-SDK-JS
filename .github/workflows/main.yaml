@@ -7,6 +7,11 @@ on:
     branches: [main, develop]
 
 jobs:
+  assets:
+    name: Assets Package
+    uses: ./.github/workflows/assets.yaml
+    secrets: inherit
+
   api:
     name: API Package
     uses: ./.github/workflows/api.yaml
@@ -16,15 +21,10 @@ jobs:
     name: Core Package
     uses: ./.github/workflows/core.yaml
     secrets: inherit
-    needs: api
+    needs: [assets, api]
 
   js:
     name: JS Package
     uses: ./.github/workflows/js.yaml
     secrets: inherit
     needs: [api, core]
-
-  assets:
-    name: Assets Package
-    uses: ./.github/workflows/assets.yaml
-    secrets: inherit
