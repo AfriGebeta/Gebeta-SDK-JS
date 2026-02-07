@@ -1249,6 +1249,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@gebeta/maps-assets@workspace:packages/assets":
+  version: 0.0.0-use.local
+  resolution: "@gebeta/maps-assets@workspace:packages/assets"
+  languageName: unknown
+  linkType: soft
+
 "@gebeta/maps-core@workspace:*, @gebeta/maps-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@gebeta/maps-core@workspace:packages/core"
