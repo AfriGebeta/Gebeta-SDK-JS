@@ -77,10 +77,8 @@ export interface RouteSummary {
 export interface GeocodeResult {
   /** Place name */
   name?: string;
-  /** Latitude */
-  lat?: number;
-  /** Longitude */
-  lng?: number;
+  /** Geographic coordinates */
+  lngLat: LngLat;
   /** Additional geocoding result properties */
   [key: string]: any;
 }

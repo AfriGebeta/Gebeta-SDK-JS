@@ -78,7 +78,6 @@ export namespace API {
 
   export namespace Geocoding {
     export namespace Types {
-      export type Options = GeocodingModule.Geocoding.Types.Options;
       export type Result = GeocodingModule.Geocoding.Types.Result;
     }
     export const Constants = GeocodingModule.Geocoding.Constants;

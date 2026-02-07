@@ -281,14 +281,6 @@ export interface SatelliteToggleOptions {
 }
 
 /**
- * Options for geocoding operations.
- */
-export interface GeocodingOptions {
-  /** API key (usually inherited from main instance) */
-  apiKey?: string;
-}
-
-/**
  * Options for rendering multiple fences from an array.
  */
 export interface RenderFencesOptions {

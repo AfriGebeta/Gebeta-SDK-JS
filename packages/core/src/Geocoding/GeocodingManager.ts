@@ -1,12 +1,13 @@
 import { API } from '@gebeta/maps-api';
+import type { GeocodingApiResponse, RawGeocodeResult } from './types';
 
 /**
  * GeocodingManager handles forward and reverse geocoding operations.
  * Platform-agnostic: uses fetch API which is available in all JS environments.
  */
 export class GeocodingManager {
-  private apiKey: string;
-  private baseUrl: string;
+  private readonly apiKey: string;
+  private readonly baseUrl: string;
 
   constructor(apiKey: string) {
     if (!apiKey) {
@@ -19,40 +20,38 @@ export class GeocodingManager {
   /**
    * Forward geocoding: search by name/address.
    * @param name - Place name or address to search for
-   * @param options - Optional geocoding options
    * @returns Promise resolving to array of geocoding results
    */
-  async geocode(
-    name: string,
-    options?: API.Geocoding.Types.Options
-  ): Promise<API.Geocoding.Types.Result[]> {
+  async geocode(name: string): Promise<API.Geocoding.Types.Result[]> {
     if (!name) {
       throw new Error('Name is required for geocoding');
     }
 
-    const apiKey = options?.apiKey || this.apiKey;
-    if (!apiKey) {
-      throw new Error('API key is required for geocoding');
-    }
-
     const params = new URLSearchParams({
       name,
-      apiKey,
+      apiKey: this.apiKey,
     });
 
     const url = `${this.baseUrl}/geocoding?${params.toString()}`;
 
     try {
       const response = await fetch(url);
-      const data = await response.json();
+      const data: GeocodingApiResponse = await response.json();
 
       if (response.ok && data.msg === 'ok') {
-        return data.data || [];
+        return (data.data || []).map((item: RawGeocodeResult) => ({
+          name: item.name,
+          lngLat: {
+            lng: item.lng!,
+            lat: item.lat!,
+          },
+          ...Object.fromEntries(
+            Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
+          ),
+        }));
       }
 
-      throw new Error(
-        data.error?.message || data.msg || 'Geocoding failed'
-      );
+      throw new Error(data.error?.message || data.msg || 'Geocoding failed');
     } catch (error) {
       if (error instanceof Error) {
         throw error;
@@ -63,44 +62,40 @@ export class GeocodingManager {
 
   /**
    * Reverse geocoding: search by coordinates.
-   * @param lat - Latitude in degrees
-   * @param lng - Longitude in degrees
-   * @param options - Optional geocoding options
    * @returns Promise resolving to array of geocoding results
+   * @param latlng
    */
-  async reverseGeocode(
-    lat: number,
-    lng: number,
-    options?: API.Geocoding.Types.Options
-  ): Promise<API.Geocoding.Types.Result[]> {
-    if (lat == null || lng == null) {
+  async reverseGeocode(latlng: API.Common.Types.LngLat): Promise<API.Geocoding.Types.Result[]> {
+    if (!latlng || latlng.lat == null || latlng.lng == null) {
       throw new Error('Latitude and longitude are required for reverse geocoding');
     }
 
-    const apiKey = options?.apiKey || this.apiKey;
-    if (!apiKey) {
-      throw new Error('API key is required for reverse geocoding');
-    }
-
     const params = new URLSearchParams({
-      lat: lat.toString(),
-      lon: lng.toString(),
-      apiKey,
+      lat: latlng.lat.toString(),
+      lon: latlng.lng.toString(),
+      apiKey: this.apiKey,
     });
 
     const url = `${this.baseUrl}/revgeocoding?${params.toString()}`;
 
     try {
       const response = await fetch(url);
-      const data = await response.json();
+      const data: GeocodingApiResponse = await response.json();
 
       if (response.ok && data.msg === 'ok') {
-        return data.data || [];
+        return (data.data || []).map((item: RawGeocodeResult) => ({
+          name: item.name,
+          lngLat: {
+            lng: item.lng!,
+            lat: item.lat!,
+          },
+          ...Object.fromEntries(
+            Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
+          ),
+        }));
       }
 
-      throw new Error(
-        data.error?.message || data.msg || 'Reverse geocoding failed'
-      );
+      throw new Error(data.error?.message || data.msg || 'Reverse geocoding failed');
     } catch (error) {
       if (error instanceof Error) {
         throw error;

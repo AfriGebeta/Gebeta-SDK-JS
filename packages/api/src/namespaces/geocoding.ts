@@ -2,7 +2,6 @@ import { API_BASE_URLS } from '../constants';
 
 export namespace Geocoding {
   export namespace Types {
-    export type Options = import('../types/options').GeocodingOptions;
     export type Result = import('../types/data').GeocodeResult;
   }
 
