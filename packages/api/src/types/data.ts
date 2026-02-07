@@ -47,7 +47,7 @@ export interface RouteInstruction {
   length?: number;
   /** Coordinate where this instruction occurs [lng, lat] */
   coord?: [number, number];
-  /** Icon/emoji for this instruction */
+  /** Icon URL for this instruction (points to static asset) */
   icon?: string;
   /** Index of this instruction in the route */
   index?: number;

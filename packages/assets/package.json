@@ -1,0 +1,15 @@
+{
+  "name": "@gebeta/maps-assets",
+  "version": "0.1.0",
+  "description": "Static assets (icons, images) for Gebeta Maps SDKs",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Assets package - no build needed'",
+    "clean": "rm -rf dist",
+    "lint": "echo 'No linting needed for assets'",
+    "typecheck": "echo 'No typecheck needed for assets'",
+    "format": "echo 'No formatting needed for assets'",
+    "verify": "node scripts/verify-assets.js",
+    "content-hash": "node scripts/content-hash.js"
+  }
+}

@@ -149,7 +149,7 @@ export interface OverlayOptions {
 export interface DirectionsOptions {
   /** Intermediate waypoints along the route */
   waypoints?: LngLat[];
-  /** Average speed in km/h for duration estimation (default: 30) */
+  /** Average speed in km/h for duration estimation */
   avgSpeedKmh?: number;
 }
 

@@ -45,6 +45,11 @@ export const API_BASE_URLS = {
 } as const;
 
 /**
+ * Base URL for static assets (icons, images).
+ */
+export const ASSETS_BASE_URL = 'https://assets.gebeta.app' as const;
+
+/**
  * Default position values for controls.
  */
 export const DEFAULT_POSITIONS = {
@@ -58,6 +63,11 @@ export const DEFAULT_POSITIONS = {
  * Default tracking interval in milliseconds (15 seconds).
  */
 export const TRACKING_INTERVAL_MS = 15000;
+
+/**
+ * Default average speed in km/h for route duration estimation (30 km/h).
+ */
+export const DEFAULT_AVG_SPEED_KMH = 30;
 
 /**
  * Default navigation controller options.

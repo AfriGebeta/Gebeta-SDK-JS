@@ -1,4 +1,4 @@
-import { API_BASE_URLS } from '../constants';
+import { API_BASE_URLS, DEFAULT_AVG_SPEED_KMH, ASSETS_BASE_URL } from '../constants';
 
 export namespace Routing {
   export namespace Types {
@@ -12,5 +12,7 @@ export namespace Routing {
 
   export const Constants = {
     API_URL: API_BASE_URLS.directions,
+    DEFAULT_AVG_SPEED_KMH,
+    MANEUVER_ICONS_BASE_URL: `${ASSETS_BASE_URL}/icons/maneuvers`,
   } as const;
 }
