@@ -10,7 +10,7 @@
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.{ts,js}\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.{ts,js}\" --fix || echo 'No src directory - skipping lint'",
-    "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
+    "typecheck": "test -d src && (yarn workspace @gebeta/maps-api build && yarn workspace @gebeta/maps-core build && tsc --noEmit) || echo 'No src directory - skipping typecheck'",
     "format": "test -d src && prettier --write \"src/**/*.{ts,js}\" || echo 'No src directory - skipping format'",
     "format:check": "test -d src && prettier --check \"src/**/*.{ts,js}\" || echo 'No src directory - skipping format check'"
   },

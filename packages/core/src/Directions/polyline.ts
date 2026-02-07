@@ -66,13 +66,13 @@ function integerToDegrees(coordinateInt: number): number {
 /**
  * Decodes an encoded polyline string (Valhalla format).
  * Valhalla uses standard polyline encoding: [lat, lng] pairs.
- * 
+ *
  * Algorithm:
  * 1. Decode latitude delta and add to running total
  * 2. Decode longitude delta and add to running total
  * 3. Convert integer coordinates to degrees
  * 4. Store as [lng, lat] for GebetaMaps format
- * 
+ *
  * @param encoded - Encoded polyline string
  * @returns Array of [lng, lat] coordinates (GebetaMaps format)
  * @throws Error if the polyline string is invalid

@@ -7,8 +7,15 @@ import type { RawGeocodeResult } from './types';
  * @returns Transformed geocoding result
  * @throws GeocodingError if required fields are missing
  */
-export function transformGeocodeResult(item: RawGeocodeResult): API.Geocoding.Types.Result {  
-  const { lat: _lat, lng: _lng, latitude: _latitude, longitude: _longitude, name: _name, ...rest } = item;
+export function transformGeocodeResult(item: RawGeocodeResult): API.Geocoding.Types.Result {
+  const {
+    lat: _lat,
+    lng: _lng,
+    latitude: _latitude,
+    longitude: _longitude,
+    name: _name,
+    ...rest
+  } = item;
 
   if (_name == null || _name === '') {
     throw new GeocodingError(

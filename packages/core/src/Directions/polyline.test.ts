@@ -55,9 +55,9 @@ describe('decodePolyline', () => {
 
       // THEN it should return coordinates rounded to 5 decimal places (polyline precision limit)
       expect(decoded).toHaveLength(2);
-      expect(decoded[0][0]).toBeCloseTo(38.67890, 5);
+      expect(decoded[0][0]).toBeCloseTo(38.6789, 5);
       expect(decoded[0][1]).toBeCloseTo(9.12346, 5); // rounded to 5 so 9.1234567 becomes 9.12346
-      expect(decoded[1][0]).toBeCloseTo(38.67890, 5);
+      expect(decoded[1][0]).toBeCloseTo(38.6789, 5);
       expect(decoded[1][1]).toBeCloseTo(9.12346, 5); // rounded to 5 so 9.1234568 becomes 9.12346
     });
 
@@ -100,13 +100,16 @@ describe('decodePolyline', () => {
 
   describe('edge cases', () => {
     // GIVEN empty or invalid input values
-    test.each([...EMPTY_VALUES, ["non string input", 123]])('should return empty array for %s', (_description: string, givenValue?: string | number | null) => {
-      // WHEN decoding the polyline string
-      //@ts-expect-error - testing non-string input
-      const result = decodePolyline(givenValue);
-      // THEN it should return an empty array
-      expect(result).toEqual([]);
-    });
+    test.each([...EMPTY_VALUES, ['non string input', 123]])(
+      'should return empty array for %s',
+      (_description: string, givenValue?: string | number | null) => {
+        // WHEN decoding the polyline string
+        //@ts-expect-error - testing non-string input
+        const result = decodePolyline(givenValue);
+        // THEN it should return an empty array
+        expect(result).toEqual([]);
+      }
+    );
   });
 
   describe('error handling', () => {
@@ -172,7 +175,7 @@ describe('decodePolyline', () => {
       // GIVEN a known valid encoded polyline string from Google's polyline encoding example
       // The full polyline encodes the path: (38.5, -120.2), (40.7, -120.95), (43.252, -126.453)
       const encodedString = '_p~iF~ps|U_ulLnnqC_mqNvxq`@';
-      
+
       // WHEN decoding the polyline string
       const decoded = decodePolyline(encodedString);
 
@@ -201,4 +204,6 @@ describe('decodePolyline', () => {
   });
 });
 
-test.todo("check performance of decodePolyline with very long polylines (e.g. 1000+ coordinates) to ensure it doesn't degrade significantly");
+test.todo(
+  "check performance of decodePolyline with very long polylines (e.g. 1000+ coordinates) to ensure it doesn't degrade significantly"
+);

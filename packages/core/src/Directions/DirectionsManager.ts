@@ -69,7 +69,9 @@ export class DirectionsManager {
       response = await fetch(url);
     } catch (error) {
       throw new NetworkError(
-        error instanceof Error ? `Directions request failed: ${error.message}` : 'Directions request failed',
+        error instanceof Error
+          ? `Directions request failed: ${error.message}`
+          : 'Directions request failed',
         API.Errors.Codes.NETWORK_REQUEST_FAILED,
         error instanceof Error ? error : undefined
       );

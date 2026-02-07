@@ -5,7 +5,7 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       name: 'GebetaMaps',
-      fileName: (format) => `gebeta-maps.${format}.js`,
+      fileName: format => `gebeta-maps.${format}.js`,
       formats: ['umd'],
     },
     rollupOptions: {

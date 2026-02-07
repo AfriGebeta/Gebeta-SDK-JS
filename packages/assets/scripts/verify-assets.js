@@ -34,11 +34,11 @@ console.log('Default icon:', manifest.default);
 const allIcons = Object.values(manifest.icons);
 if (manifest.default) allIcons.push(manifest.default);
 const uniqueIcons = [...new Set(allIcons)];
-const missingIcons = uniqueIcons.filter((iconFile) => !fs.existsSync(path.join(iconsDir, iconFile)));
+const missingIcons = uniqueIcons.filter(iconFile => !fs.existsSync(path.join(iconsDir, iconFile)));
 
 if (missingIcons.length > 0) {
   console.error('Error: Missing icon files:');
-  missingIcons.forEach((icon) => console.error('  -', icon));
+  missingIcons.forEach(icon => console.error('  -', icon));
   process.exit(1);
 }
 
