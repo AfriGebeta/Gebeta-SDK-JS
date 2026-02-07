@@ -1,23 +1,11 @@
-// mock chatty console methods to keep test output clean
 import '../_test_utilities/consoleMock';
+import { loadIntegrationConfig } from '../_test_utilities/integrationConfig';
 import { GeocodingManager } from './GeocodingManager';
-import path from 'path';
-import fs from 'fs';
 
-let config: { apiKey: string };
+let config: ReturnType<typeof loadIntegrationConfig>;
 
 beforeAll(() => {
-  const configPath = path.join(__dirname, '../../config.js');
-  if (!fs.existsSync(configPath)) {
-    throw new Error(
-      `Integration test config file not found at ${configPath}. ` +
-        'Please copy config.example.js to config.js and add your API key.'
-    );
-  }
-  config = require(configPath);
-  if (!config.apiKey || config.apiKey === 'your-api-key-here') {
-    throw new Error('Please set a valid API key in config.js');
-  }
+  config = loadIntegrationConfig();
 });
 
 describe('GeocodingManager Integration Tests', () => {
