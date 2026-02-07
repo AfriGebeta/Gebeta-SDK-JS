@@ -1,0 +1,48 @@
+name: JS Package CI
+
+on:
+  workflow_call:
+
+jobs:
+  lint-build:
+    name: Lint, Format, Build JS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run ESLint on JS package
+        run: yarn workspace @gebeta/maps-js lint
+
+      - name: Check Prettier formatting on JS package
+        run: yarn workspace @gebeta/maps-js format:check
+
+      - name: Type check JS package
+        run: yarn workspace @gebeta/maps-js typecheck
+
+      - name: Build JS package
+        run: yarn workspace @gebeta/maps-js build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f "packages/js/dist/gebeta-maps.umd.js" ]; then
+            echo "Build failed: gebeta-maps.umd.js not found"
+            exit 1
+          fi
+          if [ ! -f "packages/js/dist/index.d.ts" ]; then
+            echo "Build failed: index.d.ts not found"
+            exit 1
+          fi
+          echo "Build output verified successfully"

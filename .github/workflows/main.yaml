@@ -17,3 +17,9 @@ jobs:
     uses: ./.github/workflows/core.yaml
     secrets: inherit
     needs: api
+
+  js:
+    name: JS Package
+    uses: ./.github/workflows/js.yaml
+    secrets: inherit
+    needs: [api, core]
