@@ -30,6 +30,10 @@ class MapLibreBoundsAdapter implements MapBounds {
 export class MapAdapter implements IMapAdapter {
   constructor(private map: MapLibreMap) {}
 
+  getMapLibreMap(): MapLibreMap {
+    return this.map;
+  }
+
   on(event: string, fn: (...args: unknown[]) => void): this {
     this.map.on(event, fn);
     return this;

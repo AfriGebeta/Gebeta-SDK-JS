@@ -132,7 +132,11 @@ export function createIndividualMarker(
       onClick: onClickHandler,
     });
     if (marker && popup && marker.setPopup) {
-      marker.setPopup(popup);
+      try {
+        marker.setPopup(popup);
+      } catch (error) {
+        console.warn('Failed to set popup on marker:', error);
+      }
     }
   } else {
     marker = markerFactory.createMarker({

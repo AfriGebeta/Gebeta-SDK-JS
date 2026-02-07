@@ -10,6 +10,10 @@ type PopupFactoryOptions = API.Platform.Types.PopupFactoryOptions;
 class MapLibrePopupAdapter implements IPopup {
   constructor(private popup: MapLibrePopup) {}
 
+  getMapLibrePopup(): MapLibrePopup {
+    return this.popup;
+  }
+
   setHTML(html: string): this {
     this.popup.setHTML(html);
     return this;

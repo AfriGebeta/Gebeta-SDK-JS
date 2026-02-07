@@ -1,5 +1,6 @@
 import maplibre from 'maplibre-gl';
 import type { Map as MapLibreMap } from 'maplibre-gl';
+import { Map as MapLibreMapClass } from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
 import type { Marker as MapLibreMarker, Popup as MapLibrePopup } from 'maplibre-gl';
 
@@ -25,8 +26,16 @@ class MapLibreMarkerAdapter implements IMarker {
   }
 
   addTo(map: unknown): this {
-    if (map) {
+    if (!map) return this;
+
+    const mapAdapter = map as unknown as { getMapLibreMap?: () => MapLibreMap };
+    if (mapAdapter.getMapLibreMap) {
+      const mapLibreMap = mapAdapter.getMapLibreMap();
+      this.marker.addTo(mapLibreMap);
+    } else if (map instanceof MapLibreMapClass || (map as MapLibreMap).getContainer) {
       this.marker.addTo(map as MapLibreMap);
+    } else {
+      console.warn('Cannot add marker to map: invalid map instance');
     }
     return this;
   }
@@ -40,7 +49,17 @@ class MapLibreMarkerAdapter implements IMarker {
   }
 
   setPopup(popup: API.Platform.Types.IPopup | null): this {
-    this.marker.setPopup(popup as unknown as MapLibrePopup | null);
+    if (popup === null || popup === undefined) {
+      this.marker.setPopup(null);
+    } else {
+      const adapter = popup as unknown as { getMapLibrePopup?: () => MapLibrePopup };
+      if (adapter.getMapLibrePopup) {
+        const mapLibrePopup = adapter.getMapLibrePopup();
+        this.marker.setPopup(mapLibrePopup);
+      } else {
+        console.warn('Popup adapter does not expose MapLibre popup instance');
+      }
+    }
     return this;
   }
 }

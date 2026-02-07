@@ -39,10 +39,10 @@ export class GebetaMaps {
   private readonly clusteringOptions?: API.Clustering.Types.Options;
 
   private initManagers(): void {
-    if (!this.map || !this.platform) {
+    if (!this.platform) {
       throw new PlatformError(
         API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
-        'Map and platform must be initialized before managers can be created',
+        'Platform must be initialized before managers can be created',
         { method: 'initManagers' }
       );
     }
@@ -98,18 +98,22 @@ export class GebetaMaps {
       },
     });
 
-    if (navigationControl) {
-      this.map.addControl(new maplibre.NavigationControl(), navigationControlPosition);
-    }
-
     if (!this.platform) {
       this.platform = createPlatform(this.map);
     }
 
-    if (this.map.isStyleLoaded()) {
+    if (navigationControl && this.platform.mapAdapter.addControl) {
+      this.platform.mapAdapter.addControl(
+        new maplibre.NavigationControl(),
+        navigationControlPosition
+      );
+    }
+
+    const mapAdapter = this.platform.mapAdapter;
+    if (mapAdapter.isStyleLoaded()) {
       this.initManagers();
     } else {
-      this.map.once('style.load', () => {
+      mapAdapter.once('style.load', () => {
         this.initManagers();
       });
     }
@@ -129,8 +133,16 @@ export class GebetaMaps {
   }
 
   addNavigationControls(position: string = API.Common.Enums.CornerPosition.TOP_RIGHT): void {
-    if (!this.map) return;
-    this.map.addControl(new maplibre.NavigationControl(), position);
+    if (!this.platform) {
+      throw new PlatformError(
+        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
+        'Platform not initialized. Call init() first.',
+        { method: 'addNavigationControls' }
+      );
+    }
+    if (this.platform.mapAdapter.addControl) {
+      this.platform.mapAdapter.addControl(new maplibre.NavigationControl(), position);
+    }
   }
 
   getDirections(
@@ -184,14 +196,7 @@ export class GebetaMaps {
     this.directionsManager.updateRouteStyle(style);
   }
 
-  get clustering(): ClusteringManager {
-    if (!this.clusteringManager) {
-      throw new PlatformError(
-        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
-        'Clustering manager not initialized. Enable clustering in constructor options and call init() first.',
-        { method: 'clustering' }
-      );
-    }
+  get clustering(): ClusteringManager | null {
     return this.clusteringManager;
   }
 
