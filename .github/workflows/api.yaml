@@ -2,14 +2,6 @@ name: API Package CI
 
 on:
   workflow_call:
-  push:
-    paths:
-      - 'packages/api/**'
-      - '.github/workflows/api.yaml'
-  pull_request:
-    paths:
-      - 'packages/api/**'
-      - '.github/workflows/api.yaml'
 
 jobs:
   lint-and-build:
