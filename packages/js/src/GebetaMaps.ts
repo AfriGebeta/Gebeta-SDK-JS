@@ -5,10 +5,12 @@ import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
 import { GeocodingManager } from '@gebeta/maps-core';
 import { API, ValidationError, PlatformError } from '@gebeta/maps-api';
+import { createPlatform, type PlatformContext } from './adapters/createPlatform';
 
 export class GebetaMaps {
   private readonly apiKey: string;
   private map: MapLibreMap | null = null;
+  private platform: PlatformContext | null = null;
   private directionsManager: DirectionsManager | null = null;
   private clusteringManager: ClusteringManager | null = null;
   private fenceManager: FenceManager | null = null;
@@ -25,12 +27,13 @@ export class GebetaMaps {
     return this._geocodingManager;
   }
 
-  constructor(options: API.Map.Types.ConstructorOptions) {
+  constructor(options: API.Map.Types.ConstructorOptions & { platform?: PlatformContext }) {
     if (!options?.apiKey) {
       throw new ValidationError('API key is required', 'apiKey');
     }
     this.apiKey = options.apiKey;
     this.clusteringOptions = options.clustering;
+    this.platform = options.platform ?? null;
   }
 
   private readonly clusteringOptions?: API.Clustering.Types.Options;
@@ -86,6 +89,10 @@ export class GebetaMaps {
       this.map.addControl(new maplibre.NavigationControl(), navigationControlPosition);
     }
 
+    if (!this.platform) {
+      this.platform = createPlatform(this.map);
+    }
+
     if (this.map.isStyleLoaded()) {
       this.initManagers();
     } else {
@@ -95,6 +102,17 @@ export class GebetaMaps {
     }
 
     return this.map;
+  }
+
+  getPlatform(): PlatformContext {
+    if (!this.platform) {
+      throw new PlatformError(
+        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
+        'Platform not initialized. Call init() first.',
+        { method: 'getPlatform' }
+      );
+    }
+    return this.platform;
   }
 
   addNavigationControls(position: string = API.Common.Enums.CornerPosition.TOP_RIGHT): void {

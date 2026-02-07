@@ -9,6 +9,7 @@ import * as FencingModule from './fencing';
 import * as OverlayModule from './overlay';
 import * as ComponentsModule from './components';
 import * as EventsModule from './events';
+import * as PlatformModule from './platform';
 import * as ErrorsModule from './errors';
 
 export namespace API {
@@ -104,6 +105,25 @@ export namespace API {
       export type MarkerData = OverlayModule.Overlay.Types.MarkerData;
       export type AddMarkerResult = OverlayModule.Overlay.Types.AddMarkerResult;
       export type ClusterData = OverlayModule.Overlay.Types.ClusterData;
+    }
+  }
+
+  export namespace Platform {
+    export namespace Types {
+      export type IMarker = PlatformModule.Platform.Types.IMarker;
+      export type IPopup = PlatformModule.Platform.Types.IPopup;
+      export type MarkerFactoryOptions = PlatformModule.Platform.Types.MarkerFactoryOptions;
+      export type PopupFactoryOptions = PlatformModule.Platform.Types.PopupFactoryOptions;
+      export type IMarkerFactory = PlatformModule.Platform.Types.IMarkerFactory;
+      export type IPopupFactory = PlatformModule.Platform.Types.IPopupFactory;
+      export type MapBounds = PlatformModule.Platform.Types.MapBounds;
+      export type MapStyle = PlatformModule.Platform.Types.MapStyle;
+      export type EaseToOptions = PlatformModule.Platform.Types.EaseToOptions;
+      export type IMapAdapter = PlatformModule.Platform.Types.IMapAdapter;
+      export type IPlatformDOM = PlatformModule.Platform.Types.IPlatformDOM;
+      export type LocationData = PlatformModule.Platform.Types.LocationData;
+      export type ILocationProvider = PlatformModule.Platform.Types.ILocationProvider;
+      export type IStyleInjector = PlatformModule.Platform.Types.IStyleInjector;
     }
   }
 

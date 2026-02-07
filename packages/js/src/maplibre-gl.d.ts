@@ -5,9 +5,10 @@ declare module 'maplibre-gl' {
     once(event: string, fn: () => void): this;
     on(event: string, fn: (...args: unknown[]) => void): this;
     off(event: string, fn: (...args: unknown[]) => void): this;
+    getContainer(): HTMLElement;
     getSource(id: string): GeoJSONSource | undefined;
     getLayer(id: string): unknown;
-    getStyle(): { layers: { id: string; type: string }[] };
+    getStyle(): { layers: { id: string; type: string }[] } | null;
     addSource(id: string, spec: unknown): this;
     addLayer(spec: unknown, beforeId?: string): this;
     removeLayer(id: string): this;
@@ -18,7 +19,9 @@ declare module 'maplibre-gl' {
     fitBounds(bounds: LngLatBounds, options?: { padding?: number; duration?: number }): this;
     getBounds(): LngLatBounds;
     getZoom(): number;
-    easeTo(options: { center: [number, number]; zoom: number }): this;
+    easeTo(options: { center: [number, number]; zoom: number; duration?: number }): this;
+    resize(): this;
+    setStyle(style: string | object): this;
   }
 
   export class Marker {
