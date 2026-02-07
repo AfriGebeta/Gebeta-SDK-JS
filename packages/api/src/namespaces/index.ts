@@ -9,6 +9,7 @@ import * as FencingModule from './fencing';
 import * as OverlayModule from './overlay';
 import * as ComponentsModule from './components';
 import * as EventsModule from './events';
+import * as ErrorsModule from './errors';
 
 export namespace API {
   export namespace Common {
@@ -117,6 +118,84 @@ export namespace API {
     export namespace Types {
       export type MapPayload = EventsModule.Events.Types.MapPayload;
       export type EventMap = EventsModule.Events.Types.EventMap;
+    }
+  }
+
+  export namespace Errors {
+    export namespace Types {
+      export type GebetaErrorDetails = ErrorsModule.Errors.Types.GebetaErrorDetails;
+      export type ApiErrorResponse = ErrorsModule.Errors.Types.ApiErrorResponse;
+    }
+    export const Codes = ErrorsModule.Errors.Codes;
+    export const Domains = ErrorsModule.Errors.Domains;
+    export namespace Classes {
+      export const GebetaError = ErrorsModule.Errors.Classes.GebetaError;
+      export namespace Validation {
+        export const ValidationError = ErrorsModule.Errors.Classes.Validation.ValidationError;
+      }
+      export namespace Network {
+        export const NetworkError = ErrorsModule.Errors.Classes.Network.NetworkError;
+        export const NetworkTimeoutError = ErrorsModule.Errors.Classes.Network.NetworkTimeoutError;
+        export const NetworkOfflineError = ErrorsModule.Errors.Classes.Network.NetworkOfflineError;
+      }
+      export namespace Api {
+        export const ApiError = ErrorsModule.Errors.Classes.Api.ApiError;
+        export const BadRequestError = ErrorsModule.Errors.Classes.Api.BadRequestError;
+        export const UnauthorizedError = ErrorsModule.Errors.Classes.Api.UnauthorizedError;
+        export const ForbiddenError = ErrorsModule.Errors.Classes.Api.ForbiddenError;
+        export const NotFoundError = ErrorsModule.Errors.Classes.Api.NotFoundError;
+        export const RateLimitError = ErrorsModule.Errors.Classes.Api.RateLimitError;
+        export const ServerError = ErrorsModule.Errors.Classes.Api.ServerError;
+      }
+      export namespace Business {
+        export const BusinessLogicError = ErrorsModule.Errors.Classes.Business.BusinessLogicError;
+        export const GeocodingError = ErrorsModule.Errors.Classes.Business.GeocodingError;
+        export const RoutingError = ErrorsModule.Errors.Classes.Business.RoutingError;
+        export const NavigationError = ErrorsModule.Errors.Classes.Business.NavigationError;
+        export const TrackingError = ErrorsModule.Errors.Classes.Business.TrackingError;
+      }
+      export namespace Platform {
+        export const PlatformError = ErrorsModule.Errors.Classes.Platform.PlatformError;
+        export const GeolocationDeniedError =
+          ErrorsModule.Errors.Classes.Platform.GeolocationDeniedError;
+        export const GeolocationUnavailableError =
+          ErrorsModule.Errors.Classes.Platform.GeolocationUnavailableError;
+        export const GeolocationTimeoutError =
+          ErrorsModule.Errors.Classes.Platform.GeolocationTimeoutError;
+      }
+    }
+    export namespace Factories {
+      export namespace Validation {
+        export const createValidationError =
+          ErrorsModule.Errors.Factories.Validation.createValidationError;
+      }
+      export namespace Network {
+        export const createNetworkError = ErrorsModule.Errors.Factories.Network.createNetworkError;
+        export const createNetworkTimeoutError =
+          ErrorsModule.Errors.Factories.Network.createNetworkTimeoutError;
+        export const createNetworkOfflineError =
+          ErrorsModule.Errors.Factories.Network.createNetworkOfflineError;
+      }
+      export namespace Api {
+        export const createApiError = ErrorsModule.Errors.Factories.Api.createApiError;
+      }
+      export namespace Business {
+        export const createGeocodingError =
+          ErrorsModule.Errors.Factories.Business.createGeocodingError;
+        export const createRoutingError = ErrorsModule.Errors.Factories.Business.createRoutingError;
+        export const createNavigationError =
+          ErrorsModule.Errors.Factories.Business.createNavigationError;
+        export const createTrackingError =
+          ErrorsModule.Errors.Factories.Business.createTrackingError;
+      }
+    }
+    export namespace Utils {
+      export const isGebetaError = ErrorsModule.Errors.Utils.isGebetaError;
+      export const getErrorCode = ErrorsModule.Errors.Utils.getErrorCode;
+      export const getErrorDomain = ErrorsModule.Errors.Utils.getErrorDomain;
+      export const formatErrorForLogging = ErrorsModule.Errors.Utils.formatErrorForLogging;
+      export const parseApiErrorResponse = ErrorsModule.Errors.Utils.parseApiErrorResponse;
+      export const extractRequestId = ErrorsModule.Errors.Utils.extractRequestId;
     }
   }
 }

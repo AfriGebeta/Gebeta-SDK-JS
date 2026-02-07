@@ -1,0 +1,60 @@
+/**
+ * Error domain/feature area where an error occurred.
+ */
+export enum ErrorDomain {
+  VALIDATION = 'validation',
+  NETWORK = 'network',
+  API = 'api',
+  GEOCODING = 'geocoding',
+  ROUTING = 'routing',
+  NAVIGATION = 'navigation',
+  TRACKING = 'tracking',
+  PLATFORM = 'platform',
+}
+
+/**
+ * Error codes for consistent error identification across all SDKs.
+ * Organized by category with numeric suffixes for easy filtering.
+ */
+export enum ErrorCode {
+  // Validation (1xxx)
+  VALIDATION_REQUIRED_FIELD = 'VALIDATION_1001',
+  VALIDATION_INVALID_FORMAT = 'VALIDATION_1002',
+  VALIDATION_OUT_OF_RANGE = 'VALIDATION_1003',
+  VALIDATION_INVALID_TYPE = 'VALIDATION_1004',
+
+  // Network (2xxx)
+  NETWORK_FAILED = 'NETWORK_2001',
+  NETWORK_TIMEOUT = 'NETWORK_2002',
+  NETWORK_OFFLINE = 'NETWORK_2003',
+  NETWORK_REQUEST_FAILED = 'NETWORK_2004',
+
+  // API (3xxx)
+  API_BAD_REQUEST = 'API_3001',
+  API_UNAUTHORIZED = 'API_3002',
+  API_FORBIDDEN = 'API_3003',
+  API_NOT_FOUND = 'API_3004',
+  API_RATE_LIMIT = 'API_3005',
+  API_SERVER_ERROR = 'API_3006',
+  API_UNKNOWN_ERROR = 'API_3007',
+
+  // Geocoding (4xxx)
+  GEOCODING_NOT_FOUND = 'GEOCODING_4001',
+  GEOCODING_INVALID_COORDINATES = 'GEOCODING_4002',
+  GEOCODING_REQUEST_FAILED = 'GEOCODING_4003',
+
+  // Routing (5xxx)
+  ROUTING_NO_ROUTE = 'ROUTING_5001',
+  ROUTING_INVALID_WAYPOINTS = 'ROUTING_5002',
+  ROUTING_REQUEST_FAILED = 'ROUTING_5003',
+
+  // Navigation (6xxx)
+  NAVIGATION_NOT_STARTED = 'NAVIGATION_6001',
+  NAVIGATION_OFF_ROUTE = 'NAVIGATION_6002',
+  NAVIGATION_REQUEST_FAILED = 'NAVIGATION_6003',
+
+  // Platform (7xxx)
+  PLATFORM_GEOLOCATION_DENIED = 'PLATFORM_7001',
+  PLATFORM_GEOLOCATION_UNAVAILABLE = 'PLATFORM_7002',
+  PLATFORM_GEOLOCATION_TIMEOUT = 'PLATFORM_7003',
+}
