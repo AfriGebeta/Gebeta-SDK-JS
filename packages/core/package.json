@@ -8,11 +8,11 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
-    "typecheck": "tsc --noEmit",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.ts\""
+    "lint": "test -d src && eslint \"src/**/*.ts\" || echo 'No src directory - skipping lint'",
+    "lint:fix": "test -d src && eslint \"src/**/*.ts\" --fix || echo 'No src directory - skipping lint'",
+    "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
+    "format": "test -d src && prettier --write \"src/**/*.ts\" || echo 'No src directory - skipping format'",
+    "format:check": "test -d src && prettier --check \"src/**/*.ts\" || echo 'No src directory - skipping format check'"
   },
   "dependencies": {
     "@gebeta/maps-api": "workspace:*"

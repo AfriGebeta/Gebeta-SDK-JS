@@ -1994,6 +1994,11 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/api/",\
         "packageDependencies": [\
           ["@gebeta/maps-api", "workspace:packages/api"],\
+          ["@typescript-eslint/eslint-plugin", "virtual:6a70f5858b2313b913a462d9e62107beb545cddfaf58e933c3bf9eeac5520ba00666ee803a1e069809630c4ba4f8698c6df1cd45218d30a3e8f30d6198db46e5#npm:6.21.0"],\
+          ["@typescript-eslint/parser", "virtual:6a70f5858b2313b913a462d9e62107beb545cddfaf58e933c3bf9eeac5520ba00666ee803a1e069809630c4ba4f8698c6df1cd45218d30a3e8f30d6198db46e5#npm:6.21.0"],\
+          ["eslint", "npm:8.57.1"],\
+          ["eslint-config-prettier", "virtual:6a70f5858b2313b913a462d9e62107beb545cddfaf58e933c3bf9eeac5520ba00666ee803a1e069809630c4ba4f8698c6df1cd45218d30a3e8f30d6198db46e5#npm:9.1.2"],\
+          ["prettier", "npm:3.8.1"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"]\
         ],\
         "linkType": "SOFT"\

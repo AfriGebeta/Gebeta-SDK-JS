@@ -1,4 +1,3 @@
-import type { RouteData } from './data';
 
 /**
  * Geographic coordinate with longitude and latitude.

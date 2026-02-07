@@ -1145,6 +1145,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gebeta/maps-api@workspace:packages/api"
   dependencies:
+    "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
+    "@typescript-eslint/parser": "npm:^6.0.0"
+    eslint: "npm:^8.50.0"
+    eslint-config-prettier: "npm:^9.0.0"
+    prettier: "npm:^3.0.0"
     typescript: "npm:^5.0.0"
   languageName: unknown
   linkType: soft
