@@ -1,30 +1,41 @@
-import maplibre from 'maplibre-gl';
-import type { Map as MapLibreMap, Marker as MapLibreMarker } from 'maplibre-gl';
+import type { API } from '@gebeta/maps-api';
 import { DirectionsManager as CoreDirectionsManager } from '@gebeta/maps-core';
-import { API, ValidationError } from '@gebeta/maps-api';
+import { ValidationError } from '@gebeta/maps-api';
 import { ROUTE_SOURCE_ID, DEFAULT_ROUTE_STYLE, DEFAULT_FIT_BOUNDS_OPTIONS } from './constants';
 import { initRouteLayer, updateRouteLayerData, clearRouteLayerData, updateRouteLayerStyle } from './routeLayer';
-import { createRouteMarker, getMarkerIcon, getMarkerSize } from './markers';
+import { getMarkerIcon, getMarkerSize } from './markers';
 
 type RouteData = API.Routing.Types.RouteData;
 type LngLat = API.Common.Types.LngLat;
 type DirectionsOptions = API.Routing.Types.DirectionsOptions;
 type DisplayRouteOptions = API.Routing.Types.DisplayRouteOptions;
 type RouteStyleOptions = API.Routing.Types.RouteStyleOptions;
+type IMapAdapter = API.Platform.Types.IMapAdapter;
+type IMarkerFactory = API.Platform.Types.IMarkerFactory;
+type IMarker = API.Platform.Types.IMarker;
 
 export class DirectionsManager {
-  private readonly map: MapLibreMap;
+  private readonly mapAdapter: IMapAdapter;
+  private readonly markerFactory: IMarkerFactory;
   private readonly core: CoreDirectionsManager;
   private currentRoute: RouteData | null = null;
-  private markers: MapLibreMarker[] = [];
+  private markers: IMarker[] = [];
 
-  constructor(map: MapLibreMap, apiKey: string) {
-    if (!map) {
-      throw new ValidationError('Map is required for DirectionsManager', 'map');
+  constructor(
+    mapAdapter: IMapAdapter,
+    markerFactory: IMarkerFactory,
+    apiKey: string
+  ) {
+    if (!mapAdapter) {
+      throw new ValidationError('Map adapter is required for DirectionsManager', 'mapAdapter');
     }
-    this.map = map;
+    if (!markerFactory) {
+      throw new ValidationError('Marker factory is required for DirectionsManager', 'markerFactory');
+    }
+    this.mapAdapter = mapAdapter;
+    this.markerFactory = markerFactory;
     this.core = new CoreDirectionsManager(apiKey);
-    initRouteLayer(this.map);
+    initRouteLayer(this.mapAdapter);
   }
 
   async getDirections(
@@ -41,7 +52,7 @@ export class DirectionsManager {
     routeData: RouteData,
     options: DisplayRouteOptions & { routeStyle?: RouteStyleOptions } = {}
   ): void {
-    if (!this.map || !routeData) return;
+    if (!routeData) return;
 
     const {
       showMarkers = true,
@@ -51,16 +62,16 @@ export class DirectionsManager {
       routeStyle = {},
     } = options;
 
-    if (!this.map.getSource(ROUTE_SOURCE_ID)) {
-      initRouteLayer(this.map);
+    if (!this.mapAdapter.getSource(ROUTE_SOURCE_ID)) {
+      initRouteLayer(this.mapAdapter);
     }
 
     this.clearRoute();
 
     const coords = routeData.geometry?.coordinates ?? [];
-    if (coords.length > 0 && this.map.getSource(ROUTE_SOURCE_ID)) {
-      updateRouteLayerData(this.map, coords);
-      updateRouteLayerStyle(this.map, {
+    if (coords.length > 0 && this.mapAdapter.getSource(ROUTE_SOURCE_ID)) {
+      updateRouteLayerData(this.mapAdapter, coords);
+      updateRouteLayerStyle(this.mapAdapter, {
         'line-color': routeStyle['line-color'] ?? DEFAULT_ROUTE_STYLE['line-color'],
         'line-width': routeStyle['line-width'] ?? DEFAULT_ROUTE_STYLE['line-width'],
         'line-opacity': routeStyle['line-opacity'] ?? DEFAULT_ROUTE_STYLE['line-opacity'],
@@ -79,8 +90,8 @@ export class DirectionsManager {
   }
 
   clearRoute(): void {
-    if (!this.map?.getSource(ROUTE_SOURCE_ID)) return;
-    clearRouteLayerData(this.map);
+    if (!this.mapAdapter.getSource(ROUTE_SOURCE_ID)) return;
+    clearRouteLayerData(this.mapAdapter);
     this.clearMarkers();
     this.currentRoute = null;
   }
@@ -108,7 +119,7 @@ export class DirectionsManager {
   }
 
   updateRouteStyle(style: RouteStyleOptions): void {
-    updateRouteLayerStyle(this.map, style);
+    updateRouteLayerStyle(this.mapAdapter, style);
   }
 
   private addRouteMarkers(
@@ -119,38 +130,52 @@ export class DirectionsManager {
     const waypoints = (routeData as RouteData & { waypoints?: LngLat[] }).waypoints ?? [];
 
     if (routeData.origin) {
-      this.markers.push(
-        createRouteMarker(
-          this.map,
-          [routeData.origin.lng, routeData.origin.lat],
-          options.originIcon,
-          getMarkerSize('origin')
-        )
-      );
+      const marker = this.markerFactory.createMarker({
+        imageUrl: options.originIcon,
+        size: getMarkerSize('origin'),
+        className: 'gebeta-route-marker',
+      });
+      if (marker) {
+        marker.setLngLat(routeData.origin).addTo(this.mapAdapter);
+        this.markers.push(marker);
+      }
     }
     if (routeData.destination) {
-      this.markers.push(
-        createRouteMarker(
-          this.map,
-          [routeData.destination.lng, routeData.destination.lat],
-          options.destinationIcon,
-          getMarkerSize('destination')
-        )
-      );
+      const marker = this.markerFactory.createMarker({
+        imageUrl: options.destinationIcon,
+        size: getMarkerSize('destination'),
+        className: 'gebeta-route-marker',
+      });
+      if (marker) {
+        marker.setLngLat(routeData.destination).addTo(this.mapAdapter);
+        this.markers.push(marker);
+      }
     }
-    waypoints.forEach(wp => {
-      this.markers.push(
-        createRouteMarker(this.map, [wp.lng, wp.lat], options.waypointIcon, getMarkerSize('waypoint'))
-      );
+    waypoints.forEach((wp: LngLat) => {
+      const marker = this.markerFactory.createMarker({
+        imageUrl: options.waypointIcon,
+        size: getMarkerSize('waypoint'),
+        className: 'gebeta-route-marker',
+      });
+      if (marker) {
+        marker.setLngLat(wp).addTo(this.mapAdapter);
+        this.markers.push(marker);
+      }
     });
   }
 
   private fitMapToRoute(routeData: RouteData): void {
     const coords = routeData.geometry?.coordinates;
     if (!coords?.length) return;
-    const bounds = new maplibre.LngLatBounds();
-    coords.forEach(c => bounds.extend(c as [number, number]));
-    this.map.fitBounds(bounds, DEFAULT_FIT_BOUNDS_OPTIONS);
+    const bounds = this.mapAdapter.getBounds();
+    const mapBounds = bounds as unknown as { extend?: (point: [number, number]) => void };
+    coords.forEach((coord: string | Array<number>) => {
+      const point: [number, number] = Array.isArray(coord) && coord.length >= 2 ? [coord[0], coord[1]] : [0, 0];
+      if (mapBounds.extend) {
+        mapBounds.extend(point);
+      }
+    });
+    this.mapAdapter.fitBounds(bounds, DEFAULT_FIT_BOUNDS_OPTIONS);
   }
 
   private clearMarkers(): void {

@@ -1,3 +1,4 @@
+import maplibre from 'maplibre-gl';
 import type { Map as MapLibreMap, LngLatBounds as MapLibreLngLatBounds } from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
 
@@ -127,6 +128,19 @@ export class MapAdapter implements IMapAdapter {
 
   addControl?(control: unknown, position?: string): this {
     this.map.addControl(control, position);
+    return this;
+  }
+
+  fitBounds(bounds: MapBounds, options?: { padding?: number; duration?: number }): this {
+    const mapLibreBounds = new maplibre.LngLatBounds();
+    mapLibreBounds.extend([bounds.getWest(), bounds.getSouth()]);
+    mapLibreBounds.extend([bounds.getEast(), bounds.getNorth()]);
+    this.map.fitBounds(mapLibreBounds, options);
+    return this;
+  }
+
+  setPaintProperty(layer: string, name: string, value: unknown): this {
+    this.map.setPaintProperty(layer, name, value);
     return this;
   }
 }

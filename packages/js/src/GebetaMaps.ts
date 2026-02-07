@@ -39,15 +39,19 @@ export class GebetaMaps {
   private readonly clusteringOptions?: API.Clustering.Types.Options;
 
   private initManagers(): void {
-    if (!this.map) {
+    if (!this.map || !this.platform) {
       throw new PlatformError(
         API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
-        'Map must be initialized before managers can be created',
+        'Map and platform must be initialized before managers can be created',
         { method: 'initManagers' }
       );
     }
     this._geocodingManager = new GeocodingManager(this.apiKey);
-    this.directionsManager = new DirectionsManager(this.map, this.apiKey);
+    this.directionsManager = new DirectionsManager(
+      this.platform.mapAdapter,
+      this.platform.markerFactory,
+      this.apiKey
+    );
     this.fenceManager = new FenceManager(this.map);
     if (this.clusteringOptions?.enabled) {
       this.clusteringManager = new ClusteringManager(this.map, this.clusteringOptions);

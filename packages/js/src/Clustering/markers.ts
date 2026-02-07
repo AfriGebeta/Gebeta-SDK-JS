@@ -93,15 +93,18 @@ export function createIndividualMarker(
   markerData: MarkerData,
   clusterPoint: ClusterData
 ): MapLibreMarker {
-  const lngLat = {
+  const lngLat: API.Common.Types.LngLatLike = {
     lng: clusterPoint.geometry.coordinates[0],
     lat: clusterPoint.geometry.coordinates[1],
   };
 
   const onClickHandler = markerData.onClick
-    ? (point: typeof lngLat, marker: MapLibreMarker, event: MouseEvent) => {
+    ? (point: API.Common.Types.LngLatLike, marker: MapLibreMarker, event: MouseEvent) => {
         event.stopPropagation();
-        markerData.onClick?.(point, marker, event);
+        const lngLat: API.Common.Types.LngLat = Array.isArray(point)
+          ? { lng: point[0], lat: point[1] }
+          : point;
+        markerData.onClick?.(lngLat, marker, event);
       }
     : undefined;
 

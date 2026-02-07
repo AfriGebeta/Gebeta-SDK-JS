@@ -1,19 +1,21 @@
-import type { Map as MapLibreMap } from 'maplibre-gl';
+import type { API } from '@gebeta/maps-api';
 import { ROUTE_SOURCE_ID, ROUTE_LAYER_ID, DEFAULT_ROUTE_STYLE } from './constants';
 
-export function initRouteLayer(map: MapLibreMap): void {
-  if (!map.isStyleLoaded()) {
-    map.once('style.load', () => initRouteLayer(map));
+type IMapAdapter = API.Platform.Types.IMapAdapter;
+
+export function initRouteLayer(mapAdapter: IMapAdapter): void {
+  if (!mapAdapter.isStyleLoaded()) {
+    mapAdapter.once('style.load', () => initRouteLayer(mapAdapter));
     return;
   }
-  if (map.getSource(ROUTE_SOURCE_ID)) return;
+  if (mapAdapter.getSource(ROUTE_SOURCE_ID)) return;
 
-  map.addSource(ROUTE_SOURCE_ID, {
+  mapAdapter.addSource(ROUTE_SOURCE_ID, {
     type: 'geojson',
     data: { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [] } },
   });
 
-  map.addLayer({
+  mapAdapter.addLayer({
     id: ROUTE_LAYER_ID,
     type: 'line',
     source: ROUTE_SOURCE_ID,
@@ -31,31 +33,37 @@ export function initRouteLayer(map: MapLibreMap): void {
 }
 
 export function updateRouteLayerData(
-  map: MapLibreMap,
+  mapAdapter: IMapAdapter,
   coordinates: [number, number][]
 ): void {
-  const source = map.getSource(ROUTE_SOURCE_ID);
+  const source = mapAdapter.getSource(ROUTE_SOURCE_ID);
   if (!source) return;
-  (source as import('maplibre-gl').GeoJSONSource).setData({
-    type: 'Feature',
-    properties: {},
-    geometry: { type: 'LineString', coordinates },
-  });
+  const geoJsonSource = source as { setData?: (data: unknown) => void };
+  if (geoJsonSource.setData) {
+    geoJsonSource.setData({
+      type: 'Feature',
+      properties: {},
+      geometry: { type: 'LineString', coordinates },
+    });
+  }
 }
 
-export function clearRouteLayerData(map: MapLibreMap): void {
-  updateRouteLayerData(map, []);
+export function clearRouteLayerData(mapAdapter: IMapAdapter): void {
+  updateRouteLayerData(mapAdapter, []);
 }
 
 export function updateRouteLayerStyle(
-  map: MapLibreMap,
+  mapAdapter: IMapAdapter,
   style: { 'line-color'?: string; 'line-width'?: number; 'line-opacity'?: number }
 ): void {
-  if (!map.getLayer(ROUTE_LAYER_ID)) return;
+  const styleObj = mapAdapter.getStyle();
+  const hasLayer = styleObj?.layers.some(layer => layer.id === ROUTE_LAYER_ID);
+  if (!hasLayer) return;
+  
   if (style['line-color'] != null)
-    map.setPaintProperty(ROUTE_LAYER_ID, 'line-color', style['line-color']);
+    mapAdapter.setPaintProperty(ROUTE_LAYER_ID, 'line-color', style['line-color']);
   if (style['line-width'] != null)
-    map.setPaintProperty(ROUTE_LAYER_ID, 'line-width', style['line-width']);
+    mapAdapter.setPaintProperty(ROUTE_LAYER_ID, 'line-width', style['line-width']);
   if (style['line-opacity'] != null)
-    map.setPaintProperty(ROUTE_LAYER_ID, 'line-opacity', style['line-opacity']);
+    mapAdapter.setPaintProperty(ROUTE_LAYER_ID, 'line-opacity', style['line-opacity']);
 }

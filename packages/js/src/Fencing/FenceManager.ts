@@ -34,8 +34,8 @@ export class FenceManager {
   private readonly renderedMarkers: Map<string | number, MapLibreMarker> = new Map();
   private readonly renderedOverlays: Map<string | number, MapLibreMarker> = new Map();
   private readonly storedFences: Map<string | number, { sourceId: string; layerId: string; borderLayerId: string }> = new Map();
-  private mouseMoveHandler: ((e: { lngLat: { lng: number; lat: number } }) => void) | null = null;
-  private clickHandler: ((e: { lngLat: { lng: number; lat: number } }) => void) | null = null;
+  private mouseMoveHandler: ((...args: unknown[]) => void) | null = null;
+  private clickHandler: ((...args: unknown[]) => void) | null = null;
   private isDrawing = false;
 
   constructor(map: MapLibreMap, options: FenceManagerOptions = {}) {
@@ -352,11 +352,13 @@ export class FenceManager {
   }
 
   private setupDrawingListeners(): void {
-    this.clickHandler = (e: { lngLat: { lng: number; lat: number } }) => {
+    this.clickHandler = (...args: unknown[]) => {
+      const e = args[0] as { lngLat: { lng: number; lat: number } };
       this.addPoint([e.lngLat.lng, e.lngLat.lat]);
     };
 
-    this.mouseMoveHandler = (e: { lngLat: { lng: number; lat: number } }) => {
+    this.mouseMoveHandler = (...args: unknown[]) => {
+      const e = args[0] as { lngLat: { lng: number; lat: number } };
       const points = this.core.getCurrentFencePoints();
       if (points.length > 0) {
         updateDynamicPolyline(this.map, [...points, [e.lngLat.lng, e.lngLat.lat]]);

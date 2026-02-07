@@ -47,6 +47,7 @@ export interface MapBounds {
   getSouth(): number;
   getEast(): number;
   getNorth(): number;
+  extend?(point: [number, number]): void;
 }
 
 export interface MapStyle {
@@ -78,6 +79,8 @@ export interface IMapAdapter {
   removeLayer(id: string): this;
   transformRequest?(url: string, resourceType: string): { url: string; headers?: Record<string, string> };
   addControl?(control: unknown, position?: string): this;
+  fitBounds(bounds: MapBounds, options?: { padding?: number; duration?: number }): this;
+  setPaintProperty(layer: string, name: string, value: unknown): this;
 }
 
 export interface IPlatformDOM {
