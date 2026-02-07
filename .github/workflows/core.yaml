@@ -1,0 +1,54 @@
+name: Core Package CI
+
+on:
+  workflow_call:
+
+jobs:
+  lint-build-test:
+    name: Lint, Format, Build, and Test Core
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build API package (dependency)
+        run: yarn workspace @gebeta/maps-api build
+
+      - name: Run ESLint on Core package
+        run: yarn workspace @gebeta/maps-core lint
+
+      - name: Check Prettier formatting on Core package
+        run: yarn workspace @gebeta/maps-core format:check
+
+      - name: Type check Core package
+        run: yarn workspace @gebeta/maps-core typecheck
+
+      - name: Build Core package
+        run: yarn workspace @gebeta/maps-core build
+
+      - name: Run tests on Core package
+        run: yarn workspace @gebeta/maps-core test
+
+      - name: Verify build output
+        run: |
+          if [ ! -f "packages/core/dist/index.js" ]; then
+            echo "Build failed: dist/index.js not found"
+            exit 1
+          fi
+          if [ ! -f "packages/core/dist/index.d.ts" ]; then
+            echo "Build failed: dist/index.d.ts not found"
+            exit 1
+          fi
+          echo "Build output verified successfully"

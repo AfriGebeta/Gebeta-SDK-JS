@@ -11,3 +11,9 @@ jobs:
     name: API Package
     uses: ./.github/workflows/api.yaml
     secrets: inherit
+
+  core:
+    name: Core Package
+    uses: ./.github/workflows/core.yaml
+    secrets: inherit
+    needs: api
