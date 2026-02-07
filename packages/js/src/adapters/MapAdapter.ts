@@ -122,7 +122,10 @@ export class MapAdapter implements IMapAdapter {
     return this;
   }
 
-  transformRequest?(url: string, _resourceType: string): { url: string; headers?: Record<string, string> } {
+  transformRequest?(
+    url: string,
+    _resourceType: string
+  ): { url: string; headers?: Record<string, string> } {
     return { url };
   }
 

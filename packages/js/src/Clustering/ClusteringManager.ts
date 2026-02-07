@@ -27,7 +27,10 @@ export class ClusteringManager {
       throw new ValidationError('Map adapter is required for ClusteringManager', 'mapAdapter');
     }
     if (!markerFactory) {
-      throw new ValidationError('Marker factory is required for ClusteringManager', 'markerFactory');
+      throw new ValidationError(
+        'Marker factory is required for ClusteringManager',
+        'markerFactory'
+      );
     }
     if (!popupFactory) {
       throw new ValidationError('Popup factory is required for ClusteringManager', 'popupFactory');
@@ -158,7 +161,7 @@ export class ClusteringManager {
           showClusterCount: options.showClusterCount,
           clusterOnClick:
             options.clusterOnClick ??
-            ((c) => {
+            (c => {
               const expansionZoom = this.core.getClusterExpansionZoom(c.id);
               this.mapAdapter.easeTo({
                 center: c.geometry.coordinates,
@@ -174,7 +177,13 @@ export class ClusteringManager {
         const markerData = this.core.getMarker(markerId);
         if (!markerData) return;
 
-        const marker = createIndividualMarker(this.mapAdapter, this.markerFactory, this.popupFactory, markerData, cluster);
+        const marker = createIndividualMarker(
+          this.mapAdapter,
+          this.markerFactory,
+          this.popupFactory,
+          markerData,
+          cluster
+        );
         this.renderedMarkers.set(markerId, marker);
       }
     });

@@ -59,7 +59,7 @@ export function updateRouteLayerStyle(
   const styleObj = mapAdapter.getStyle();
   const hasLayer = styleObj?.layers.some(layer => layer.id === ROUTE_LAYER_ID);
   if (!hasLayer) return;
-  
+
   if (style['line-color'] != null)
     mapAdapter.setPaintProperty(ROUTE_LAYER_ID, 'line-color', style['line-color']);
   if (style['line-width'] != null)

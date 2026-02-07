@@ -4,4 +4,11 @@ export { ClusteringManager } from './Clustering/ClusteringManager';
 export { FenceManager } from './Fencing/FenceManager';
 export { EventEmitter } from './utils/EventEmitter';
 
-export { closePolygon, calculateCentroid, normalizeLngLat, isPolygonClosed, calculateDistance, isPointNear } from './Fencing/utils';
+export {
+  closePolygon,
+  calculateCentroid,
+  normalizeLngLat,
+  isPolygonClosed,
+  calculateDistance,
+  isPointNear,
+} from './Fencing/utils';

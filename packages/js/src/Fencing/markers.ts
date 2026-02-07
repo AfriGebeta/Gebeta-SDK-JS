@@ -28,10 +28,15 @@ export function createCentroidOverlay(
   content: string | HTMLElement,
   options?: OverlayOptions
 ): MapLibreMarker | null {
-  return createMarkerWithPopup(map, centroid, {}, {
-    content,
-    closeable: options?.closeable,
-    anchor: options?.anchor as string,
-    offset: options?.offset,
-  });
+  return createMarkerWithPopup(
+    map,
+    centroid,
+    {},
+    {
+      content,
+      closeable: options?.closeable,
+      anchor: options?.anchor as string,
+      offset: options?.offset,
+    }
+  );
 }

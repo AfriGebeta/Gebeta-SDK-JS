@@ -467,8 +467,8 @@ describe('FenceManager', () => {
       // THEN only persistent fences should remain
       const fences = manager.getFences();
       expect(fences).toHaveLength(1);
-      const firstPoint = Array.isArray(fences[0].points[0]) 
-        ? fences[0].points[0] 
+      const firstPoint = Array.isArray(fences[0].points[0])
+        ? fences[0].points[0]
         : [fences[0].points[0].lng, fences[0].points[0].lat];
       expect(firstPoint).toEqual([0, 0]);
     });

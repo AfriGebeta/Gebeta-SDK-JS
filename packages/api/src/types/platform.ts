@@ -77,7 +77,10 @@ export interface IMapAdapter {
   removeSource(id: string): this;
   addLayer(spec: unknown, beforeId?: string): this;
   removeLayer(id: string): this;
-  transformRequest?(url: string, resourceType: string): { url: string; headers?: Record<string, string> };
+  transformRequest?(
+    url: string,
+    resourceType: string
+  ): { url: string; headers?: Record<string, string> };
   addControl?(control: unknown, position?: string): this;
   fitBounds(bounds: MapBounds, options?: { padding?: number; duration?: number }): this;
   setPaintProperty(layer: string, name: string, value: unknown): this;

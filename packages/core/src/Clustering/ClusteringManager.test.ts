@@ -124,9 +124,9 @@ describe('ClusteringManager', () => {
       };
       // WHEN adding the marker
       // THEN it should throw a ValidationError
-      expect(() => manager.addMarker(invalidMarker as unknown as API.Overlay.Types.MarkerData)).toThrow(
-        ValidationError
-      );
+      expect(() =>
+        manager.addMarker(invalidMarker as unknown as API.Overlay.Types.MarkerData)
+      ).toThrow(ValidationError);
     });
 
     test('should accept lngLat as array', () => {

@@ -1,5 +1,9 @@
 import maplibre from 'maplibre-gl';
-import type { Map as MapLibreMap, Marker as MapLibreMarker, Popup as MapLibrePopup } from 'maplibre-gl';
+import type {
+  Map as MapLibreMap,
+  Marker as MapLibreMarker,
+  Popup as MapLibrePopup,
+} from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
 
 type LngLatLike = API.Common.Types.LngLatLike;
@@ -31,19 +35,19 @@ export function createMarker(
 
     const el = document.createElement('div');
     el.className = options.className ?? 'gebeta-marker';
-    
+
     if (options.size) {
       el.style.width = `${options.size[0]}px`;
       el.style.height = `${options.size[1]}px`;
     }
-    
+
     if (options.imageUrl) {
       el.style.backgroundImage = `url(${options.imageUrl})`;
       el.style.backgroundSize = 'contain';
       el.style.backgroundRepeat = 'no-repeat';
       el.style.backgroundPosition = 'center';
     }
-    
+
     el.style.cursor = options.cursor ?? 'pointer';
 
     const marker = new maplibre.Marker({ element: el });
@@ -51,7 +55,7 @@ export function createMarker(
     marker.addTo(map);
 
     if (options.onClick) {
-      el.addEventListener('click', (event) => {
+      el.addEventListener('click', event => {
         options.onClick!(point, marker, event);
       });
     }

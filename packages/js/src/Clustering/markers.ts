@@ -151,10 +151,10 @@ export function createIndividualMarker(
 
   const el = marker.getElement?.() as HTMLElement | null;
   if (el) {
-    el.addEventListener('mousedown', (e) => {
+    el.addEventListener('mousedown', e => {
       e.stopPropagation();
     });
-    el.addEventListener('touchstart', (e) => {
+    el.addEventListener('touchstart', e => {
       e.stopPropagation();
     });
   }

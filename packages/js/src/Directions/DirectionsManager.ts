@@ -2,7 +2,12 @@ import type { API } from '@gebeta/maps-api';
 import { DirectionsManager as CoreDirectionsManager } from '@gebeta/maps-core';
 import { ValidationError } from '@gebeta/maps-api';
 import { ROUTE_SOURCE_ID, DEFAULT_ROUTE_STYLE, DEFAULT_FIT_BOUNDS_OPTIONS } from './constants';
-import { initRouteLayer, updateRouteLayerData, clearRouteLayerData, updateRouteLayerStyle } from './routeLayer';
+import {
+  initRouteLayer,
+  updateRouteLayerData,
+  clearRouteLayerData,
+  updateRouteLayerStyle,
+} from './routeLayer';
 import { getMarkerIcon, getMarkerSize } from './markers';
 
 type RouteData = API.Routing.Types.RouteData;
@@ -21,16 +26,15 @@ export class DirectionsManager {
   private currentRoute: RouteData | null = null;
   private markers: IMarker[] = [];
 
-  constructor(
-    mapAdapter: IMapAdapter,
-    markerFactory: IMarkerFactory,
-    apiKey: string
-  ) {
+  constructor(mapAdapter: IMapAdapter, markerFactory: IMarkerFactory, apiKey: string) {
     if (!mapAdapter) {
       throw new ValidationError('Map adapter is required for DirectionsManager', 'mapAdapter');
     }
     if (!markerFactory) {
-      throw new ValidationError('Marker factory is required for DirectionsManager', 'markerFactory');
+      throw new ValidationError(
+        'Marker factory is required for DirectionsManager',
+        'markerFactory'
+      );
     }
     this.mapAdapter = mapAdapter;
     this.markerFactory = markerFactory;
@@ -170,7 +174,8 @@ export class DirectionsManager {
     const bounds = this.mapAdapter.getBounds();
     const mapBounds = bounds as unknown as { extend?: (point: [number, number]) => void };
     coords.forEach((coord: string | Array<number>) => {
-      const point: [number, number] = Array.isArray(coord) && coord.length >= 2 ? [coord[0], coord[1]] : [0, 0];
+      const point: [number, number] =
+        Array.isArray(coord) && coord.length >= 2 ? [coord[0], coord[1]] : [0, 0];
       if (mapBounds.extend) {
         mapBounds.extend(point);
       }

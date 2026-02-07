@@ -22,7 +22,10 @@ type LngLatBounds = [number, number, number, number];
 export class ClusteringManager {
   private readonly options: NormalizedClusteringOptions;
   private markers: MarkerData[] = [];
-  private supercluster: Supercluster<SuperclusterPoint['properties'], SuperclusterPoint['geometry']>;
+  private supercluster: Supercluster<
+    SuperclusterPoint['properties'],
+    SuperclusterPoint['geometry']
+  >;
 
   constructor(options: ClusteringOptions = {}) {
     this.options = normalizeClusteringOptions(options);

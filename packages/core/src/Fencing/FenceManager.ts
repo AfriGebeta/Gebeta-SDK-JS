@@ -1,14 +1,15 @@
 import { ValidationError } from '@gebeta/maps-api';
 import type { API } from '@gebeta/maps-api';
 import { EventEmitter } from '../utils/EventEmitter';
-import type { NormalizedFenceStyle, FenceDrawingState, FenceDefinition, FenceStyleOptions, FencePointOptions } from './types';
+import type {
+  NormalizedFenceStyle,
+  FenceDrawingState,
+  FenceDefinition,
+  FenceStyleOptions,
+  FencePointOptions,
+} from './types';
 import { normalizeFenceStyle } from './styleUtils';
-import {
-  calculateCentroid,
-  normalizeLngLat,
-  closePolygon,
-  isPointNear,
-} from './utils';
+import { calculateCentroid, normalizeLngLat, closePolygon, isPointNear } from './utils';
 
 type LngLat = API.Common.Types.LngLat;
 type LngLatLike = API.Common.Types.LngLatLike;

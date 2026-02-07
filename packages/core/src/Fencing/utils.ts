@@ -108,10 +108,6 @@ export function calculateDistance(point1: LngLatLike, point2: LngLatLike): numbe
  * @param thresholdMeters - Threshold distance in meters (default: 50)
  * @returns True if points are within threshold
  */
-export function isPointNear(
-  point1: LngLatLike,
-  point2: LngLatLike,
-  thresholdMeters = 50
-): boolean {
+export function isPointNear(point1: LngLatLike, point2: LngLatLike, thresholdMeters = 50): boolean {
   return calculateDistance(point1, point2) <= thresholdMeters;
 }

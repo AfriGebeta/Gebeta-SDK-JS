@@ -15,9 +15,7 @@ module.exports = {
       },
     ],
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!(supercluster|kdbush)/)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(supercluster|kdbush)/)'],
   transform: {
     '^.+\\.ts$': [
       'ts-jest',

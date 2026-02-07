@@ -37,20 +37,23 @@ export function initFenceLayers(
     },
   });
 
-  mapAdapter.addLayer({
-    id: borderLayerId,
-    type: 'line',
-    source: sourceId,
-    layout: {
-      'line-cap': style.lineCap ?? 'butt',
-      'line-join': style.lineJoin ?? 'miter',
+  mapAdapter.addLayer(
+    {
+      id: borderLayerId,
+      type: 'line',
+      source: sourceId,
+      layout: {
+        'line-cap': style.lineCap ?? 'butt',
+        'line-join': style.lineJoin ?? 'miter',
+      },
+      paint: {
+        'line-color': style.borderColor ?? style.lineColor ?? '#ff0000',
+        'line-width': style.borderWidth ?? style.lineWidth ?? 1,
+        'line-opacity': style.borderOpacity ?? style.lineOpacity ?? 1,
+      },
     },
-    paint: {
-      'line-color': style.borderColor ?? style.lineColor ?? '#ff0000',
-      'line-width': style.borderWidth ?? style.lineWidth ?? 1,
-      'line-opacity': style.borderOpacity ?? style.lineOpacity ?? 1,
-    },
-  }, layerId);
+    layerId
+  );
 }
 
 export function updateFenceLayerData(
@@ -94,7 +97,7 @@ export function clearFenceLayers(
   const style = mapAdapter.getStyle();
   const hasBorderLayer = style?.layers.some(layer => layer.id === borderLayerId);
   const hasLayer = style?.layers.some(layer => layer.id === layerId);
-  
+
   if (hasBorderLayer) {
     mapAdapter.removeLayer(borderLayerId);
   }

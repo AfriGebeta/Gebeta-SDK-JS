@@ -25,7 +25,9 @@ class MapLibrePopupAdapter implements IPopup {
   }
 
   setLngLat(lngLat: API.Common.Types.LngLatLike): this {
-    const coords: [number, number] = Array.isArray(lngLat) ? [lngLat[0], lngLat[1]] : [lngLat.lng, lngLat.lat];
+    const coords: [number, number] = Array.isArray(lngLat)
+      ? [lngLat[0], lngLat[1]]
+      : [lngLat.lng, lngLat.lat];
     this.popup.setLngLat(coords);
     return this;
   }

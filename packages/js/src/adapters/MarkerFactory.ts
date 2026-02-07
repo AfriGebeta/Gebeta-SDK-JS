@@ -17,7 +17,9 @@ class MapLibreMarkerAdapter implements IMarker {
   constructor(private marker: MapLibreMarker) {}
 
   setLngLat(lngLat: API.Common.Types.LngLatLike): this {
-    const coords: [number, number] = Array.isArray(lngLat) ? [lngLat[0], lngLat[1]] : [lngLat.lng, lngLat.lat];
+    const coords: [number, number] = Array.isArray(lngLat)
+      ? [lngLat[0], lngLat[1]]
+      : [lngLat.lng, lngLat.lat];
     this.marker.setLngLat(coords);
     return this;
   }
@@ -73,13 +75,17 @@ export class MarkerFactory implements IMarkerFactory {
         element.style.cursor = options.cursor ?? 'pointer';
       }
 
-      const markerOptions: { element: HTMLElement; anchor?: string; offset?: number | [number, number] } = { element };
+      const markerOptions: {
+        element: HTMLElement;
+        anchor?: string;
+        offset?: number | [number, number];
+      } = { element };
       if (options.anchor) markerOptions.anchor = options.anchor;
       if (options.offset !== undefined) markerOptions.offset = options.offset;
       const marker = new maplibre.Marker(markerOptions);
 
       if (options.onClick) {
-        element.addEventListener('click', (event) => {
+        element.addEventListener('click', event => {
           const adapter = new MapLibreMarkerAdapter(marker);
           const lngLat = { lng: 0, lat: 0 };
           options.onClick!(lngLat, adapter, event);

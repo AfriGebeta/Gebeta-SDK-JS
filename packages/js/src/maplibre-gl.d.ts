@@ -33,7 +33,12 @@ declare module 'maplibre-gl' {
   }
 
   export class Popup {
-    constructor(options?: { offset?: number | [number, number]; closeOnClick?: boolean; closeButton?: boolean; anchor?: string });
+    constructor(options?: {
+      offset?: number | [number, number];
+      closeOnClick?: boolean;
+      closeButton?: boolean;
+      anchor?: string;
+    });
     setHTML(html: string): this;
     setDOMContent(element: HTMLElement): this;
     setLngLat(lngLat: [number, number]): this;

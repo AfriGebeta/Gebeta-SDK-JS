@@ -8,7 +8,12 @@ import {
   DEFAULT_MARKER_SIZE,
 } from './constants';
 import { initFenceLayers, updateFenceLayerData, clearFenceLayers } from './layers';
-import { initDynamicPolyline, updateDynamicPolyline, updateDynamicPolylineStyle, clearDynamicPolyline } from './dynamicPolyline';
+import {
+  initDynamicPolyline,
+  updateDynamicPolyline,
+  updateDynamicPolylineStyle,
+  clearDynamicPolyline,
+} from './dynamicPolyline';
 
 type FenceDefinition = API.Fencing.Types.Definition;
 type FenceStyleOptions = API.Fencing.Types.StyleOptions;
@@ -37,7 +42,10 @@ export class FenceManager {
   private readonly markerSize: [number, number];
   private readonly renderedMarkers: Map<string | number, IMarker> = new Map();
   private readonly renderedOverlays: Map<string | number, IMarker> = new Map();
-  private readonly storedFences: Map<string | number, { sourceId: string; layerId: string; borderLayerId: string }> = new Map();
+  private readonly storedFences: Map<
+    string | number,
+    { sourceId: string; layerId: string; borderLayerId: string }
+  > = new Map();
   private mouseMoveHandler: ((...args: unknown[]) => void) | null = null;
   private clickHandler: ((...args: unknown[]) => void) | null = null;
   private isDrawing = false;
@@ -111,7 +119,12 @@ export class FenceManager {
    * @param point - Point to add
    * @param options - Optional point options
    */
-  addPoint(point: LngLatLike, options?: FencePointOptions & { onClick?: (point: LngLatLike, marker: IMarker, event: MouseEvent) => void }): void {
+  addPoint(
+    point: LngLatLike,
+    options?: FencePointOptions & {
+      onClick?: (point: LngLatLike, marker: IMarker, event: MouseEvent) => void;
+    }
+  ): void {
     const wasAdded = this.core.addPoint(point, options);
     if (!wasAdded) {
       return;
@@ -456,7 +469,12 @@ export class FenceManager {
   private removeStoredFence(fenceId: string | number): void {
     const fenceInfo = this.storedFences.get(fenceId);
     if (fenceInfo) {
-      clearFenceLayers(this.mapAdapter, fenceInfo.sourceId, fenceInfo.layerId, fenceInfo.borderLayerId);
+      clearFenceLayers(
+        this.mapAdapter,
+        fenceInfo.sourceId,
+        fenceInfo.layerId,
+        fenceInfo.borderLayerId
+      );
       this.storedFences.delete(fenceId);
     }
 
