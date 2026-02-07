@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gebeta Maps SDK - Fence Styling</title>
+  <style>
+    html, body { margin: 0; height: 100%; }
+    #map { width: 100%; height: 100%; }
+    .control-panel {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      max-width: 280px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .control-panel h3 {
+      margin: 0 0 15px 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .control-panel button {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f8f9fa;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+    }
+    .control-panel button:hover { background: #e9ecef; }
+    .control-panel button.primary {
+      background: #007cbf;
+      color: white;
+      border-color: #007cbf;
+    }
+    .control-panel button.primary:hover { background: #005a8b; }
+    .control-panel button.danger {
+      background: #dc3545;
+      color: white;
+      border-color: #dc3545;
+    }
+    .control-panel button.danger:hover { background: #c82333; }
+    .style-controls {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+    .style-controls label {
+      display: block;
+      margin: 8px 0 4px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: #555;
+    }
+    .style-controls input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      box-sizing: border-box;
+    }
+    .style-controls input[type="range"] {
+      padding: 0;
+    }
+    .style-controls .range-value {
+      font-size: 11px;
+      color: #666;
+      text-align: right;
+      margin-top: 2px;
+    }
+    .info-box {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #666;
+    }
+    .info-box strong { color: #333; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="control-panel">
+    <h3>Fence Styling</h3>
+    
+    <button onclick="startDrawing()" class="primary">Start Drawing</button>
+    <button onclick="clearFence()" class="danger">Clear Current</button>
+    <button onclick="clearAllFences()" class="danger">Clear All</button>
+    
+    <div class="style-controls">
+      <label for="fill-color">Fill Color:</label>
+      <input type="color" id="fill-color" value="#ff0000" onchange="updateStyle()">
+      
+      <label for="fill-opacity">Fill Opacity: <span class="range-value">0.3</span></label>
+      <input type="range" id="fill-opacity" min="0" max="1" step="0.1" value="0.3" onchange="updateStyle()">
+      
+      <label for="line-color">Line Color:</label>
+      <input type="color" id="line-color" value="#ff0000" onchange="updateStyle()">
+      
+      <label for="line-width">Line Width: <span class="range-value">2</span></label>
+      <input type="range" id="line-width" min="1" max="10" step="1" value="2" onchange="updateStyle()">
+      
+      <label for="border-color">Border Color:</label>
+      <input type="color" id="border-color" value="#ff0000" onchange="updateStyle()">
+      
+      <label for="border-width">Border Width: <span class="range-value">1</span></label>
+      <input type="range" id="border-width" min="0" max="5" step="0.5" value="1" onchange="updateStyle()">
+    </div>
+    
+    <div class="info-box">
+      <strong>Instructions:</strong><br>
+      1. Click "Start Drawing"<br>
+      2. Click on the map to add points<br>
+      3. Adjust style controls to customize appearance<br>
+      4. Click near first point to close fence
+    </div>
+  </div>
+
+  <script src="../../packages/js/dist/gebeta-maps.umd.js"></script>
+  <script src="config.js"></script>
+  <script>
+    var gebetaMap;
+    var map;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var config = loadConfig();
+      var apiKey = config.GEBETA_API_KEY;
+      if (!apiKey || apiKey === 'YOUR_API_KEY') {
+        console.warn('Set GEBETA_API_KEY in config.js');
+      }
+
+      gebetaMap = new GebetaMaps({ apiKey: apiKey });
+      map = gebetaMap.init({
+        container: 'map',
+        center: [38.7685, 9.0161],
+        zoom: 15,
+        navigationControl: true,
+      });
+
+      function setupFencing() {
+        updateStyle();
+      }
+
+      if (map.isStyleLoaded && map.isStyleLoaded()) {
+        setupFencing();
+      } else {
+        map.once('style.load', setupFencing);
+      }
+    });
+
+    function startDrawing() {
+      if (!gebetaMap || !gebetaMap.fencing) return;
+      gebetaMap.fencing.startDrawing();
+      updateStyle();
+    }
+
+    function clearFence() {
+      if (!gebetaMap || !gebetaMap.fencing) return;
+      gebetaMap.fencing.clearCurrentFence();
+    }
+
+    function clearAllFences() {
+      if (!gebetaMap || !gebetaMap.fencing) return;
+      gebetaMap.fencing.clearAllFences();
+    }
+
+    function updateStyle() {
+      if (!gebetaMap || !gebetaMap.fencing) return;
+      
+      const fillColor = document.getElementById('fill-color').value;
+      const fillOpacity = parseFloat(document.getElementById('fill-opacity').value);
+      const lineColor = document.getElementById('line-color').value;
+      const lineWidth = parseInt(document.getElementById('line-width').value);
+      const borderColor = document.getElementById('border-color').value;
+      const borderWidth = parseFloat(document.getElementById('border-width').value);
+      
+      document.querySelector('label[for="fill-opacity"] .range-value').textContent = fillOpacity.toFixed(1);
+      document.querySelector('label[for="line-width"] .range-value').textContent = lineWidth;
+      document.querySelector('label[for="border-width"] .range-value').textContent = borderWidth;
+      
+      gebetaMap.fencing.updateCurrentFenceStyle({
+        fillColor,
+        fillOpacity,
+        lineColor,
+        lineWidth,
+        borderColor,
+        borderWidth,
+      });
+    }
+  </script>
+</body>
+</html>

@@ -4,11 +4,14 @@ declare module 'maplibre-gl' {
     isStyleLoaded(): boolean;
     once(event: string, fn: () => void): this;
     on(event: string, fn: (...args: unknown[]) => void): this;
+    off(event: string, fn: (...args: unknown[]) => void): this;
     getSource(id: string): GeoJSONSource | undefined;
     getLayer(id: string): unknown;
     getStyle(): { layers: { id: string; type: string }[] };
     addSource(id: string, spec: unknown): this;
     addLayer(spec: unknown, beforeId?: string): this;
+    removeLayer(id: string): this;
+    removeSource(id: string): this;
     addControl(control: unknown, position?: string): this;
     setPaintProperty(layer: string, name: string, value: unknown): this;
     setLayoutProperty(layer: string, name: string, value: unknown): this;
@@ -27,7 +30,7 @@ declare module 'maplibre-gl' {
   }
 
   export class Popup {
-    constructor(options?: { offset?: number; closeOnClick?: boolean });
+    constructor(options?: { offset?: number | [number, number]; closeOnClick?: boolean; closeButton?: boolean; anchor?: string });
     setHTML(html: string): this;
     setDOMContent(element: HTMLElement): this;
     setLngLat(lngLat: [number, number]): this;
@@ -48,7 +51,12 @@ declare module 'maplibre-gl' {
   }
 
   export interface GeoJSONSource {
+    type: 'geojson';
     setData(data: GeoJSON.Feature<GeoJSON.Geometry>): void;
+  }
+
+  export interface MapMouseEvent {
+    lngLat: { lng: number; lat: number };
   }
 
   export default { Map, Marker, LngLatBounds, NavigationControl, Popup };

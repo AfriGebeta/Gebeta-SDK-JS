@@ -1,6 +1,6 @@
-import maplibre from 'maplibre-gl';
 import type { Map as MapLibreMap, Marker as MapLibreMarker } from 'maplibre-gl';
-import { DEFAULT_MARKER_ICONS, DEFAULT_MARKER_SIZES } from './constants';
+import { createMarker } from '../Markers/markers';
+import { DEFAULT_MARKER_ICONS, DEFAULT_MARKER_SIZES } from '../Markers/constants';
 
 export function createRouteMarker(
   map: MapLibreMap,
@@ -8,14 +8,15 @@ export function createRouteMarker(
   iconUrl: string,
   size: [number, number] = DEFAULT_MARKER_SIZES.waypoint
 ): MapLibreMarker {
-  const el = document.createElement('div');
-  el.style.backgroundImage = `url('${iconUrl}')`;
-  el.style.backgroundSize = 'contain';
-  el.style.backgroundRepeat = 'no-repeat';
-  el.style.width = `${size[0]}px`;
-  el.style.height = `${size[1]}px`;
-  el.style.cursor = 'pointer';
-  return new maplibre.Marker({ element: el }).setLngLat(lngLat).addTo(map);
+  const marker = createMarker(map, lngLat, {
+    imageUrl: iconUrl,
+    size,
+    className: 'gebeta-route-marker',
+  });
+  if (!marker) {
+    throw new Error('Failed to create route marker');
+  }
+  return marker;
 }
 
 export function getMarkerIcon(

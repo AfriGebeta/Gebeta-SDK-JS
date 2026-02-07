@@ -2,6 +2,7 @@ import maplibre from 'maplibre-gl';
 import type { Map as MapLibreMap } from 'maplibre-gl';
 import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
+import { FenceManager } from './Fencing/FenceManager';
 import { GeocodingManager } from '@gebeta/maps-core';
 import { API, ValidationError, PlatformError } from '@gebeta/maps-api';
 
@@ -10,6 +11,7 @@ export class GebetaMaps {
   private map: MapLibreMap | null = null;
   private directionsManager: DirectionsManager | null = null;
   private clusteringManager: ClusteringManager | null = null;
+  private fenceManager: FenceManager | null = null;
   private _geocodingManager: GeocodingManager | null = null;
 
   get geocodingManager(): GeocodingManager {
@@ -43,6 +45,7 @@ export class GebetaMaps {
     }
     this._geocodingManager = new GeocodingManager(this.apiKey);
     this.directionsManager = new DirectionsManager(this.map, this.apiKey);
+    this.fenceManager = new FenceManager(this.map);
     if (this.clusteringOptions?.enabled) {
       this.clusteringManager = new ClusteringManager(this.map, this.clusteringOptions);
     }
@@ -159,6 +162,17 @@ export class GebetaMaps {
       );
     }
     return this.clusteringManager;
+  }
+
+  get fencing(): FenceManager {
+    if (!this.fenceManager) {
+      throw new PlatformError(
+        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
+        'Fence manager not initialized. Call init() first and wait for map to load.',
+        { method: 'fencing' }
+      );
+    }
+    return this.fenceManager;
   }
 
   getMap(): MapLibreMap | null {

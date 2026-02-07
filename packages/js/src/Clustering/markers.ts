@@ -2,6 +2,8 @@ import maplibre from 'maplibre-gl';
 import type { Map as MapLibreMap, Marker as MapLibreMarker } from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
 import { DEFAULT_CLUSTER_STYLE, DEFAULT_CLUSTER_COUNT_BADGE_STYLE } from './constants';
+import { createMarker, createMarkerWithPopup, getMarkerElement } from '../Markers/markers';
+import { DEFAULT_MARKER_SIZE } from '../Markers/constants';
 
 type ClusterData = API.Overlay.Types.ClusterData;
 type MarkerData = API.Overlay.Types.MarkerData;
@@ -91,54 +93,52 @@ export function createIndividualMarker(
   markerData: MarkerData,
   clusterPoint: ClusterData
 ): MapLibreMarker {
-  const el = document.createElement('div');
-  el.style.backgroundImage = markerData.imageUrl ? `url('${markerData.imageUrl}')` : 'none';
-  el.style.backgroundSize = 'contain';
-  el.style.backgroundRepeat = 'no-repeat';
-  el.style.width = `${markerData.size?.[0] ?? 30}px`;
-  el.style.height = `${markerData.size?.[1] ?? 30}px`;
-  el.style.cursor = 'pointer';
+  const lngLat = {
+    lng: clusterPoint.geometry.coordinates[0],
+    lat: clusterPoint.geometry.coordinates[1],
+  };
 
-  el.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-  el.addEventListener('mousedown', (e) => {
-    e.stopPropagation();
-  });
-  el.addEventListener('touchstart', (e) => {
-    e.stopPropagation();
-  });
-
-  const mapMarker = new maplibre.Marker({ element: el })
-    .setLngLat(clusterPoint.geometry.coordinates)
-    .addTo(map);
-
-  if (markerData.popupContent) {
-    const popup = new maplibre.Popup({ offset: 18, closeOnClick: false });
-    if (typeof markerData.popupContent === 'string') {
-      popup.setHTML(markerData.popupContent);
-    } else if (markerData.popupContent instanceof HTMLElement) {
-      if (typeof popup.setDOMContent === 'function') {
-        popup.setDOMContent(markerData.popupContent);
-      } else {
-        popup.setHTML(markerData.popupContent.outerHTML);
+  const onClickHandler = markerData.onClick
+    ? (point: typeof lngLat, marker: MapLibreMarker, event: MouseEvent) => {
+        event.stopPropagation();
+        markerData.onClick?.(point, marker, event);
       }
-    } else {
-      popup.setHTML(String(markerData.popupContent));
-    }
-    mapMarker.setPopup(popup);
-  }
+    : undefined;
 
-  if (markerData.onClick) {
-    el.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const lngLat = {
-        lng: clusterPoint.geometry.coordinates[0],
-        lat: clusterPoint.geometry.coordinates[1],
-      };
-      markerData.onClick?.(lngLat, mapMarker, e);
+  let marker: MapLibreMarker | null;
+  if (markerData.popupContent) {
+    marker = createMarkerWithPopup(map, lngLat, {
+      imageUrl: markerData.imageUrl,
+      size: markerData.size ?? DEFAULT_MARKER_SIZE,
+      cursor: 'pointer',
+      onClick: onClickHandler,
+    }, {
+      content: markerData.popupContent,
+      offset: 18,
+      closeable: false,
+    });
+  } else {
+    marker = createMarker(map, lngLat, {
+      imageUrl: markerData.imageUrl,
+      size: markerData.size ?? DEFAULT_MARKER_SIZE,
+      cursor: 'pointer',
+      onClick: onClickHandler,
     });
   }
 
-  return mapMarker;
+  if (!marker) {
+    throw new Error('Failed to create marker');
+  }
+
+  const el = getMarkerElement(marker);
+  if (el) {
+    el.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+    });
+    el.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  return marker;
 }
