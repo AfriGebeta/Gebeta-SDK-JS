@@ -16,22 +16,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Run ESLint on API package
-        run: npm run lint --workspace=@gebeta/maps-api
+        run: yarn workspace @gebeta/maps-api lint
 
       - name: Check Prettier formatting on API package
-        run: npm run format:check --workspace=@gebeta/maps-api
+        run: yarn workspace @gebeta/maps-api format:check
 
       - name: Type check API package
-        run: npm run typecheck --workspace=@gebeta/maps-api
+        run: yarn workspace @gebeta/maps-api typecheck
 
       - name: Build API package
-        run: npm run build --workspace=@gebeta/maps-api
+        run: yarn workspace @gebeta/maps-api build
 
       - name: Verify build output
         run: |

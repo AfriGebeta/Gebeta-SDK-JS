@@ -1,4 +1,3 @@
-
 /**
  * Geographic coordinate with longitude and latitude.
  * @example { lng: 38.7, lat: 9.0 }
