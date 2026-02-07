@@ -5,20 +5,28 @@
 export interface RawGeocodeResult {
   /** Place name */
   name?: string;
-  /** Latitude */
+  /** Latitude (short form) */
   lat?: number;
-  /** Longitude */
+  /** Longitude (short form) */
   lng?: number;
+  /** Latitude (long form) */
+  latitude?: number;
+  /** Longitude (long form) */
+  longitude?: number;
   /** Additional properties from API */
   [key: string]: unknown;
 }
 
+export enum GeocodingMessage {
+  OK = 'ok',
+  ERROR = 'error',
+}
 /**
  * Raw API response structure for geocoding endpoints.
  */
 export interface GeocodingApiResponse {
   /** Response status message */
-  msg: 'ok' | 'error';
+  msg: GeocodingMessage;
   /** Array of geocoding results */
   data?: RawGeocodeResult[];
   /** Error details (if msg === 'error') */

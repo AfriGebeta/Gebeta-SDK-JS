@@ -37,6 +37,9 @@ coverage/
 .env.local
 .env.*.local
 
+# Integration test config
+packages/core/config.js
+
 # Temporary files
 *.log
 *.tmp

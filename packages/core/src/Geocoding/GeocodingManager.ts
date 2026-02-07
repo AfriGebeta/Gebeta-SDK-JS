@@ -1,13 +1,13 @@
-import { API } from '@gebeta/maps-api';
-import type { GeocodingApiResponse, RawGeocodeResult } from './types';
 import {
-  ValidationError,
-  NetworkError,
-  GeocodingError,
-  ApiError,
+  API,
   createApiError,
+  GeocodingError,
+  NetworkError,
   parseApiErrorResponse,
+  ValidationError,
 } from '@gebeta/maps-api';
+import { GeocodingApiResponse, GeocodingMessage } from './types';
+import { transformGeocodeResult } from './transform';
 
 /**
  * GeocodingManager handles forward and reverse geocoding operations.
@@ -62,17 +62,11 @@ export class GeocodingManager {
 
     const data: GeocodingApiResponse = await response.json();
 
-    if (data.msg === 'ok') {
-      return (data.data || []).map((item: RawGeocodeResult) => ({
-        name: item.name,
-        lngLat: {
-          lng: item.lng!,
-          lat: item.lat!,
-        },
-        ...Object.fromEntries(
-          Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
-        ),
-      }));
+    if (data.msg === GeocodingMessage.OK) {
+      if (!data.data) {
+        return [];
+      }
+      return data.data.map(transformGeocodeResult);
     }
 
     throw new GeocodingError(
@@ -123,17 +117,11 @@ export class GeocodingManager {
 
     const data: GeocodingApiResponse = await response.json();
 
-    if (data.msg === 'ok') {
-      return (data.data || []).map((item: RawGeocodeResult) => ({
-        name: item.name,
-        lngLat: {
-          lng: item.lng!,
-          lat: item.lat!,
-        },
-        ...Object.fromEntries(
-          Object.entries(item).filter(([key]) => key !== 'lat' && key !== 'lng' && key !== 'name')
-        ),
-      }));
+    if (data.msg === GeocodingMessage.OK) {
+      if (!data.data) {
+        return [];
+      }
+      return data.data.map(transformGeocodeResult);
     }
 
     throw new GeocodingError(

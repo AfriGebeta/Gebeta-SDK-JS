@@ -13,9 +13,10 @@
     "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
     "format": "test -d src && prettier --write \"src/**/*.ts\" || echo 'No src directory - skipping format'",
     "format:check": "test -d src && prettier --check \"src/**/*.ts\" || echo 'No src directory - skipping format check'",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "jest --testPathIgnorePatterns='integration'",
+    "test:watch": "jest --watch --testPathIgnorePatterns='integration'",
+    "test:coverage": "jest --coverage --testPathIgnorePatterns='integration'",
+    "test:integration": "jest --testMatch='**/*.integration.test.ts'"
   },
   "dependencies": {
     "@gebeta/maps-api": "workspace:*"

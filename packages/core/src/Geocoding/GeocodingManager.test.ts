@@ -1,9 +1,10 @@
+// mock chatty console methods to keep test output clean
+import '../_test_utilities/consoleMock';
 import { GeocodingManager } from './GeocodingManager';
 import { API } from '@gebeta/maps-api';
 import {
   ValidationError,
   NetworkError,
-  GeocodingError,
   BadRequestError,
 } from '@gebeta/maps-api';
 import { getRandomString } from '../_test_utilities/specialCharacters';
@@ -75,8 +76,8 @@ describe('GeocodingManager', () => {
         data: [
           {
             name: 'Addis Ababa',
-            lat: 9.0,
-            lng: 38.7,
+            latitude: 9.0,
+            longitude: 38.7,
           },
         ],
       };
@@ -97,7 +98,18 @@ describe('GeocodingManager', () => {
 
     test('should return geocoding results on success', async () => {
       // GIVEN a valid name and API response
-      const givenAPIResponse: API.Geocoding.Types.Result[] = [
+      const mockApiResponse = {
+        msg: 'ok',
+        data: [
+          {
+            name: 'Addis Ababa',
+            latitude: 9.0,
+            longitude: 38.7,
+          },
+        ],
+      };
+
+      const expectedResult: API.Geocoding.Types.Result[] = [
         {
           name: 'Addis Ababa',
           lngLat: {
@@ -107,17 +119,30 @@ describe('GeocodingManager', () => {
         },
       ];
 
-      fetchSpy = setupFetchSpy(
-        200,
-        { msg: 'ok', data: givenAPIResponse },
-        'application/json;charset=UTF-8'
-      );
+      fetchSpy = setupFetchSpy(200, mockApiResponse, 'application/json;charset=UTF-8');
 
       // WHEN calling geocode method
       const result = await manager.geocode('Addis Ababa');
 
       // THEN it should return the geocoding results
-      expect(result).toEqual(givenAPIResponse);
+      expect(result).toEqual(expectedResult);
+    });
+
+    test('should handle empty results gracefully', async () => {
+      // GIVEN a valid name and API response with empty results
+      const givenAPIResponse = {
+        msg: 'ok',
+        data: [],
+      };
+
+      fetchSpy = setupFetchSpy(200, givenAPIResponse, 'application/json;charset=UTF-8');
+
+      // WHEN calling geocode method
+      const result = await manager.geocode('NonexistentPlace12345XYZ');
+
+      // THEN it should return an empty array (not throw an error)
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(0);
     });
 
     test('should throw error on API failure', async () => {
@@ -176,8 +201,8 @@ describe('GeocodingManager', () => {
         data: [
           {
             name: 'Addis Ababa',
-            lat: 9.0,
-            lng: 38.7,
+            latitude: 9.0,
+            longitude: 38.7,
           },
         ],
       };
@@ -204,8 +229,8 @@ describe('GeocodingManager', () => {
         data: [
           {
             name: 'Addis Ababa',
-            lat: 9.0,
-            lng: 38.7,
+            latitude: 9.0,
+            longitude: 38.7,
           },
         ],
       };
@@ -226,6 +251,19 @@ describe('GeocodingManager', () => {
       const result = await manager.reverseGeocode({ lat: 9.0, lng: 38.7 });
       // THEN it should return the reverse geocoding results
       expect(result).toEqual(expectedResult);
+    });
+
+    test('should handle empty results gracefully', async () => {
+      // GIVEN a valid latitude and longitude and API response with empty results
+      const givenAPIResponse = {
+        msg: 'ok',
+        data: [],
+      };
+      fetchSpy = setupFetchSpy(200, givenAPIResponse, 'application/json;charset=UTF-8');
+      const result = await manager.reverseGeocode({ lat: 9.0, lng: 38.7 });
+      // THEN it should return an empty array (not throw an error)
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(0);
     });
 
     test('should throw error on API failure', async () => {
