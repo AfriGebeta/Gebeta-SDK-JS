@@ -9,9 +9,7 @@ export default defineConfig({
       formats: ['umd'],
     },
     rollupOptions: {
-      output: {
-        globals: {},
-      },
+      output: {},
     },
     outDir: 'dist',
   },

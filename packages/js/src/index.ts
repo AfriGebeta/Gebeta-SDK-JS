@@ -1,9 +1,13 @@
+import maplibre from 'maplibre-gl';
 import { GeocodingManager } from '@gebeta/maps-core';
+import { DirectionsManager } from './Directions/DirectionsManager';
+import { GebetaMaps } from './GebetaMaps';
+import { injectMapLibreStyles } from './injectMapLibreStyles';
 
-export { GeocodingManager };
+export { GeocodingManager, DirectionsManager, GebetaMaps };
 
 if (typeof window !== 'undefined') {
-  (window as any).GebetaMaps = {
-    GeocodingManager,
-  };
+  injectMapLibreStyles();
+  (window as unknown as Record<string, unknown>).maplibregl = maplibre;
+  (window as unknown as Record<string, unknown>).GebetaMaps = GebetaMaps;
 }
