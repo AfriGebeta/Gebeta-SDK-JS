@@ -121,7 +121,7 @@ describe('decodePolyline', () => {
       expect(() => decodePolyline(truncated)).toThrow(RoutingError);
       try {
         decodePolyline(truncated);
-      } catch (error) {
+      } catch (error: unknown) {
         expect(error).toBeInstanceOf(RoutingError);
         if (error instanceof RoutingError) {
           expect(error.code).toBe(API.Errors.Codes.ROUTING_INVALID_POLYLINE);
@@ -137,7 +137,7 @@ describe('decodePolyline', () => {
       expect(() => decodePolyline(invalidPolyline)).toThrow(RoutingError);
       try {
         decodePolyline(invalidPolyline);
-      } catch (error) {
+      } catch (error: unknown) {
         expect(error).toBeInstanceOf(RoutingError);
         if (error instanceof RoutingError) {
           expect(error.code).toBe(API.Errors.Codes.ROUTING_INVALID_POLYLINE);
@@ -158,7 +158,7 @@ describe('decodePolyline', () => {
       expect(() => decodePolyline(incomplete)).toThrow(RoutingError);
       try {
         decodePolyline(incomplete);
-      } catch (error) {
+      } catch (error: unknown) {
         expect(error).toBeInstanceOf(RoutingError);
         if (error instanceof RoutingError) {
           expect(error.code).toBe(API.Errors.Codes.ROUTING_INVALID_POLYLINE);

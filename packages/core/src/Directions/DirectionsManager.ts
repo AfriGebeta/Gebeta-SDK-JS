@@ -58,7 +58,7 @@ export class DirectionsManager {
     });
 
     if (waypoints.length > 0) {
-      const waypointsString = `[${waypoints.map((wp) => `{${wp.lat},${wp.lng}}`).join(',')}]`;
+      const waypointsString = `[${waypoints.map((wp: API.Common.Types.LngLat) => `{${wp.lat},${wp.lng}}`).join(',')}]`;
       params.append('waypoints', waypointsString);
     }
 
