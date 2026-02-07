@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "private": true,
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && tsc --emitDeclarationOnly --skipLibCheck",
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.{ts,js}\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.{ts,js}\" --fix || echo 'No src directory - skipping lint'",
