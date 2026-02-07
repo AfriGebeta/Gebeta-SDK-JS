@@ -1,6 +1,14 @@
-export * from './types/common';
-export * from './types/options';
-export * from './types/data';
-export * from './types/events';
-export * from './types/components';
-export * from './constants';
+export { API } from './namespaces';
+
+// Re-export individual namespaces for convenience
+export * as Common from './namespaces/common';
+export * as Map from './namespaces/map';
+export * as Clustering from './namespaces/clustering';
+export * as Routing from './namespaces/routing';
+export * as Navigation from './namespaces/navigation';
+export * as Tracking from './namespaces/tracking';
+export * as Geocoding from './namespaces/geocoding';
+export * as Fencing from './namespaces/fencing';
+export * as Overlay from './namespaces/overlay';
+export * as Components from './namespaces/components';
+export * as Events from './namespaces/events';
