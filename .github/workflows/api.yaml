@@ -1,0 +1,54 @@
+name: API Package CI
+
+on:
+  workflow_call:
+  push:
+    paths:
+      - 'packages/api/**'
+      - '.github/workflows/api.yaml'
+  pull_request:
+    paths:
+      - 'packages/api/**'
+      - '.github/workflows/api.yaml'
+
+jobs:
+  lint-and-build:
+    name: Lint, Format, and Build API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint on API package
+        run: npm run lint --workspace=@gebeta/maps-api
+
+      - name: Check Prettier formatting on API package
+        run: npm run format:check --workspace=@gebeta/maps-api
+
+      - name: Type check API package
+        run: npm run typecheck --workspace=@gebeta/maps-api
+
+      - name: Build API package
+        run: npm run build --workspace=@gebeta/maps-api
+
+      - name: Verify build output
+        run: |
+          if [ ! -f "packages/api/dist/index.js" ]; then
+            echo "Build failed: dist/index.js not found"
+            exit 1
+          fi
+          if [ ! -f "packages/api/dist/index.d.ts" ]; then
+            echo "Build failed: dist/index.d.ts not found"
+            exit 1
+          fi
+          echo "Build output verified successfully"

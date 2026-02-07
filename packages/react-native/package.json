@@ -1,0 +1,32 @@
+{
+  "name": "@gebeta/maps-react-native",
+  "version": "0.1.0",
+  "description": "React Native SDK for Gebeta Maps",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "@gebeta/maps-api": "workspace:*",
+    "@gebeta/maps-core": "workspace:*",
+    "react": "^18.0.0",
+    "react-native": "^0.72.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.72.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-native": "^0.72.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@gebeta/maps-js",
+  "version": "0.1.0",
+  "description": "Plain JavaScript SDK for Gebeta Maps (browser)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.js",
+    "lint:fix": "eslint src --ext .ts,.js --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js}\""
+  },
+  "dependencies": {
+    "@gebeta/maps-api": "workspace:*",
+    "@gebeta/maps-core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}

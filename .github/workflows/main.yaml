@@ -1,0 +1,13 @@
+name: Main CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  api:
+    name: API Package
+    uses: ./.github/workflows/api.yaml
+    secrets: inherit
