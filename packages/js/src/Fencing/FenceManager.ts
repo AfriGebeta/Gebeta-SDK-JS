@@ -1,4 +1,3 @@
-import type { Map as MapLibreMap, Marker as MapLibreMarker } from 'maplibre-gl';
 import { FenceManager as CoreFenceManager } from '@gebeta/maps-core';
 import { API, ValidationError } from '@gebeta/maps-api';
 import {
@@ -10,13 +9,16 @@ import {
 } from './constants';
 import { initFenceLayers, updateFenceLayerData, clearFenceLayers } from './layers';
 import { initDynamicPolyline, updateDynamicPolyline, updateDynamicPolylineStyle, clearDynamicPolyline } from './dynamicPolyline';
-import { createFenceMarker, createCentroidOverlay } from './markers';
 
 type FenceDefinition = API.Fencing.Types.Definition;
 type FenceStyleOptions = API.Fencing.Types.StyleOptions;
 type FencePointOptions = API.Fencing.Types.PointOptions;
 type LngLat = API.Common.Types.LngLat;
 type LngLatLike = API.Common.Types.LngLatLike;
+type IMapAdapter = API.Platform.Types.IMapAdapter;
+type IMarkerFactory = API.Platform.Types.IMarkerFactory;
+type IPopupFactory = API.Platform.Types.IPopupFactory;
+type IMarker = API.Platform.Types.IMarker;
 
 export interface FenceManagerOptions {
   defaultStyle?: FenceStyleOptions;
@@ -27,22 +29,37 @@ export interface FenceManagerOptions {
 }
 
 export class FenceManager {
-  private readonly map: MapLibreMap;
+  private readonly mapAdapter: IMapAdapter;
+  private readonly markerFactory: IMarkerFactory;
+  private readonly popupFactory: IPopupFactory;
   private readonly core: CoreFenceManager;
   private readonly markerImage: string;
   private readonly markerSize: [number, number];
-  private readonly renderedMarkers: Map<string | number, MapLibreMarker> = new Map();
-  private readonly renderedOverlays: Map<string | number, MapLibreMarker> = new Map();
+  private readonly renderedMarkers: Map<string | number, IMarker> = new Map();
+  private readonly renderedOverlays: Map<string | number, IMarker> = new Map();
   private readonly storedFences: Map<string | number, { sourceId: string; layerId: string; borderLayerId: string }> = new Map();
   private mouseMoveHandler: ((...args: unknown[]) => void) | null = null;
   private clickHandler: ((...args: unknown[]) => void) | null = null;
   private isDrawing = false;
 
-  constructor(map: MapLibreMap, options: FenceManagerOptions = {}) {
-    if (!map) {
-      throw new ValidationError('Map is required for FenceManager', 'map');
+  constructor(
+    mapAdapter: IMapAdapter,
+    markerFactory: IMarkerFactory,
+    popupFactory: IPopupFactory,
+    options: FenceManagerOptions = {}
+  ) {
+    if (!mapAdapter) {
+      throw new ValidationError('Map adapter is required for FenceManager', 'mapAdapter');
     }
-    this.map = map;
+    if (!markerFactory) {
+      throw new ValidationError('Marker factory is required for FenceManager', 'markerFactory');
+    }
+    if (!popupFactory) {
+      throw new ValidationError('Popup factory is required for FenceManager', 'popupFactory');
+    }
+    this.mapAdapter = mapAdapter;
+    this.markerFactory = markerFactory;
+    this.popupFactory = popupFactory;
     this.markerImage = options.markerImage ?? DEFAULT_MARKER_IMAGE;
     this.markerSize = options.markerSize ?? DEFAULT_MARKER_SIZE;
 
@@ -76,7 +93,7 @@ export class FenceManager {
     this.core.startDrawing(style);
     this.isDrawing = true;
     this.setupDrawingListeners();
-    initDynamicPolyline(this.map, this.core.getCurrentStyle());
+    initDynamicPolyline(this.mapAdapter, this.core.getCurrentStyle());
   }
 
   /**
@@ -85,7 +102,7 @@ export class FenceManager {
   stopDrawing(): void {
     this.isDrawing = false;
     this.removeDrawingListeners();
-    clearDynamicPolyline(this.map);
+    clearDynamicPolyline(this.mapAdapter);
     this.core.stopDrawing();
   }
 
@@ -94,7 +111,7 @@ export class FenceManager {
    * @param point - Point to add
    * @param options - Optional point options
    */
-  addPoint(point: LngLatLike, options?: FencePointOptions & { onClick?: (point: LngLatLike, marker: MapLibreMarker, event: MouseEvent) => void }): void {
+  addPoint(point: LngLatLike, options?: FencePointOptions & { onClick?: (point: LngLatLike, marker: IMarker, event: MouseEvent) => void }): void {
     const wasAdded = this.core.addPoint(point, options);
     if (!wasAdded) {
       return;
@@ -105,16 +122,14 @@ export class FenceManager {
     const isFirstPoint = pointIndex === 0;
 
     if (points.length === 1) {
-      initDynamicPolyline(this.map, this.core.getCurrentStyle());
+      initDynamicPolyline(this.mapAdapter, this.core.getCurrentStyle());
     }
 
-    const marker = createFenceMarker(
-      this.map,
-      point,
-      this.markerImage,
-      this.markerSize,
-      options?.markerId,
-      (clickedPoint, markerEl, event) => {
+    const marker = this.markerFactory.createMarker({
+      imageUrl: this.markerImage,
+      size: this.markerSize,
+      className: 'gebeta-fence-marker',
+      onClick: (clickedPoint, markerEl, event) => {
         const currentPoints = this.core.getCurrentFencePoints();
         if (isFirstPoint && currentPoints.length >= 3 && this.isDrawing) {
           event.stopPropagation();
@@ -124,9 +139,10 @@ export class FenceManager {
         if (options?.onClick) {
           options.onClick(clickedPoint, markerEl, event);
         }
-      }
-    );
+      },
+    });
     if (marker) {
+      marker.setLngLat(point).addTo(this.mapAdapter);
       const pointId = options?.markerId ?? `fence-point-${pointIndex}`;
       this.renderedMarkers.set(pointId, marker);
     }
@@ -135,7 +151,7 @@ export class FenceManager {
       this.updateCurrentFence();
     }
 
-    updateDynamicPolyline(this.map, points);
+    updateDynamicPolyline(this.mapAdapter, points);
   }
 
   /**
@@ -148,8 +164,8 @@ export class FenceManager {
 
     this.stopDrawing();
     this.clearCurrentMarkers();
-    if (this.map.getSource(FENCE_SOURCE_ID)) {
-      clearFenceLayers(this.map, FENCE_SOURCE_ID, FENCE_LAYER_ID, FENCE_BORDER_LAYER_ID);
+    if (this.mapAdapter.getSource(FENCE_SOURCE_ID)) {
+      clearFenceLayers(this.mapAdapter, FENCE_SOURCE_ID, FENCE_LAYER_ID, FENCE_BORDER_LAYER_ID);
     }
     this.renderStoredFence(fence);
     return fence;
@@ -161,8 +177,8 @@ export class FenceManager {
   clearCurrentFence(): void {
     this.stopDrawing();
     this.clearCurrentMarkers();
-    if (this.map.getSource(FENCE_SOURCE_ID)) {
-      clearFenceLayers(this.map, FENCE_SOURCE_ID, FENCE_LAYER_ID, FENCE_BORDER_LAYER_ID);
+    if (this.mapAdapter.getSource(FENCE_SOURCE_ID)) {
+      clearFenceLayers(this.mapAdapter, FENCE_SOURCE_ID, FENCE_LAYER_ID, FENCE_BORDER_LAYER_ID);
     }
     this.core.clearCurrentFence();
   }
@@ -239,7 +255,7 @@ export class FenceManager {
     if (this.isDrawing) {
       const currentStyle = this.core.getCurrentStyle();
       const points = this.core.getCurrentFencePoints();
-      updateDynamicPolylineStyle(this.map, points, currentStyle);
+      updateDynamicPolylineStyle(this.mapAdapter, points, currentStyle);
     }
   }
 
@@ -361,21 +377,21 @@ export class FenceManager {
       const e = args[0] as { lngLat: { lng: number; lat: number } };
       const points = this.core.getCurrentFencePoints();
       if (points.length > 0) {
-        updateDynamicPolyline(this.map, [...points, [e.lngLat.lng, e.lngLat.lat]]);
+        updateDynamicPolyline(this.mapAdapter, [...points, [e.lngLat.lng, e.lngLat.lat]]);
       }
     };
 
-    this.map.on('click', this.clickHandler);
-    this.map.on('mousemove', this.mouseMoveHandler);
+    this.mapAdapter.on('click', this.clickHandler);
+    this.mapAdapter.on('mousemove', this.mouseMoveHandler);
   }
 
   private removeDrawingListeners(): void {
     if (this.clickHandler) {
-      this.map.off('click', this.clickHandler);
+      this.mapAdapter.off('click', this.clickHandler);
       this.clickHandler = null;
     }
     if (this.mouseMoveHandler) {
-      this.map.off('mousemove', this.mouseMoveHandler);
+      this.mapAdapter.off('mousemove', this.mouseMoveHandler);
       this.mouseMoveHandler = null;
     }
   }
@@ -385,8 +401,8 @@ export class FenceManager {
     if (points.length < 3) return;
 
     const style = this.core.getCurrentStyle();
-    initFenceLayers(this.map, FENCE_SOURCE_ID, FENCE_LAYER_ID, FENCE_BORDER_LAYER_ID, style);
-    updateFenceLayerData(this.map, FENCE_SOURCE_ID, points);
+    initFenceLayers(this.mapAdapter, FENCE_SOURCE_ID, FENCE_LAYER_ID, FENCE_BORDER_LAYER_ID, style);
+    updateFenceLayerData(this.mapAdapter, FENCE_SOURCE_ID, points);
   }
 
   private renderStoredFence(fence: FenceDefinition): void {
@@ -409,21 +425,30 @@ export class FenceManager {
       borderOpacity: apiDefault.borderOpacity,
     };
 
-    initFenceLayers(this.map, sourceId, layerId, borderLayerId, style);
-    updateFenceLayerData(this.map, sourceId, fence.points);
+    initFenceLayers(this.mapAdapter, sourceId, layerId, borderLayerId, style);
+    updateFenceLayerData(this.mapAdapter, sourceId, fence.points);
 
     this.storedFences.set(fence.id, { sourceId, layerId, borderLayerId });
 
     if (fence.overlayContent) {
       const centroid = this.core.getFenceCentroid(fence);
-      const overlay = createCentroidOverlay(
-        this.map,
-        centroid,
-        fence.overlayContent,
-        fence.overlayOptions as API.Overlay.Types.Options | undefined
-      );
-      if (overlay) {
-        this.renderedOverlays.set(fence.id, overlay);
+      const overlayOptions = fence.overlayOptions;
+      const popup = this.popupFactory.createPopup({
+        content: fence.overlayContent,
+        closeable: false,
+        anchor: overlayOptions?.anchor as string,
+        offset: overlayOptions?.offset,
+      });
+      if (popup) {
+        const overlayMarker = this.markerFactory.createMarker({});
+        if (overlayMarker) {
+          overlayMarker.setLngLat(centroid);
+          if (overlayMarker.setPopup) {
+            overlayMarker.setPopup(popup);
+          }
+          overlayMarker.addTo(this.mapAdapter);
+          this.renderedOverlays.set(fence.id, overlayMarker);
+        }
       }
     }
   }
@@ -431,7 +456,7 @@ export class FenceManager {
   private removeStoredFence(fenceId: string | number): void {
     const fenceInfo = this.storedFences.get(fenceId);
     if (fenceInfo) {
-      clearFenceLayers(this.map, fenceInfo.sourceId, fenceInfo.layerId, fenceInfo.borderLayerId);
+      clearFenceLayers(this.mapAdapter, fenceInfo.sourceId, fenceInfo.layerId, fenceInfo.borderLayerId);
       this.storedFences.delete(fenceId);
     }
 

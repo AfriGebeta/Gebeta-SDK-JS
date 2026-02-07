@@ -1,21 +1,16 @@
-import type { Map as MapLibreMap } from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
 import { DYNAMIC_POLYLINE_SOURCE_ID, DYNAMIC_POLYLINE_LAYER_ID } from './constants';
 
 type FenceStyleOptions = API.Fencing.Types.StyleOptions;
 type LngLatLike = API.Common.Types.LngLatLike;
+type IMapAdapter = API.Platform.Types.IMapAdapter;
 
-/**
- * Initialize dynamic polyline for drawing fence preview.
- * @param map - MapLibre map instance
- * @param style - Fence style options
- */
-export function initDynamicPolyline(map: MapLibreMap, style: FenceStyleOptions): void {
-  if (map.getSource(DYNAMIC_POLYLINE_SOURCE_ID)) {
+export function initDynamicPolyline(mapAdapter: IMapAdapter, style: FenceStyleOptions): void {
+  if (mapAdapter.getSource(DYNAMIC_POLYLINE_SOURCE_ID)) {
     return;
   }
 
-  map.addSource(DYNAMIC_POLYLINE_SOURCE_ID, {
+  mapAdapter.addSource(DYNAMIC_POLYLINE_SOURCE_ID, {
     type: 'geojson',
     data: {
       type: 'Feature',
@@ -26,7 +21,7 @@ export function initDynamicPolyline(map: MapLibreMap, style: FenceStyleOptions):
     },
   });
 
-  map.addLayer({
+  mapAdapter.addLayer({
     id: DYNAMIC_POLYLINE_LAYER_ID,
     type: 'line',
     source: DYNAMIC_POLYLINE_SOURCE_ID,
@@ -45,16 +40,12 @@ export function initDynamicPolyline(map: MapLibreMap, style: FenceStyleOptions):
   });
 }
 
-/**
- * Update dynamic polyline with new points.
- * @param map - MapLibre map instance
- * @param points - Array of points for the polyline
- */
-export function updateDynamicPolyline(map: MapLibreMap, points: LngLatLike[]): void {
-  const source = map.getSource(DYNAMIC_POLYLINE_SOURCE_ID);
-  if (source?.type !== 'geojson') return;
+export function updateDynamicPolyline(mapAdapter: IMapAdapter, points: LngLatLike[]): void {
+  const source = mapAdapter.getSource(DYNAMIC_POLYLINE_SOURCE_ID);
+  const geoJsonSource = source as { type?: string; setData?: (data: unknown) => void };
+  if (geoJsonSource.type !== 'geojson' || !geoJsonSource.setData) return;
 
-  (source as { setData: (data: unknown) => void }).setData({
+  geoJsonSource.setData({
     type: 'Feature',
     geometry: {
       type: 'LineString',
@@ -63,59 +54,50 @@ export function updateDynamicPolyline(map: MapLibreMap, points: LngLatLike[]): v
   });
 }
 
-/**
- * Update dynamic polyline style.
- * @param map - MapLibre map instance
- * @param points - Array of points for the polyline
- * @param style - Fence style options
- */
 export function updateDynamicPolylineStyle(
-  map: MapLibreMap,
+  mapAdapter: IMapAdapter,
   points: LngLatLike[],
   style: FenceStyleOptions
 ): void {
-  if (!map.getLayer(DYNAMIC_POLYLINE_LAYER_ID)) {
-    initDynamicPolyline(map, style);
+  const styleObj = mapAdapter.getStyle();
+  const hasLayer = styleObj?.layers.some(layer => layer.id === DYNAMIC_POLYLINE_LAYER_ID);
+  if (!hasLayer) {
+    initDynamicPolyline(mapAdapter, style);
   }
-
-  const layer = map.getLayer(DYNAMIC_POLYLINE_LAYER_ID);
-  if (!layer) return;
 
   if (style.lineColor !== undefined) {
-    map.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-color', style.lineColor);
+    mapAdapter.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-color', style.lineColor);
   }
   if (style.lineWidth !== undefined) {
-    map.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-width', style.lineWidth);
+    mapAdapter.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-width', style.lineWidth);
   }
   if (style.lineOpacity !== undefined) {
-    map.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-opacity', style.lineOpacity);
+    mapAdapter.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-opacity', style.lineOpacity);
   }
   if (style.lineDashArray !== undefined) {
     if (style.lineDashArray.length > 0) {
-      map.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-dasharray', style.lineDashArray);
+      mapAdapter.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-dasharray', style.lineDashArray);
     } else {
-      map.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-dasharray', null);
+      mapAdapter.setPaintProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-dasharray', null);
     }
   }
   if (style.lineCap !== undefined) {
-    map.setLayoutProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-cap', style.lineCap);
+    mapAdapter.setLayoutProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-cap', style.lineCap);
   }
   if (style.lineJoin !== undefined) {
-    map.setLayoutProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-join', style.lineJoin);
+    mapAdapter.setLayoutProperty(DYNAMIC_POLYLINE_LAYER_ID, 'line-join', style.lineJoin);
   }
 
-  updateDynamicPolyline(map, points);
+  updateDynamicPolyline(mapAdapter, points);
 }
 
-/**
- * Clear dynamic polyline from the map.
- * @param map - MapLibre map instance
- */
-export function clearDynamicPolyline(map: MapLibreMap): void {
-  if (map.getLayer(DYNAMIC_POLYLINE_LAYER_ID)) {
-    map.removeLayer(DYNAMIC_POLYLINE_LAYER_ID);
+export function clearDynamicPolyline(mapAdapter: IMapAdapter): void {
+  const style = mapAdapter.getStyle();
+  const hasLayer = style?.layers.some(layer => layer.id === DYNAMIC_POLYLINE_LAYER_ID);
+  if (hasLayer) {
+    mapAdapter.removeLayer(DYNAMIC_POLYLINE_LAYER_ID);
   }
-  if (map.getSource(DYNAMIC_POLYLINE_SOURCE_ID)) {
-    map.removeSource(DYNAMIC_POLYLINE_SOURCE_ID);
+  if (mapAdapter.getSource(DYNAMIC_POLYLINE_SOURCE_ID)) {
+    mapAdapter.removeSource(DYNAMIC_POLYLINE_SOURCE_ID);
   }
 }

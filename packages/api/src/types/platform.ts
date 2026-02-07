@@ -81,6 +81,7 @@ export interface IMapAdapter {
   addControl?(control: unknown, position?: string): this;
   fitBounds(bounds: MapBounds, options?: { padding?: number; duration?: number }): this;
   setPaintProperty(layer: string, name: string, value: unknown): this;
+  setLayoutProperty(layer: string, name: string, value: unknown): this;
 }
 
 export interface IPlatformDOM {

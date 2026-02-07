@@ -1,22 +1,40 @@
-import type { Map as MapLibreMap, Marker as MapLibreMarker } from 'maplibre-gl';
 import { ClusteringManager as CoreClusteringManager } from '@gebeta/maps-core';
 import { API, ValidationError } from '@gebeta/maps-api';
 import { createClusterMarker, createIndividualMarker } from './markers';
 
 type MarkerData = API.Overlay.Types.MarkerData;
 type ClusteringOptions = API.Clustering.Types.Options;
+type IMapAdapter = API.Platform.Types.IMapAdapter;
+type IMarkerFactory = API.Platform.Types.IMarkerFactory;
+type IPopupFactory = API.Platform.Types.IPopupFactory;
+type IMarker = API.Platform.Types.IMarker;
 
 export class ClusteringManager {
-  private readonly map: MapLibreMap;
+  private readonly mapAdapter: IMapAdapter;
+  private readonly markerFactory: IMarkerFactory;
+  private readonly popupFactory: IPopupFactory;
   private readonly core: CoreClusteringManager;
-  private readonly renderedMarkers: Map<string | number, MapLibreMarker> = new Map();
+  private readonly renderedMarkers: Map<string | number, IMarker> = new Map();
   private updateTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(map: MapLibreMap, options: ClusteringOptions = {}) {
-    if (!map) {
-      throw new ValidationError('Map is required for ClusteringManager', 'map');
+  constructor(
+    mapAdapter: IMapAdapter,
+    markerFactory: IMarkerFactory,
+    popupFactory: IPopupFactory,
+    options: ClusteringOptions = {}
+  ) {
+    if (!mapAdapter) {
+      throw new ValidationError('Map adapter is required for ClusteringManager', 'mapAdapter');
     }
-    this.map = map;
+    if (!markerFactory) {
+      throw new ValidationError('Marker factory is required for ClusteringManager', 'markerFactory');
+    }
+    if (!popupFactory) {
+      throw new ValidationError('Popup factory is required for ClusteringManager', 'popupFactory');
+    }
+    this.mapAdapter = mapAdapter;
+    this.markerFactory = markerFactory;
+    this.popupFactory = popupFactory;
     this.core = new CoreClusteringManager(options);
     this.setupEventListeners();
   }
@@ -95,11 +113,11 @@ export class ClusteringManager {
   }
 
   private setupEventListeners(): void {
-    this.map.on('moveend', () => {
+    this.mapAdapter.on('moveend', () => {
       this.updateClustering();
     });
 
-    this.map.on('zoomend', () => {
+    this.mapAdapter.on('zoomend', () => {
       this.updateClustering();
     });
   }
@@ -115,16 +133,14 @@ export class ClusteringManager {
   }
 
   private updateClustering(): void {
-    if (!this.map) return;
-
     const markers = this.core.getMarkers();
     if (markers.length === 0) {
       this.clearRenderedElements();
       return;
     }
 
-    const bounds = this.map.getBounds();
-    const zoom = this.map.getZoom();
+    const bounds = this.mapAdapter.getBounds();
+    const zoom = this.mapAdapter.getZoom();
 
     const clusters = this.core.getClusters(
       [bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth()],
@@ -137,14 +153,14 @@ export class ClusteringManager {
 
     clusters.forEach(cluster => {
       if (cluster.properties.cluster) {
-        const marker = createClusterMarker(this.map, cluster, {
+        const marker = createClusterMarker(this.mapAdapter, this.markerFactory, cluster, {
           clusterImage: options.clusterImage,
           showClusterCount: options.showClusterCount,
           clusterOnClick:
             options.clusterOnClick ??
             ((c) => {
               const expansionZoom = this.core.getClusterExpansionZoom(c.id);
-              this.map.easeTo({
+              this.mapAdapter.easeTo({
                 center: c.geometry.coordinates,
                 zoom: expansionZoom,
               });
@@ -158,7 +174,7 @@ export class ClusteringManager {
         const markerData = this.core.getMarker(markerId);
         if (!markerData) return;
 
-        const marker = createIndividualMarker(this.map, markerData, cluster);
+        const marker = createIndividualMarker(this.mapAdapter, this.markerFactory, this.popupFactory, markerData, cluster);
         this.renderedMarkers.set(markerId, marker);
       }
     });
@@ -166,9 +182,7 @@ export class ClusteringManager {
 
   private clearRenderedElements(): void {
     this.renderedMarkers.forEach(marker => {
-      if (marker && typeof marker.remove === 'function') {
-        marker.remove();
-      }
+      marker.remove();
     });
     this.renderedMarkers.clear();
   }

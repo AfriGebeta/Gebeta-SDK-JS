@@ -1,30 +1,22 @@
-import type { Map as MapLibreMap } from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
 import { closePolygon } from '@gebeta/maps-core';
 
 type FenceStyleOptions = API.Fencing.Types.StyleOptions;
 type LngLatLike = API.Common.Types.LngLatLike;
+type IMapAdapter = API.Platform.Types.IMapAdapter;
 
-/**
- * Initialize fence layers (fill and border) on the map.
- * @param map - MapLibre map instance
- * @param sourceId - Source ID for the fence
- * @param layerId - Fill layer ID
- * @param borderLayerId - Border layer ID
- * @param style - Fence style options
- */
 export function initFenceLayers(
-  map: MapLibreMap,
+  mapAdapter: IMapAdapter,
   sourceId: string,
   layerId: string,
   borderLayerId: string,
   style: FenceStyleOptions
 ): void {
-  if (map.getSource(sourceId)) {
+  if (mapAdapter.getSource(sourceId)) {
     return;
   }
 
-  map.addSource(sourceId, {
+  mapAdapter.addSource(sourceId, {
     type: 'geojson',
     data: {
       type: 'Feature',
@@ -35,7 +27,7 @@ export function initFenceLayers(
     },
   });
 
-  map.addLayer({
+  mapAdapter.addLayer({
     id: layerId,
     type: 'fill',
     source: sourceId,
@@ -45,7 +37,7 @@ export function initFenceLayers(
     },
   });
 
-  map.addLayer({
+  mapAdapter.addLayer({
     id: borderLayerId,
     type: 'line',
     source: sourceId,
@@ -61,22 +53,19 @@ export function initFenceLayers(
   }, layerId);
 }
 
-/**
- * Update fence layer data with new points.
- * @param map - MapLibre map instance
- * @param sourceId - Source ID for the fence
- * @param points - Array of fence points
- */
 export function updateFenceLayerData(
-  map: MapLibreMap,
+  mapAdapter: IMapAdapter,
   sourceId: string,
   points: LngLatLike[]
 ): void {
-  const source = map.getSource(sourceId);
-  if (!source || source.type !== 'geojson') return;
+  const source = mapAdapter.getSource(sourceId);
+  if (!source) return;
+
+  const geoJsonSource = source as { type?: string; setData?: (data: unknown) => void };
+  if (geoJsonSource.type !== 'geojson' || !geoJsonSource.setData) return;
 
   if (points.length < 3) {
-    (source as { setData: (data: unknown) => void }).setData({
+    geoJsonSource.setData({
       type: 'Feature',
       geometry: {
         type: 'Polygon',
@@ -87,7 +76,7 @@ export function updateFenceLayerData(
   }
 
   const closedPoints = closePolygon(points);
-  (source as { setData: (data: unknown) => void }).setData({
+  geoJsonSource.setData({
     type: 'Feature',
     geometry: {
       type: 'Polygon',
@@ -96,26 +85,23 @@ export function updateFenceLayerData(
   });
 }
 
-/**
- * Clear fence layers from the map.
- * @param map - MapLibre map instance
- * @param sourceId - Source ID for the fence
- * @param layerId - Fill layer ID
- * @param borderLayerId - Border layer ID
- */
 export function clearFenceLayers(
-  map: MapLibreMap,
+  mapAdapter: IMapAdapter,
   sourceId: string,
   layerId: string,
   borderLayerId: string
 ): void {
-  if (map.getLayer(borderLayerId)) {
-    map.removeLayer(borderLayerId);
+  const style = mapAdapter.getStyle();
+  const hasBorderLayer = style?.layers.some(layer => layer.id === borderLayerId);
+  const hasLayer = style?.layers.some(layer => layer.id === layerId);
+  
+  if (hasBorderLayer) {
+    mapAdapter.removeLayer(borderLayerId);
   }
-  if (map.getLayer(layerId)) {
-    map.removeLayer(layerId);
+  if (hasLayer) {
+    mapAdapter.removeLayer(layerId);
   }
-  if (map.getSource(sourceId)) {
-    map.removeSource(sourceId);
+  if (mapAdapter.getSource(sourceId)) {
+    mapAdapter.removeSource(sourceId);
   }
 }

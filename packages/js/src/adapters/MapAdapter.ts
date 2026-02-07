@@ -143,4 +143,9 @@ export class MapAdapter implements IMapAdapter {
     this.map.setPaintProperty(layer, name, value);
     return this;
   }
+
+  setLayoutProperty(layer: string, name: string, value: unknown): this {
+    this.map.setLayoutProperty(layer, name, value);
+    return this;
+  }
 }

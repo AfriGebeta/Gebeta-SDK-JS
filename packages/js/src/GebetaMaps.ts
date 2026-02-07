@@ -52,9 +52,18 @@ export class GebetaMaps {
       this.platform.markerFactory,
       this.apiKey
     );
-    this.fenceManager = new FenceManager(this.map);
+    this.fenceManager = new FenceManager(
+      this.platform.mapAdapter,
+      this.platform.markerFactory,
+      this.platform.popupFactory
+    );
     if (this.clusteringOptions?.enabled) {
-      this.clusteringManager = new ClusteringManager(this.map, this.clusteringOptions);
+      this.clusteringManager = new ClusteringManager(
+        this.platform.mapAdapter,
+        this.platform.markerFactory,
+        this.platform.popupFactory,
+        this.clusteringOptions
+      );
     }
   }
 
