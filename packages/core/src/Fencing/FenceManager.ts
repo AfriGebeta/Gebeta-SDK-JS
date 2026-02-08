@@ -14,8 +14,11 @@ import { calculateCentroid, normalizeLngLat, closePolygon, isPointNear } from '.
 type LngLat = API.Common.Types.LngLat;
 type LngLatLike = API.Common.Types.LngLatLike;
 
-interface FenceEvents extends Record<string, (...args: any[]) => any> {
+type EventHandler = (...args: never[]) => void;
+
+interface FenceEvents {
   fenceCompleted: (event: API.Fencing.Events.CompletedEvent) => void;
+  [key: string]: EventHandler;
 }
 
 /**

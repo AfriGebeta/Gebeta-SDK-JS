@@ -3,6 +3,7 @@ import type { Map as MapLibreMap } from 'maplibre-gl';
 import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
+import { NavController } from './Navigation/NavController';
 import { GeocodingManager } from '@gebeta/maps-core';
 import { API, ValidationError, PlatformError } from '@gebeta/maps-api';
 import { createPlatform, type PlatformContext } from './adapters/createPlatform';
@@ -14,6 +15,7 @@ export class GebetaMaps {
   private directionsManager: DirectionsManager | null = null;
   private clusteringManager: ClusteringManager | null = null;
   private fenceManager: FenceManager | null = null;
+  private navController: NavController | null = null;
   private _geocodingManager: GeocodingManager | null = null;
 
   get geocodingManager(): GeocodingManager {
@@ -65,6 +67,11 @@ export class GebetaMaps {
         this.clusteringOptions
       );
     }
+    this.navController = new NavController(
+      this.apiKey,
+      this.platform.mapAdapter,
+      this.platform.markerFactory
+    );
   }
 
   init(options: API.Map.Types.InitOptions): MapLibreMap {
@@ -213,5 +220,16 @@ export class GebetaMaps {
 
   getMap(): MapLibreMap | null {
     return this.map;
+  }
+
+  get navigation(): NavController {
+    if (!this.navController) {
+      throw new PlatformError(
+        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
+        'Navigation controller not initialized. Call init() first and wait for map to load.',
+        { method: 'navigation' }
+      );
+    }
+    return this.navController;
   }
 }

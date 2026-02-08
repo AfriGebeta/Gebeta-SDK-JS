@@ -2,7 +2,9 @@
  * Simple event emitter for core managers.
  * Platform-agnostic: pure event handling logic, no DOM dependencies.
  */
-export class EventEmitter<T extends Record<string, (...args: any[]) => any>> {
+type EventMapConstraint = { [key: string]: (...args: never[]) => void };
+
+export class EventEmitter<T extends EventMapConstraint> {
   private readonly listeners: Map<keyof T, Set<T[keyof T]>> = new Map();
 
   /**

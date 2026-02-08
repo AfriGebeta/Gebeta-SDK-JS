@@ -27,7 +27,7 @@ export interface NormalizedFenceStyle {
 export interface FenceDrawingState {
   points: API.Common.Types.LngLatLike[];
   name?: string;
-  overlayContent?: any;
+  overlayContent?: string | HTMLElement;
   overlayOptions?: API.Overlay.Types.Options;
   persistent: boolean;
   style: NormalizedFenceStyle;

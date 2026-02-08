@@ -62,12 +62,24 @@ export class MapAdapter implements IMapAdapter {
   }
 
   easeTo(options: EaseToOptions): this {
-    const easeOptions: { center: [number, number]; zoom: number; duration?: number } = {
+    const easeOptions: {
+      center: [number, number];
+      zoom: number;
+      duration?: number;
+      pitch?: number;
+      bearing?: number;
+    } = {
       center: options.center,
       zoom: options.zoom,
     };
     if (options.duration !== undefined) {
       easeOptions.duration = options.duration;
+    }
+    if (options.pitch !== undefined) {
+      easeOptions.pitch = options.pitch;
+    }
+    if (options.bearing !== undefined) {
+      easeOptions.bearing = options.bearing;
     }
     this.map.easeTo(easeOptions);
     return this;

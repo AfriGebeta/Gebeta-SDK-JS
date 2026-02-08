@@ -58,6 +58,8 @@ export interface EaseToOptions {
   center: [number, number];
   zoom: number;
   duration?: number;
+  pitch?: number;
+  bearing?: number;
 }
 
 export interface IMapAdapter {
