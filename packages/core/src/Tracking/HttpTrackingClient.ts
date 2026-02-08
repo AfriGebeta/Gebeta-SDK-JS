@@ -26,7 +26,8 @@ interface HttpTrackingEventMap {
 export class HttpTrackingClient extends EventEmitter<HttpTrackingEventMap> {
   private locationProvider: ILocationProvider | null = null;
   private sendInterval: ReturnType<typeof setInterval> | null = null;
-  private readonly options: Required<Pick<HttpTrackingClientOptions, 'userId' | 'role'>> & Pick<HttpTrackingClientOptions, 'bearerToken' | 'locationProvider'>;
+  private readonly options: Required<Pick<HttpTrackingClientOptions, 'userId' | 'role'>> &
+    Pick<HttpTrackingClientOptions, 'bearerToken' | 'locationProvider'>;
   private readonly httpUrl: string;
   private isStopped = false;
 
@@ -37,7 +38,7 @@ export class HttpTrackingClient extends EventEmitter<HttpTrackingEventMap> {
    */
   constructor(options: HttpTrackingClientOptions) {
     super();
-    
+
     if (!options.userId) {
       throw new ValidationError('User ID is required for HttpTrackingClient', 'userId');
     }

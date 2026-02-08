@@ -27,9 +27,7 @@ export function calculateBearing(from: LngLatLike, to: LngLatLike): number {
   const dLng = ((toPoint.lng - fromPoint.lng) * Math.PI) / 180;
 
   const y = Math.sin(dLng) * Math.cos(lat2);
-  const x =
-    Math.cos(lat1) * Math.sin(lat2) -
-    Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
 
   const bearing = (Math.atan2(y, x) * 180) / Math.PI;
   return (bearing + 360) % 360;
@@ -58,10 +56,7 @@ export function interpolate(point1: LngLatLike, point2: LngLatLike, t: number): 
  * @param line - Array of coordinates forming the line
  * @returns Nearest point result with distance and position along line
  */
-export function nearestPointOnLine(
-  point: LngLatLike,
-  line: LngLatLike[]
-): NearestPointResult {
+export function nearestPointOnLine(point: LngLatLike, line: LngLatLike[]): NearestPointResult {
   const targetPoint = normalizeLngLat(point);
   let minDistance = Infinity;
   let nearestPoint: LngLat = targetPoint;
@@ -99,7 +94,10 @@ export function nearestPointOnLine(
     const segmentLength = calculateDistance(segmentStart, segmentEnd);
     if (segmentLength === 0) continue;
 
-    const t = Math.max(0, Math.min(1, projectPointOnSegment(targetPoint, segmentStart, segmentEnd)));
+    const t = Math.max(
+      0,
+      Math.min(1, projectPointOnSegment(targetPoint, segmentStart, segmentEnd))
+    );
     const projectedPoint = interpolate(segmentStart, segmentEnd, t);
     const distance = calculateDistance(targetPoint, projectedPoint);
 
@@ -130,11 +128,7 @@ export function nearestPointOnLine(
  * @param segmentEnd - End of line segment
  * @returns Parameter t (0-1) indicating position along segment
  */
-function projectPointOnSegment(
-  point: LngLat,
-  segmentStart: LngLat,
-  segmentEnd: LngLat
-): number {
+function projectPointOnSegment(point: LngLat, segmentStart: LngLat, segmentEnd: LngLat): number {
   const dx = segmentEnd.lng - segmentStart.lng;
   const dy = segmentEnd.lat - segmentStart.lat;
   const d2 = dx * dx + dy * dy;

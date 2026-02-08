@@ -50,7 +50,7 @@ describe('TrackingClient Integration Tests', () => {
   });
 
   describe('WebSocket connection', () => {
-    test('should connect to WebSocket server', (done) => {
+    test('should connect to WebSocket server', done => {
       // GIVEN a TrackingClient instance with connect and error listeners
       client.on('connect', () => {
         // THEN it should connect and be active
@@ -58,7 +58,7 @@ describe('TrackingClient Integration Tests', () => {
         done();
       });
 
-      client.on('error', (error) => {
+      client.on('error', error => {
         console.warn('Tracking connection error (may be expected in test environment):', error);
       });
 
@@ -66,7 +66,7 @@ describe('TrackingClient Integration Tests', () => {
       client.start(locationProvider);
     }, 10000);
 
-    test('should send location updates', (done) => {
+    test('should send location updates', done => {
       // GIVEN a TrackingClient instance with connect and location listeners
       let connectReceived = false;
       let locationReceived = false;
@@ -89,7 +89,7 @@ describe('TrackingClient Integration Tests', () => {
   });
 
   describe('reconnection', () => {
-    test('should attempt to reconnect on disconnect', (done) => {
+    test('should attempt to reconnect on disconnect', done => {
       // GIVEN a TrackingClient instance with a connect listener
       let connectCount = 0;
 

@@ -9,7 +9,7 @@ describe('TrackingClient', () => {
   beforeEach(() => {
     locationCallback = null;
     mockLocationProvider = {
-      start: jest.fn((callback) => {
+      start: jest.fn(callback => {
         locationCallback = callback;
       }),
       stop: jest.fn(),
@@ -147,7 +147,7 @@ describe('TrackingClient', () => {
   });
 
   describe('events', () => {
-    test('should emit connect event when WebSocket opens', (done) => {
+    test('should emit connect event when WebSocket opens', done => {
       // GIVEN a TrackingClient instance with a connect listener
       const client = new TrackingClient({
         userId: 'test-user',
@@ -160,12 +160,12 @@ describe('TrackingClient', () => {
       client.start(mockLocationProvider);
     });
 
-    test('should emit location event when location provider sends update', (done) => {
+    test('should emit location event when location provider sends update', done => {
       // GIVEN a TrackingClient instance with a location listener
       const client = new TrackingClient({
         userId: 'test-user',
       });
-      client.on('location', (location) => {
+      client.on('location', location => {
         // THEN it should emit the location event with valid location data
         expect(location).toHaveProperty('lat');
         expect(location).toHaveProperty('lng');

@@ -1,9 +1,4 @@
-import {
-  API,
-  TrackingError,
-  createTrackingError,
-  ValidationError,
-} from '@gebeta/maps-api';
+import { API, TrackingError, createTrackingError, ValidationError } from '@gebeta/maps-api';
 
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
@@ -32,7 +27,13 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
   private sendInterval: ReturnType<typeof setInterval> | null = null;
   private reconnectTimeout: ReturnType<typeof setTimeout> | null = null;
   private reconnectAttempts = 0;
-  private readonly options: Required<Pick<TrackingClientOptions, 'userId' | 'role' | 'sendIntervalMs' | 'autoReconnect' | 'maxReconnectDelayMs'>> & Pick<TrackingClientOptions, 'bearerToken' | 'locationProvider'>;
+  private readonly options: Required<
+    Pick<
+      TrackingClientOptions,
+      'userId' | 'role' | 'sendIntervalMs' | 'autoReconnect' | 'maxReconnectDelayMs'
+    >
+  > &
+    Pick<TrackingClientOptions, 'bearerToken' | 'locationProvider'>;
   private readonly wsUrl: string;
   private isConnected = false;
   private isStopped = false;
@@ -44,7 +45,7 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
    */
   constructor(options: TrackingClientOptions) {
     super();
-    
+
     if (!options.userId) {
       throw new ValidationError('User ID is required for TrackingClient', 'userId');
     }
@@ -124,7 +125,7 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
         }
       };
 
-      this.ws.onerror = (error) => {
+      this.ws.onerror = error => {
         const trackingError = createTrackingError(
           API.Errors.Codes.NETWORK_FAILED,
           'WebSocket connection error',
@@ -133,7 +134,7 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
         this.emit('error', trackingError);
       };
 
-      this.ws.onmessage = (event) => {
+      this.ws.onmessage = event => {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'error') {

@@ -8,7 +8,15 @@ import { GebetaMaps } from './GebetaMaps';
 import { injectMapLibreStyles } from './injectMapLibreStyles';
 import { BrowserLocationProvider } from './adapters/LocationProvider';
 
-export { GeocodingManager, DirectionsManager, ClusteringManager, FenceManager, NavController, GebetaMaps, BrowserLocationProvider };
+export {
+  GeocodingManager,
+  DirectionsManager,
+  ClusteringManager,
+  FenceManager,
+  NavController,
+  GebetaMaps,
+  BrowserLocationProvider,
+};
 
 if (typeof window !== 'undefined') {
   injectMapLibreStyles();

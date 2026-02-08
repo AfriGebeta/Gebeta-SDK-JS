@@ -59,7 +59,11 @@ describe('NavController', () => {
       // WHEN starting navigation with invalid route
       // THEN it should throw a ValidationError
       expect(() => {
-        controller.start({} as unknown as API.Routing.Types.RouteData, { userId: 'test' }, mockLocationProvider);
+        controller.start(
+          {} as unknown as API.Routing.Types.RouteData,
+          { userId: 'test' },
+          mockLocationProvider
+        );
       }).toThrow(ValidationError);
     });
 
@@ -69,7 +73,11 @@ describe('NavController', () => {
       // WHEN starting navigation without userId
       // THEN it should throw a ValidationError
       expect(() => {
-        controller.start(mockRoute, {} as unknown as API.Navigation.Types.StartOptions, mockLocationProvider);
+        controller.start(
+          mockRoute,
+          {} as unknown as API.Navigation.Types.StartOptions,
+          mockLocationProvider
+        );
       }).toThrow(ValidationError);
     });
 
@@ -83,10 +91,10 @@ describe('NavController', () => {
       expect(controller.isNavigating()).toBe(true);
     });
 
-    test('should emit start event', (done) => {
+    test('should emit start event', done => {
       // GIVEN a NavController instance with a start event listener
       const controller = new NavController('test-api-key');
-      controller.on('start', (event) => {
+      controller.on('start', event => {
         // THEN it should emit the start event with the route
         expect(event.route).toEqual(mockRoute);
         done();
@@ -108,7 +116,7 @@ describe('NavController', () => {
       expect(controller.isNavigating()).toBe(false);
     });
 
-    test('should emit stop event', (done) => {
+    test('should emit stop event', done => {
       // GIVEN a NavController instance that is navigating with a stop listener
       const controller = new NavController('test-api-key');
       controller.start(mockRoute, { userId: 'test-user' }, mockLocationProvider);

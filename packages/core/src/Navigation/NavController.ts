@@ -1,9 +1,4 @@
-import {
-  API,
-  NavigationError,
-  createNavigationError,
-  ValidationError,
-} from '@gebeta/maps-api';
+import { API, NavigationError, createNavigationError, ValidationError } from '@gebeta/maps-api';
 import { EventEmitter } from '../utils/EventEmitter';
 import { TrackingClient } from '../Tracking/TrackingClient';
 import { HttpTrackingClient } from '../Tracking/HttpTrackingClient';
@@ -20,7 +15,7 @@ type NavigationControllerOptions = API.Navigation.Types.ControllerOptions;
 type NavigationStartOptions = API.Navigation.Types.StartOptions;
 type LocationData = API.Platform.Types.LocationData;
 type ILocationProvider = API.Platform.Types.ILocationProvider;
-type Precision = typeof API.Tracking.Enums.Precision[keyof typeof API.Tracking.Enums.Precision];
+type Precision = (typeof API.Tracking.Enums.Precision)[keyof typeof API.Tracking.Enums.Precision];
 type Role = API.Tracking.Types.Role;
 
 type EventHandler = (...args: never[]) => void;
@@ -46,7 +41,13 @@ export class NavController extends EventEmitter<NavigationEventMap> {
   private trackingClient: TrackingClient | HttpTrackingClient | null = null;
   private currentStepIndex = 0;
   private isActive = false;
-  private readonly options: Required<Pick<NavigationControllerOptions, 'offRouteThresholdMeters' | 'arriveThresholdMeters' | 'autoReroute'>> & Pick<NavigationControllerOptions, 'rerouteFn'>;
+  private readonly options: Required<
+    Pick<
+      NavigationControllerOptions,
+      'offRouteThresholdMeters' | 'arriveThresholdMeters' | 'autoReroute'
+    >
+  > &
+    Pick<NavigationControllerOptions, 'rerouteFn'>;
   private routeCoordinates: [number, number][] = [];
   private totalRouteDistance = 0;
   private stepDistances: number[] = [];
@@ -61,10 +62,7 @@ export class NavController extends EventEmitter<NavigationEventMap> {
    * @param apiKey - API key for tracking and rerouting
    * @param options - Configuration options for navigation behavior
    */
-  constructor(
-    apiKey: string,
-    options: NavigationControllerOptions = {}
-  ) {
+  constructor(apiKey: string, options: NavigationControllerOptions = {}) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;
@@ -249,10 +247,7 @@ export class NavController extends EventEmitter<NavigationEventMap> {
    * @returns Distance in meters
    * @private
    */
-  private calculateSegmentDistance(
-    coord1: [number, number],
-    coord2: [number, number]
-  ): number {
+  private calculateSegmentDistance(coord1: [number, number], coord2: [number, number]): number {
     const R = 6371000;
     const lat1 = (coord1[1] * Math.PI) / 180;
     const lat2 = (coord2[1] * Math.PI) / 180;
@@ -286,11 +281,7 @@ export class NavController extends EventEmitter<NavigationEventMap> {
       this.totalRouteDistance
     );
 
-    const newStepIndex = findStepIndex(
-      locationPoint,
-      this.routeCoordinates,
-      this.stepDistances
-    );
+    const newStepIndex = findStepIndex(locationPoint, this.routeCoordinates, this.stepDistances);
 
     if (newStepIndex !== this.currentStepIndex && this.route.instructions) {
       const previousStep = this.route.instructions[this.currentStepIndex];

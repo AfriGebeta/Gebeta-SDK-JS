@@ -77,9 +77,7 @@ export class NavController {
    * @returns Wrapped location provider
    * @private
    */
-  private createWrappedLocationProvider(
-    locationProvider: ILocationProvider
-  ): ILocationProvider {
+  private createWrappedLocationProvider(locationProvider: ILocationProvider): ILocationProvider {
     return {
       start: (onLocation: (location: API.Platform.Types.LocationData) => void) => {
         locationProvider.start((location: API.Platform.Types.LocationData) => {
@@ -211,15 +209,16 @@ export class NavController {
    * @returns Bearing in degrees
    * @private
    */
-  private calculateBearing(from: { lng: number; lat: number }, to: { lng: number; lat: number }): number {
+  private calculateBearing(
+    from: { lng: number; lat: number },
+    to: { lng: number; lat: number }
+  ): number {
     const lat1 = (from.lat * Math.PI) / 180;
     const lat2 = (to.lat * Math.PI) / 180;
     const dLng = ((to.lng - from.lng) * Math.PI) / 180;
 
     const y = Math.sin(dLng) * Math.cos(lat2);
-    const x =
-      Math.cos(lat1) * Math.sin(lat2) -
-      Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+    const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
 
     const bearing = (Math.atan2(y, x) * 180) / Math.PI;
     return (bearing + 360) % 360;
@@ -249,11 +248,17 @@ export class NavController {
     return this.core.isNavigating();
   }
 
-  on<K extends keyof CoreNavController>(event: K, callback: Parameters<CoreNavController['on']>[1]): void {
+  on<K extends keyof CoreNavController>(
+    event: K,
+    callback: Parameters<CoreNavController['on']>[1]
+  ): void {
     this.core.on(event, callback as never);
   }
 
-  off<K extends keyof CoreNavController>(event: K, callback: Parameters<CoreNavController['off']>[1]): void {
+  off<K extends keyof CoreNavController>(
+    event: K,
+    callback: Parameters<CoreNavController['off']>[1]
+  ): void {
     this.core.off(event, callback as never);
   }
 }
