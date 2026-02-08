@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, develop]
 
+concurrency:
+  group: main-ci
+  cancel-in-progress: false
+
 jobs:
   assets:
     name: Assets Package

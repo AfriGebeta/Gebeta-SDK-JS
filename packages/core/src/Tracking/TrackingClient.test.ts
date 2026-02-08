@@ -81,6 +81,7 @@ describe('TrackingClient', () => {
       client.start(mockLocationProvider);
       // THEN it should start the location provider
       expect(mockLocationProvider.start).toHaveBeenCalled();
+      client.stop();
     });
 
     test('should not start if already started', () => {
@@ -94,6 +95,7 @@ describe('TrackingClient', () => {
       client.start(mockLocationProvider);
       // THEN it should not call start again
       expect(mockLocationProvider.start).toHaveBeenCalledTimes(firstCallCount);
+      client.stop();
     });
   });
 
@@ -132,7 +134,7 @@ describe('TrackingClient', () => {
       expect(client.isActive()).toBe(false);
     });
 
-    test('should return true when active', () => {
+    test('should return true when active', done => {
       // GIVEN a TrackingClient instance that is started
       const client = new TrackingClient({
         userId: 'test-user',
@@ -142,6 +144,8 @@ describe('TrackingClient', () => {
       setTimeout(() => {
         // THEN it should return true
         expect(client.isActive()).toBe(true);
+        client.stop();
+        done();
       }, 100);
     });
   });
@@ -154,6 +158,7 @@ describe('TrackingClient', () => {
       });
       client.on('connect', () => {
         // THEN it should emit the connect event
+        client.stop();
         done();
       });
       // WHEN starting the client
@@ -169,6 +174,7 @@ describe('TrackingClient', () => {
         // THEN it should emit the location event with valid location data
         expect(location).toHaveProperty('lat');
         expect(location).toHaveProperty('lng');
+        client.stop();
         done();
       });
       client.start(mockLocationProvider);

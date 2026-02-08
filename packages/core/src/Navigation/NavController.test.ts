@@ -34,6 +34,25 @@ describe('NavController', () => {
       start: jest.fn(),
       stop: jest.fn(),
     };
+
+    global.WebSocket = jest.fn().mockImplementation(() => {
+      const ws = {
+        onopen: null as ((event: Event) => void) | null,
+        onclose: null as ((event: CloseEvent) => void) | null,
+        onerror: null as ((event: Event) => void) | null,
+        onmessage: null as ((event: MessageEvent) => void) | null,
+        readyState: 0 as number,
+        send: jest.fn(),
+        close: jest.fn(),
+      };
+      setTimeout(() => {
+        (ws as { readyState: number }).readyState = 1;
+        if (ws.onopen) {
+          ws.onopen(new Event('open'));
+        }
+      }, 0);
+      return ws as unknown as WebSocket;
+    }) as unknown as typeof WebSocket;
   });
 
   afterEach(() => {
@@ -89,6 +108,7 @@ describe('NavController', () => {
       // THEN it should start the location provider and be navigating
       expect(mockLocationProvider.start).toHaveBeenCalled();
       expect(controller.isNavigating()).toBe(true);
+      controller.stop();
     });
 
     test('should emit start event', done => {
@@ -97,6 +117,7 @@ describe('NavController', () => {
       controller.on('start', event => {
         // THEN it should emit the start event with the route
         expect(event.route).toEqual(mockRoute);
+        controller.stop();
         done();
       });
       // WHEN starting navigation
@@ -137,6 +158,7 @@ describe('NavController', () => {
       // WHEN getting the current route
       // THEN it should return the route
       expect(controller.getCurrentRoute()).toEqual(mockRoute);
+      controller.stop();
     });
 
     test('should return null when not navigating', () => {
@@ -156,6 +178,7 @@ describe('NavController', () => {
       // WHEN getting the current step index
       // THEN it should return a valid step index
       expect(controller.getCurrentStepIndex()).toBeGreaterThanOrEqual(0);
+      controller.stop();
     });
   });
 });

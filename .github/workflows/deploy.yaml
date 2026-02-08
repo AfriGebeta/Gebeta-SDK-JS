@@ -2,6 +2,10 @@
 # Only GitHub usernames in repo variable DEPLOY_ALLOWED_ACTORS can complete a deploy (Settings > Secrets and variables > Actions > Variables). Space-separated list.
 name: Deploy
 
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
 on:
   workflow_dispatch:
     inputs:
