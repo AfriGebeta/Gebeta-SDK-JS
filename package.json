@@ -4,7 +4,8 @@
   "private": true,
   "description": "Gebeta Maps SDK monorepo for JavaScript, React, and React Native",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
     "build": "bash scripts/run-workspaces.sh build",
