@@ -1,0 +1,51 @@
+name: React Package CI
+
+on:
+  workflow_call:
+
+jobs:
+  lint-build:
+    name: Lint, Format, Build React
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run ESLint on React package
+        run: yarn workspace @gebeta/maps-react lint
+
+      - name: Check Prettier formatting on React package
+        run: yarn workspace @gebeta/maps-react format:check
+
+      - name: Build API and Core packages
+        run: yarn workspace @gebeta/maps-api build && yarn workspace @gebeta/maps-core build
+
+      - name: Type check React package
+        run: yarn workspace @gebeta/maps-react typecheck
+
+      - name: Build React package
+        run: yarn workspace @gebeta/maps-react build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f "packages/react/dist/index.js" ]; then
+            echo "Build failed: index.js not found"
+            exit 1
+          fi
+          if [ ! -f "packages/react/dist/index.d.ts" ]; then
+            echo "Build failed: index.d.ts not found"
+            exit 1
+          fi
+          echo "Build output verified successfully"

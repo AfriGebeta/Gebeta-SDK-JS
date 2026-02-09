@@ -28,7 +28,13 @@ jobs:
     needs: [assets, api]
 
   js:
-    name: JS Package
+    name: Platforms / JS
     uses: ./.github/workflows/js.yaml
+    secrets: inherit
+    needs: [api, core]
+
+  react:
+    name: Platforms / React
+    uses: ./.github/workflows/react.yaml
     secrets: inherit
     needs: [api, core]

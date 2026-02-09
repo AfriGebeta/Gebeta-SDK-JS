@@ -3,6 +3,7 @@ import { API, ValidationError } from '@gebeta/maps-api';
 import { createClusterMarker, createIndividualMarker } from './markers';
 
 type MarkerData = API.Overlay.Types.MarkerData;
+type ClusterData = API.Overlay.Types.ClusterData;
 type ClusteringOptions = API.Clustering.Types.Options;
 type IMapAdapter = API.Platform.Types.IMapAdapter;
 type IMarkerFactory = API.Platform.Types.IMarkerFactory;
@@ -116,14 +117,14 @@ export class ClusteringManager {
     this.clearRenderedElements();
     const options = this.core.getOptions();
 
-    clusters.forEach(cluster => {
+    clusters.forEach((cluster: ClusterData) => {
       if (cluster.properties.cluster) {
         const marker = createClusterMarker(this.mapAdapter, this.markerFactory, cluster, {
           clusterImage: options.clusterImage,
           showClusterCount: options.showClusterCount,
           clusterOnClick:
             options.clusterOnClick ??
-            (c => {
+            ((c: ClusterData) => {
               const expansionZoom = this.core.getClusterExpansionZoom(c.id);
               this.mapAdapter.easeTo({
                 center: c.geometry.coordinates,

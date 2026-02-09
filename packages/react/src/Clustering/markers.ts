@@ -78,7 +78,7 @@ export function createClusterMarker(
   const marker = markerFactory.createMarker({
     element: el,
     onClick: options.clusterOnClick
-      ? (_point, _marker, event: MouseEvent) => {
+      ? (_point: API.Common.Types.LngLatLike, _marker: IMarker, event: MouseEvent) => {
           event.stopPropagation();
           options.clusterOnClick!(cluster, event);
         }
