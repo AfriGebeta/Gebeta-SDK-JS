@@ -277,7 +277,7 @@
       if (typeof BrowserLocationProvider === 'undefined') {
         throw new Error('BrowserLocationProvider is not available. Make sure gebeta-maps.umd.js is loaded.');
       }
-      locationProvider = new BrowserLocationProvider();
+      locationProvider = BrowserLocationProvider.getInstance({ enableHighAccuracy: false });
 
       gebetaMap.navigation.start(
         routeData,

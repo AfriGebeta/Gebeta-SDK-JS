@@ -1,23 +1,24 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { NavController } from './NavController';
 import { NavController as CoreNavController } from '@gebeta/maps-core';
-import { API } from '@gebeta/maps-api';
+import { API, ValidationError } from '@gebeta/maps-api';
 import { Map as MapLibreMap } from 'maplibre-gl';
-import { MapAdapter } from '../adapters/MapAdapter';
-import { MarkerFactory } from '../adapters/MarkerFactory';
+import { MapAdapter, MarkerFactory } from '../adapters';
 
-//mock the core
+type RouteData = API.Routing.Types.RouteData;
+type NavigationStartOptions = API.Navigation.Types.StartOptions;
+
+const mockCoreInstance = {
+  start: jest.fn(),
+  stop: jest.fn(),
+  getCurrentRoute: jest.fn(),
+  getCurrentStepIndex: jest.fn(() => 0),
+  isNavigating: jest.fn(() => false),
+  on: jest.fn(),
+  off: jest.fn(),
+};
+
 jest.mock('@gebeta/maps-core', () => ({
-  NavController: jest.fn().mockImplementation(() => ({
-    start: jest.fn(),
-    stop: jest.fn(),
-    getCurrentRoute: jest.fn(),
-    getCurrentStepIndex: jest.fn(() => 0),
-    isNavigating: jest.fn(() => false),
-    on: jest.fn(),
-    off: jest.fn(),
-  })),
+  NavController: jest.fn().mockImplementation(() => mockCoreInstance),
 }));
 
 describe('NavController (platform layer)', () => {
@@ -27,189 +28,250 @@ describe('NavController (platform layer)', () => {
   let navController: NavController;
   const apiKey = 'test-api-key';
 
+  const mockRoute: RouteData = {
+    geometry: {
+      type: 'LineString',
+      coordinates: [
+        [38.7685, 9.0161],
+        [38.7686, 9.0162],
+      ],
+    },
+    origin: { lng: 38.7685, lat: 9.0161 },
+    destination: { lng: 38.7686, lat: 9.0162 },
+    summary: { distance: 100, time: 60 },
+    instructions: [],
+  };
+
+  const mockStartOptions: NavigationStartOptions = {
+    userId: 'test-user',
+    role: 'driver',
+    precision: API.Tracking.Enums.Precision.HIGH,
+  };
+
+  const mockLocationProvider: API.Platform.Types.ILocationProvider = {
+    start: jest.fn(),
+    stop: jest.fn(),
+  };
+
   beforeEach(() => {
-    mockMap = new MapLibreMap({ container: 'map', style: 'test' });
+    mockMap = new MapLibreMap({ container: 'map', style: 'test' } as never);
     mapAdapter = new MapAdapter(mockMap);
     markerFactory = new MarkerFactory(mockMap);
-    
+
     jest.clearAllMocks();
-    
+    mockCoreInstance.getCurrentStepIndex.mockReturnValue(0);
+    mockCoreInstance.isNavigating.mockReturnValue(false);
+
     navController = new NavController(apiKey, mapAdapter, markerFactory);
   });
 
   describe('constructor', () => {
     it('should create NavController with required parameters', () => {
-      expect(navController).toBeDefined();
+      // GIVEN valid apiKey, mapAdapter, markerFactory
+      // WHEN NavController is constructed
+      const controller = new NavController(apiKey, mapAdapter, markerFactory);
+
+      // THEN controller is defined and CoreNavController was called with apiKey and empty options
+      expect(controller).toBeDefined();
       expect(CoreNavController).toHaveBeenCalledWith(apiKey, {});
     });
 
-    it('should create navcontroller with options', () => {
-      const options = {
+    it('should create NavController with options', () => {
+      // GIVEN options for offRouteThresholdMeters and arriveThresholdMeters
+      const options: API.Navigation.Types.ControllerOptions = {
         offRouteThresholdMeters: 50,
         arriveThresholdMeters: 20,
       };
-      
+
+      // WHEN NavController is constructed with options
       const controller = new NavController(apiKey, mapAdapter, markerFactory, options);
-      
+
+      // THEN controller is defined and CoreNavController was called with apiKey and options
       expect(controller).toBeDefined();
       expect(CoreNavController).toHaveBeenCalledWith(apiKey, options);
     });
 
-    it('should throw error if api key is missing', () => {
-      expect(() => {
-        new NavController('', mapAdapter, markerFactory);
-      }).toThrow('api key is required');
+    it('should throw ValidationError if apiKey is missing', () => {
+      // GIVEN empty apiKey
+      // WHEN NavController is constructed with empty apiKey
+      // THEN ValidationError is thrown with correct message
+      expect(() => new NavController('', mapAdapter, markerFactory)).toThrow(ValidationError);
+      expect(() => new NavController('', mapAdapter, markerFactory)).toThrow(
+        'API key is required for NavController'
+      );
     });
 
-    it('should throw error if map adapter is missing', () => {
-      expect(() => {
-        new NavController(apiKey, null as any, markerFactory);
-      }).toThrow('map adapter is required');
+    it('should throw ValidationError if mapAdapter is missing', () => {
+      // GIVEN null mapAdapter
+      // WHEN NavController is constructed with null mapAdapter
+      // THEN ValidationError is thrown with correct message
+      expect(() =>
+        new NavController(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
+      ).toThrow(ValidationError);
+      expect(() =>
+        new NavController(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
+      ).toThrow('Map adapter is required for NavController');
     });
 
-    it('should throw error if marker factory is missing', () => {
-      expect(() => {
-        new NavController(apiKey, mapAdapter, null as any);
-      }).toThrow('marker factory is required');
+    it('should throw ValidationError if markerFactory is missing', () => {
+      // GIVEN null markerFactory
+      // WHEN NavController is constructed with null markerFactory
+      // THEN ValidationError is thrown with correct message
+      expect(() =>
+        new NavController(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
+      ).toThrow(ValidationError);
+      expect(() =>
+        new NavController(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
+      ).toThrow('Marker factory is required for NavController');
     });
   });
 
   describe('start', () => {
-    const mockRoute = {
-      geometry: {
-        type: 'LineString' as const,
-        coordinates: [
-          [38.7685, 9.0161],
-          [38.7686, 9.0162],
-        ] as [number, number][],
-      },
-      origin: { lng: 38.7685, lat: 9.0161 },
-      destination: { lng: 38.7686, lat: 9.0162 },
-      summary: { distance: 100, time: 60 },
-      instructions: [],
-    };
-
-    const mockStartOptions = {
-      userId: 'test-user',
-      role: 'driver' as const,
-      precision: API.Tracking.Enums.Precision.HIGH,
-    };
-
-    const mockLocationProvider = {
-      start: jest.fn(),
-      stop: jest.fn(),
-    };
-
-    it('should start navigation', () => {
+    it('should delegate to core.start with route, options, and wrapped location provider', () => {
+      // GIVEN route, startOptions, and locationProvider
+      // WHEN start is called
       navController.start(mockRoute, mockStartOptions, mockLocationProvider);
-      
-      expect(navController.isNavigating()).toBe(false); // Mock returns false
+
+      // THEN core.start was called with route, options, and wrapped provider (has start and stop)
+      expect(mockCoreInstance.start).toHaveBeenCalledTimes(1);
+      const [routeArg, optionsArg, wrappedProviderArg] = mockCoreInstance.start.mock.calls[0];
+      expect(routeArg).toBe(mockRoute);
+      expect(optionsArg).toBe(mockStartOptions);
+      expect(wrappedProviderArg).toHaveProperty('start');
+      expect(wrappedProviderArg).toHaveProperty('stop');
+      expect(typeof wrappedProviderArg.start).toBe('function');
+      expect(typeof wrappedProviderArg.stop).toBe('function');
     });
 
-    it('should create location marker on start', () => {
+    it('should create location marker with expected options on start', () => {
+      // GIVEN spy on markerFactory.createMarker
       const createMarkerSpy = jest.spyOn(markerFactory, 'createMarker');
-      
+
+      // WHEN start is called
       navController.start(mockRoute, mockStartOptions, mockLocationProvider);
-      
-      expect(createMarkerSpy).toHaveBeenCalled();
+
+      // THEN createMarker was called with className and size
+      expect(createMarkerSpy).toHaveBeenCalledWith({
+        className: 'gebeta-navigation-location-marker',
+        size: [20, 20],
+      });
     });
 
-    it('should wrap location provider', () => {
+    it('should invoke locationProvider.start when wrapped provider start is called', () => {
+      // GIVEN start was called to obtain wrapped provider
       navController.start(mockRoute, mockStartOptions, mockLocationProvider);
-      
-      // The core NavController should be called with a wrapped provider
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      expect(coreInstance.start).toHaveBeenCalled();
+      const wrappedProvider = mockCoreInstance.start.mock.calls[0][2];
+      const onLocationCallback = jest.fn<void, [API.Platform.Types.LocationData]>();
+
+      // WHEN wrapped provider start is called with a callback
+      wrappedProvider.start(onLocationCallback);
+
+      // THEN locationProvider.start was called and the passed callback forwards to onLocationCallback
+      expect(mockLocationProvider.start).toHaveBeenCalledTimes(1);
+      const innerCallback = (mockLocationProvider.start as jest.Mock).mock.calls[0][0] as (
+        loc: API.Platform.Types.LocationData
+      ) => void;
+      innerCallback({ lng: 38.77, lat: 9.02, timestamp: 123 });
+      expect(onLocationCallback).toHaveBeenCalledWith({ lng: 38.77, lat: 9.02, timestamp: 123 });
     });
   });
 
   describe('stop', () => {
-    it('should stop navigation', () => {
+    it('should delegate to core.stop', () => {
+      // GIVEN NavController
+      // WHEN stop is called
       navController.stop();
-      
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      expect(coreInstance.stop).toHaveBeenCalled();
+
+      // THEN core.stop was called
+      expect(mockCoreInstance.stop).toHaveBeenCalled();
     });
 
     it('should remove location marker on stop', () => {
-      const mockRoute = {
-        geometry: {
-          type: 'LineString' as const,
-          coordinates: [[38.7685, 9.0161]] as [number, number][],
-        },
-        origin: { lng: 38.7685, lat: 9.0161 },
-        destination: { lng: 38.7686, lat: 9.0162 },
-        summary: { distance: 100, time: 60 },
-        instructions: [],
-      };
+      // GIVEN createMarker returns a marker with spyable remove; start was called
+      const mockRemove = jest.fn();
+      jest.spyOn(markerFactory, 'createMarker').mockReturnValue({
+        setLngLat: jest.fn(),
+        addTo: jest.fn(),
+        remove: mockRemove,
+        getElement: jest.fn(),
+      } as unknown as API.Platform.Types.IMarker);
 
-      const mockLocationProvider = {
-        start: jest.fn(),
-        stop: jest.fn(),
-      };
+      navController.start(mockRoute, mockStartOptions, mockLocationProvider);
 
-      navController.start(mockRoute, { userId: 'test', role: 'driver', precision: API.Tracking.Enums.Precision.HIGH }, mockLocationProvider);
+      // WHEN stop is called
       navController.stop();
-      
-      //marker should be removed
-      expect(true).toBe(true);
+
+      // THEN marker remove was called
+      expect(mockRemove).toHaveBeenCalled();
     });
   });
 
   describe('getCurrentRoute', () => {
     it('should return current route from core', () => {
-      const mockRoute = { test: 'route' };
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      coreInstance.getCurrentRoute.mockReturnValue(mockRoute);
-      
+      // GIVEN core.getCurrentRoute returns a mock route
+      const mockRouteResult = { test: 'route' } as unknown as RouteData;
+      mockCoreInstance.getCurrentRoute.mockReturnValue(mockRouteResult);
+
+      // WHEN getCurrentRoute is called
       const result = navController.getCurrentRoute();
-      
-      expect(result).toBe(mockRoute);
-      expect(coreInstance.getCurrentRoute).toHaveBeenCalled();
+
+      // THEN result equals core return value and core was called
+      expect(result).toBe(mockRouteResult);
+      expect(mockCoreInstance.getCurrentRoute).toHaveBeenCalled();
     });
   });
 
   describe('getCurrentStepIndex', () => {
     it('should return current step index from core', () => {
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      coreInstance.getCurrentStepIndex.mockReturnValue(5);
-      
+      // GIVEN core.getCurrentStepIndex returns 5
+      mockCoreInstance.getCurrentStepIndex.mockReturnValue(5);
+
+      // WHEN getCurrentStepIndex is called
       const result = navController.getCurrentStepIndex();
-      
+
+      // THEN result is 5 and core was called
       expect(result).toBe(5);
-      expect(coreInstance.getCurrentStepIndex).toHaveBeenCalled();
+      expect(mockCoreInstance.getCurrentStepIndex).toHaveBeenCalled();
     });
   });
 
   describe('isNavigating', () => {
     it('should return navigation status from core', () => {
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      coreInstance.isNavigating.mockReturnValue(true);
-      
+      // GIVEN core.isNavigating returns true
+      mockCoreInstance.isNavigating.mockReturnValue(true);
+
+      // WHEN isNavigating is called
       const result = navController.isNavigating();
-      
+
+      // THEN result is true and core was called
       expect(result).toBe(true);
-      expect(coreInstance.isNavigating).toHaveBeenCalled();
+      expect(mockCoreInstance.isNavigating).toHaveBeenCalled();
     });
   });
 
   describe('event handling', () => {
-    it('should forward on() calls to core', () => {
-      const callback = jest.fn();
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      
-      navController.on('progress' as any, callback);
-      
-      expect(coreInstance.on).toHaveBeenCalledWith('progress', callback);
+    it('should forward on() to core with event and callback', () => {
+      // GIVEN event name and callback
+      const callback = jest.fn<void, [API.Navigation.Events.ProgressEvent]>();
+      const event = 'progress' as keyof InstanceType<typeof CoreNavController>;
+
+      // WHEN on is called
+      navController.on(event, callback);
+
+      // THEN core.on was called with event and callback
+      expect(mockCoreInstance.on).toHaveBeenCalledWith('progress', callback);
     });
 
-    it('should forward off() calls to core', () => {
-      const callback = jest.fn();
-      const coreInstance = (CoreNavController as jest.Mock).mock.results[0].value;
-      
-      navController.off('progress' as any, callback);
-      
-      expect(coreInstance.off).toHaveBeenCalledWith('progress', callback);
+    it('should forward off() to core with event and callback', () => {
+      // GIVEN event name and callback
+      const callback = jest.fn<void, [API.Navigation.Events.ProgressEvent]>();
+      const event = 'progress' as keyof InstanceType<typeof CoreNavController>;
+
+      // WHEN off is called
+      navController.off(event, callback);
+
+      // THEN core.off was called with event and callback
+      expect(mockCoreInstance.off).toHaveBeenCalledWith('progress', callback);
     });
   });
 });
