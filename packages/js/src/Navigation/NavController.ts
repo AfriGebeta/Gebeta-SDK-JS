@@ -127,7 +127,7 @@ export class NavController {
     }
 
     let initialPosition: { lng: number; lat: number };
-    if (route?.origin && route.origin.lng != null && route.origin.lat != null) {
+    if (route?.origin?.lng != null && route.origin.lat != null) {
       initialPosition = { lng: route.origin.lng, lat: route.origin.lat };
     } else if (route?.geometry?.coordinates && route.geometry.coordinates.length > 0) {
       const firstCoord = route.geometry.coordinates[0];

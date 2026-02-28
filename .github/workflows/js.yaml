@@ -4,8 +4,8 @@ on:
   workflow_call:
 
 jobs:
-  lint-build:
-    name: Lint, Format, Build JS
+  lint-build-test:
+    name: Lint, Format, Build, and Test JS
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,9 @@ jobs:
 
       - name: Type check JS package
         run: yarn workspace @gebeta/maps-js typecheck
+
+      - name: Run tests on JS package
+        run: yarn workspace @gebeta/maps-js test
 
       - name: Build JS package
         run: yarn workspace @gebeta/maps-js build

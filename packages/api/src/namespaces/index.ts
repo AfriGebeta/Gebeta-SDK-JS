@@ -109,6 +109,7 @@ export namespace API {
   }
 
   export namespace Platform {
+    export const Constants = PlatformModule.Platform.Constants;
     export namespace Types {
       export type IMarker = PlatformModule.Platform.Types.IMarker;
       export type IPopup = PlatformModule.Platform.Types.IPopup;
@@ -122,6 +123,7 @@ export namespace API {
       export type IMapAdapter = PlatformModule.Platform.Types.IMapAdapter;
       export type IPlatformDOM = PlatformModule.Platform.Types.IPlatformDOM;
       export type LocationData = PlatformModule.Platform.Types.LocationData;
+      export type LocationProviderOptions = PlatformModule.Platform.Types.LocationProviderOptions;
       export type ILocationProvider = PlatformModule.Platform.Types.ILocationProvider;
       export type IStyleInjector = PlatformModule.Platform.Types.IStyleInjector;
     }

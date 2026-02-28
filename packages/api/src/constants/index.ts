@@ -1,5 +1,6 @@
 import type { MapStyle } from '../types/common';
 import type { ClusteringOptions } from '../types/options';
+import type { LocationProviderOptions } from '../types/platform';
 
 export * from './colors';
 
@@ -88,6 +89,15 @@ export const DEFAULT_CLUSTERING_OPTIONS: Partial<ClusteringOptions> = {
   radius: 50,
   maxZoom: 16,
   showClusterCount: false,
+};
+
+/**
+ * Default location provider options for geolocation.
+ */
+export const DEFAULT_LOCATION_PROVIDER_OPTIONS: Required<LocationProviderOptions> = {
+  enableHighAccuracy: true,
+  timeout: 10000,
+  maximumAge: 0,
 };
 
 /**

@@ -274,7 +274,7 @@
         return;
       }
 
-      locationProvider = new BrowserLocationProvider();
+      locationProvider = BrowserLocationProvider.getInstance({ enableHighAccuracy: true });
 
       gebetaMap.navigation.start(
         routeData,

@@ -114,6 +114,12 @@ export interface LocationData {
   timestamp?: number;
 }
 
+export interface LocationProviderOptions {
+  enableHighAccuracy?: boolean;
+  timeout?: number;
+  maximumAge?: number;
+}
+
 export interface ILocationProvider {
   start(onLocation: (location: LocationData) => void): void;
   stop(): void;
