@@ -1,18 +1,13 @@
 import maplibre from 'maplibre-gl';
-import type { Map as MapLibreMap } from 'maplibre-gl';
+import type { Map as MapLibreMap, Popup as MapLibrePopup } from 'maplibre-gl';
 import type { API } from '@gebeta/maps-api';
-import type { Popup as MapLibrePopup } from 'maplibre-gl';
 
 type IPopup = API.Platform.Types.IPopup;
 type IPopupFactory = API.Platform.Types.IPopupFactory;
 type PopupFactoryOptions = API.Platform.Types.PopupFactoryOptions;
 
 class MapLibrePopupAdapter implements IPopup {
-  constructor(private popup: MapLibrePopup) {}
-
-  getMapLibrePopup(): MapLibrePopup {
-    return this.popup;
-  }
+  constructor(private readonly popup: MapLibrePopup) {}
 
   setHTML(html: string): this {
     this.popup.setHTML(html);
@@ -51,7 +46,7 @@ class MapLibrePopupAdapter implements IPopup {
 }
 
 export class PopupFactory implements IPopupFactory {
-  constructor(private map: MapLibreMap) {}
+  constructor(private readonly map: MapLibreMap) {}
 
   createPopup(options: PopupFactoryOptions): IPopup | null {
     if (!this.map) return null;

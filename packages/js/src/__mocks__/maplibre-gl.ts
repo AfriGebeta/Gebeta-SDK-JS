@@ -1,7 +1,4 @@
-//mocked maplibre gl for test
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export class Map {
   private handlers: Record<string, ((...args: any[]) => void)[]> = {};
   
@@ -73,52 +70,66 @@ export class Map {
 }
 
 export class Marker {
-  private lngLat: any;
-  
-  constructor(public options?: any) {}
-  
-  setLngLat(lngLat: any) {
+  private lngLat: unknown;
+  private _popup: unknown = null;
+
+  constructor(public options?: unknown) {}
+
+  setLngLat(lngLat: unknown) {
     this.lngLat = lngLat;
     return this;
   }
-  
-  addTo(_map: any) {
+
+  addTo(_map: unknown) {
     return this;
   }
-  
+
   remove() {
-    return this;
+    return;
   }
-  
+
   getLngLat() {
     return this.lngLat;
+  }
+
+  setPopup(popup: unknown) {
+    this._popup = popup;
+    return this;
   }
 }
 
 export class Popup {
-  constructor(public options?: any) {}
-  
-  setLngLat(_lngLat: any) {
+  constructor(public options?: Record<string, unknown>) {}
+
+  setLngLat(_lngLat: unknown) {
     return this;
   }
-  
+
   setHTML(_html: string) {
     return this;
   }
-  
-  addTo(_map: any) {
+
+  setDOMContent(_element: unknown) {
     return this;
   }
-  
-  remove() {
+
+  addTo(_map: unknown) {
     return this;
+  }
+
+  remove() {
+    return;
   }
 }
 
 export class NavigationControl {}
 
 export class LngLatBounds {
-  extend(_lngLat: any) {
+  extendedPoints: [number, number][] = [];
+
+  extend(lngLat: [number, number] | { lng: number; lat: number }) {
+    const coords: [number, number] = Array.isArray(lngLat) ? lngLat : [lngLat.lng, lngLat.lat];
+    this.extendedPoints.push(coords);
     return this;
   }
 }

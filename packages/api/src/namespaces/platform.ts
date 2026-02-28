@@ -1,4 +1,10 @@
+import { DEFAULT_LOCATION_PROVIDER_OPTIONS } from '../constants';
+
 export namespace Platform {
+  export const Constants = {
+    DEFAULT_LOCATION_PROVIDER_OPTIONS,
+  };
+
   export namespace Types {
     export type IMarker = import('../types/platform').IMarker;
     export type IPopup = import('../types/platform').IPopup;
@@ -12,6 +18,7 @@ export namespace Platform {
     export type IMapAdapter = import('../types/platform').IMapAdapter;
     export type IPlatformDOM = import('../types/platform').IPlatformDOM;
     export type LocationData = import('../types/platform').LocationData;
+    export type LocationProviderOptions = import('../types/platform').LocationProviderOptions;
     export type ILocationProvider = import('../types/platform').ILocationProvider;
     export type IStyleInjector = import('../types/platform').IStyleInjector;
   }

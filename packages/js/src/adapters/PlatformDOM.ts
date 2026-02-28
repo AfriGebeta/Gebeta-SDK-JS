@@ -3,6 +3,17 @@ import type { API } from '@gebeta/maps-api';
 type IPlatformDOM = API.Platform.Types.IPlatformDOM;
 
 export class PlatformDOM implements IPlatformDOM {
+  private static instance: PlatformDOM | null = null;
+
+  private constructor() {}
+
+  static getInstance(): PlatformDOM {
+    if (PlatformDOM.instance === null) {
+      PlatformDOM.instance = new PlatformDOM();
+    }
+    return PlatformDOM.instance;
+  }
+
   createElement(tagName: string): HTMLElement {
     return document.createElement(tagName);
   }
