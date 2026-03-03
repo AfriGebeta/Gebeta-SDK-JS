@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gebeta Maps SDK - Offline Tracking Simulation</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+      .control-panel {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-width: 340px;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+      .control-panel h3 {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        color: #333;
+      }
+      .control-panel button {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #f8f9fa;
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+      }
+      .control-panel button:hover {
+        background: #e9ecef;
+      }
+      .control-panel button.primary {
+        background: #007cbf;
+        color: white;
+        border-color: #007cbf;
+      }
+      .control-panel button.primary:hover {
+        background: #005a8b;
+      }
+      .control-panel button:disabled {
+        background: #e9ecef;
+        color: #999;
+        cursor: not-allowed;
+      }
+      .coords-box,
+      .status-box {
+        margin: 10px 0;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #333;
+      }
+      .nav-info {
+        margin-top: 10px;
+        padding: 10px;
+        background: #e8f4fd;
+        border-radius: 4px;
+        border-left: 4px solid #007cbf;
+        font-size: 12px;
+        color: #333;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin: 10px 0;
+      }
+      .metric {
+        background: #f8f9fa;
+        padding: 8px;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 11px;
+      }
+      .metric-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+      }
+      .log {
+        margin-top: 10px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        max-height: 120px;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 10px;
+      }
+      .log-entry {
+        padding: 2px 0;
+        margin-bottom: 2px;
+      }
+      .control-panel .hint {
+        font-size: 11px;
+        color: #666;
+        margin-top: 10px;
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+      .speed-control {
+        margin: 10px 0;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+      .speed-control label {
+        display: block;
+        font-size: 12px;
+        color: #333;
+        margin-bottom: 5px;
+      }
+      .speed-control input[type='range'] {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div class="control-panel">
+      <h3>Offline Tracking Simulation</h3>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 8px">
+        <button type="button" id="btnOrigin" onclick="setMode('origin')">Set Origin</button>
+        <button type="button" id="btnDest" onclick="setMode('destination')">Set Destination</button>
+      </div>
+
+      <div class="coords-box">
+        <div><strong>Origin:</strong> <span id="originCoords">Not set</span></div>
+        <div><strong>Destination:</strong> <span id="destCoords">Not set</span></div>
+      </div>
+
+      <button type="button" class="primary" id="btnGetRoute" onclick="getRoute()" disabled>
+        Get Route
+      </button>
+      <button type="button" class="primary" id="btnStartNav" onclick="startNavigation()" disabled>
+        Start Simulation
+      </button>
+      <button type="button" id="btnStopNav" onclick="stopNavigation()" disabled>
+        Stop Simulation
+      </button>
+
+      <div class="speed-control">
+        <label>Speed: <span id="speedValue">1x</span></label>
+        <input
+          type="range"
+          id="speedSlider"
+          min="0.5"
+          max="5"
+          step="0.5"
+          value="1"
+          oninput="updateSpeed(this.value)"
+        />
+      </div>
+
+      <div class="status-box">
+        <div><strong>Network:</strong> <span id="networkStatusText">Online</span></div>
+        <div><strong>Tracking:</strong> <span id="trackingStatusText">Inactive</span></div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div>Queue: <strong id="queueSize">0</strong></div>
+        </div>
+        <div class="metric">
+          <div>Queued: <strong id="requestsQueued">0</strong></div>
+        </div>
+        <div class="metric">
+          <div>Locations: <strong id="locationsSent">0</strong></div>
+        </div>
+        <div class="metric">
+          <div>Errors: <strong id="trackingErrors">0</strong></div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 5px; margin-bottom: 5px">
+        <button type="button" onclick="simulateOffline()">Go Offline</button>
+        <button type="button" onclick="simulateOnline()">Go Online</button>
+      </div>
+
+      <button type="button" onclick="clearLogs()">Clear Logs</button>
+      <button type="button" onclick="clearAll()">Clear All</button>
+
+      <div id="navInfo" class="nav-info" style="display: none">
+        <div id="navDetails"></div>
+      </div>
+
+      <div class="log" id="eventLog">
+        <div class="log-entry">Ready. Set origin and destination.</div>
+      </div>
+
+      <p class="hint">
+        Test offline tracking with simulated navigation. Use DevTools Network tab → Offline for real
+        testing.
+      </p>
+    </div>
+
+    <script src="../../packages/js/dist/gebeta-maps.umd.js"></script>
+    <script src="config.js"></script>
+    <script>
+      var gebetaMap;
+      var map;
+      var currentMode = null;
+      var originCoords = null;
+      var destCoords = null;
+      var originMarker = null;
+      var destMarker = null;
+      var routeData = null;
+      var isNavigating = false;
+      var simulatedLocationProvider = null;
+      var simulationSpeed = 1;
+      var metrics = {
+        locationsSent: 0,
+        requestsQueued: 0,
+        trackingErrors: 0,
+        queueSize: 0,
+      };
+      var ORIGIN_ICON = 'https://cdn-icons-png.flaticon.com/512/1828/1828640.png';
+      var DEST_ICON = 'https://cdn-icons-png.flaticon.com/512/3081/3081559.png';
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var config = loadConfig();
+        var apiKey = config.GEBETA_API_KEY;
+        if (!apiKey || apiKey === 'YOUR_API_KEY') {
+          log('set your api key', 'warning');
+        }
+
+        gebetaMap = new GebetaMaps({ apiKey: apiKey });
+        map = gebetaMap.init({
+          container: 'map',
+          center: [38.7685, 9.0161],
+          zoom: 12,
+          navigationControl: true,
+        });
+
+        map.on('click', function (e) {
+          var lngLat = e.lngLat;
+          var lat = lngLat.lat;
+          var lng = lngLat.lng;
+          if (currentMode === 'origin') {
+            if (originMarker) originMarker.remove();
+            originMarker = addPinMarker(lng, lat, ORIGIN_ICON);
+            originCoords = { lat: lat, lng: lng };
+            updateCoordsDisplay();
+            setMode(null);
+            document.getElementById('btnDest').focus();
+          } else if (currentMode === 'destination') {
+            if (destMarker) destMarker.remove();
+            destMarker = addPinMarker(lng, lat, DEST_ICON);
+            destCoords = { lat: lat, lng: lng };
+            updateCoordsDisplay();
+            setMode(null);
+          }
+        });
+
+        if (map.isStyleLoaded && map.isStyleLoaded()) {
+          setupNavigation();
+        } else {
+          map.once('style.load', setupNavigation);
+        }
+
+        updateNetworkStatus();
+        window.addEventListener('online', function () {
+          updateNetworkStatus();
+          if (metrics.queueSize > 0) {
+            var queueCount = metrics.queueSize;
+            log('Network back online - syncing ' + queueCount + ' requests', 'success');
+            setTimeout(function () {
+              metrics.queueSize = 0;
+              updateMetrics();
+              log('Sync complete - ' + queueCount + ' requests sent', 'success');
+            }, 500);
+          } else {
+            log('Network back online', 'success');
+          }
+        });
+        window.addEventListener('offline', function () {
+          updateNetworkStatus();
+          log('Network went offline - requests will be queued', 'warning');
+        });
+
+        log('Map initialized', 'success');
+      });
+
+      function setupNavigation() {
+        if (!gebetaMap || !gebetaMap.navigation) return;
+
+        gebetaMap.navigation.on('start', function (event) {
+          log('Navigation started', 'success');
+          isNavigating = true;
+          updateTrackingStatus('Active', 'active');
+          document.getElementById('navInfo').style.display = 'block';
+        });
+
+        gebetaMap.navigation.on('stop', function (event) {
+          log('Navigation stopped', 'info');
+          isNavigating = false;
+          if (simulatedLocationProvider) {
+            simulatedLocationProvider.stop();
+            simulatedLocationProvider = null;
+          }
+          updateTrackingStatus('Inactive', 'neutral');
+          document.getElementById('navInfo').style.display = 'none';
+        });
+
+        gebetaMap.navigation.on('progress', function (event) {
+          metrics.locationsSent++;
+          updateMetrics();
+          updateNavDetails(event);
+
+          // Simulate queueing when offline
+          if (!navigator.onLine) {
+            metrics.requestsQueued++;
+            metrics.queueSize++;
+            updateMetrics();
+          }
+        });
+
+        gebetaMap.navigation.on('stepchange', function (event) {
+          log(`Next: ${event.step.instruction}`, 'success');
+        });
+
+        gebetaMap.navigation.on('offroute', function (event) {
+          log('Off route!', 'warning');
+        });
+
+        gebetaMap.navigation.on('arrive', function (event) {
+          log('Arrived!', 'success');
+          alert('You have arrived at your destination!');
+          stopNavigation();
+        });
+
+        gebetaMap.navigation.on('error', function (error) {
+          metrics.trackingErrors++;
+          updateMetrics();
+          log(`Error: ${error.message || error}`, 'error');
+        });
+
+        log('Navigation ready', 'success');
+      }
+
+      function setMode(mode) {
+        currentMode = mode;
+        document.getElementById('btnOrigin').classList.toggle('primary', mode === 'origin');
+        document.getElementById('btnDest').classList.toggle('primary', mode === 'destination');
+        var btn = document.getElementById('btnGetRoute');
+        btn.disabled = !originCoords || !destCoords;
+      }
+
+      function addPinMarker(lng, lat, iconUrl) {
+        if (!window.maplibregl) return null;
+        var el = document.createElement('div');
+        el.style.backgroundImage = 'url(' + iconUrl + ')';
+        el.style.backgroundSize = 'contain';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.width = '30px';
+        el.style.height = '30px';
+        return new window.maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
+      }
+
+      function updateCoordsDisplay() {
+        document.getElementById('originCoords').textContent = originCoords
+          ? originCoords.lat.toFixed(5) + ', ' + originCoords.lng.toFixed(5)
+          : 'Not set';
+        document.getElementById('destCoords').textContent = destCoords
+          ? destCoords.lat.toFixed(5) + ', ' + destCoords.lng.toFixed(5)
+          : 'Not set';
+        document.getElementById('btnGetRoute').disabled = !originCoords || !destCoords;
+      }
+
+      function getRoute() {
+        if (!gebetaMap || !originCoords || !destCoords) return;
+        var btn = document.getElementById('btnGetRoute');
+        btn.disabled = true;
+        btn.textContent = 'Loading...';
+        log('Getting route...', 'info');
+
+        gebetaMap
+          .getDirections(originCoords, destCoords, {})
+          .then(function (data) {
+            routeData = data;
+            gebetaMap.displayRoute(data, { showMarkers: false });
+            document.getElementById('btnStartNav').disabled = false;
+            btn.textContent = 'Get Route';
+            log('Route loaded', 'success');
+          })
+          .catch(function (err) {
+            log(`Route failed: ${err.message || err}`, 'error');
+            btn.disabled = false;
+            btn.textContent = 'Get Route';
+          });
+      }
+
+      function createSimulatedLocationProvider() {
+        var intervalId = null;
+        var currentPosition = null;
+        var currentSegmentIndex = 0;
+        var routeCoordinates = null;
+        var isRunning = false;
+
+        return {
+          start: function (callback) {
+            if (!routeData || !routeData.geometry || !routeData.geometry.coordinates) {
+              console.error('No route data available');
+              return;
+            }
+
+            routeCoordinates = routeData.geometry.coordinates;
+            if (routeCoordinates.length === 0) return;
+
+            currentSegmentIndex = 0;
+            currentPosition = [routeCoordinates[0][0], routeCoordinates[0][1]];
+            isRunning = true;
+
+            function simulateLocation() {
+              if (!isRunning || !routeCoordinates || routeCoordinates.length === 0) return;
+
+              if (currentSegmentIndex >= routeCoordinates.length - 1) {
+                currentSegmentIndex = routeCoordinates.length - 1;
+                var finalCoord = routeCoordinates[currentSegmentIndex];
+                callback({
+                  lat: finalCoord[1],
+                  lng: finalCoord[0],
+                  accuracy: 10,
+                  timestamp: Date.now(),
+                  heading: 0,
+                });
+                return;
+              }
+
+              var segmentStart = routeCoordinates[currentSegmentIndex];
+              var segmentEnd = routeCoordinates[currentSegmentIndex + 1];
+              var dx = segmentEnd[0] - segmentStart[0];
+              var dy = segmentEnd[1] - segmentStart[1];
+              var segmentLength = Math.sqrt(dx * dx + dy * dy);
+
+              if (segmentLength === 0) {
+                currentSegmentIndex++;
+                intervalId = setTimeout(simulateLocation, 100 / simulationSpeed);
+                return;
+              }
+
+              var stepSize = 0.0001 * simulationSpeed;
+              var distanceToEnd = Math.sqrt(
+                Math.pow(segmentEnd[0] - currentPosition[0], 2) +
+                  Math.pow(segmentEnd[1] - currentPosition[1], 2)
+              );
+
+              if (distanceToEnd <= stepSize) {
+                currentPosition = [segmentEnd[0], segmentEnd[1]];
+                currentSegmentIndex++;
+              } else {
+                var ratio = stepSize / distanceToEnd;
+                currentPosition[0] =
+                  currentPosition[0] + (segmentEnd[0] - currentPosition[0]) * ratio;
+                currentPosition[1] =
+                  currentPosition[1] + (segmentEnd[1] - currentPosition[1]) * ratio;
+              }
+
+              var nextCoord =
+                currentSegmentIndex < routeCoordinates.length - 1
+                  ? routeCoordinates[currentSegmentIndex + 1]
+                  : routeCoordinates[routeCoordinates.length - 1];
+
+              var heading = calculateBearing(currentPosition, nextCoord);
+
+              callback({
+                lat: currentPosition[1],
+                lng: currentPosition[0],
+                accuracy: 10,
+                timestamp: Date.now(),
+                heading: heading,
+              });
+
+              if (isRunning && currentSegmentIndex < routeCoordinates.length - 1) {
+                intervalId = setTimeout(simulateLocation, 100 / simulationSpeed);
+              }
+            }
+
+            simulateLocation();
+          },
+          stop: function () {
+            isRunning = false;
+            if (intervalId) {
+              clearTimeout(intervalId);
+              intervalId = null;
+            }
+          },
+        };
+      }
+
+      function calculateBearing(from, to) {
+        var lat1 = (from[1] * Math.PI) / 180;
+        var lat2 = (to[1] * Math.PI) / 180;
+        var dLng = ((to[0] - from[0]) * Math.PI) / 180;
+        var y = Math.sin(dLng) * Math.cos(lat2);
+        var x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+        var bearing = (Math.atan2(y, x) * 180) / Math.PI;
+        return (bearing + 360) % 360;
+      }
+
+      function updateSpeed(value) {
+        simulationSpeed = parseFloat(value);
+        document.getElementById('speedValue').textContent = simulationSpeed + 'x';
+        document.getElementById('speedDisplay').textContent = simulationSpeed + 'x';
+      }
+
+      function startNavigation() {
+        if (!gebetaMap || !gebetaMap.navigation || !routeData) return;
+
+        simulatedLocationProvider = createSimulatedLocationProvider();
+
+        gebetaMap.navigation.start(
+          routeData,
+          {
+            userId: 'demo-user-sim-' + Date.now(),
+            role: 'driver',
+            precision: 'high',
+          },
+          simulatedLocationProvider
+        );
+
+        document.getElementById('btnStartNav').disabled = true;
+        document.getElementById('btnStopNav').disabled = false;
+      }
+
+      function stopNavigation() {
+        if (!gebetaMap || !gebetaMap.navigation) return;
+        gebetaMap.navigation.stop();
+        document.getElementById('btnStartNav').disabled = false;
+        document.getElementById('btnStopNav').disabled = true;
+      }
+
+      function simulateOffline() {
+        Object.defineProperty(navigator, 'onLine', {
+          writable: true,
+          value: false,
+        });
+        window.dispatchEvent(new Event('offline'));
+        log('Went offline - requests will be queued', 'warning');
+      }
+
+      function simulateOnline() {
+        Object.defineProperty(navigator, 'onLine', {
+          writable: true,
+          value: true,
+        });
+        window.dispatchEvent(new Event('online'));
+        log('Back online - syncing queued data', 'success');
+      }
+
+      function updateNavDetails(event) {
+        var details = document.getElementById('navDetails');
+        var html = '';
+        if (event.remainingDistance !== undefined) {
+          var distanceKm = (event.remainingDistance / 1000).toFixed(2);
+          html += '<div><strong>Remaining:</strong> ' + distanceKm + ' km</div>';
+        }
+        if (event.remainingDuration !== undefined) {
+          var duration =
+            typeof event.remainingDuration === 'number'
+              ? Math.round(event.remainingDuration / 60) + ' min'
+              : event.remainingDuration;
+          html += '<div><strong>ETA:</strong> ' + duration + '</div>';
+        }
+        if (event.progress !== undefined) {
+          html += '<div><strong>Progress:</strong> ' + event.progress.toFixed(1) + '%</div>';
+        }
+        details.innerHTML = html;
+      }
+
+      function clearAll() {
+        if (isNavigating) {
+          stopNavigation();
+        }
+        if (originMarker) {
+          originMarker.remove();
+          originMarker = null;
+        }
+        if (destMarker) {
+          destMarker.remove();
+          destMarker = null;
+        }
+        originCoords = null;
+        destCoords = null;
+        routeData = null;
+        updateCoordsDisplay();
+        gebetaMap.clearRoute();
+        document.getElementById('btnGetRoute').disabled = true;
+        document.getElementById('btnStartNav').disabled = true;
+        document.getElementById('navInfo').style.display = 'none';
+        log('Cleared all', 'info');
+      }
+
+      function clearLogs() {
+        document.getElementById('eventLog').innerHTML = '';
+        log('Logs cleared', 'info');
+      }
+
+      function log(message, type) {
+        var logDiv = document.getElementById('eventLog');
+        var entry = document.createElement('div');
+        entry.className = 'log-entry';
+        var timestamp = new Date().toLocaleTimeString();
+        entry.textContent = '[' + timestamp + '] ' + message;
+        logDiv.appendChild(entry);
+        logDiv.scrollTop = logDiv.scrollHeight;
+      }
+
+      function updateNetworkStatus() {
+        var isOnline = navigator.onLine;
+        document.getElementById('networkStatusText').textContent = isOnline ? 'Online' : 'Offline';
+      }
+
+      function updateTrackingStatus(text, status) {
+        document.getElementById('trackingStatusText').textContent = text;
+      }
+
+      function updateMetrics() {
+        document.getElementById('locationsSent').textContent = metrics.locationsSent;
+        document.getElementById('requestsQueued').textContent = metrics.requestsQueued;
+        document.getElementById('trackingErrors').textContent = metrics.trackingErrors;
+        document.getElementById('queueSize').textContent = metrics.queueSize;
+      }
+    </script>
+  </body>
+</html>

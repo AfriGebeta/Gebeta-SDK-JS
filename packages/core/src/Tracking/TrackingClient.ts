@@ -3,6 +3,7 @@ import { API, TrackingError, createTrackingError, ValidationError } from '@gebet
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
 import { EventEmitter } from '../utils/EventEmitter';
+import { OfflineQueue, QueuedRequest } from './OfflineQueue';
 
 type TrackingClientOptions = API.Tracking.Types.ClientOptions;
 type LocationProvider = ILocationProvider;
@@ -14,6 +15,9 @@ interface TrackingEventMap {
   connect: () => void;
   disconnect: () => void;
   error: (error: TrackingError) => void;
+  offline: () => void;
+  online: () => void;
+  queued: (request: QueuedRequest) => void;
   [key: string]: EventHandler;
 }
 
@@ -37,6 +41,9 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
   private readonly wsUrl: string;
   private isConnected = false;
   private isStopped = false;
+  private offlineQueue: OfflineQueue;
+  private isOnline = true;
+  private queueProcessInterval: ReturnType<typeof setInterval> | null = null;
 
   /**
    * Creates a new TrackingClient instance.
@@ -61,6 +68,8 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
     };
 
     this.wsUrl = API.Tracking.Constants.API_URLS.WEBSOCKET;
+    this.offlineQueue = new OfflineQueue();
+    this.setupOnlineDetection();
   }
 
   /**
@@ -86,8 +95,87 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
     this.isStopped = true;
     this.disconnect();
     this.stopLocationUpdates();
+    this.stopQueueProcessing();
     this.locationProvider = null;
     this.reconnectAttempts = 0;
+  }
+
+  /**
+   * sets up online/offline detection for the browser env.
+   * @private
+   */
+  private setupOnlineDetection(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    //current status
+    this.isOnline = navigator.onLine;
+
+    window.addEventListener('online', () => {
+      this.isOnline = true;
+      this.emit('online');
+      this.processQueue();
+    });
+
+    window.addEventListener('offline', () => {
+      this.isOnline = false;
+      this.emit('offline');
+    });
+  }
+
+  private startQueueProcessing(): void {
+    if (this.queueProcessInterval) {
+      return;
+    }
+
+    this.queueProcessInterval = setInterval(() => {
+      if (this.isOnline && this.isConnected) {
+        this.processQueue();
+      }
+    }, 5000); //every 5 seconds
+  }
+
+  private stopQueueProcessing(): void {
+    if (this.queueProcessInterval) {
+      clearInterval(this.queueProcessInterval);
+      this.queueProcessInterval = null;
+    }
+  }
+
+  private async processQueue(): Promise<void> {
+    if (!this.isOnline || !this.isConnected || this.offlineQueue.isEmpty()) {
+      return;
+    }
+
+    const maxRetries = 3;
+    let request = this.offlineQueue.dequeue();
+
+    while (request) {
+      try {
+        await this.sendQueuedLocation(request);
+      } catch (error) {
+        if (request.retryCount < maxRetries) {
+          this.offlineQueue.retry(request);
+        }
+      }
+
+      request = this.offlineQueue.dequeue();
+    }
+  }
+
+  private async sendQueuedLocation(request: QueuedRequest): Promise<void> {
+    if (!this.isConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      throw new Error('WebSocket not connected');
+    }
+
+    const message = {
+      type: 'location',
+      userId: request.userId,
+      role: request.role,
+      location: request.location,
+    };
+
+    this.ws.send(JSON.stringify(message));
   }
 
   /**
@@ -113,6 +201,8 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
         this.isConnected = true;
         this.reconnectAttempts = 0;
         this.emit('connect');
+        this.startQueueProcessing();
+        this.processQueue();
       };
 
       this.ws.onclose = () => {
@@ -240,10 +330,6 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
    * @private
    */
   private sendLocation(location?: LocationData): void {
-    if (!this.isConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
-      return;
-    }
-
     if (!location && !this.locationProvider) {
       return;
     }
@@ -254,6 +340,19 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
       accuracy: 0,
       timestamp: Date.now(),
     };
+
+    //if offline, queue the request
+    if (!this.isOnline || !this.isConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      const queuedRequest = this.offlineQueue.enqueue(
+        this.options.userId,
+        this.options.role,
+        locationData
+      );
+      if (queuedRequest) {
+        this.emit('queued', queuedRequest);
+      }
+      return;
+    }
 
     try {
       const message = {
@@ -272,6 +371,16 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
 
       this.ws.send(JSON.stringify(message));
     } catch (error) {
+      //if send fails, queue the request
+      const queuedRequest = this.offlineQueue.enqueue(
+        this.options.userId,
+        this.options.role,
+        locationData
+      );
+      if (queuedRequest) {
+        this.emit('queued', queuedRequest);
+      }
+
       const trackingError = createTrackingError(
         API.Errors.Codes.NETWORK_REQUEST_FAILED,
         'Failed to send location update',
