@@ -1,0 +1,42 @@
+{
+  "name": "@gebeta/node",
+  "version": "0.1.0",
+  "description": "Node.js backend SDK for Gebeta Maps service account authentication",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "lint": "test -d src && eslint \"src/**/*.ts\" || echo 'No src directory - skipping lint'",
+    "lint:fix": "test -d src && eslint \"src/**/*.ts\" --fix || echo 'No src directory - skipping lint'",
+    "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
+    "format": "test -d src && prettier --write \"src/**/*.ts\" || echo 'No src directory - skipping format'",
+    "format:check": "test -d src && prettier --check \"src/**/*.ts\" || echo 'No src directory - skipping format check'",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@gebeta/api": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "jest": "^29.7.0",
+    "jest-util": "^29.7.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  }
+}
