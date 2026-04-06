@@ -1,4 +1,5 @@
 import type { GebetaMapsInitOptions, ClusteringOptions } from './options';
+import type { ServiceAccountAuth } from './auth';
 
 /**
  * Props for the main GebetaMap component (React/React Native/Vue...).
@@ -18,8 +19,10 @@ import type { GebetaMapsInitOptions, ClusteringOptions } from './options';
  * ```
  */
 export interface GebetaMapProps extends GebetaMapsInitOptions {
-  /** API key for Gebeta Maps services (required) */
-  apiKey: string;
+  /** @deprecated Use `auth` instead. API key authentication is insecure — the key is visible in browser devtools. */
+  apiKey?: string;
+  /** Service account authentication credentials (access + refresh token pair) */
+  auth?: ServiceAccountAuth;
   /** Clustering configuration options */
   clustering?: ClusteringOptions;
   /** Callback when map is loaded and ready */
