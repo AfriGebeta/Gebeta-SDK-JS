@@ -1,3 +1,4 @@
+import * as AuthModule from './auth';
 import * as CommonModule from './common';
 import * as MapModule from './map';
 import * as ClusteringModule from './clustering';
@@ -13,6 +14,15 @@ import * as PlatformModule from './platform';
 import * as ErrorsModule from './errors';
 
 export namespace API {
+  export namespace Auth {
+    export namespace Types {
+      export type AuthCredentials = AuthModule.Auth.Types.AuthCredentials;
+      export type ServiceAccountAuth = AuthModule.Auth.Types.ServiceAccountAuth;
+      export type AuthParam = AuthModule.Auth.Types.AuthParam;
+    }
+    export const Constants = AuthModule.Auth.Constants;
+  }
+
   export namespace Common {
     export namespace Types {
       export type LngLat = CommonModule.Common.Types.LngLat;
