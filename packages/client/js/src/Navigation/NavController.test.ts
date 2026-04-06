@@ -91,16 +91,6 @@ describe('NavController (platform layer)', () => {
       expect(CoreNavController).toHaveBeenCalledWith(apiKey, options);
     });
 
-    it('should throw ValidationError if apiKey is missing', () => {
-      // GIVEN empty apiKey
-      // WHEN NavController is constructed with empty apiKey
-      // THEN ValidationError is thrown with correct message
-      expect(() => new NavController('', mapAdapter, markerFactory)).toThrow(ValidationError);
-      expect(() => new NavController('', mapAdapter, markerFactory)).toThrow(
-        'API key is required for NavController'
-      );
-    });
-
     it('should throw ValidationError if mapAdapter is missing', () => {
       // GIVEN null mapAdapter
       // WHEN NavController is constructed with null mapAdapter

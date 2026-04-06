@@ -1,6 +1,8 @@
 import { NavController as CoreNavController } from '@gebeta/core';
 import { API, ValidationError } from '@gebeta/api';
 
+type AuthParam = API.Auth.Types.AuthParam;
+
 type IMapAdapter = API.Platform.Types.IMapAdapter;
 type IMarkerFactory = API.Platform.Types.IMarkerFactory;
 type ILocationProvider = API.Platform.Types.ILocationProvider;
@@ -24,21 +26,18 @@ export class NavController {
 
   /**
    * Creates a new NavController instance.
-   * @param apiKey - API key for tracking and rerouting
+   * @param auth - API key or service key authentication input
    * @param mapAdapter - Map adapter for camera control
    * @param markerFactory - Marker factory for location marker
    * @param options - Configuration options for navigation behavior
    * @throws {ValidationError} If apiKey, mapAdapter, or markerFactory is missing
    */
   constructor(
-    apiKey: string,
+    auth: AuthParam,
     mapAdapter: IMapAdapter,
     markerFactory: IMarkerFactory,
     options: NavigationControllerOptions = {}
   ) {
-    if (!apiKey) {
-      throw new ValidationError('API key is required for NavController', 'apiKey');
-    }
     if (!mapAdapter) {
       throw new ValidationError('Map adapter is required for NavController', 'mapAdapter');
     }
@@ -48,7 +47,7 @@ export class NavController {
 
     this.mapAdapter = mapAdapter;
     this.markerFactory = markerFactory;
-    this.core = new CoreNavController(apiKey, options);
+    this.core = new CoreNavController(auth, options);
 
     this.setupEventListeners();
   }
