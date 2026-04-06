@@ -1,0 +1,1 @@
+export { GebetaAuth } from './GebetaAuth';
