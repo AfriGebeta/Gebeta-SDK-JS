@@ -1,5 +1,6 @@
 import type { CornerPosition, LngLat, Position, Precision, Role } from './common';
 import type { RouteData, ClusterData } from './data';
+import type { Auth } from '../namespaces/auth';
 
 /**
  * Options for constructing a GebetaMaps instance (imperative JS API).
@@ -9,8 +10,10 @@ import type { RouteData, ClusterData } from './data';
  * which combines constructor and init options into a single props interface.
  */
 export interface GebetaMapsConstructorOptions {
-  /** API key for Gebeta Maps services (required) */
-  apiKey: string;
+  /** @deprecated Use `auth` instead. API key authentication is insecure — the key is visible in browser devtools. */
+  apiKey?: string;
+  /** Service account authentication credentials (access + refresh token pair) */
+  auth?: Auth.Types.ServiceAccountAuth;
   /** Clustering configuration options */
   clustering?: ClusteringOptions;
 }

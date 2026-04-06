@@ -32,6 +32,16 @@ export const MAP_STYLES: Record<MapStyle, { url: string; imageUrl: string; label
 export const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
 
 /**
+ * URLs for service account authentication endpoints.
+ */
+export const AUTH_URLS = {
+  /** Exchange client_token + server_token for access/refresh token pair */
+  auth: 'https://mapapi.gebeta.app/api/v1/external/auth',
+  /** Refresh an expired access token using a refresh token */
+  refresh: 'https://mapapi.gebeta.app/api/v1/external/auth/refresh',
+} as const;
+
+/**
  * Base URLs for Gebeta Maps API endpoints.
  */
 export const API_BASE_URLS = {
