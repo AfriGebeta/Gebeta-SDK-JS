@@ -1,8 +1,8 @@
 // mock chatty console methods to keep test output clean
 import '../_test_utilities/consoleMock';
 import { GeocodingManager } from './GeocodingManager';
-import { API } from '@gebeta/maps-api';
-import { ValidationError, NetworkError, BadRequestError } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
+import { ValidationError, NetworkError, BadRequestError } from '@gebeta/api';
 import { getRandomString } from '../_test_utilities/specialCharacters';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';

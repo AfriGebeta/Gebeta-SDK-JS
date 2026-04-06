@@ -24,27 +24,27 @@ jobs:
         run: yarn install --immutable
 
       - name: Run ESLint on React package
-        run: yarn workspace @gebeta/maps-react lint
+        run: yarn workspace @gebeta/react lint
 
       - name: Check Prettier formatting on React package
-        run: yarn workspace @gebeta/maps-react format:check
+        run: yarn workspace @gebeta/react format:check
 
       - name: Build API and Core packages
-        run: yarn workspace @gebeta/maps-api build && yarn workspace @gebeta/maps-core build
+        run: yarn workspace @gebeta/api build && yarn workspace @gebeta/core build
 
       - name: Type check React package
-        run: yarn workspace @gebeta/maps-react typecheck
+        run: yarn workspace @gebeta/react typecheck
 
       - name: Build React package
-        run: yarn workspace @gebeta/maps-react build
+        run: yarn workspace @gebeta/react build
 
       - name: Verify build output
         run: |
-          if [ ! -f "packages/react/dist/index.js" ]; then
+          if [ ! -f "packages/client/react/dist/index.js" ]; then
             echo "Build failed: index.js not found"
             exit 1
           fi
-          if [ ! -f "packages/react/dist/index.d.ts" ]; then
+          if [ ! -f "packages/client/react/dist/index.d.ts" ]; then
             echo "Build failed: index.d.ts not found"
             exit 1
           fi

@@ -5,7 +5,7 @@ import {
   RoutingError,
   createApiError,
   parseApiErrorResponse,
-} from '@gebeta/maps-api';
+} from '@gebeta/api';
 import type { DirectionsApiResponse } from './types';
 import { transformDirectionsResponse } from './transform';
 

@@ -1,5 +1,5 @@
-import { ValidationError } from '@gebeta/maps-api';
-import type { API } from '@gebeta/maps-api';
+import { ValidationError } from '@gebeta/api';
+import type { API } from '@gebeta/api';
 import Supercluster from 'supercluster';
 import type { NormalizedClusteringOptions, SuperclusterPoint } from './types';
 import { normalizeClusteringOptions } from './utils';

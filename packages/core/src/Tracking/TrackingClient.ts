@@ -1,4 +1,4 @@
-import { API, TrackingError, createTrackingError, ValidationError } from '@gebeta/maps-api';
+import { API, TrackingError, createTrackingError, ValidationError } from '@gebeta/api';
 
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;

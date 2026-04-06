@@ -1,6 +1,6 @@
 import '../_test_utilities/consoleMock';
 import { NavController } from './NavController';
-import { API, ValidationError } from '@gebeta/maps-api';
+import { API, ValidationError } from '@gebeta/api';
 
 describe('NavController', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;

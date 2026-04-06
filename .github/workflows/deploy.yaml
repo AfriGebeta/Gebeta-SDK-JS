@@ -105,13 +105,13 @@ jobs:
         run: yarn install --immutable
 
       - name: Build API package
-        run: yarn workspace @gebeta/maps-api build
+        run: yarn workspace @gebeta/api build
 
       - name: Build Core package
-        run: yarn workspace @gebeta/maps-core build
+        run: yarn workspace @gebeta/core build
 
       - name: Build JS package
-        run: yarn workspace @gebeta/maps-js build
+        run: yarn workspace @gebeta/js build
 
       - name: Setup SSH Key
         uses: webfactory/ssh-agent@v0.9.0
@@ -126,6 +126,6 @@ jobs:
 #          echo "Deploying JS SDK to CDN"
 #          NEW_VERSION=${{ github.sha }}
 #          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p ~/static/files/gebeta-maps-lib/releases/$NEW_VERSION"
-#          scp -o StrictHostKeyChecking=no -r packages/js/dist/* $SERVER_USER@$SERVER_IP:~/static/files/gebeta-maps-lib/releases/$NEW_VERSION
+#          scp -o StrictHostKeyChecking=no -r packages/client/js/dist/* $SERVER_USER@$SERVER_IP:~/static/files/gebeta-maps-lib/releases/$NEW_VERSION
 #          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn ~/static/files/gebeta-maps-lib/releases/$NEW_VERSION ~/static/files/gebeta-maps-lib/current"
 #          echo "JS SDK deployed successfully"

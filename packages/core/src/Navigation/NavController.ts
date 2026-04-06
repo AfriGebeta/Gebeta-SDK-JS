@@ -1,4 +1,4 @@
-import { API, NavigationError, createNavigationError, ValidationError } from '@gebeta/maps-api';
+import { API, NavigationError, createNavigationError, ValidationError } from '@gebeta/api';
 import { EventEmitter } from '../utils/EventEmitter';
 import { TrackingClient } from '../Tracking/TrackingClient';
 import { HttpTrackingClient } from '../Tracking/HttpTrackingClient';

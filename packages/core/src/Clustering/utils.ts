@@ -1,4 +1,4 @@
-import { API } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
 import type { NormalizedClusteringOptions } from './types';
 
 type ClusteringOptions = API.Clustering.Types.Options;

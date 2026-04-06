@@ -1,4 +1,4 @@
-import type { API } from '@gebeta/maps-api';
+import type { API } from '@gebeta/api';
 
 type MarkerData = API.Overlay.Types.MarkerData;
 type ClusterData = API.Overlay.Types.ClusterData;

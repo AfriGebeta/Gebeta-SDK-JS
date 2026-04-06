@@ -1,4 +1,4 @@
-import { API } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
 
 /**
  * Icon filename mapping for Valhalla maneuver types.

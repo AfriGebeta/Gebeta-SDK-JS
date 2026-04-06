@@ -1,6 +1,6 @@
 import { decodePolyline } from './polyline';
 import { encodePolyline } from '../_test_utilities/polylineEncoder';
-import { RoutingError, API } from '@gebeta/maps-api';
+import { RoutingError, API } from '@gebeta/api';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';
 
 describe('decodePolyline', () => {

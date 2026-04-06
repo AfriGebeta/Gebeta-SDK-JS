@@ -24,27 +24,27 @@ jobs:
         run: yarn install --immutable
 
       - name: Run ESLint on JS package
-        run: yarn workspace @gebeta/maps-js lint
+        run: yarn workspace @gebeta/js lint
 
       - name: Check Prettier formatting on JS package
-        run: yarn workspace @gebeta/maps-js format:check
+        run: yarn workspace @gebeta/js format:check
 
       - name: Type check JS package
-        run: yarn workspace @gebeta/maps-js typecheck
+        run: yarn workspace @gebeta/js typecheck
 
       - name: Run tests on JS package
-        run: yarn workspace @gebeta/maps-js test
+        run: yarn workspace @gebeta/js test
 
       - name: Build JS package
-        run: yarn workspace @gebeta/maps-js build
+        run: yarn workspace @gebeta/js build
 
       - name: Verify build output
         run: |
-          if [ ! -f "packages/js/dist/gebeta-maps.umd.js" ]; then
+          if [ ! -f "packages/client/js/dist/gebeta-maps.umd.js" ]; then
             echo "Build failed: gebeta-maps.umd.js not found"
             exit 1
           fi
-          if [ ! -f "packages/js/dist/index.d.ts" ]; then
+          if [ ! -f "packages/client/js/dist/index.d.ts" ]; then
             echo "Build failed: index.d.ts not found"
             exit 1
           fi

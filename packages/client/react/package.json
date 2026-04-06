@@ -1,0 +1,30 @@
+{
+  "name": "@gebeta/react",
+  "version": "0.1.0",
+  "description": "React SDK for Gebeta Maps",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && tsc",
+    "clean": "rm -rf dist",
+    "lint": "test -d src && eslint \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping lint'",
+    "lint:fix": "test -d src && eslint \"src/**/*.{ts,tsx}\" --fix || echo 'No src directory - skipping lint'",
+    "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
+    "format": "test -d src && prettier --write \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format'",
+    "format:check": "test -d src && prettier --check \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format check'"
+  },
+  "dependencies": {
+    "@gebeta/api": "workspace:*",
+    "@gebeta/core": "workspace:*",
+    "maplibre-gl": "^4.0.0",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}

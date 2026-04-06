@@ -1236,9 +1236,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gebeta/maps-api@workspace:*, @gebeta/maps-api@workspace:packages/api":
+"@gebeta/api@workspace:*, @gebeta/api@workspace:packages/api":
   version: 0.0.0-use.local
-  resolution: "@gebeta/maps-api@workspace:packages/api"
+  resolution: "@gebeta/api@workspace:packages/api"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:^6.0.0"
@@ -1249,17 +1249,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/maps-assets@workspace:packages/assets":
+"@gebeta/core@workspace:*, @gebeta/core@workspace:packages/core":
   version: 0.0.0-use.local
-  resolution: "@gebeta/maps-assets@workspace:packages/assets"
-  languageName: unknown
-  linkType: soft
-
-"@gebeta/maps-core@workspace:*, @gebeta/maps-core@workspace:packages/core":
-  version: 0.0.0-use.local
-  resolution: "@gebeta/maps-core@workspace:packages/core"
+  resolution: "@gebeta/core@workspace:packages/core"
   dependencies:
-    "@gebeta/maps-api": "workspace:*"
+    "@gebeta/api": "workspace:*"
     "@types/jest": "npm:^29.5.0"
     "@types/node": "npm:^20.0.0"
     "@types/supercluster": "npm:^7.1.0"
@@ -1276,12 +1270,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/maps-js@workspace:packages/js":
+"@gebeta/js@workspace:packages/client/js":
   version: 0.0.0-use.local
-  resolution: "@gebeta/maps-js@workspace:packages/js"
+  resolution: "@gebeta/js@workspace:packages/client/js"
   dependencies:
-    "@gebeta/maps-api": "workspace:*"
-    "@gebeta/maps-core": "workspace:*"
+    "@gebeta/api": "workspace:*"
+    "@gebeta/core": "workspace:*"
     "@types/jest": "npm:^29.5.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:^6.0.0"
@@ -1299,12 +1293,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@gebeta/maps-assets@workspace:packages/assets":
+  version: 0.0.0-use.local
+  resolution: "@gebeta/maps-assets@workspace:packages/assets"
+  languageName: unknown
+  linkType: soft
+
 "@gebeta/maps-react-native@workspace:packages/react-native":
   version: 0.0.0-use.local
   resolution: "@gebeta/maps-react-native@workspace:packages/react-native"
   dependencies:
-    "@gebeta/maps-api": "workspace:*"
-    "@gebeta/maps-core": "workspace:*"
+    "@gebeta/api": "workspace:*"
+    "@gebeta/core": "workspace:*"
     "@types/react": "npm:^18.0.0"
     "@types/react-native": "npm:^0.72.0"
     react: "npm:^18.0.0"
@@ -1316,12 +1316,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/maps-react@workspace:*, @gebeta/maps-react@workspace:packages/react":
+"@gebeta/node@workspace:packages/server/node":
   version: 0.0.0-use.local
-  resolution: "@gebeta/maps-react@workspace:packages/react"
+  resolution: "@gebeta/node@workspace:packages/server/node"
   dependencies:
-    "@gebeta/maps-api": "workspace:*"
-    "@gebeta/maps-core": "workspace:*"
+    "@gebeta/api": "workspace:*"
+    "@types/jest": "npm:^29.5.0"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
+    "@typescript-eslint/parser": "npm:^6.0.0"
+    eslint: "npm:^8.50.0"
+    eslint-config-prettier: "npm:^9.0.0"
+    jest: "npm:^29.7.0"
+    prettier: "npm:^3.0.0"
+    ts-jest: "npm:^29.1.0"
+    typescript: "npm:^5.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@gebeta/react@workspace:*, @gebeta/react@workspace:packages/client/react":
+  version: 0.0.0-use.local
+  resolution: "@gebeta/react@workspace:packages/client/react"
+  dependencies:
+    "@gebeta/api": "workspace:*"
+    "@gebeta/core": "workspace:*"
     "@types/react": "npm:^18.0.0"
     maplibre-gl: "npm:^4.0.0"
     react: "npm:^18.0.0"
@@ -7501,7 +7519,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-example@workspace:apps/react"
   dependencies:
-    "@gebeta/maps-react": "workspace:*"
+    "@gebeta/react": "workspace:*"
     "@types/react": "npm:^18.0.0"
     "@types/react-dom": "npm:^18.0.0"
     "@vitejs/plugin-react": "npm:^4.2.0"

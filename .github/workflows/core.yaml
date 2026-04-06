@@ -24,19 +24,19 @@ jobs:
         run: yarn install --immutable
 
       - name: Run ESLint on Core package
-        run: yarn workspace @gebeta/maps-core lint
+        run: yarn workspace @gebeta/core lint
 
       - name: Check Prettier formatting on Core package
-        run: yarn workspace @gebeta/maps-core format:check
+        run: yarn workspace @gebeta/core format:check
 
       - name: Type check Core package
-        run: yarn workspace @gebeta/maps-core typecheck
+        run: yarn workspace @gebeta/core typecheck
 
       - name: Build Core package
-        run: yarn workspace @gebeta/maps-core build
+        run: yarn workspace @gebeta/core build
 
       - name: Run tests on Core package
-        run: yarn workspace @gebeta/maps-core test
+        run: yarn workspace @gebeta/core test
 
       - name: Verify build output
         run: |

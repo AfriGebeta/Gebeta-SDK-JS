@@ -1,4 +1,4 @@
-import { API, GeocodingError } from '@gebeta/maps-api';
+import { API, GeocodingError } from '@gebeta/api';
 import type { RawGeocodeResult } from './types';
 
 /**

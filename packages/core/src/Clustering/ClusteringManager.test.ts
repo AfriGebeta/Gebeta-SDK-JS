@@ -1,7 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { ClusteringManager } from './ClusteringManager';
-import { API } from '@gebeta/maps-api';
-import { ValidationError } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
+import { ValidationError } from '@gebeta/api';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';
 
 describe('ClusteringManager', () => {

@@ -4,7 +4,7 @@ import {
   createTrackingError,
   ValidationError,
   NetworkError,
-} from '@gebeta/maps-api';
+} from '@gebeta/api';
 import { EventEmitter } from '../utils/EventEmitter';
 
 type HttpTrackingClientOptions = API.Tracking.Types.HttpClientOptions;
