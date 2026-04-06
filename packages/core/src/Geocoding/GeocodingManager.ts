@@ -5,7 +5,7 @@ import {
   NetworkError,
   parseApiErrorResponse,
   ValidationError,
-} from '@gebeta/maps-api';
+} from '@gebeta/api';
 import { GeocodingApiResponse, GeocodingMessage } from './types';
 import { transformGeocodeResult } from './transform';
 

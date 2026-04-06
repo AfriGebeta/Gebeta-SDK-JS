@@ -15,8 +15,8 @@
     "format:check": "test -d src && prettier --check \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format check'"
   },
   "dependencies": {
-    "@gebeta/maps-api": "workspace:*",
-    "@gebeta/maps-core": "workspace:*",
+    "@gebeta/api": "workspace:*",
+    "@gebeta/core": "workspace:*",
     "react": "^18.0.0",
     "react-native": "^0.72.0"
   },

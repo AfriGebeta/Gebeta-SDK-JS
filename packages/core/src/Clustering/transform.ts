@@ -1,4 +1,4 @@
-import type { API } from '@gebeta/maps-api';
+import type { API } from '@gebeta/api';
 import type { SuperclusterPoint } from './types';
 
 type MarkerData = API.Overlay.Types.MarkerData;

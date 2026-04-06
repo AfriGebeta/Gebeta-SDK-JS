@@ -24,16 +24,16 @@ jobs:
         run: yarn install --immutable
 
       - name: Run ESLint on API package
-        run: yarn workspace @gebeta/maps-api lint
+        run: yarn workspace @gebeta/api lint
 
       - name: Check Prettier formatting on API package
-        run: yarn workspace @gebeta/maps-api format:check
+        run: yarn workspace @gebeta/api format:check
 
       - name: Type check API package
-        run: yarn workspace @gebeta/maps-api typecheck
+        run: yarn workspace @gebeta/api typecheck
 
       - name: Build API package
-        run: yarn workspace @gebeta/maps-api build
+        run: yarn workspace @gebeta/api build
 
       - name: Verify build output
         run: |

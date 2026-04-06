@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@gebeta/maps-react": "workspace:*",
+    "@gebeta/react": "workspace:*",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

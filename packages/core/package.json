@@ -1,5 +1,5 @@
 {
-  "name": "@gebeta/maps-core",
+  "name": "@gebeta/core",
   "version": "0.1.0",
   "description": "Core platform-agnostic implementation for Gebeta Maps SDKs",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.ts\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.ts\" --fix || echo 'No src directory - skipping lint'",
-    "typecheck": "test -d src && (yarn workspace @gebeta/maps-api build && tsc --noEmit) || echo 'No src directory - skipping typecheck'",
+    "typecheck": "test -d src && (yarn workspace @gebeta/api build && tsc --noEmit) || echo 'No src directory - skipping typecheck'",
     "format": "test -d src && prettier --write \"src/**/*.ts\" || echo 'No src directory - skipping format'",
     "format:check": "test -d src && prettier --check \"src/**/*.ts\" || echo 'No src directory - skipping format check'",
     "test": "jest --testPathIgnorePatterns='integration'",
@@ -19,7 +19,7 @@
     "test:integration": "jest --testMatch='**/*.integration.test.ts'"
   },
   "dependencies": {
-    "@gebeta/maps-api": "workspace:*",
+    "@gebeta/api": "workspace:*",
     "supercluster": "^8.0.0"
   },
   "devDependencies": {

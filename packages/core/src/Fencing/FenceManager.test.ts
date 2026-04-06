@@ -1,7 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { FenceManager } from './FenceManager';
-import { API } from '@gebeta/maps-api';
-import { ValidationError } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
+import { ValidationError } from '@gebeta/api';
 
 describe('FenceManager', () => {
   let manager: FenceManager;

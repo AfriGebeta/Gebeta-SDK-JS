@@ -1,4 +1,4 @@
-import type { API } from '@gebeta/maps-api';
+import type { API } from '@gebeta/api';
 import { calculateDistance, normalizeLngLat } from '../Fencing/utils';
 
 type LngLat = API.Common.Types.LngLat;

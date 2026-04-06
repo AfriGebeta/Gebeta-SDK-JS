@@ -1,7 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { loadIntegrationConfig } from '../_test_utilities/integrationConfig';
 import { TrackingClient } from './TrackingClient';
-import { API } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
 
 let config: ReturnType<typeof loadIntegrationConfig>;
 

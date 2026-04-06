@@ -1,4 +1,4 @@
-import type { API } from '@gebeta/maps-api';
+import type { API } from '@gebeta/api';
 
 export type FenceDefinition = API.Fencing.Types.Definition;
 export type FenceStyleOptions = API.Fencing.Types.StyleOptions;

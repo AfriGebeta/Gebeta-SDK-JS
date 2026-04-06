@@ -1,4 +1,4 @@
-import type { API } from '@gebeta/maps-api';
+import type { API } from '@gebeta/api';
 
 type LngLat = API.Common.Types.LngLat;
 type LngLatLike = API.Common.Types.LngLatLike;

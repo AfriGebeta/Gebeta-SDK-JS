@@ -1,4 +1,4 @@
-import { API } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
 import type { NormalizedFenceStyle } from './types';
 
 type FenceStyleOptions = API.Fencing.Types.StyleOptions;

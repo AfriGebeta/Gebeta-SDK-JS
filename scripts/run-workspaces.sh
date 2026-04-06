@@ -17,7 +17,7 @@ SUCCESS=0
 SKIPPED=0
 FAILED=0
 
-for workspace in packages/*/; do
+for workspace in packages/*/ packages/client/*/ packages/server/*/; do
   if [ ! -f "$workspace/package.json" ]; then
     continue
   fi

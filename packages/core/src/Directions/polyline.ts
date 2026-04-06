@@ -1,4 +1,4 @@
-import { RoutingError, API } from '@gebeta/maps-api';
+import { RoutingError, API } from '@gebeta/api';
 
 /**
  * Constants for polyline decoding algorithm.

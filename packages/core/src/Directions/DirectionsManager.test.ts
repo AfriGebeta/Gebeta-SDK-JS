@@ -1,6 +1,6 @@
 import { DirectionsManager } from './DirectionsManager';
-import { API } from '@gebeta/maps-api';
-import { ValidationError, NetworkError, RoutingError, BadRequestError } from '@gebeta/maps-api';
+import { API } from '@gebeta/api';
+import { ValidationError, NetworkError, RoutingError, BadRequestError } from '@gebeta/api';
 import { getRandomString } from '../_test_utilities/specialCharacters';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';

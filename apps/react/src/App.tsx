@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { GebetaMap, useClustering } from '@gebeta/maps-react';
+import { GebetaMap, useClustering } from '@gebeta/react';
 
 const ADDIS_ABABA_CENTER: [number, number] = [38.7685, 9.0161];
 const INITIAL_CENTER = { lng: ADDIS_ABABA_CENTER[0], lat: ADDIS_ABABA_CENTER[1] };

@@ -5,18 +5,20 @@
   "description": "Gebeta Maps SDK monorepo for JavaScript, React, and React Native",
   "workspaces": [
     "packages/*",
+    "packages/client/*",
+    "packages/server/*",
     "apps/*"
   ],
   "scripts": {
     "build": "bash scripts/run-workspaces.sh build",
-    "build:api": "yarn workspace @gebeta/maps-api build",
+    "build:api": "yarn workspace @gebeta/api build",
     "lint": "bash scripts/run-workspaces.sh lint",
     "lint:fix": "bash scripts/run-workspaces.sh lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "typecheck": "bash scripts/run-workspaces.sh typecheck",
     "clean": "bash scripts/run-workspaces.sh clean",
-    "link": "yarn workspace @gebeta/maps-api build && yarn install",
+    "link": "yarn workspace @gebeta/api build && yarn install",
     "ci": "yarn lint && yarn format:check && yarn typecheck"
   },
   "devDependencies": {

@@ -40,7 +40,7 @@ module.exports = {
   },
   collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts', '!src/**/__tests__/**'],
   moduleNameMapper: {
-    '^@gebeta/maps-api$': '<rootDir>/../api/src/index.ts',
+    '^@gebeta/api$': '<rootDir>/../api/src/index.ts',
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
   extensionsToTreatAsEsm: [],

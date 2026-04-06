@@ -1,4 +1,4 @@
-import { API, RoutingError } from '@gebeta/maps-api';
+import { API, RoutingError } from '@gebeta/api';
 import type { DirectionsApiResponse } from './types';
 import { decodePolyline } from './polyline';
 import { getManeuverIcon } from './maneuvers';

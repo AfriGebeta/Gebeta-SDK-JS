@@ -1,6 +1,6 @@
 import '../_test_utilities/consoleMock';
 import { TrackingClient } from './TrackingClient';
-import { API, ValidationError } from '@gebeta/maps-api';
+import { API, ValidationError } from '@gebeta/api';
 
 describe('TrackingClient', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;
