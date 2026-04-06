@@ -8,20 +8,23 @@ import {
 } from '@gebeta/api';
 import type { DirectionsApiResponse } from './types';
 import { transformDirectionsResponse } from './transform';
+import { createFetch } from '../utils/fetch';
+
+type AuthParam = API.Auth.Types.AuthParam;
 
 /**
  * DirectionsManager handles route calculation between points.
  * Platform-agnostic: uses fetch API which is available in all JS environments.
  */
 export class DirectionsManager {
-  private readonly apiKey: string;
+  private readonly auth: AuthParam;
   private readonly baseUrl: string;
 
-  constructor(apiKey: string) {
-    if (!apiKey) {
-      throw new ValidationError('API key is required for DirectionsManager', 'apiKey');
+  constructor(auth: AuthParam) {
+    if (!auth) {
+      throw new ValidationError('auth is required for DirectionsManager', 'auth');
     }
-    this.apiKey = apiKey;
+    this.auth = auth;
     this.baseUrl = API.Routing.Constants.API_URL;
   }
 
@@ -54,8 +57,11 @@ export class DirectionsManager {
       destination: `${destination.lat},${destination.lng}`,
       instruction: '1',
       format: 'valhalla',
-      apiKey: this.apiKey,
     });
+
+    if (typeof this.auth === 'string') {
+      params.set('apiKey', this.auth);
+    }
 
     if (waypoints.length > 0) {
       const waypointsString = `[${waypoints.map((wp: API.Common.Types.LngLat) => `{${wp.lat},${wp.lng}}`).join(',')}]`;
@@ -66,7 +72,7 @@ export class DirectionsManager {
 
     let response: Response;
     try {
-      response = await fetch(url);
+      response = await createFetch(this.auth)(url);
     } catch (error) {
       throw new NetworkError(
         error instanceof Error

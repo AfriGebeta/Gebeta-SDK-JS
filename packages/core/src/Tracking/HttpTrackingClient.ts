@@ -6,17 +6,15 @@ import {
   NetworkError,
 } from '@gebeta/api';
 import { EventEmitter } from '../utils/EventEmitter';
+import { createFetch } from '../utils/fetch';
 
 type HttpTrackingClientOptions = API.Tracking.Types.HttpClientOptions;
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
 
-type EventHandler = (...args: never[]) => void;
-
 interface HttpTrackingEventMap {
   location: (location: LocationData) => void;
   error: (error: TrackingError) => void;
-  [key: string]: EventHandler;
 }
 
 /**
@@ -27,7 +25,7 @@ export class HttpTrackingClient extends EventEmitter<HttpTrackingEventMap> {
   private locationProvider: ILocationProvider | null = null;
   private sendInterval: ReturnType<typeof setInterval> | null = null;
   private readonly options: Required<Pick<HttpTrackingClientOptions, 'userId' | 'role'>> &
-    Pick<HttpTrackingClientOptions, 'bearerToken' | 'locationProvider'>;
+    Pick<HttpTrackingClientOptions, 'auth' | 'locationProvider'>;
   private readonly httpUrl: string;
   private isStopped = false;
 
@@ -46,7 +44,7 @@ export class HttpTrackingClient extends EventEmitter<HttpTrackingEventMap> {
     this.options = {
       userId: options.userId,
       role: options.role ?? 'driver',
-      bearerToken: options.bearerToken,
+      auth: options.auth,
       locationProvider: options.locationProvider,
     };
 
@@ -127,17 +125,9 @@ export class HttpTrackingClient extends EventEmitter<HttpTrackingEventMap> {
     };
 
     try {
-      const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-      };
-
-      if (this.options.bearerToken) {
-        headers['Authorization'] = `Bearer ${this.options.bearerToken}`;
-      }
-
-      const response = await fetch(this.httpUrl, {
+      const response = await createFetch(this.options.auth)(this.httpUrl, {
         method: 'POST',
-        headers,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId: this.options.userId,
           role: this.options.role,

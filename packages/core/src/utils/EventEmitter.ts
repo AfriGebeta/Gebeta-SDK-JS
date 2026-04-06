@@ -2,10 +2,11 @@
  * Simple event emitter for core managers.
  * Platform-agnostic: pure event handling logic, no DOM dependencies.
  */
-type EventMapConstraint = { [key: string]: (...args: never[]) => void };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyFn = (...args: any[]) => void;
 
-export class EventEmitter<T extends EventMapConstraint> {
-  private readonly listeners: Map<keyof T, Set<T[keyof T]>> = new Map();
+export class EventEmitter<T extends { [K in keyof T]: AnyFn }> {
+  private readonly listeners: Map<keyof T, Set<AnyFn>> = new Map();
 
   /**
    * Register an event listener.

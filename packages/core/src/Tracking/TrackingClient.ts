@@ -1,4 +1,5 @@
 import { API, TrackingError, createTrackingError, ValidationError } from '@gebeta/api';
+import type { AuthManager } from '../Auth/AuthManager';
 
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
@@ -7,14 +8,11 @@ import { EventEmitter } from '../utils/EventEmitter';
 type TrackingClientOptions = API.Tracking.Types.ClientOptions;
 type LocationProvider = ILocationProvider;
 
-type EventHandler = (...args: never[]) => void;
-
 interface TrackingEventMap {
   location: (location: LocationData) => void;
   connect: () => void;
   disconnect: () => void;
   error: (error: TrackingError) => void;
-  [key: string]: EventHandler;
 }
 
 /**
@@ -33,7 +31,7 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
       'userId' | 'role' | 'sendIntervalMs' | 'autoReconnect' | 'maxReconnectDelayMs'
     >
   > &
-    Pick<TrackingClientOptions, 'bearerToken' | 'locationProvider'>;
+    Pick<TrackingClientOptions, 'auth' | 'locationProvider'>;
   private readonly wsUrl: string;
   private isConnected = false;
   private isStopped = false;
@@ -56,7 +54,7 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
       sendIntervalMs: options.sendIntervalMs ?? API.Tracking.Constants.INTERVAL_MS,
       autoReconnect: options.autoReconnect ?? true,
       maxReconnectDelayMs: options.maxReconnectDelayMs ?? 15000,
-      bearerToken: options.bearerToken,
+      auth: options.auth,
       locationProvider: options.locationProvider,
     };
 
@@ -101,8 +99,11 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
 
     try {
       const url = new URL(this.wsUrl);
-      if (this.options.bearerToken) {
-        url.searchParams.set('token', this.options.bearerToken);
+      if (this.options.auth) {
+        const token = typeof this.options.auth === 'string'
+          ? this.options.auth
+          : (this.options.auth as AuthManager).getAccessToken();
+        url.searchParams.set('token', token);
       }
       url.searchParams.set('userId', this.options.userId);
       url.searchParams.set('role', this.options.role);

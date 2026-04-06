@@ -1,0 +1,178 @@
+import { AuthManager } from './AuthManager';
+import { API } from '@gebeta/api';
+import { UnauthorizedError } from '@gebeta/api';
+import { setupFetchSpy } from '../_test_utilities/fetchSpy';
+import { DirectionsManager } from '../Directions/DirectionsManager';
+
+const VALID_CREDENTIALS = {
+  accessToken: 'access-token-abc',
+  refreshToken: 'refresh-token-xyz',
+};
+
+const NEW_CREDENTIALS = {
+  accessToken: 'new-access-token',
+  refreshToken: 'new-refresh-token',
+};
+
+function makeRefreshResponse(credentials = NEW_CREDENTIALS) {
+  return { data: credentials };
+}
+
+describe('AuthManager', () => {
+  let fetchSpy: jest.SpyInstance;
+
+  afterEach(() => {
+    fetchSpy?.mockRestore();
+    jest.clearAllMocks();
+  });
+
+  describe('fetch()', () => {
+    test('should include Bearer token in Authorization header', async () => {
+      // GIVEN an AuthManager constructed with accessToken 'access-token-abc'
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = setupFetchSpy(200, { ok: true }, 'application/json;charset=UTF-8');
+
+      // WHEN fetch() is called
+      await manager.fetch('https://example.com/api');
+
+      // THEN the outgoing request has Authorization: Bearer access-token-abc
+      const [, init] = fetchSpy.mock.calls[0];
+      expect(init.headers['Authorization']).toBe(`Bearer ${VALID_CREDENTIALS.accessToken}`);
+    });
+
+    test('should call the refresh endpoint and retry the original request on 401', async () => {
+      // GIVEN an AuthManager and a server that returns 401 on the first attempt
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValueOnce(new Response('', { status: 401 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(new Response('{}', { status: 200 }));
+
+      // WHEN fetch() is called with the target URL
+      await manager.fetch('https://example.com/api');
+
+      // THEN fetch is called 3 times: original request, refresh, retry
+      expect(fetchSpy).toHaveBeenCalledTimes(3);
+      expect(fetchSpy.mock.calls[0][0]).toBe('https://example.com/api');
+      expect(fetchSpy.mock.calls[1][0]).toBe(API.Auth.Constants.REFRESH_URL);
+      expect(fetchSpy.mock.calls[2][0]).toBe('https://example.com/api');
+    });
+
+    test('should use the new accessToken in the retry request after a successful refresh', async () => {
+      // GIVEN an AuthManager and a server that returns 401, then issues new tokens on refresh
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValueOnce(new Response('', { status: 401 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(new Response('{}', { status: 200 }));
+
+      // WHEN fetch() is called
+      await manager.fetch('https://example.com/api');
+
+      // THEN the retry request uses the new accessToken 'new-access-token'
+      const [, retryInit] = fetchSpy.mock.calls[2];
+      expect(retryInit.headers['Authorization']).toBe(`Bearer ${NEW_CREDENTIALS.accessToken}`);
+    });
+
+    test('should throw UnauthorizedError and not retry again if the retry also returns 401', async () => {
+      // GIVEN an AuthManager where both the original request and the retry return 401
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValueOnce(new Response('', { status: 401 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(new Response('', { status: 401 }));
+
+      // WHEN fetch() is called
+      // THEN UnauthorizedError is thrown and fetch is not called a 4th time
+      await expect(manager.fetch('https://example.com/api')).rejects.toThrow(UnauthorizedError);
+      expect(fetchSpy).toHaveBeenCalledTimes(3);
+    });
+
+    test('should throw UnauthorizedError and emit tokenRefreshFailed if the refresh endpoint returns non-2xx', async () => {
+      // GIVEN an AuthManager where the original request returns 401 and the refresh endpoint returns 401
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      const onRefreshFailed = jest.fn();
+      manager.on(API.Auth.Enums.Events.tokenRefreshFailed, onRefreshFailed);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValueOnce(new Response('', { status: 401 }))
+        .mockResolvedValueOnce(new Response('Unauthorized', { status: 401 }));
+
+      // WHEN fetch() is called
+      // THEN UnauthorizedError is thrown and the tokenRefreshFailed event is emitted once
+      await expect(manager.fetch('https://example.com/api')).rejects.toThrow(UnauthorizedError);
+      expect(onRefreshFailed).toHaveBeenCalledTimes(1);
+    });
+
+    test('should emit tokenRefreshed with the new credentials after a successful refresh', async () => {
+      // GIVEN an AuthManager where the original request returns 401 and refresh succeeds with new credentials
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      const onRefreshed = jest.fn();
+      manager.on(API.Auth.Enums.Events.tokenRefreshed, onRefreshed);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValueOnce(new Response('', { status: 401 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(new Response('{}', { status: 200 }));
+
+      // WHEN fetch() is called
+      await manager.fetch('https://example.com/api');
+
+      // THEN the tokenRefreshed event is emitted with { accessToken: 'new-access-token', refreshToken: 'new-refresh-token' }
+      expect(onRefreshed).toHaveBeenCalledWith(NEW_CREDENTIALS);
+    });
+  });
+
+  describe('getAccessToken()', () => {
+    test('should return the updated accessToken after updateCredentials() is called', () => {
+      // GIVEN an AuthManager constructed with VALID_CREDENTIALS
+      const manager = new AuthManager(VALID_CREDENTIALS);
+
+      // WHEN updateCredentials() is called with NEW_CREDENTIALS
+      manager.updateCredentials(NEW_CREDENTIALS);
+
+      // THEN getAccessToken() returns 'new-access-token'
+      expect(manager.getAccessToken()).toBe(NEW_CREDENTIALS.accessToken);
+    });
+  });
+
+  describe('DirectionsManager with legacy string apiKey', () => {
+    test('should append the apiKey as a query param when constructed with a string', async () => {
+      // GIVEN a DirectionsManager constructed with a legacy string apiKey
+      const apiKey = 'my-legacy-api-key';
+      const directionsManager = new DirectionsManager(apiKey);
+      fetchSpy = setupFetchSpy(200, {
+        trip: {
+          legs: [{ shape: 'mz`wFa`{xE~A@', maneuvers: [], summary: { length: 1, time: 60 } }],
+          locations: [{ lat: 9.0, lon: 38.7 }, { lat: 9.1, lon: 38.8 }],
+        },
+      }, 'application/json;charset=UTF-8');
+
+      // WHEN getDirections() is called
+      await directionsManager.getDirections({ lat: 9.0, lng: 38.7 }, { lat: 9.1, lng: 38.8 });
+
+      // THEN the request URL contains apiKey=my-legacy-api-key as a query param
+      const url = new URL(fetchSpy.mock.calls[0][0] as string);
+      expect(url.searchParams.get('apiKey')).toBe(apiKey);
+    });
+  });
+
+  describe('DirectionsManager with AuthManager', () => {
+    test('should delegate HTTP calls to authManager.fetch() instead of calling globalThis.fetch directly', async () => {
+      // GIVEN a DirectionsManager constructed with an AuthManager
+      const authManager = new AuthManager(VALID_CREDENTIALS);
+      const directionsManager = new DirectionsManager(authManager);
+      const authFetchSpy = jest.spyOn(authManager, 'fetch');
+      fetchSpy = setupFetchSpy(200, {
+        trip: {
+          legs: [{ shape: 'mz`wFa`{xE~A@', maneuvers: [], summary: { length: 1, time: 60 } }],
+          locations: [{ lat: 9.0, lon: 38.7 }, { lat: 9.1, lon: 38.8 }],
+        },
+      }, 'application/json;charset=UTF-8');
+
+      // WHEN getDirections() is called
+      await directionsManager.getDirections({ lat: 9.0, lng: 38.7 }, { lat: 9.1, lng: 38.8 });
+
+      // THEN authManager.fetch() is called once (not globalThis.fetch directly)
+      expect(authFetchSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+});

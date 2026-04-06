@@ -8,20 +8,23 @@ import {
 } from '@gebeta/api';
 import { GeocodingApiResponse, GeocodingMessage } from './types';
 import { transformGeocodeResult } from './transform';
+import { createFetch } from '../utils/fetch';
+
+type AuthParam = API.Auth.Types.AuthParam;
 
 /**
  * GeocodingManager handles forward and reverse geocoding operations.
  * Platform-agnostic: uses fetch API which is available in all JS environments.
  */
 export class GeocodingManager {
-  private readonly apiKey: string;
+  private readonly auth: AuthParam;
   private readonly baseUrl: string;
 
-  constructor(apiKey: string) {
-    if (!apiKey) {
-      throw new ValidationError('API key is required for GeocodingManager', 'apiKey');
+  constructor(auth: AuthParam) {
+    if (!auth) {
+      throw new ValidationError('auth is required for GeocodingManager', 'auth');
     }
-    this.apiKey = apiKey;
+    this.auth = auth;
     this.baseUrl = API.Geocoding.Constants.API_URL;
   }
 
@@ -35,16 +38,16 @@ export class GeocodingManager {
       throw new ValidationError('Name is required for geocoding', 'name');
     }
 
-    const params = new URLSearchParams({
-      name,
-      apiKey: this.apiKey,
-    });
+    const params = new URLSearchParams({ name });
+    if (typeof this.auth === 'string') {
+      params.set('apiKey', this.auth);
+    }
 
     const url = `${this.baseUrl}/geocoding?${params.toString()}`;
 
     let response: Response;
     try {
-      response = await fetch(url);
+      response = await this.doFetch(url);
     } catch (error) {
       throw new NetworkError(
         error instanceof Error
@@ -92,14 +95,16 @@ export class GeocodingManager {
     const params = new URLSearchParams({
       lat: latlng.lat.toString(),
       lon: latlng.lng.toString(),
-      apiKey: this.apiKey,
     });
+    if (typeof this.auth === 'string') {
+      params.set('apiKey', this.auth);
+    }
 
     const url = `${this.baseUrl}/revgeocoding?${params.toString()}`;
 
     let response: Response;
     try {
-      response = await fetch(url);
+      response = await this.doFetch(url);
     } catch (error) {
       throw new NetworkError(
         error instanceof Error
@@ -128,5 +133,9 @@ export class GeocodingManager {
       API.Errors.Codes.GEOCODING_REQUEST_FAILED,
       data.error?.message || data.msg || 'Reverse geocoding failed'
     );
+  }
+
+  private doFetch(url: string): Promise<Response> {
+    return createFetch(this.auth)(url);
   }
 }

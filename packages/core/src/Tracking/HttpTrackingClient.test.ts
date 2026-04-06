@@ -1,6 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { HttpTrackingClient } from './HttpTrackingClient';
 import { API, ValidationError } from '@gebeta/api';
+import { AuthManager } from '../Auth';
 
 describe('HttpTrackingClient', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;
@@ -94,6 +95,49 @@ describe('HttpTrackingClient', () => {
       client.stop();
       // THEN it should stop the location provider
       expect(mockLocationProvider.stop).toHaveBeenCalled();
+    });
+  });
+
+  describe('auth', () => {
+    test('should include Authorization: Bearer <apiKey> header when constructed with a string apiKey', async () => {
+      // GIVEN an HttpTrackingClient constructed with legacy apiKey 'my-legacy-key'
+      const client = new HttpTrackingClient({
+        userId: 'test-user',
+        auth: 'my-legacy-key',
+      });
+      client.start(mockLocationProvider);
+
+      // WHEN the send interval elapses
+      jest.advanceTimersByTime(API.Tracking.Constants.INTERVAL_MS);
+      await Promise.resolve();
+
+      // THEN globalThis.fetch is called with Authorization: Bearer my-legacy-key
+      const [, init] = mockFetch.mock.calls[0];
+      expect(init.headers['Authorization']).toBe('Bearer my-legacy-key');
+    });
+
+    test('should delegate fetch to authManager.fetch() when constructed with an AuthManager', async () => {
+      // GIVEN an HttpTrackingClient constructed with an AuthManager
+      const authManager = new AuthManager({
+        accessToken: 'access-token-abc',
+        refreshToken: 'refresh-token-xyz',
+      });
+      const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(
+        new Response('{}', { status: 200 })
+      );
+      const client = new HttpTrackingClient({
+        userId: 'test-user',
+        auth: authManager,
+      });
+      client.start(mockLocationProvider);
+
+      // WHEN the send interval elapses
+      jest.advanceTimersByTime(API.Tracking.Constants.INTERVAL_MS);
+      await Promise.resolve();
+
+      // THEN authManager.fetch() is called (not globalThis.fetch directly)
+      expect(authFetchSpy).toHaveBeenCalledTimes(1);
+      expect(mockFetch).not.toHaveBeenCalled();
     });
   });
 
