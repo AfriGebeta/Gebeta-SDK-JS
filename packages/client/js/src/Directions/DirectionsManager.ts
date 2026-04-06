@@ -1,6 +1,8 @@
 import type { API } from '@gebeta/api';
 import { DirectionsManager as CoreDirectionsManager } from '@gebeta/core';
 import { ValidationError } from '@gebeta/api';
+
+type AuthParam = API.Auth.Types.AuthParam;
 import { ROUTE_SOURCE_ID, DEFAULT_ROUTE_STYLE, DEFAULT_FIT_BOUNDS_OPTIONS } from './constants';
 import {
   initRouteLayer,
@@ -26,7 +28,7 @@ export class DirectionsManager {
   private currentRoute: RouteData | null = null;
   private markers: IMarker[] = [];
 
-  constructor(mapAdapter: IMapAdapter, markerFactory: IMarkerFactory, apiKey: string) {
+  constructor(mapAdapter: IMapAdapter, markerFactory: IMarkerFactory, auth: AuthParam) {
     if (!mapAdapter) {
       throw new ValidationError('Map adapter is required for DirectionsManager', 'mapAdapter');
     }
@@ -38,7 +40,7 @@ export class DirectionsManager {
     }
     this.mapAdapter = mapAdapter;
     this.markerFactory = markerFactory;
-    this.core = new CoreDirectionsManager(apiKey);
+    this.core = new CoreDirectionsManager(auth);
     initRouteLayer(this.mapAdapter);
   }
 

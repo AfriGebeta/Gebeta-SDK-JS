@@ -49,17 +49,17 @@ export class NavController extends EventEmitter<NavigationEventMap> {
   private totalRouteDistance = 0;
   private stepDistances: number[] = [];
   private lastLocation: LocationData | null = null;
-  private readonly apiKey: string;
+  private readonly auth: API.Auth.Types.AuthParam;
   private userId: string = '';
   private role: Role = 'driver';
   private precision: Precision = API.Tracking.Enums.Precision.HIGH;
 
   /**
    * Creates a new NavController instance.
-   * @param apiKey - API key for tracking and rerouting
+   * @param auth - API key or Service account authentication input
    * @param options - Configuration options for navigation behavior
    */
-  constructor(apiKey: string, options: NavigationControllerOptions = {}) {
+  constructor(auth: API.Auth.Types.AuthParam, options: NavigationControllerOptions = {}) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;
@@ -70,7 +70,7 @@ export class NavController extends EventEmitter<NavigationEventMap> {
       rerouteFn: options.rerouteFn ?? null,
     };
 
-    this.apiKey = apiKey;
+    this.auth = auth;
   }
 
   /**
@@ -152,13 +152,13 @@ export class NavController extends EventEmitter<NavigationEventMap> {
       this.trackingClient = new TrackingClient({
         userId: this.userId,
         role: this.role,
-        bearerToken: this.apiKey,
+        auth: this.auth,
       });
     } else {
       this.trackingClient = new HttpTrackingClient({
         userId: this.userId,
         role: this.role,
-        bearerToken: this.apiKey,
+        auth: this.auth,
       });
     }
 

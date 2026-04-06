@@ -4,12 +4,14 @@ import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
 import { NavController } from './Navigation/NavController';
-import { GeocodingManager } from '@gebeta/core';
+import { GeocodingManager, AuthManager } from '@gebeta/core';
 import { API, ValidationError, PlatformError } from '@gebeta/api';
-import { createPlatform, type PlatformContext } from './adapters/createPlatform';
+import { createPlatform, type PlatformContext } from './adapters';
+
+type AuthParam = API.Auth.Types.AuthParam;
 
 export class GebetaMaps {
-  private readonly apiKey: string;
+  private readonly auth: AuthParam;
   private map: MapLibreMap | null = null;
   private platform: PlatformContext | null = null;
   private directionsManager: DirectionsManager | null = null;
@@ -30,10 +32,25 @@ export class GebetaMaps {
   }
 
   constructor(options: API.Map.Types.ConstructorOptions & { platform?: PlatformContext }) {
-    if (!options?.apiKey) {
-      throw new ValidationError('API key is required', 'apiKey');
+    const hasApiKey = !!options?.apiKey;
+    const hasAuth = !!options?.auth;
+
+    if (!hasApiKey && !hasAuth) {
+      throw new ValidationError('Either apiKey or auth is required', 'auth');
     }
-    this.apiKey = options.apiKey;
+    if (hasApiKey && hasAuth) {
+      throw new ValidationError('Provide either apiKey or auth, not both', 'auth');
+    }
+    if (hasApiKey) {
+      console.warn(
+        '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
+        'Use service account auth instead: https://docs.gebeta.app/auth'
+      );
+      this.auth = options.apiKey!;
+    } else {
+      this.auth = new AuthManager(options.auth!);
+    }
+
     this.clusteringOptions = options.clustering;
     this.platform = options.platform ?? null;
   }
@@ -48,11 +65,11 @@ export class GebetaMaps {
         { method: 'initManagers' }
       );
     }
-    this._geocodingManager = new GeocodingManager(this.apiKey);
+    this._geocodingManager = new GeocodingManager(this.auth);
     this.directionsManager = new DirectionsManager(
       this.platform.mapAdapter,
       this.platform.markerFactory,
-      this.apiKey
+      this.auth
     );
     this.fenceManager = new FenceManager(
       this.platform.mapAdapter,
@@ -68,7 +85,7 @@ export class GebetaMaps {
       );
     }
     this.navController = new NavController(
-      this.apiKey,
+      this.auth,
       this.platform.mapAdapter,
       this.platform.markerFactory
     );
@@ -94,11 +111,12 @@ export class GebetaMaps {
       attributionControl: false,
       transformRequest: (url: string, _resourceType: string) => {
         if (url.startsWith('https://tiles.gebeta.app')) {
+          const token = typeof this.auth === 'string'
+            ? this.auth
+            : (this.auth as AuthManager).getAccessToken();
           return {
             url,
-            headers: {
-              Authorization: `Bearer ${this.apiKey}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           };
         }
         return { url };
