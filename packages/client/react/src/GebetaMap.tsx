@@ -1,9 +1,11 @@
 import type { ReactNode } from 'react';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import maplibre from 'maplibre-gl';
 import type { API } from '@gebeta/api';
+import { ValidationError } from '@gebeta/api';
+import { AuthManager } from '@gebeta/core';
 import { GebetaMapContext } from './context/MapContext';
-import { createPlatform } from './adapters/createPlatform';
+import { createPlatform } from './adapters';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -14,6 +16,7 @@ const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
 
 export function GebetaMap({
   apiKey,
+  auth: authProp,
   styleUrl,
   style: styleProp,
   clustering,
@@ -31,6 +34,31 @@ export function GebetaMap({
   } | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
+  const authManager = useMemo(() => {
+    const hasApiKey = !!apiKey;
+    const hasAuth = !!authProp;
+
+    if (!hasApiKey && !hasAuth) {
+      throw new ValidationError('Either apiKey or auth is required', 'auth');
+    }
+    if (hasApiKey && hasAuth) {
+      throw new ValidationError('Provide either apiKey or auth, not both', 'auth');
+    }
+    if (hasApiKey) {
+      console.warn(
+        '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
+        'Use service account auth instead: https://docs.gebeta.app/auth'
+      );
+      return null; // legacy path — token is the apiKey string directly
+    }
+    return new AuthManager(authProp!);
+  }, [apiKey, authProp?.accessToken, authProp?.refreshToken]);
+
+  const getToken = (): string => {
+    if (authManager) return authManager.getAccessToken();
+    return apiKey!;
+  };
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -44,10 +72,10 @@ export function GebetaMap({
       attributionControl: false,
       ...rest,
       transformRequest: (url: string, _resourceType: string) => {
-        if (apiKey && url.startsWith('https://tiles.gebeta.app')) {
+        if (url.startsWith('https://tiles.gebeta.app')) {
           return {
             url,
-            headers: { Authorization: `Bearer ${apiKey}` },
+            headers: { Authorization: `Bearer ${getToken()}` },
           };
         }
         return { url };
@@ -91,7 +119,7 @@ export function GebetaMap({
       map.remove();
       setContextValue(null);
     };
-  }, [apiKey]);
+  }, [apiKey, authManager]);
 
   return (
     <GebetaMapContext.Provider value={contextValue}>

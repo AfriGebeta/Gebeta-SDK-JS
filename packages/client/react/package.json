@@ -12,7 +12,8 @@
     "lint:fix": "test -d src && eslint \"src/**/*.{ts,tsx}\" --fix || echo 'No src directory - skipping lint'",
     "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
     "format": "test -d src && prettier --write \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format'",
-    "format:check": "test -d src && prettier --check \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format check'"
+    "format:check": "test -d src && prettier --check \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format check'",
+    "test": "jest"
   },
   "dependencies": {
     "@gebeta/api": "workspace:*",
@@ -21,7 +22,16 @@
     "react": "^18.0.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-util": "^29.7.0",
+    "react-dom": "^18.0.0",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
