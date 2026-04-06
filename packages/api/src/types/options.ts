@@ -1,6 +1,6 @@
 import type { CornerPosition, LngLat, Position, Precision, Role } from './common';
 import type { RouteData, ClusterData } from './data';
-import type { Auth } from '../namespaces/auth';
+import type { AuthParam, ServiceAccountAuth } from './auth';
 
 /**
  * Options for constructing a GebetaMaps instance (imperative JS API).
@@ -13,7 +13,7 @@ export interface GebetaMapsConstructorOptions {
   /** @deprecated Use `auth` instead. API key authentication is insecure — the key is visible in browser devtools. */
   apiKey?: string;
   /** Service account authentication credentials (access + refresh token pair) */
-  auth?: Auth.Types.ServiceAccountAuth;
+  auth?: ServiceAccountAuth;
   /** Clustering configuration options */
   clustering?: ClusteringOptions;
 }
@@ -235,8 +235,10 @@ export interface NavigationControllerOptions {
  * Options for WebSocket tracking client.
  */
 export interface TrackingClientOptions {
-  /** Bearer token for authentication */
+  /** @deprecated Use `auth` instead. */
   bearerToken?: string;
+  /** Auth manager or legacy API key string */
+  auth?: AuthParam;
   /** User ID for tracking */
   userId?: string;
   /** User role (default: 'driver') */
@@ -255,8 +257,10 @@ export interface TrackingClientOptions {
  * Options for HTTP tracking client.
  */
 export interface HttpTrackingClientOptions {
-  /** Bearer token for authentication */
+  /** @deprecated Use `auth` instead. */
   bearerToken?: string;
+  /** Auth manager or legacy API key string */
+  auth?: AuthParam;
   /** User ID for tracking */
   userId?: string;
   /** User role (default: 'driver') */

@@ -248,14 +248,14 @@ export class NavController {
     return this.core.isNavigating();
   }
 
-  on<K extends keyof CoreNavController>(
+  on<K extends Parameters<CoreNavController['on']>[0]>(
     event: K,
     callback: Parameters<CoreNavController['on']>[1]
   ): void {
     this.core.on(event, callback as never);
   }
 
-  off<K extends keyof CoreNavController>(
+  off<K extends Parameters<CoreNavController['off']>[0]>(
     event: K,
     callback: Parameters<CoreNavController['off']>[1]
   ): void {

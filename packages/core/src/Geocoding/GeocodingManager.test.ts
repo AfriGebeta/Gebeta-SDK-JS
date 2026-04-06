@@ -29,9 +29,9 @@ describe('GeocodingManager', () => {
       // WHEN creating a GeocodingManager instance
       // THEN test should create the instance successfully
       expect(manager).toBeInstanceOf(GeocodingManager);
-      // AND the API key should be set correctly
+      // AND the auth param should be set correctly
       // @ts-expect-error - Accessing private property for test verification
-      expect(manager.apiKey).toBe(apiKey);
+      expect(manager.auth).toBe(apiKey);
     });
 
     test.each(EMPTY_VALUES)(

@@ -26,7 +26,7 @@ describe('DirectionsManager', () => {
     test('should create instance with valid API key', () => {
       expect(manager).toBeInstanceOf(DirectionsManager);
       // @ts-expect-error - Accessing private property for test verification
-      expect(manager.apiKey).toBe(apiKey);
+      expect(manager.auth).toBe(apiKey);
     });
 
     test.each(EMPTY_VALUES)(

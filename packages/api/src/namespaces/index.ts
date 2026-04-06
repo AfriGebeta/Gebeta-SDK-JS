@@ -20,6 +20,7 @@ export namespace API {
       export type ServiceAccountAuth = AuthModule.Auth.Types.ServiceAccountAuth;
       export type AuthParam = AuthModule.Auth.Types.AuthParam;
     }
+    export const Enums = AuthModule.Auth.Enums;
     export const Constants = AuthModule.Auth.Constants;
   }
 

@@ -1,6 +1,7 @@
 import type { MapStyle } from '../types/common';
 import type { ClusteringOptions } from '../types/options';
 import type { LocationProviderOptions } from '../types/platform';
+import { Colors } from './colors';
 
 export * from './colors';
 
@@ -30,6 +31,14 @@ export const MAP_STYLES: Record<MapStyle, { url: string; imageUrl: string; label
  * Default style URL for map initialization.
  */
 export const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
+
+/**
+ * Event names emitted by AuthManager.
+ */
+export const AuthEvents = {
+  tokenRefreshed: 'token:refreshed',
+  tokenRefreshFailed: 'token:refresh_failed',
+} as const;
 
 /**
  * URLs for service account authentication endpoints.
@@ -114,15 +123,15 @@ export const DEFAULT_LOCATION_PROVIDER_OPTIONS: Required<LocationProviderOptions
  * Default fence style options.
  */
 export const DEFAULT_FENCE_STYLE = {
-  fillColor: '#ff0000',
+  fillColor: Colors.FENCE_DEFAULT_COLOR,
   fillOpacity: 0.3,
-  lineColor: '#ff0000',
+  lineColor: Colors.FENCE_DEFAULT_COLOR,
   lineWidth: 2,
   lineOpacity: 1,
   lineDashArray: [2, 2],
   lineCap: 'butt' as const,
   lineJoin: 'miter' as const,
-  borderColor: '#ff0000',
+  borderColor: Colors.FENCE_DEFAULT_BORDER_COLOR,
   borderWidth: 1,
   borderOpacity: 1,
 } as const;

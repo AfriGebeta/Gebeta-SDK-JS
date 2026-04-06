@@ -18,8 +18,6 @@ type ILocationProvider = API.Platform.Types.ILocationProvider;
 type Precision = (typeof API.Tracking.Enums.Precision)[keyof typeof API.Tracking.Enums.Precision];
 type Role = API.Tracking.Types.Role;
 
-type EventHandler = (...args: never[]) => void;
-
 interface NavigationEventMap {
   start: (event: API.Navigation.Events.StartEvent) => void;
   stop: (event: API.Navigation.Events.StopEvent) => void;
@@ -28,7 +26,6 @@ interface NavigationEventMap {
   offroute: (event: API.Navigation.Events.OffRouteEvent) => void;
   arrive: (event: API.Navigation.Events.ArriveEvent) => void;
   error: (error: NavigationError) => void;
-  [key: string]: EventHandler;
 }
 
 /**

@@ -253,7 +253,7 @@ describe('NavController (platform layer)', () => {
     it('should forward on() to core with event and callback', () => {
       // GIVEN event name and callback
       const callback = jest.fn<void, [API.Navigation.Events.ProgressEvent]>();
-      const event = 'progress' as keyof InstanceType<typeof CoreNavController>;
+      const event = 'progress' as Parameters<CoreNavController['on']>[0];
 
       // WHEN on is called
       navController.on(event, callback);
@@ -265,7 +265,7 @@ describe('NavController (platform layer)', () => {
     it('should forward off() to core with event and callback', () => {
       // GIVEN event name and callback
       const callback = jest.fn<void, [API.Navigation.Events.ProgressEvent]>();
-      const event = 'progress' as keyof InstanceType<typeof CoreNavController>;
+      const event = 'progress' as Parameters<CoreNavController['off']>[0];
 
       // WHEN off is called
       navController.off(event, callback);
