@@ -108,12 +108,15 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       var config = loadConfig();
-      var apiKey = config.GEBETA_API_KEY;
+      var auth = (config.GEBETA_ACCESS_TOKEN && config.GEBETA_REFRESH_TOKEN)
+        ? { accessToken: config.GEBETA_ACCESS_TOKEN, refreshToken: config.GEBETA_REFRESH_TOKEN }
+        : null;
+      var apiKey = auth ? null : config.GEBETA_API_KEY;
       if (!apiKey || apiKey === 'YOUR_API_KEY') {
         console.warn('Set GEBETA_API_KEY in config.js');
       }
 
-      gebetaMap = new GebetaMaps({ apiKey: apiKey });
+      gebetaMap = new GebetaMaps(auth ? { auth: auth } : { apiKey: apiKey });
       map = gebetaMap.init({
         container: 'map',
         center: [38.7685, 9.0161],

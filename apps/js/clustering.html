@@ -99,20 +99,24 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       var config = loadConfig();
-      var apiKey = config.GEBETA_API_KEY;
-      if (!apiKey || apiKey === 'YOUR_API_KEY') {
-        console.warn('Set GEBETA_API_KEY in config.js');
+      var auth = (config.GEBETA_ACCESS_TOKEN && config.GEBETA_REFRESH_TOKEN)
+        ? { accessToken: config.GEBETA_ACCESS_TOKEN, refreshToken: config.GEBETA_REFRESH_TOKEN }
+        : null;
+      var apiKey = auth ? null : config.GEBETA_API_KEY;
+      if (!auth && (!apiKey || apiKey === 'YOUR_API_KEY')) {
+        console.warn('Set GEBETA_ACCESS_TOKEN/GEBETA_REFRESH_TOKEN or GEBETA_API_KEY in config.js');
       }
 
-      gebetaMap = new GebetaMaps({
-        apiKey: apiKey,
-        clustering: {
-          enabled: true,
-          radius: 50,
-          maxZoom: 16,
-          showClusterCount: true,
-        }
-      });
+      var clusteringOpts = {
+        enabled: true,
+        radius: 50,
+        maxZoom: 16,
+        showClusterCount: true,
+      };
+      gebetaMap = new GebetaMaps(auth
+        ? { auth: auth, clustering: clusteringOpts }
+        : { apiKey: apiKey, clustering: clusteringOpts }
+      );
       map = gebetaMap.init({
         container: 'map',
         center: [38.7685, 9.0161],

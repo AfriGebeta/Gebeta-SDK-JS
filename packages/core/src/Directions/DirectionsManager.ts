@@ -61,6 +61,9 @@ export class DirectionsManager {
 
     if (typeof this.auth === 'string') {
       params.set('apiKey', this.auth);
+    } else {
+      const manager = this.auth as { getAccessToken(): string };
+      params.set('accessToken', manager.getAccessToken());
     }
 
     if (waypoints.length > 0) {
