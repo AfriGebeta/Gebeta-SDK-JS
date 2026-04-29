@@ -41,6 +41,9 @@ export class GeocodingManager {
     const params = new URLSearchParams({ name });
     if (typeof this.auth === 'string') {
       params.set('apiKey', this.auth);
+    } else {
+      const manager = this.auth as { getAccessToken(): string };
+      params.set('accessToken', manager.getAccessToken());
     }
 
     const url = `${this.baseUrl}/geocoding?${params.toString()}`;
@@ -98,6 +101,9 @@ export class GeocodingManager {
     });
     if (typeof this.auth === 'string') {
       params.set('apiKey', this.auth);
+    } else {
+      const manager = this.auth as { getAccessToken(): string };
+      params.set('accessToken', manager.getAccessToken());
     }
 
     const url = `${this.baseUrl}/revgeocoding?${params.toString()}`;

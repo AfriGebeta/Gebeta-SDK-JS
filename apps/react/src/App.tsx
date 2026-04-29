@@ -87,13 +87,17 @@ const buttonStyle: React.CSSProperties = {
   fontSize: 14,
 };
 
-const apiKey = import.meta.env.VITE_GEBETA_API_KEY ?? '';
+const accessToken = import.meta.env.VITE_GEBETA_ACCESS_TOKEN ?? '';
+const refreshToken = import.meta.env.VITE_GEBETA_REFRESH_TOKEN ?? '';
+const auth =
+  accessToken && refreshToken ? { accessToken, refreshToken } : undefined;
+const apiKey = auth ? undefined : (import.meta.env.VITE_GEBETA_API_KEY ?? '');
 
 export default function App() {
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       <GebetaMap
-        apiKey={apiKey}
+        {...(auth ? { auth } : { apiKey })}
         center={ADDIS_ABABA_CENTER}
         zoom={12}
         clustering={{ enabled: true, showClusterCount: false }}
