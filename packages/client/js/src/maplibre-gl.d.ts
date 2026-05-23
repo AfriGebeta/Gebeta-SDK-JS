@@ -43,6 +43,7 @@ declare module 'maplibre-gl' {
     setDOMContent(element: HTMLElement): this;
     setLngLat(lngLat: [number, number]): this;
     addTo(map: Map): this;
+    remove(): void;
   }
 
   export class LngLatBounds {
