@@ -117,6 +117,11 @@ export const DEFAULT_CLUSTERING_OPTIONS: Partial<ClusteringOptions> = {
 };
 
 /**
+ * localStorage key used to persist the stable client identifier (X-Device-ID).
+ */
+export const CLIENT_ID_STORAGE_KEY = 'gebeta_client_id' as const;
+
+/**
  * Default location provider options for geolocation.
  */
 export const DEFAULT_LOCATION_PROVIDER_OPTIONS: Required<LocationProviderOptions> = {

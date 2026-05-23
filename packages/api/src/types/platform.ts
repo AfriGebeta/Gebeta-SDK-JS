@@ -131,6 +131,11 @@ export interface IStyleInjector {
   removeStyle(id: string): void;
 }
 
+export interface IClientIdStorage {
+  getClientId(): string | null;
+  setClientId(id: string): void;
+}
+
 export interface IPlatformContext {
   mapAdapter: IMapAdapter;
   markerFactory: IMarkerFactory;
@@ -138,4 +143,5 @@ export interface IPlatformContext {
   locationProvider: ILocationProvider;
   getLocationProvider: (options?: LocationProviderOptions) => ILocationProvider;
   styleInjector: IStyleInjector;
+  clientIdStorage?: IClientIdStorage;
 }

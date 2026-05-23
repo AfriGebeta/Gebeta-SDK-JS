@@ -4,14 +4,17 @@ import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
 import { NavigationManager } from './Navigation/NavigationManager';
-import { GeocodingManager, AuthManager } from '@gebeta/core';
+import { GeocodingManager, AuthManager, ClientIdManager } from '@gebeta/core';
 import { API, ValidationError, PlatformError } from '@gebeta/api';
 import { createPlatform, type PlatformContext } from './adapters';
+import { LocalStorageClientIdStorage } from './adapters/LocalStorageClientIdStorage';
 
 type AuthParam = API.Auth.Types.AuthParam;
 
 export class GebetaMaps {
   private readonly auth: AuthParam;
+  private readonly enableClientId: boolean;
+  private clientIdManager: ClientIdManager | null = null;
   private map: MapLibreMap | null = null;
   private platform: PlatformContext | null = null;
   private directionsManager: DirectionsManager | null = null;
@@ -52,7 +55,12 @@ export class GebetaMaps {
     }
 
     this.clusteringOptions = options.clustering;
+    this.enableClientId = options.enableClientId ?? false;
     this.platform = options.platform ?? null;
+
+    if (this.enableClientId) {
+      this.clientIdManager = new ClientIdManager(new LocalStorageClientIdStorage());
+    }
   }
 
   private readonly clusteringOptions?: API.Clustering.Types.Options;
@@ -65,11 +73,15 @@ export class GebetaMaps {
         { method: 'initManagers' }
       );
     }
-    this._geocodingManager = new GeocodingManager(this.auth);
+
+    const clientId = this.clientIdManager?.getId();
+
+    this._geocodingManager = new GeocodingManager(this.auth, clientId);
     this.directionsManager = new DirectionsManager(
       this.platform.mapAdapter,
       this.platform.markerFactory,
-      this.auth
+      this.auth,
+      clientId
     );
     this.fenceManager = new FenceManager(
       this.platform.mapAdapter,
@@ -87,7 +99,9 @@ export class GebetaMaps {
     this.navigationManager = new NavigationManager(
       this.auth,
       this.platform.mapAdapter,
-      this.platform.markerFactory
+      this.platform.markerFactory,
+      {},
+      clientId
     );
   }
 
@@ -114,10 +128,11 @@ export class GebetaMaps {
           const token = typeof this.auth === 'string'
             ? this.auth
             : (this.auth as AuthManager).getAccessToken();
-          return {
-            url,
-            headers: { Authorization: `Bearer ${token}` },
-          };
+          const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
+          if (this.clientIdManager) {
+            headers['X-Device-ID'] = this.clientIdManager.getId();
+          }
+          return { url, headers };
         }
         return { url };
       },

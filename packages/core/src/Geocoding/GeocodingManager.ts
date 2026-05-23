@@ -19,13 +19,15 @@ type AuthParam = API.Auth.Types.AuthParam;
 export class GeocodingManager {
   private readonly auth: AuthParam;
   private readonly baseUrl: string;
+  private readonly clientId?: string;
 
-  constructor(auth: AuthParam) {
+  constructor(auth: AuthParam, clientId?: string) {
     if (!auth) {
       throw new ValidationError('auth is required for GeocodingManager', 'auth');
     }
     this.auth = auth;
     this.baseUrl = API.Geocoding.Constants.API_URL;
+    this.clientId = clientId;
   }
 
   /**
@@ -142,6 +144,6 @@ export class GeocodingManager {
   }
 
   private doFetch(url: string): Promise<Response> {
-    return createFetch(this.auth)(url);
+    return createFetch(this.auth, this.clientId)(url);
   }
 }

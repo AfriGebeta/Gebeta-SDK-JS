@@ -19,13 +19,15 @@ type AuthParam = API.Auth.Types.AuthParam;
 export class DirectionsManager {
   private readonly auth: AuthParam;
   private readonly baseUrl: string;
+  private readonly clientId?: string;
 
-  constructor(auth: AuthParam) {
+  constructor(auth: AuthParam, clientId?: string) {
     if (!auth) {
       throw new ValidationError('auth is required for DirectionsManager', 'auth');
     }
     this.auth = auth;
     this.baseUrl = API.Routing.Constants.API_URL;
+    this.clientId = clientId;
   }
 
   /**
@@ -75,7 +77,7 @@ export class DirectionsManager {
 
     let response: Response;
     try {
-      response = await createFetch(this.auth)(url);
+      response = await createFetch(this.auth, this.clientId)(url);
     } catch (error) {
       throw new NetworkError(
         error instanceof Error

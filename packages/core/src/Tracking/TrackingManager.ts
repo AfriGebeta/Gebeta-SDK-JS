@@ -31,7 +31,7 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
       'userId' | 'role' | 'sendIntervalMs' | 'autoReconnect' | 'maxReconnectDelayMs'
     >
   > &
-    Pick<TrackingManagerOptions, 'auth' | 'locationProvider'>;
+    Pick<TrackingManagerOptions, 'auth' | 'locationProvider' | 'clientId'>;
   private readonly wsUrl: string;
   private isConnected = false;
   private isStopped = false;
@@ -56,6 +56,7 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
       maxReconnectDelayMs: options.maxReconnectDelayMs ?? 15000,
       auth: options.auth,
       locationProvider: options.locationProvider,
+      clientId: options.clientId,
     };
 
     this.wsUrl = API.Tracking.Constants.API_URLS.WEBSOCKET;
@@ -107,6 +108,9 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
       }
       url.searchParams.set('userId', this.options.userId);
       url.searchParams.set('role', this.options.role);
+      if (this.options.clientId) {
+        url.searchParams.set('deviceId', this.options.clientId);
+      }
 
       this.ws = new WebSocket(url.toString());
 

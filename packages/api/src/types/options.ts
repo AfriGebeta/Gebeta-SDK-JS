@@ -16,6 +16,8 @@ export interface GebetaMapsConstructorOptions {
   auth?: ServiceAccountAuth;
   /** Clustering configuration options */
   clustering?: ClusteringOptions;
+  /** Enable stable client identification via X-Device-ID header on all outgoing requests. Default: false. */
+  enableClientId?: boolean;
 }
 
 /**
@@ -251,6 +253,8 @@ export interface TrackingManagerOptions {
   autoReconnect?: boolean;
   /** Maximum delay in milliseconds before reconnection attempt (default: 15000) */
   maxReconnectDelayMs?: number;
+  /** Stable client identifier sent as X-Device-ID header */
+  clientId?: string;
 }
 
 /**
@@ -267,6 +271,8 @@ export interface HttpTrackingManagerOptions {
   role?: Role;
   /** Custom location provider (overrides default browser GPS) */
   locationProvider?: ILocationProvider;
+  /** Stable client identifier sent as X-Device-ID header */
+  clientId?: string;
 }
 
 /**
