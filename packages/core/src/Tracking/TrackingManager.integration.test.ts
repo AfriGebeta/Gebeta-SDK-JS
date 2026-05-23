@@ -1,6 +1,6 @@
 import '../_test_utilities/consoleMock';
 import { loadIntegrationConfig } from '../_test_utilities/integrationConfig';
-import { TrackingClient } from './TrackingClient';
+import { TrackingManager } from './TrackingManager';
 import { API } from '@gebeta/api';
 
 let config: ReturnType<typeof loadIntegrationConfig>;
@@ -31,12 +31,12 @@ const createMockLocationProvider = (): API.Platform.Types.ILocationProvider => {
   };
 };
 
-describe('TrackingClient Integration Tests', () => {
-  let client: TrackingClient;
+describe('TrackingManager Integration Tests', () => {
+  let client: TrackingManager;
   let locationProvider: API.Platform.Types.ILocationProvider;
 
   beforeEach(() => {
-    client = new TrackingClient({
+    client = new TrackingManager({
       userId: 'test-user-integration',
       bearerToken: config.apiKey,
       role: 'driver',
@@ -51,7 +51,7 @@ describe('TrackingClient Integration Tests', () => {
 
   describe('WebSocket connection', () => {
     test('should connect to WebSocket server', done => {
-      // GIVEN a TrackingClient instance with connect and error listeners
+      // GIVEN a TrackingManager instance with connect and error listeners
       client.on('connect', () => {
         // THEN it should connect and be active
         expect(client.isActive()).toBe(true);
@@ -67,7 +67,7 @@ describe('TrackingClient Integration Tests', () => {
     }, 10000);
 
     test('should send location updates', done => {
-      // GIVEN a TrackingClient instance with connect and location listeners
+      // GIVEN a TrackingManager instance with connect and location listeners
       let connectReceived = false;
       let locationReceived = false;
 
@@ -90,7 +90,7 @@ describe('TrackingClient Integration Tests', () => {
 
   describe('reconnection', () => {
     test('should attempt to reconnect on disconnect', done => {
-      // GIVEN a TrackingClient instance with a connect listener
+      // GIVEN a TrackingManager instance with a connect listener
       let connectCount = 0;
 
       client.on('connect', () => {

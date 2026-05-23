@@ -1,8 +1,8 @@
 import '../_test_utilities/consoleMock';
-import { TrackingClient } from './TrackingClient';
+import { TrackingManager } from './TrackingManager';
 import { API, ValidationError } from '@gebeta/api';
 
-describe('TrackingClient', () => {
+describe('TrackingManager', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;
   let locationCallback: ((location: API.Platform.Types.LocationData) => void) | null = null;
 
@@ -42,39 +42,39 @@ describe('TrackingClient', () => {
   describe('constructor', () => {
     test('should throw ValidationError if userId is missing', () => {
       // GIVEN invalid options without userId
-      // WHEN creating a TrackingClient instance
+      // WHEN creating a TrackingManager instance
       // THEN it should throw a ValidationError
       expect(() => {
-        new TrackingClient({} as unknown as API.Tracking.Types.ClientOptions);
+        new TrackingManager({} as unknown as API.Tracking.Types.ManagerOptions);
       }).toThrow(ValidationError);
     });
 
     test('should create instance with valid options', () => {
       // GIVEN valid options with userId and role
-      // WHEN creating a TrackingClient instance
-      const client = new TrackingClient({
+      // WHEN creating a TrackingManager instance
+      const client = new TrackingManager({
         userId: 'test-user',
         role: 'driver',
       });
       // THEN it should create the instance successfully
-      expect(client).toBeInstanceOf(TrackingClient);
+      expect(client).toBeInstanceOf(TrackingManager);
     });
 
     test('should use default values for optional options', () => {
       // GIVEN options with only userId
-      // WHEN creating a TrackingClient instance
-      const client = new TrackingClient({
+      // WHEN creating a TrackingManager instance
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       // THEN it should create the instance with default values
-      expect(client).toBeInstanceOf(TrackingClient);
+      expect(client).toBeInstanceOf(TrackingManager);
     });
   });
 
   describe('start', () => {
     test('should start location provider', () => {
-      // GIVEN a TrackingClient instance and a location provider
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance and a location provider
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       // WHEN starting the client
@@ -85,8 +85,8 @@ describe('TrackingClient', () => {
     });
 
     test('should not start if already started', () => {
-      // GIVEN a TrackingClient instance that is already started
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance that is already started
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       client.start(mockLocationProvider);
@@ -101,8 +101,8 @@ describe('TrackingClient', () => {
 
   describe('stop', () => {
     test('should stop location provider and disconnect', () => {
-      // GIVEN a TrackingClient instance that is started
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance that is started
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       client.start(mockLocationProvider);
@@ -113,8 +113,8 @@ describe('TrackingClient', () => {
     });
 
     test('should handle stop when not started', () => {
-      // GIVEN a TrackingClient instance that is not started
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance that is not started
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       // WHEN stopping the client
@@ -125,8 +125,8 @@ describe('TrackingClient', () => {
 
   describe('isActive', () => {
     test('should return false when not started', () => {
-      // GIVEN a TrackingClient instance that is not started
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance that is not started
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       // WHEN checking if it is active
@@ -135,8 +135,8 @@ describe('TrackingClient', () => {
     });
 
     test('should return true when active', done => {
-      // GIVEN a TrackingClient instance that is started
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance that is started
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       client.start(mockLocationProvider);
@@ -152,8 +152,8 @@ describe('TrackingClient', () => {
 
   describe('events', () => {
     test('should emit connect event when WebSocket opens', done => {
-      // GIVEN a TrackingClient instance with a connect listener
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance with a connect listener
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       client.on('connect', () => {
@@ -166,8 +166,8 @@ describe('TrackingClient', () => {
     });
 
     test('should emit location event when location provider sends update', done => {
-      // GIVEN a TrackingClient instance with a location listener
-      const client = new TrackingClient({
+      // GIVEN a TrackingManager instance with a location listener
+      const client = new TrackingManager({
         userId: 'test-user',
       });
       client.on('location', location => {

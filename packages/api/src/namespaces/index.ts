@@ -64,7 +64,7 @@ export namespace API {
   export namespace Navigation {
     export namespace Types {
       export type StartOptions = NavigationModule.Navigation.Types.StartOptions;
-      export type ControllerOptions = NavigationModule.Navigation.Types.ControllerOptions;
+      export type ManagerOptions = NavigationModule.Navigation.Types.ManagerOptions;
     }
     export namespace Events {
       export type ProgressEvent = NavigationModule.Navigation.Events.ProgressEvent;
@@ -79,8 +79,8 @@ export namespace API {
 
   export namespace Tracking {
     export namespace Types {
-      export type ClientOptions = TrackingModule.Tracking.Types.ClientOptions;
-      export type HttpClientOptions = TrackingModule.Tracking.Types.HttpClientOptions;
+      export type ManagerOptions = TrackingModule.Tracking.Types.ManagerOptions;
+      export type HttpManagerOptions = TrackingModule.Tracking.Types.HttpManagerOptions;
       export type LocationProvider = TrackingModule.Tracking.Types.LocationProvider;
       export type LocationData = TrackingModule.Tracking.Types.LocationData;
       export type Role = TrackingModule.Tracking.Types.Role;

@@ -3,7 +3,7 @@ import { GeocodingManager } from '@gebeta/core';
 import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
-import { NavController } from './Navigation/NavController';
+import { NavigationManager } from './Navigation/NavigationManager';
 import { GebetaMaps } from './GebetaMaps';
 import { injectMapLibreStyles } from './injectMapLibreStyles';
 import { BrowserLocationProvider } from './adapters/LocationProvider';
@@ -13,7 +13,7 @@ export {
   DirectionsManager,
   ClusteringManager,
   FenceManager,
-  NavController,
+  NavigationManager,
   GebetaMaps,
   BrowserLocationProvider,
 };

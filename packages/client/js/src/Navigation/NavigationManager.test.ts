@@ -1,5 +1,5 @@
-import { NavController } from './NavController';
-import { NavController as CoreNavController } from '@gebeta/core';
+import { NavigationManager } from './NavigationManager';
+import { NavigationManager as CoreNavigationManager } from '@gebeta/core';
 import { API, ValidationError } from '@gebeta/api';
 import { Map as MapLibreMap } from 'maplibre-gl';
 import { MapAdapter, MarkerFactory } from '../adapters';
@@ -18,14 +18,14 @@ const mockCoreInstance = {
 };
 
 jest.mock('@gebeta/core', () => ({
-  NavController: jest.fn().mockImplementation(() => mockCoreInstance),
+  NavigationManager: jest.fn().mockImplementation(() => mockCoreInstance),
 }));
 
-describe('NavController (platform layer)', () => {
+describe('NavigationManager (platform layer)', () => {
   let mockMap: MapLibreMap;
   let mapAdapter: MapAdapter;
   let markerFactory: MarkerFactory;
-  let navController: NavController;
+  let navController: NavigationManager;
   const apiKey = 'test-api-key';
 
   const mockRoute: RouteData = {
@@ -62,57 +62,57 @@ describe('NavController (platform layer)', () => {
     mockCoreInstance.getCurrentStepIndex.mockReturnValue(0);
     mockCoreInstance.isNavigating.mockReturnValue(false);
 
-    navController = new NavController(apiKey, mapAdapter, markerFactory);
+    navController = new NavigationManager(apiKey, mapAdapter, markerFactory);
   });
 
   describe('constructor', () => {
-    it('should create NavController with required parameters', () => {
+    it('should create NavigationManager with required parameters', () => {
       // GIVEN valid apiKey, mapAdapter, markerFactory
-      // WHEN NavController is constructed
-      const controller = new NavController(apiKey, mapAdapter, markerFactory);
+      // WHEN NavigationManager is constructed
+      const controller = new NavigationManager(apiKey, mapAdapter, markerFactory);
 
-      // THEN controller is defined and CoreNavController was called with apiKey and empty options
+      // THEN controller is defined and CoreNavigationManager was called with apiKey and empty options
       expect(controller).toBeDefined();
-      expect(CoreNavController).toHaveBeenCalledWith(apiKey, {});
+      expect(CoreNavigationManager).toHaveBeenCalledWith(apiKey, {});
     });
 
-    it('should create NavController with options', () => {
+    it('should create NavigationManager with options', () => {
       // GIVEN options for offRouteThresholdMeters and arriveThresholdMeters
-      const options: API.Navigation.Types.ControllerOptions = {
+      const options: API.Navigation.Types.ManagerOptions = {
         offRouteThresholdMeters: 50,
         arriveThresholdMeters: 20,
       };
 
-      // WHEN NavController is constructed with options
-      const controller = new NavController(apiKey, mapAdapter, markerFactory, options);
+      // WHEN NavigationManager is constructed with options
+      const controller = new NavigationManager(apiKey, mapAdapter, markerFactory, options);
 
-      // THEN controller is defined and CoreNavController was called with apiKey and options
+      // THEN controller is defined and CoreNavigationManager was called with apiKey and options
       expect(controller).toBeDefined();
-      expect(CoreNavController).toHaveBeenCalledWith(apiKey, options);
+      expect(CoreNavigationManager).toHaveBeenCalledWith(apiKey, options);
     });
 
     it('should throw ValidationError if mapAdapter is missing', () => {
       // GIVEN null mapAdapter
-      // WHEN NavController is constructed with null mapAdapter
+      // WHEN NavigationManager is constructed with null mapAdapter
       // THEN ValidationError is thrown with correct message
       expect(() =>
-        new NavController(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
+        new NavigationManager(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
       ).toThrow(ValidationError);
       expect(() =>
-        new NavController(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
-      ).toThrow('Map adapter is required for NavController');
+        new NavigationManager(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
+      ).toThrow('Map adapter is required for NavigationManager');
     });
 
     it('should throw ValidationError if markerFactory is missing', () => {
       // GIVEN null markerFactory
-      // WHEN NavController is constructed with null markerFactory
+      // WHEN NavigationManager is constructed with null markerFactory
       // THEN ValidationError is thrown with correct message
       expect(() =>
-        new NavController(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
+        new NavigationManager(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
       ).toThrow(ValidationError);
       expect(() =>
-        new NavController(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
-      ).toThrow('Marker factory is required for NavController');
+        new NavigationManager(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
+      ).toThrow('Marker factory is required for NavigationManager');
     });
   });
 
@@ -168,7 +168,7 @@ describe('NavController (platform layer)', () => {
 
   describe('stop', () => {
     it('should delegate to core.stop', () => {
-      // GIVEN NavController
+      // GIVEN NavigationManager
       // WHEN stop is called
       navController.stop();
 
@@ -243,7 +243,7 @@ describe('NavController (platform layer)', () => {
     it('should forward on() to core with event and callback', () => {
       // GIVEN event name and callback
       const callback = jest.fn<void, [API.Navigation.Events.ProgressEvent]>();
-      const event = 'progress' as Parameters<CoreNavController['on']>[0];
+      const event = 'progress' as Parameters<CoreNavigationManager['on']>[0];
 
       // WHEN on is called
       navController.on(event, callback);
@@ -255,7 +255,7 @@ describe('NavController (platform layer)', () => {
     it('should forward off() to core with event and callback', () => {
       // GIVEN event name and callback
       const callback = jest.fn<void, [API.Navigation.Events.ProgressEvent]>();
-      const event = 'progress' as Parameters<CoreNavController['off']>[0];
+      const event = 'progress' as Parameters<CoreNavigationManager['off']>[0];
 
       // WHEN off is called
       navController.off(event, callback);

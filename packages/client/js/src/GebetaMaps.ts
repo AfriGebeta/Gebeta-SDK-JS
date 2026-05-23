@@ -3,7 +3,7 @@ import type { Map as MapLibreMap } from 'maplibre-gl';
 import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
-import { NavController } from './Navigation/NavController';
+import { NavigationManager } from './Navigation/NavigationManager';
 import { GeocodingManager, AuthManager } from '@gebeta/core';
 import { API, ValidationError, PlatformError } from '@gebeta/api';
 import { createPlatform, type PlatformContext } from './adapters';
@@ -17,7 +17,7 @@ export class GebetaMaps {
   private directionsManager: DirectionsManager | null = null;
   private clusteringManager: ClusteringManager | null = null;
   private fenceManager: FenceManager | null = null;
-  private navController: NavController | null = null;
+  private navigationManager: NavigationManager | null = null;
   private _geocodingManager: GeocodingManager | null = null;
 
   get geocodingManager(): GeocodingManager {
@@ -84,7 +84,7 @@ export class GebetaMaps {
         this.clusteringOptions
       );
     }
-    this.navController = new NavController(
+    this.navigationManager = new NavigationManager(
       this.auth,
       this.platform.mapAdapter,
       this.platform.markerFactory
@@ -240,14 +240,14 @@ export class GebetaMaps {
     return this.map;
   }
 
-  get navigation(): NavController {
-    if (!this.navController) {
+  get navigation(): NavigationManager {
+    if (!this.navigationManager) {
       throw new PlatformError(
         API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
-        'Navigation controller not initialized. Call init() first and wait for map to load.',
+        'Navigation manager not initialized. Call init() first and wait for map to load.',
         { method: 'navigation' }
       );
     }
-    return this.navController;
+    return this.navigationManager;
   }
 }

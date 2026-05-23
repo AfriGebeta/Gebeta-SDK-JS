@@ -8,7 +8,7 @@ import {
 import { EventEmitter } from '../utils/EventEmitter';
 import { createFetch } from '../utils/fetch';
 
-type HttpTrackingClientOptions = API.Tracking.Types.HttpClientOptions;
+type HttpTrackingManagerOptions = API.Tracking.Types.HttpManagerOptions;
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
 
@@ -21,24 +21,24 @@ interface HttpTrackingEventMap {
  * HTTP-based tracking client for lower-precision location tracking.
  * Platform-agnostic: uses fetch API available in all JS environments.
  */
-export class HttpTrackingClient extends EventEmitter<HttpTrackingEventMap> {
+export class HttpTrackingManager extends EventEmitter<HttpTrackingEventMap> {
   private locationProvider: ILocationProvider | null = null;
   private sendInterval: ReturnType<typeof setInterval> | null = null;
-  private readonly options: Required<Pick<HttpTrackingClientOptions, 'userId' | 'role'>> &
-    Pick<HttpTrackingClientOptions, 'auth' | 'locationProvider'>;
+  private readonly options: Required<Pick<HttpTrackingManagerOptions, 'userId' | 'role'>> &
+    Pick<HttpTrackingManagerOptions, 'auth' | 'locationProvider'>;
   private readonly httpUrl: string;
   private isStopped = false;
 
   /**
-   * Creates a new HttpTrackingClient instance.
+   * Creates a new HttpTrackingManager instance.
    * @param options - Configuration options for the HTTP tracking client
    * @throws {ValidationError} If userId is missing
    */
-  constructor(options: HttpTrackingClientOptions) {
+  constructor(options: HttpTrackingManagerOptions) {
     super();
 
     if (!options.userId) {
-      throw new ValidationError('User ID is required for HttpTrackingClient', 'userId');
+      throw new ValidationError('User ID is required for HttpTrackingManager', 'userId');
     }
 
     this.options = {

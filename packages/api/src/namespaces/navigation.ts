@@ -3,7 +3,7 @@ import { DEFAULT_NAVIGATION_OPTIONS } from '../constants';
 export namespace Navigation {
   export namespace Types {
     export type StartOptions = import('../types/options').NavigationStartOptions;
-    export type ControllerOptions = import('../types/options').NavigationControllerOptions;
+    export type ManagerOptions = import('../types/options').NavigationManagerOptions;
   }
 
   export namespace Events {

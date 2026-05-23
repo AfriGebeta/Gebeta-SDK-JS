@@ -1,7 +1,7 @@
 import { API, NavigationError, createNavigationError, ValidationError } from '@gebeta/api';
 import { EventEmitter } from '../utils/EventEmitter';
-import { TrackingClient } from '../Tracking/TrackingClient';
-import { HttpTrackingClient } from '../Tracking/HttpTrackingClient';
+import { TrackingManager } from '../Tracking/TrackingManager';
+import { HttpTrackingManager } from '../Tracking/HttpTrackingManager';
 import {
   nearestPointOnLine,
   calculateRouteDistance,
@@ -11,7 +11,7 @@ import {
 } from './utils';
 
 type RouteData = API.Routing.Types.RouteData;
-type NavigationControllerOptions = API.Navigation.Types.ControllerOptions;
+type NavigationManagerOptions = API.Navigation.Types.ManagerOptions;
 type NavigationStartOptions = API.Navigation.Types.StartOptions;
 type LocationData = API.Platform.Types.LocationData;
 type ILocationProvider = API.Platform.Types.ILocationProvider;
@@ -32,19 +32,19 @@ interface NavigationEventMap {
  * Navigation controller for route following and tracking.
  * Platform-agnostic: uses location provider and tracking clients.
  */
-export class NavController extends EventEmitter<NavigationEventMap> {
+export class NavigationManager extends EventEmitter<NavigationEventMap> {
   private route: RouteData | null = null;
   private locationProvider: ILocationProvider | null = null;
-  private trackingClient: TrackingClient | HttpTrackingClient | null = null;
+  private trackingClient: TrackingManager | HttpTrackingManager | null = null;
   private currentStepIndex = 0;
   private isActive = false;
   private readonly options: Required<
     Pick<
-      NavigationControllerOptions,
+      NavigationManagerOptions,
       'offRouteThresholdMeters' | 'arriveThresholdMeters' | 'autoReroute'
     >
   > &
-    Pick<NavigationControllerOptions, 'rerouteFn'>;
+    Pick<NavigationManagerOptions, 'rerouteFn'>;
   private routeCoordinates: [number, number][] = [];
   private totalRouteDistance = 0;
   private stepDistances: number[] = [];
@@ -55,11 +55,11 @@ export class NavController extends EventEmitter<NavigationEventMap> {
   private precision: Precision = API.Tracking.Enums.Precision.HIGH;
 
   /**
-   * Creates a new NavController instance.
+   * Creates a new NavigationManager instance.
    * @param auth - API key or Service account authentication input
    * @param options - Configuration options for navigation behavior
    */
-  constructor(auth: API.Auth.Types.AuthParam, options: NavigationControllerOptions = {}) {
+  constructor(auth: API.Auth.Types.AuthParam, options: NavigationManagerOptions = {}) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;
@@ -149,13 +149,13 @@ export class NavController extends EventEmitter<NavigationEventMap> {
    */
   private startTracking(_startOptions: NavigationStartOptions): void {
     if (this.precision === API.Tracking.Enums.Precision.HIGH) {
-      this.trackingClient = new TrackingClient({
+      this.trackingClient = new TrackingManager({
         userId: this.userId,
         role: this.role,
         auth: this.auth,
       });
     } else {
-      this.trackingClient = new HttpTrackingClient({
+      this.trackingClient = new HttpTrackingManager({
         userId: this.userId,
         role: this.role,
         auth: this.auth,

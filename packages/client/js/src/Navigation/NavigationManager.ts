@@ -1,4 +1,4 @@
-import { NavController as CoreNavController } from '@gebeta/core';
+import { NavigationManager as CoreNavigationManager } from '@gebeta/core';
 import { API, ValidationError } from '@gebeta/api';
 
 type AuthParam = API.Auth.Types.AuthParam;
@@ -9,15 +9,15 @@ type ILocationProvider = API.Platform.Types.ILocationProvider;
 type IMarker = API.Platform.Types.IMarker;
 
 type RouteData = API.Routing.Types.RouteData;
-type NavigationControllerOptions = API.Navigation.Types.ControllerOptions;
+type NavigationManagerOptions = API.Navigation.Types.ManagerOptions;
 type NavigationStartOptions = API.Navigation.Types.StartOptions;
 
 /**
  * Platform-specific navigation controller for JavaScript (browser).
- * Wraps the core NavController and adds map/marker integration.
+ * Wraps the core NavigationManager and adds map/marker integration.
  */
-export class NavController {
-  private readonly core: CoreNavController;
+export class NavigationManager {
+  private readonly core: CoreNavigationManager;
   private readonly mapAdapter: IMapAdapter;
   private readonly markerFactory: IMarkerFactory;
   private locationMarker: IMarker | null = null;
@@ -25,7 +25,7 @@ export class NavController {
   private lastKnownLocation: API.Platform.Types.LocationData | null = null;
 
   /**
-   * Creates a new NavController instance.
+   * Creates a new NavigationManager instance.
    * @param auth - API key or service key authentication input
    * @param mapAdapter - Map adapter for camera control
    * @param markerFactory - Marker factory for location marker
@@ -36,18 +36,18 @@ export class NavController {
     auth: AuthParam,
     mapAdapter: IMapAdapter,
     markerFactory: IMarkerFactory,
-    options: NavigationControllerOptions = {}
+    options: NavigationManagerOptions = {}
   ) {
     if (!mapAdapter) {
-      throw new ValidationError('Map adapter is required for NavController', 'mapAdapter');
+      throw new ValidationError('Map adapter is required for NavigationManager', 'mapAdapter');
     }
     if (!markerFactory) {
-      throw new ValidationError('Marker factory is required for NavController', 'markerFactory');
+      throw new ValidationError('Marker factory is required for NavigationManager', 'markerFactory');
     }
 
     this.mapAdapter = mapAdapter;
     this.markerFactory = markerFactory;
-    this.core = new CoreNavController(auth, options);
+    this.core = new CoreNavigationManager(auth, options);
 
     this.setupEventListeners();
   }
@@ -247,16 +247,16 @@ export class NavController {
     return this.core.isNavigating();
   }
 
-  on<K extends Parameters<CoreNavController['on']>[0]>(
+  on<K extends Parameters<CoreNavigationManager['on']>[0]>(
     event: K,
-    callback: Parameters<CoreNavController['on']>[1]
+    callback: Parameters<CoreNavigationManager['on']>[1]
   ): void {
     this.core.on(event, callback as never);
   }
 
-  off<K extends Parameters<CoreNavController['off']>[0]>(
+  off<K extends Parameters<CoreNavigationManager['off']>[0]>(
     event: K,
-    callback: Parameters<CoreNavController['off']>[1]
+    callback: Parameters<CoreNavigationManager['off']>[1]
   ): void {
     this.core.off(event, callback as never);
   }

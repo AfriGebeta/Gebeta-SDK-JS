@@ -1,9 +1,9 @@
 import '../_test_utilities/consoleMock';
-import { HttpTrackingClient } from './HttpTrackingClient';
+import { HttpTrackingManager } from './HttpTrackingManager';
 import { API, ValidationError } from '@gebeta/api';
 import { AuthManager } from '../Auth';
 
-describe('HttpTrackingClient', () => {
+describe('HttpTrackingManager', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;
   let mockFetch: jest.Mock;
 
@@ -30,39 +30,39 @@ describe('HttpTrackingClient', () => {
   describe('constructor', () => {
     test('should throw ValidationError if userId is missing', () => {
       // GIVEN invalid options without userId
-      // WHEN creating an HttpTrackingClient instance
+      // WHEN creating an HttpTrackingManager instance
       // THEN it should throw a ValidationError
       expect(() => {
-        new HttpTrackingClient({} as unknown as API.Tracking.Types.HttpClientOptions);
+        new HttpTrackingManager({} as unknown as API.Tracking.Types.HttpManagerOptions);
       }).toThrow(ValidationError);
     });
 
     test('should create instance with valid options', () => {
       // GIVEN valid options with userId and role
-      // WHEN creating an HttpTrackingClient instance
-      const client = new HttpTrackingClient({
+      // WHEN creating an HttpTrackingManager instance
+      const client = new HttpTrackingManager({
         userId: 'test-user',
         role: 'driver',
       });
       // THEN it should create the instance successfully
-      expect(client).toBeInstanceOf(HttpTrackingClient);
+      expect(client).toBeInstanceOf(HttpTrackingManager);
     });
 
     test('should use default role if not provided', () => {
       // GIVEN options with only userId
-      // WHEN creating an HttpTrackingClient instance
-      const client = new HttpTrackingClient({
+      // WHEN creating an HttpTrackingManager instance
+      const client = new HttpTrackingManager({
         userId: 'test-user',
       });
       // THEN it should create the instance with default role
-      expect(client).toBeInstanceOf(HttpTrackingClient);
+      expect(client).toBeInstanceOf(HttpTrackingManager);
     });
   });
 
   describe('start', () => {
     test('should start location provider', () => {
-      // GIVEN an HttpTrackingClient instance and a location provider
-      const client = new HttpTrackingClient({
+      // GIVEN an HttpTrackingManager instance and a location provider
+      const client = new HttpTrackingManager({
         userId: 'test-user',
       });
       // WHEN starting the client
@@ -72,8 +72,8 @@ describe('HttpTrackingClient', () => {
     });
 
     test('should send location updates at interval', () => {
-      // GIVEN an HttpTrackingClient instance that is started
-      const client = new HttpTrackingClient({
+      // GIVEN an HttpTrackingManager instance that is started
+      const client = new HttpTrackingManager({
         userId: 'test-user',
       });
       client.start(mockLocationProvider);
@@ -86,8 +86,8 @@ describe('HttpTrackingClient', () => {
 
   describe('stop', () => {
     test('should stop location provider', () => {
-      // GIVEN an HttpTrackingClient instance that is started
-      const client = new HttpTrackingClient({
+      // GIVEN an HttpTrackingManager instance that is started
+      const client = new HttpTrackingManager({
         userId: 'test-user',
       });
       client.start(mockLocationProvider);
@@ -100,8 +100,8 @@ describe('HttpTrackingClient', () => {
 
   describe('auth', () => {
     test('should include Authorization: Bearer <apiKey> header when constructed with a string apiKey', async () => {
-      // GIVEN an HttpTrackingClient constructed with legacy apiKey 'my-legacy-key'
-      const client = new HttpTrackingClient({
+      // GIVEN an HttpTrackingManager constructed with legacy apiKey 'my-legacy-key'
+      const client = new HttpTrackingManager({
         userId: 'test-user',
         auth: 'my-legacy-key',
       });
@@ -117,7 +117,7 @@ describe('HttpTrackingClient', () => {
     });
 
     test('should delegate fetch to authManager.fetch() when constructed with an AuthManager', async () => {
-      // GIVEN an HttpTrackingClient constructed with an AuthManager
+      // GIVEN an HttpTrackingManager constructed with an AuthManager
       const authManager = new AuthManager({
         accessToken: 'access-token-abc',
         refreshToken: 'refresh-token-xyz',
@@ -125,7 +125,7 @@ describe('HttpTrackingClient', () => {
       const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(
         new Response('{}', { status: 200 })
       );
-      const client = new HttpTrackingClient({
+      const client = new HttpTrackingManager({
         userId: 'test-user',
         auth: authManager,
       });
@@ -143,8 +143,8 @@ describe('HttpTrackingClient', () => {
 
   describe('isActive', () => {
     test('should return false when not started', () => {
-      // GIVEN an HttpTrackingClient instance that is not started
-      const client = new HttpTrackingClient({
+      // GIVEN an HttpTrackingManager instance that is not started
+      const client = new HttpTrackingManager({
         userId: 'test-user',
       });
       // WHEN checking if it is active
@@ -153,8 +153,8 @@ describe('HttpTrackingClient', () => {
     });
 
     test('should return true when active', () => {
-      // GIVEN an HttpTrackingClient instance that is started
-      const client = new HttpTrackingClient({
+      // GIVEN an HttpTrackingManager instance that is started
+      const client = new HttpTrackingManager({
         userId: 'test-user',
       });
       client.start(mockLocationProvider);
