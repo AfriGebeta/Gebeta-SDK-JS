@@ -3,7 +3,43 @@
   "version": "0.1.0",
   "description": "Core platform-agnostic implementation for Gebeta Maps SDKs",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./auth": {
+      "import": "./dist/Auth/AuthManager.js",
+      "types": "./dist/Auth/AuthManager.d.ts"
+    },
+    "./geocoding": {
+      "import": "./dist/Geocoding/GeocodingManager.js",
+      "types": "./dist/Geocoding/GeocodingManager.d.ts"
+    },
+    "./directions": {
+      "import": "./dist/Directions/DirectionsManager.js",
+      "types": "./dist/Directions/DirectionsManager.d.ts"
+    },
+    "./clustering": {
+      "import": "./dist/Clustering/ClusteringManager.js",
+      "types": "./dist/Clustering/ClusteringManager.d.ts"
+    },
+    "./fencing": {
+      "import": "./dist/Fencing/FenceManager.js",
+      "types": "./dist/Fencing/FenceManager.d.ts"
+    },
+    "./navigation": {
+      "import": "./dist/Navigation/NavigationManager.js",
+      "types": "./dist/Navigation/NavigationManager.d.ts"
+    },
+    "./tracking": {
+      "import": "./dist/Tracking/TrackingManager.js",
+      "types": "./dist/Tracking/TrackingManager.d.ts"
+    }
+  },
   "private": true,
   "scripts": {
     "build": "tsc -b",

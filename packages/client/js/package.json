@@ -3,10 +3,39 @@
   "version": "0.1.0",
   "description": "Plain JavaScript SDK for Gebeta Maps (browser)",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./geocoding": {
+      "import": "./dist/geocoding.js",
+      "types": "./dist/entries/geocoding.d.ts"
+    },
+    "./directions": {
+      "import": "./dist/directions.js",
+      "types": "./dist/entries/directions.d.ts"
+    },
+    "./clustering": {
+      "import": "./dist/clustering.js",
+      "types": "./dist/entries/clustering.d.ts"
+    },
+    "./navigation": {
+      "import": "./dist/navigation.js",
+      "types": "./dist/entries/navigation.d.ts"
+    },
+    "./fencing": {
+      "import": "./dist/fencing.js",
+      "types": "./dist/entries/fencing.d.ts"
+    }
+  },
   "private": true,
   "scripts": {
-    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && tsc --emitDeclarationOnly --skipLibCheck",
+    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && vite build --config vite.config.umd.ts && tsc --emitDeclarationOnly --skipLibCheck",
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.{ts,js}\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.{ts,js}\" --fix || echo 'No src directory - skipping lint'",

@@ -1,0 +1,21 @@
+{
+  "name": "node-geocoding-example",
+  "version": "0.0.0",
+  "description": "Node.js search API using only @gebeta/js/geocoding — tree-shaking demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn build && yarn node dist/server.js",
+    "dev": "tsc --watch & yarn node --watch dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gebeta/js": "workspace:*",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
