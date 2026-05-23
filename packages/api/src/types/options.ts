@@ -213,9 +213,9 @@ export interface NavigationStartOptions {
 }
 
 /**
- * Options for navigation controller behavior.
+ * Options for navigation manager behavior.
  */
-export interface NavigationControllerOptions {
+export interface NavigationManagerOptions {
   /** Distance threshold in meters for detecting off-route (default: 40) */
   offRouteThresholdMeters?: number;
   /** Distance threshold in meters for arrival detection (default: 25) */
@@ -232,9 +232,9 @@ export interface NavigationControllerOptions {
 }
 
 /**
- * Options for WebSocket tracking client.
+ * Options for WebSocket tracking manager.
  */
-export interface TrackingClientOptions {
+export interface TrackingManagerOptions {
   /** @deprecated Use `auth` instead. */
   bearerToken?: string;
   /** Auth manager or legacy API key string */
@@ -254,9 +254,9 @@ export interface TrackingClientOptions {
 }
 
 /**
- * Options for HTTP tracking client.
+ * Options for HTTP tracking manager.
  */
-export interface HttpTrackingClientOptions {
+export interface HttpTrackingManagerOptions {
   /** @deprecated Use `auth` instead. */
   bearerToken?: string;
   /** Auth manager or legacy API key string */

@@ -5,7 +5,7 @@ type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
 import { EventEmitter } from '../utils/EventEmitter';
 
-type TrackingClientOptions = API.Tracking.Types.ClientOptions;
+type TrackingManagerOptions = API.Tracking.Types.ManagerOptions;
 type LocationProvider = ILocationProvider;
 
 interface TrackingEventMap {
@@ -19,7 +19,7 @@ interface TrackingEventMap {
  * WebSocket-based tracking client for high-precision location tracking.
  * Platform-agnostic: uses WebSocket API available in all JS environments.
  */
-export class TrackingClient extends EventEmitter<TrackingEventMap> {
+export class TrackingManager extends EventEmitter<TrackingEventMap> {
   private ws: WebSocket | null = null;
   private locationProvider: LocationProvider | null = null;
   private sendInterval: ReturnType<typeof setInterval> | null = null;
@@ -27,25 +27,25 @@ export class TrackingClient extends EventEmitter<TrackingEventMap> {
   private reconnectAttempts = 0;
   private readonly options: Required<
     Pick<
-      TrackingClientOptions,
+      TrackingManagerOptions,
       'userId' | 'role' | 'sendIntervalMs' | 'autoReconnect' | 'maxReconnectDelayMs'
     >
   > &
-    Pick<TrackingClientOptions, 'auth' | 'locationProvider'>;
+    Pick<TrackingManagerOptions, 'auth' | 'locationProvider'>;
   private readonly wsUrl: string;
   private isConnected = false;
   private isStopped = false;
 
   /**
-   * Creates a new TrackingClient instance.
+   * Creates a new TrackingManager instance.
    * @param options - Configuration options for the tracking client
    * @throws {ValidationError} If userId is missing
    */
-  constructor(options: TrackingClientOptions) {
+  constructor(options: TrackingManagerOptions) {
     super();
 
     if (!options.userId) {
-      throw new ValidationError('User ID is required for TrackingClient', 'userId');
+      throw new ValidationError('User ID is required for TrackingManager', 'userId');
     }
 
     this.options = {
