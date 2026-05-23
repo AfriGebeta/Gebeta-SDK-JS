@@ -130,3 +130,12 @@ export interface IStyleInjector {
   injectStyle(id: string, cssText: string): void;
   removeStyle(id: string): void;
 }
+
+export interface IPlatformContext {
+  mapAdapter: IMapAdapter;
+  markerFactory: IMarkerFactory;
+  popupFactory: IPopupFactory;
+  locationProvider: ILocationProvider;
+  getLocationProvider: (options?: LocationProviderOptions) => ILocationProvider;
+  styleInjector: IStyleInjector;
+}

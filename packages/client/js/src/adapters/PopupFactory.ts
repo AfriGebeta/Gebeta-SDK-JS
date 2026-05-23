@@ -6,8 +6,16 @@ type IPopup = API.Platform.Types.IPopup;
 type IPopupFactory = API.Platform.Types.IPopupFactory;
 type PopupFactoryOptions = API.Platform.Types.PopupFactoryOptions;
 
+function isHTMLElement(el: unknown): el is HTMLElement {
+  return el != null && typeof el === 'object' && (el as Node).nodeType === 1;
+}
+
 class MapLibrePopupAdapter implements IPopup {
   constructor(private readonly popup: MapLibrePopup) {}
+
+  getMapLibrePopup(): MapLibrePopup {
+    return this.popup;
+  }
 
   setHTML(html: string): this {
     this.popup.setHTML(html);
@@ -15,7 +23,7 @@ class MapLibrePopupAdapter implements IPopup {
   }
 
   setDOMContent(element: unknown): this {
-    if (element instanceof HTMLElement) {
+    if (isHTMLElement(element)) {
       this.popup.setDOMContent(element);
     } else if (typeof element === 'string') {
       this.popup.setHTML(element);
@@ -33,15 +41,14 @@ class MapLibrePopupAdapter implements IPopup {
 
   addTo(map: unknown): this {
     if (map) {
-      this.popup.addTo(map as MapLibreMap);
+      const m = map as { getMapLibreMap?: () => MapLibreMap };
+      this.popup.addTo(m.getMapLibreMap ? m.getMapLibreMap() : (map as MapLibreMap));
     }
     return this;
   }
 
   remove(): void {
-    if (typeof (this.popup as unknown as { remove?: () => void }).remove === 'function') {
-      (this.popup as unknown as { remove: () => void }).remove();
-    }
+    this.popup.remove();
   }
 }
 
@@ -60,7 +67,7 @@ export class PopupFactory implements IPopupFactory {
 
       if (typeof options.content === 'string') {
         popup.setHTML(options.content);
-      } else if (options.content instanceof HTMLElement) {
+      } else if (options.content && isHTMLElement(options.content)) {
         popup.setDOMContent(options.content);
       }
 

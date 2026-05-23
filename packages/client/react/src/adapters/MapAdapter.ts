@@ -57,6 +57,11 @@ export class MapAdapter implements IMapAdapter {
     return new MapLibreBoundsAdapter(this.map.getBounds());
   }
 
+  getCenter(): API.Common.Types.LngLat {
+    const c = (this.map as unknown as { getCenter(): { lng: number; lat: number } }).getCenter();
+    return { lng: c.lng, lat: c.lat };
+  }
+
   getZoom(): number {
     return this.map.getZoom();
   }
@@ -126,6 +131,13 @@ export class MapAdapter implements IMapAdapter {
   removeLayer(id: string): this {
     this.map.removeLayer(id);
     return this;
+  }
+
+  transformRequest?(
+    url: string,
+    _resourceType: string
+  ): { url: string; headers?: Record<string, string> } {
+    return { url };
   }
 
   addControl?(control: unknown, position?: string): this {

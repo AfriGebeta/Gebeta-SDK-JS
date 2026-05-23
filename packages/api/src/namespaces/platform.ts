@@ -21,5 +21,6 @@ export namespace Platform {
     export type LocationProviderOptions = import('../types/platform').LocationProviderOptions;
     export type ILocationProvider = import('../types/platform').ILocationProvider;
     export type IStyleInjector = import('../types/platform').IStyleInjector;
+    export type IPlatformContext = import('../types/platform').IPlatformContext;
   }
 }
