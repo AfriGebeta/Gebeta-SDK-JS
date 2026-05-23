@@ -35,4 +35,4 @@ Alternatively, use any static server (e.g. `python -m http.server 8080`) from th
 - **directions.html** – Directions API: set origin and destination on the map, get route, display with markers
 - **geocoding.html** – Forward geocoding (search by name) and reverse geocoding (coordinates to address), results on map
 
-The SDK is loaded from `../../packages/client/js/dist/gebeta-maps.umd.js`; MapLibre GL is loaded from the unpkg CDN.
+The SDK is loaded from `../../packages/client/js/dist/gebeta-maps.umd.js`.

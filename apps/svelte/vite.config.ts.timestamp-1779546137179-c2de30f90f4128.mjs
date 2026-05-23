@@ -1,0 +1,12 @@
+// vite.config.ts
+import { defineConfig } from "file:///Users/bereketterefe/_/work/gebeta/Gebeta-SDK-JS/.yarn/__virtual__/vite-virtual-e0f1917561/5/.yarn/berry/cache/vite-npm-5.4.21-12a8265f9b-10c0.zip/node_modules/vite/dist/node/index.js";
+import { svelte } from "file:///Users/bereketterefe/_/work/gebeta/Gebeta-SDK-JS/.yarn/__virtual__/@sveltejs-vite-plugin-svelte-virtual-9eb6f25f78/5/.yarn/berry/cache/@sveltejs-vite-plugin-svelte-npm-5.1.1-b90c19453d-10c0.zip/node_modules/@sveltejs/vite-plugin-svelte/src/index.js";
+var vite_config_default = defineConfig({
+  plugins: [svelte()],
+  server: { port: 5176 },
+  resolve: { preserveSymlinks: true }
+});
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvVXNlcnMvYmVyZWtldHRlcmVmZS9fL3dvcmsvZ2ViZXRhL0dlYmV0YS1TREstSlMvYXBwcy9zdmVsdGVcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfZmlsZW5hbWUgPSBcIi9Vc2Vycy9iZXJla2V0dGVyZWZlL18vd29yay9nZWJldGEvR2ViZXRhLVNESy1KUy9hcHBzL3N2ZWx0ZS92aXRlLmNvbmZpZy50c1wiO2NvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9pbXBvcnRfbWV0YV91cmwgPSBcImZpbGU6Ly8vVXNlcnMvYmVyZWtldHRlcmVmZS9fL3dvcmsvZ2ViZXRhL0dlYmV0YS1TREstSlMvYXBwcy9zdmVsdGUvdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBkZWZpbmVDb25maWcgfSBmcm9tICd2aXRlJztcbmltcG9ydCB7IHN2ZWx0ZSB9IGZyb20gJ0BzdmVsdGVqcy92aXRlLXBsdWdpbi1zdmVsdGUnO1xuXG5leHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoe1xuICBwbHVnaW5zOiBbc3ZlbHRlKCldLFxuICBzZXJ2ZXI6IHsgcG9ydDogNTE3NiB9LFxuICByZXNvbHZlOiB7IHByZXNlcnZlU3ltbGlua3M6IHRydWUgfSxcbn0pO1xuIl0sCiAgIm1hcHBpbmdzIjogIjtBQUFzVyxTQUFTLG9CQUFvQjtBQUNuWSxTQUFTLGNBQWM7QUFFdkIsSUFBTyxzQkFBUSxhQUFhO0FBQUEsRUFDMUIsU0FBUyxDQUFDLE9BQU8sQ0FBQztBQUFBLEVBQ2xCLFFBQVEsRUFBRSxNQUFNLEtBQUs7QUFBQSxFQUNyQixTQUFTLEVBQUUsa0JBQWtCLEtBQUs7QUFDcEMsQ0FBQzsiLAogICJuYW1lcyI6IFtdCn0K

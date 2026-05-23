@@ -1,30 +1,7 @@
-import maplibre from 'maplibre-gl';
-import { GeocodingManager } from '@gebeta/core';
-import { DirectionsManager } from './Directions/DirectionsManager';
-import { ClusteringManager } from './Clustering/ClusteringManager';
-import { FenceManager } from './Fencing/FenceManager';
-import { NavigationManager } from './Navigation/NavigationManager';
-import { GebetaMaps } from './GebetaMaps';
-import { injectMapLibreStyles } from './injectMapLibreStyles';
-import { BrowserLocationProvider } from './adapters/LocationProvider';
-
-export {
-  GeocodingManager,
-  DirectionsManager,
-  ClusteringManager,
-  FenceManager,
-  NavigationManager,
-  GebetaMaps,
-  BrowserLocationProvider,
-};
-
-if (typeof window !== 'undefined') {
-  injectMapLibreStyles();
-  (window as unknown as Record<string, unknown>).maplibregl = maplibre;
-  const windowObj = window as unknown as Record<string, unknown>;
-  windowObj.GebetaMaps = GebetaMaps;
-  windowObj.BrowserLocationProvider = BrowserLocationProvider;
-  injectMapLibreStyles();
-  (window as unknown as Record<string, unknown>).maplibregl = maplibre;
-  (window as unknown as Record<string, unknown>).GebetaMaps = GebetaMaps;
-}
+export { GeocodingManager } from '@gebeta/core';
+export { DirectionsManager } from './Directions/DirectionsManager';
+export { ClusteringManager } from './Clustering/ClusteringManager';
+export { FenceManager } from './Fencing/FenceManager';
+export { NavigationManager } from './Navigation/NavigationManager';
+export { GebetaMaps } from './GebetaMaps';
+export { BrowserLocationProvider } from './adapters/LocationProvider';

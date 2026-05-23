@@ -57,6 +57,11 @@ export class MapAdapter implements IMapAdapter {
     return new MapLibreBoundsAdapter(this.map.getBounds());
   }
 
+  getCenter(): API.Common.Types.LngLat {
+    const c = (this.map as unknown as { getCenter(): { lng: number; lat: number } }).getCenter();
+    return { lng: c.lng, lat: c.lat };
+  }
+
   getZoom(): number {
     return this.map.getZoom();
   }

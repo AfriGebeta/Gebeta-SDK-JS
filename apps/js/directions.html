@@ -154,17 +154,11 @@
     }
 
     function addPinMarker(lng, lat, iconUrl) {
-      if (!window.maplibregl) {
-        console.error('MapLibre not available');
-        return null;
-      }
-      var el = document.createElement('div');
-      el.style.backgroundImage = 'url(' + iconUrl + ')';
-      el.style.backgroundSize = 'contain';
-      el.style.backgroundRepeat = 'no-repeat';
-      el.style.width = '30px';
-      el.style.height = '30px';
-      return new window.maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
+      var platform = gebetaMap.getPlatform();
+      return platform.markerFactory
+        .createMarker({ imageUrl: iconUrl, size: [30, 30] })
+        .setLngLat({ lng: lng, lat: lat })
+        .addTo(platform.mapAdapter);
     }
 
     function updateCoordsDisplay() {

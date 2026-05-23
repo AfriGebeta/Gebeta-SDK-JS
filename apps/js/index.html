@@ -108,6 +108,16 @@
 
     <div class="note">
       <p><strong>Setup:</strong> Set your API key in <code>config.js</code> (GEBETA_API_KEY). Build the SDK from repo root with <code>yarn build</code>, then serve this folder (e.g. <code>npx serve .</code> from repo root and open <code>/apps/js/</code>).</p>
+      <p style="margin-top:12px;"><strong>Using a bundler (Vite/webpack)?</strong> Import only what you need instead of the full bundle:</p>
+      <pre style="background:#f4f4f4;padding:10px;border-radius:4px;font-size:12px;overflow-x:auto;">// Only geocoding — no directions/clustering/navigation in your bundle
+import { GeocodingManager } from '@gebeta/js/geocoding';
+
+// Only directions
+import { DirectionsManager } from '@gebeta/js/directions';
+
+// Only clustering
+import { ClusteringManager } from '@gebeta/js/clustering';</pre>
+      <p>See <code>apps/react/src/App.tsx</code> for a full example.</p>
     </div>
   </div>
 </body>

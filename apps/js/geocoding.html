@@ -125,14 +125,16 @@
         var div = document.createElement('div');
         div.className = 'result-item';
         div.innerHTML = '<strong>' + name + '</strong><br><span style="color:#666;">' + (lat != null && lng != null ? lat.toFixed(5) + ', ' + lng.toFixed(5) : '') + '</span>';
-        if (lat != null && lng != null && window.maplibregl) {
-          var marker = new window.maplibregl.Marker()
-            .setLngLat([lng, lat])
-            .addTo(map);
+        if (lat != null && lng != null) {
+          var platform = gebetaMap.getPlatform();
+          var marker = platform.markerFactory
+            .createMarker({})
+            .setLngLat({ lng: lng, lat: lat })
+            .addTo(platform.mapAdapter);
           resultMarkers.push(marker);
           div.onclick = (function(lng, lat) {
             return function() {
-              map.flyTo({ center: [lng, lat], zoom: 16 });
+              gebetaMap.getPlatform().mapAdapter.easeTo({ center: [lng, lat], zoom: 16 });
             };
           })(lng, lat);
         }
@@ -140,7 +142,7 @@
       });
       if (results[0] && results[0].lngLat) {
         var c = results[0].lngLat;
-        map.flyTo({ center: [c.lng, c.lat], zoom: 14 });
+        gebetaMap.getPlatform().mapAdapter.easeTo({ center: [c.lng, c.lat], zoom: 14 });
       }
     }
 

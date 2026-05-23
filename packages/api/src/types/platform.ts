@@ -1,4 +1,4 @@
-import type { LngLatLike } from './common';
+import type { LngLat, LngLatLike } from './common';
 
 export interface IMarker {
   setLngLat(lngLat: LngLatLike): this;
@@ -68,6 +68,7 @@ export interface IMapAdapter {
   off(event: string, fn: (...args: unknown[]) => void): this;
   getContainer(): unknown;
   getBounds(): MapBounds;
+  getCenter(): LngLat;
   getZoom(): number;
   easeTo(options: EaseToOptions): this;
   resize(): this;
