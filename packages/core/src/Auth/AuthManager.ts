@@ -8,16 +8,59 @@ interface AuthEventMap {
   [API.Auth.Enums.Events.tokenRefreshFailed]: (error: Error) => void;
 }
 
+
 /**
  * Manages service account authentication credentials.
  * Wraps fetch to inject the Authorization header and handles 401 → refresh → single retry.
+ * Optionally runs a background timer that proactively refreshes the token every 7–10 minutes.
  */
 export class AuthManager extends EventEmitter<AuthEventMap> {
   private credentials: AuthCredentials;
+  private refreshTimer: ReturnType<typeof setTimeout> | null = null;
+  private autoRefreshActive = false;
 
   constructor(credentials: AuthCredentials) {
     super();
     this.credentials = credentials;
+  }
+
+  /**
+   * Starts the proactive token-refresh timer.
+   * Each refresh is scheduled with a random delay between 7 and 10 minutes
+   * to avoid thundering-herd problems when many clients start simultaneously.
+   * Safe to call multiple times — a running timer is stopped first.
+   */
+  startAutoRefresh(): void {
+    this.stopAutoRefresh();
+    this.autoRefreshActive = true;
+    this.scheduleNextRefresh();
+  }
+
+  /**
+   * Stops the proactive token-refresh timer. No-op if the timer is not running.
+   */
+  stopAutoRefresh(): void {
+    this.autoRefreshActive = false;
+    if (this.refreshTimer !== null) {
+      clearTimeout(this.refreshTimer);
+      this.refreshTimer = null;
+    }
+  }
+
+  private scheduleNextRefresh(): void {
+    this.refreshTimer = setTimeout(() => {
+      this.refreshTimer = null;
+      this.refreshAccessToken()
+        .catch(() => {
+          // tokenRefreshFailed is already emitted inside refreshAccessToken
+        })
+        .finally(() => {
+          // reschedule regardless of success or failure so auth recovers on transient errors
+          if (this.autoRefreshActive) {
+            this.scheduleNextRefresh();
+          }
+        });
+    }, API.Auth.Constants.TOKEN_REFRESH_INTERVAL_MS);
   }
 
   /**

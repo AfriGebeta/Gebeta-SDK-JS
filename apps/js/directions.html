@@ -112,8 +112,8 @@
         ? { accessToken: config.GEBETA_ACCESS_TOKEN, refreshToken: config.GEBETA_REFRESH_TOKEN }
         : null;
       var apiKey = auth ? null : config.GEBETA_API_KEY;
-      if (!apiKey || apiKey === 'YOUR_API_KEY') {
-        console.warn('Set GEBETA_API_KEY in config.js');
+      if (!apiKey && !auth.accessToken) {
+        console.warn('Set authentication configuration in config.js');
       }
 
       gebetaMap = new GebetaMaps(auth ? { auth: auth } : { apiKey: apiKey });
