@@ -87,4 +87,85 @@ describe('createFetch', () => {
       expect(authFetchSpy).toHaveBeenCalledWith('https://example.com/api', init);
     });
   });
+
+  describe('with clientId (X-Device-ID header injection)', () => {
+    test('should inject X-Device-ID header when clientId is provided with no auth', async () => {
+      // GIVEN no auth and a clientId 'device-abc'
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const fetchFn = createFetch(undefined, 'device-abc');
+
+      // WHEN fetchFn is called
+      await fetchFn('https://example.com/api');
+
+      // THEN X-Device-ID is injected
+      const [, init] = fetchSpy.mock.calls[0];
+      expect(init.headers['X-Device-ID']).toBe('device-abc');
+    });
+
+    test('should inject X-Device-ID alongside Authorization when using a string apiKey', async () => {
+      // GIVEN a legacy apiKey and a clientId 'device-abc'
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const fetchFn = createFetch('my-api-key', 'device-abc');
+
+      // WHEN fetchFn is called
+      await fetchFn('https://example.com/api');
+
+      // THEN both Authorization and X-Device-ID headers are present
+      const [, init] = fetchSpy.mock.calls[0];
+      expect(init.headers['Authorization']).toBe('Bearer my-api-key');
+      expect(init.headers['X-Device-ID']).toBe('device-abc');
+    });
+
+    test('should pass X-Device-ID to authManager.fetch() when using AuthManager', async () => {
+      // GIVEN an AuthManager and a clientId 'device-abc'
+      const authManager = new AuthManager(VALID_CREDENTIALS);
+      const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const fetchFn = createFetch(authManager, 'device-abc');
+
+      // WHEN fetchFn is called
+      await fetchFn('https://example.com/api');
+
+      // THEN authManager.fetch() is called with X-Device-ID in the init headers
+      // (AuthManager itself will merge in the Authorization header on top)
+      const [, init] = authFetchSpy.mock.calls[0];
+      expect((init?.headers as Record<string, string>)['X-Device-ID']).toBe('device-abc');
+    });
+
+    test('should not inject X-Device-ID when clientId is not provided', async () => {
+      // GIVEN a legacy apiKey but no clientId
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const fetchFn = createFetch('my-api-key');
+
+      // WHEN fetchFn is called
+      await fetchFn('https://example.com/api');
+
+      // THEN X-Device-ID is absent from the request headers
+      const [, init] = fetchSpy.mock.calls[0];
+      expect(init.headers['X-Device-ID']).toBeUndefined();
+    });
+
+    test('should preserve existing caller headers when injecting X-Device-ID', async () => {
+      // GIVEN a legacy apiKey, a clientId, and an existing Content-Type header
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const fetchFn = createFetch('my-api-key', 'device-abc');
+
+      // WHEN fetchFn is called with a Content-Type header
+      await fetchFn('https://example.com/api', { headers: { 'Content-Type': 'application/json' } });
+
+      // THEN all three headers are present
+      const [, init] = fetchSpy.mock.calls[0];
+      expect(init.headers['Authorization']).toBe('Bearer my-api-key');
+      expect(init.headers['X-Device-ID']).toBe('device-abc');
+      expect(init.headers['Content-Type']).toBe('application/json');
+    });
+
+    test('should return globalThis.fetch directly when both auth and clientId are absent', () => {
+      // GIVEN no auth and no clientId
+      // WHEN createFetch is called with both undefined
+      const fetchFn = createFetch(undefined, undefined);
+
+      // THEN globalThis.fetch is returned as-is (no wrapper overhead)
+      expect(fetchFn).toBe(globalThis.fetch);
+    });
+  });
 });

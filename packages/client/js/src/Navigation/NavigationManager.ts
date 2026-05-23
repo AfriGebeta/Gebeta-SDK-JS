@@ -36,7 +36,8 @@ export class NavigationManager {
     auth: AuthParam,
     mapAdapter: IMapAdapter,
     markerFactory: IMarkerFactory,
-    options: NavigationManagerOptions = {}
+    options: NavigationManagerOptions = {},
+    clientId?: string
   ) {
     if (!mapAdapter) {
       throw new ValidationError('Map adapter is required for NavigationManager', 'mapAdapter');
@@ -47,7 +48,7 @@ export class NavigationManager {
 
     this.mapAdapter = mapAdapter;
     this.markerFactory = markerFactory;
-    this.core = new CoreNavigationManager(auth, options);
+    this.core = new CoreNavigationManager(auth, options, clientId);
 
     this.setupEventListeners();
   }

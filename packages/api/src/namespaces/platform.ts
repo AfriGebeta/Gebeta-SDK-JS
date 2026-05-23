@@ -1,8 +1,9 @@
-import { DEFAULT_LOCATION_PROVIDER_OPTIONS } from '../constants';
+import { DEFAULT_LOCATION_PROVIDER_OPTIONS, CLIENT_ID_STORAGE_KEY } from '../constants';
 
 export namespace Platform {
   export const Constants = {
     DEFAULT_LOCATION_PROVIDER_OPTIONS,
+    CLIENT_ID_STORAGE_KEY,
   };
 
   export namespace Types {
@@ -21,6 +22,7 @@ export namespace Platform {
     export type LocationProviderOptions = import('../types/platform').LocationProviderOptions;
     export type ILocationProvider = import('../types/platform').ILocationProvider;
     export type IStyleInjector = import('../types/platform').IStyleInjector;
+    export type IClientIdStorage = import('../types/platform').IClientIdStorage;
     export type IPlatformContext = import('../types/platform').IPlatformContext;
   }
 }

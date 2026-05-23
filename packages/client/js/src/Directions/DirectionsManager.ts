@@ -28,7 +28,7 @@ export class DirectionsManager {
   private currentRoute: RouteData | null = null;
   private markers: IMarker[] = [];
 
-  constructor(mapAdapter: IMapAdapter, markerFactory: IMarkerFactory, auth: AuthParam) {
+  constructor(mapAdapter: IMapAdapter, markerFactory: IMarkerFactory, auth: AuthParam, clientId?: string) {
     if (!mapAdapter) {
       throw new ValidationError('Map adapter is required for DirectionsManager', 'mapAdapter');
     }
@@ -40,7 +40,7 @@ export class DirectionsManager {
     }
     this.mapAdapter = mapAdapter;
     this.markerFactory = markerFactory;
-    this.core = new CoreDirectionsManager(auth);
+    this.core = new CoreDirectionsManager(auth, clientId);
     initRouteLayer(this.mapAdapter);
   }
 

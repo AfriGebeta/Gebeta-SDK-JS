@@ -50,6 +50,7 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
   private stepDistances: number[] = [];
   private lastLocation: LocationData | null = null;
   private readonly auth: API.Auth.Types.AuthParam;
+  private readonly clientId?: string;
   private userId: string = '';
   private role: Role = 'driver';
   private precision: Precision = API.Tracking.Enums.Precision.HIGH;
@@ -58,8 +59,9 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
    * Creates a new NavigationManager instance.
    * @param auth - API key or Service account authentication input
    * @param options - Configuration options for navigation behavior
+   * @param clientId - Optional stable client identifier for X-Device-ID header
    */
-  constructor(auth: API.Auth.Types.AuthParam, options: NavigationManagerOptions = {}) {
+  constructor(auth: API.Auth.Types.AuthParam, options: NavigationManagerOptions = {}, clientId?: string) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;
@@ -71,6 +73,7 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
     };
 
     this.auth = auth;
+    this.clientId = clientId;
   }
 
   /**
@@ -153,12 +156,14 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
         userId: this.userId,
         role: this.role,
         auth: this.auth,
+        clientId: this.clientId,
       });
     } else {
       this.trackingClient = new HttpTrackingManager({
         userId: this.userId,
         role: this.role,
         auth: this.auth,
+        clientId: this.clientId,
       });
     }
 

@@ -137,6 +137,7 @@ export namespace API {
       export type LocationProviderOptions = PlatformModule.Platform.Types.LocationProviderOptions;
       export type ILocationProvider = PlatformModule.Platform.Types.ILocationProvider;
       export type IStyleInjector = PlatformModule.Platform.Types.IStyleInjector;
+      export type IClientIdStorage = PlatformModule.Platform.Types.IClientIdStorage;
       export type IPlatformContext = PlatformModule.Platform.Types.IPlatformContext;
     }
   }

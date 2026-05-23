@@ -25,7 +25,7 @@ export class HttpTrackingManager extends EventEmitter<HttpTrackingEventMap> {
   private locationProvider: ILocationProvider | null = null;
   private sendInterval: ReturnType<typeof setInterval> | null = null;
   private readonly options: Required<Pick<HttpTrackingManagerOptions, 'userId' | 'role'>> &
-    Pick<HttpTrackingManagerOptions, 'auth' | 'locationProvider'>;
+    Pick<HttpTrackingManagerOptions, 'auth' | 'locationProvider' | 'clientId'>;
   private readonly httpUrl: string;
   private isStopped = false;
 
@@ -46,6 +46,7 @@ export class HttpTrackingManager extends EventEmitter<HttpTrackingEventMap> {
       role: options.role ?? 'driver',
       auth: options.auth,
       locationProvider: options.locationProvider,
+      clientId: options.clientId,
     };
 
     this.httpUrl = API.Tracking.Constants.API_URLS.HTTP;
@@ -125,7 +126,7 @@ export class HttpTrackingManager extends EventEmitter<HttpTrackingEventMap> {
     };
 
     try {
-      const response = await createFetch(this.options.auth)(this.httpUrl, {
+      const response = await createFetch(this.options.auth, this.options.clientId)(this.httpUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

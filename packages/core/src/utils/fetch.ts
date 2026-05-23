@@ -8,10 +8,22 @@ import type { AuthManager } from '../Auth';
  * - string (legacy apiKey): injects Authorization: Bearer <apiKey> header and
  *   calls globalThis.fetch directly (no retry — legacy tokens don't refresh).
  * - undefined: returns globalThis.fetch unmodified.
+ *
+ * When clientId is provided, an X-Device-ID header is injected on every request.
  */
-export function createFetch(auth: object | string | undefined): typeof globalThis.fetch {
+export function createFetch(
+  auth: object | string | undefined,
+  clientId?: string
+): typeof globalThis.fetch {
+  const deviceHeader: Record<string, string> = clientId ? { 'X-Device-ID': clientId } : {};
+
   if (!auth) {
-    return globalThis.fetch;
+    if (!clientId) return globalThis.fetch;
+    return (url: RequestInfo | URL, init?: RequestInit) =>
+      globalThis.fetch(url, {
+        ...init,
+        headers: { ...init?.headers, ...deviceHeader },
+      });
   }
 
   if (typeof auth === 'string') {
@@ -21,11 +33,19 @@ export function createFetch(auth: object | string | undefined): typeof globalThi
         headers: {
           ...init?.headers,
           Authorization: `Bearer ${auth}`,
+          ...deviceHeader,
         },
       });
   }
 
   const manager = auth as AuthManager;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return manager.fetch.bind(manager) as any as typeof globalThis.fetch;
+  if (!clientId) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return manager.fetch.bind(manager) as any as typeof globalThis.fetch;
+  }
+  return (url: RequestInfo | URL, init?: RequestInit) =>
+    manager.fetch(url as string, {
+      ...init,
+      headers: { ...init?.headers, ...deviceHeader },
+    });
 }

@@ -1,4 +1,5 @@
 export { AuthManager } from './Auth/AuthManager';
+export { ClientIdManager } from './ClientId/ClientIdManager';
 export { GeocodingManager } from './Geocoding/GeocodingManager';
 export { DirectionsManager } from './Directions/DirectionsManager';
 export { ClusteringManager } from './Clustering/ClusteringManager';

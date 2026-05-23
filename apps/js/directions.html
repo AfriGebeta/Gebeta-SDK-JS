@@ -116,7 +116,7 @@
         console.warn('Set authentication configuration in config.js');
       }
 
-      gebetaMap = new GebetaMaps(auth ? { auth: auth } : { apiKey: apiKey });
+      gebetaMap = new GebetaMaps(auth ? { auth: auth, enableClientId: true } : { apiKey: apiKey });
       map = gebetaMap.init({
         container: 'map',
         center: [38.7685, 9.0161],
