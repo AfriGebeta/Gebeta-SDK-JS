@@ -41,6 +41,12 @@ export const AuthEvents = {
 } as const;
 
 /**
+ * Proactive token refresh interval: 10% before the 7-minute token expiry (6m 18s).
+ */
+export const TOKEN_EXPIRY_MS = 7 * 60 * 1000;
+export const TOKEN_REFRESH_INTERVAL_MS = TOKEN_EXPIRY_MS * 0.9;
+
+/**
  * URLs for service account authentication endpoints.
  */
 export const AUTH_URLS = {

@@ -1,4 +1,4 @@
-import { AUTH_URLS, AuthEvents } from '../constants';
+import { AUTH_URLS, AuthEvents, TOKEN_EXPIRY_MS, TOKEN_REFRESH_INTERVAL_MS } from '../constants';
 
 export namespace Auth {
   export namespace Types {
@@ -14,5 +14,7 @@ export namespace Auth {
   export const Constants = {
     AUTH_URL: AUTH_URLS.auth,
     REFRESH_URL: AUTH_URLS.refresh,
+    TOKEN_EXPIRY_MS,
+    TOKEN_REFRESH_INTERVAL_MS,
   } as const;
 }

@@ -121,6 +121,140 @@ describe('AuthManager', () => {
     });
   });
 
+  describe('startAutoRefresh() / stopAutoRefresh()', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    // 10% before 7 minutes = 6m 18s = 378 000 ms
+    const REFRESH_INTERVAL_MS = 7 * 60 * 1000 * 0.9;
+
+    test('should not refresh before 6m 18s and should refresh at exactly 6m 18s', async () => {
+      // GIVEN an AuthManager with auto-refresh started
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+
+      manager.startAutoRefresh();
+
+      // WHEN just under 6m 18s elapses
+      jest.advanceTimersByTime(REFRESH_INTERVAL_MS - 1);
+      await Promise.resolve();
+
+      // THEN no refresh has happened yet
+      expect(fetchSpy).not.toHaveBeenCalled();
+
+      // WHEN 6m 18s elapses
+      await jest.advanceTimersByTimeAsync(1);
+
+      // THEN the refresh endpoint was called
+      expect(fetchSpy).toHaveBeenCalledWith(
+        API.Auth.Constants.REFRESH_URL,
+        expect.objectContaining({ method: 'POST' })
+      );
+
+      manager.stopAutoRefresh();
+    });
+
+    test('should emit tokenRefreshed after a successful timer-triggered refresh', async () => {
+      // GIVEN an AuthManager with auto-refresh started
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      const onRefreshed = jest.fn();
+      manager.on(API.Auth.Enums.Events.tokenRefreshed, onRefreshed);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+
+      manager.startAutoRefresh();
+      await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
+
+      // THEN tokenRefreshed is emitted with the new credentials
+      expect(onRefreshed).toHaveBeenCalledWith(NEW_CREDENTIALS);
+
+      manager.stopAutoRefresh();
+    });
+
+    test('should not refresh after stopAutoRefresh() is called', async () => {
+      // GIVEN an AuthManager with auto-refresh started then immediately stopped
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
+        new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } })
+      );
+
+      manager.startAutoRefresh();
+      manager.stopAutoRefresh();
+
+      jest.advanceTimersByTime(REFRESH_INTERVAL_MS + 1);
+      await Promise.resolve();
+
+      // THEN no fetch calls were made
+      expect(fetchSpy).not.toHaveBeenCalled();
+    });
+
+    test('should reschedule after a successful refresh', async () => {
+      // GIVEN an AuthManager with auto-refresh started
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+
+      manager.startAutoRefresh();
+
+      // WHEN the first timer fires
+      await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
+
+      const callsAfterFirst = fetchSpy.mock.calls.length;
+
+      // WHEN another interval passes
+      await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
+
+      // THEN the refresh endpoint was called a second time
+      expect(fetchSpy.mock.calls.length).toBeGreaterThan(callsAfterFirst);
+
+      manager.stopAutoRefresh();
+    });
+
+    test('should reschedule after a failed refresh (transient error recovery)', async () => {
+      // GIVEN an AuthManager where the first timer-refresh fails, then succeeds
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValueOnce(new Response('error', { status: 500 }))
+        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+
+      manager.startAutoRefresh();
+
+      // first fire — refresh fails
+      await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
+
+      // second fire — refresh succeeds
+      await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
+
+      // THEN the refresh endpoint was called twice (once fail, once success)
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+
+      manager.stopAutoRefresh();
+    });
+
+    test('calling startAutoRefresh() twice should not cause double refreshes', async () => {
+      // GIVEN an AuthManager where startAutoRefresh is called twice
+      const manager = new AuthManager(VALID_CREDENTIALS);
+      fetchSpy = jest.spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+
+      manager.startAutoRefresh();
+      manager.startAutoRefresh();
+
+      await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
+
+      // THEN only one refresh call was made
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+      manager.stopAutoRefresh();
+    });
+  });
+
   describe('getAccessToken()', () => {
     test('should return the updated accessToken after updateCredentials() is called', () => {
       // GIVEN an AuthManager constructed with VALID_CREDENTIALS
