@@ -1,5 +1,11 @@
 # @gebeta/api
 
+## 3.0.3
+
+### Patch Changes
+
+- 26ad048: fix deployment path
+
 ## 3.0.2
 
 ### Patch Changes

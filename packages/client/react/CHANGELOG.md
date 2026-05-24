@@ -1,5 +1,14 @@
 # @gebeta/react
 
+## 3.0.3
+
+### Patch Changes
+
+- 26ad048: fix deployment path
+- Updated dependencies [26ad048]
+  - @gebeta/api@3.0.3
+  - @gebeta/core@3.0.3
+
 ## 3.0.2
 
 ### Patch Changes
