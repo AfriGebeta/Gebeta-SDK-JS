@@ -1,6 +1,7 @@
 // CDN / <script> entry point.
 // Registers GebetaMaps and maplibregl on window and injects maplibre CSS.
 // For bundler usage (webpack, Vite, Rollup), import from '@gebeta/js' instead.
+declare const __GEBETA_VERSION__: string;
 import maplibre from 'maplibre-gl';
 import { GeocodingManager } from '@gebeta/core';
 import { DirectionsManager } from './Directions/DirectionsManager';
@@ -15,6 +16,7 @@ import { BrowserLocationProvider } from './adapters/LocationProvider';
 if (typeof window !== 'undefined') {
   injectMapLibreStyles();
   (window as unknown as Record<string, unknown>).maplibregl = maplibre;
+  (GebetaMaps as unknown as Record<string, unknown>).VERSION = __GEBETA_VERSION__;
   (window as unknown as Record<string, unknown>).GebetaMaps = GebetaMaps;
   (window as unknown as Record<string, unknown>).GeocodingManager = GeocodingManager;
   (window as unknown as Record<string, unknown>).DirectionsManager = DirectionsManager;
