@@ -39,6 +39,10 @@ jobs:
       - name: Check permission
         run: |
           ALLOWED="${{ vars.DEPLOY_ALLOWED_ACTORS }}"
+          if [ -z "$ALLOWED" ]; then
+            echo "DEPLOY_ALLOWED_ACTORS variable is not set. Configure it in Settings > Variables."
+            exit 1
+          fi
           for u in $ALLOWED; do
             [ "$u" = "${{ github.actor }}" ] && exit 0
           done

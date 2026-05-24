@@ -28,6 +28,10 @@ jobs:
       - name: Check deploy permission
         run: |
           ALLOWED="${{ vars.DEPLOY_ALLOWED_ACTORS }}"
+          if [ -z "$ALLOWED" ]; then
+            echo "DEPLOY_ALLOWED_ACTORS variable is not set. Configure it in Settings > Variables."
+            exit 1
+          fi
           for u in $ALLOWED; do
             [ "$u" = "${{ github.actor }}" ] && exit 0
           done
@@ -85,6 +89,10 @@ jobs:
       - name: Check deploy permission
         run: |
           ALLOWED="${{ vars.DEPLOY_ALLOWED_ACTORS }}"
+          if [ -z "$ALLOWED" ]; then
+            echo "DEPLOY_ALLOWED_ACTORS variable is not set. Configure it in Settings > Variables."
+            exit 1
+          fi
           for u in $ALLOWED; do
             [ "$u" = "${{ github.actor }}" ] && exit 0
           done
@@ -125,6 +133,14 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: release SDK packages [skip ci]"
           git push
 
+      - name: Build all packages
+        run: |
+          yarn workspace @gebeta/api build
+          yarn workspace @gebeta/core build
+          yarn workspace @gebeta/js build
+          yarn workspace @gebeta/react build
+          yarn workspace @gebeta/node build
+
       - name: Configure npm auth
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
@@ -147,15 +163,6 @@ jobs:
           VERSION=$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('./packages/client/js/package.json','utf8')).version)")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Released version: $VERSION"
-
-      - name: Build API package
-        run: yarn workspace @gebeta/api build
-
-      - name: Build Core package
-        run: yarn workspace @gebeta/core build
-
-      - name: Build JS package
-        run: yarn workspace @gebeta/js build
 
       - name: Setup SSH Key
         uses: webfactory/ssh-agent@v0.9.0
