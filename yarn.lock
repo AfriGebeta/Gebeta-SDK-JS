@@ -7030,6 +7030,7 @@ __metadata:
     "@types/react": "npm:^18.0.0"
     "@types/react-dom": "npm:^18.0.0"
     "@vitejs/plugin-react": "npm:^4.2.0"
+    maplibre-gl: "npm:^4.0.0"
     react: "npm:^18.0.0"
     react-dom: "npm:^18.0.0"
     typescript: "npm:^5.0.0"

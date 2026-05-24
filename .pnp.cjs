@@ -8739,6 +8739,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.28"],\
           ["@types/react-dom", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:18.3.7"],\
           ["@vitejs/plugin-react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:4.7.0"],\
+          ["maplibre-gl", "npm:4.7.1"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:18.3.1"],\
           ["react-example", "workspace:apps/react"],\
