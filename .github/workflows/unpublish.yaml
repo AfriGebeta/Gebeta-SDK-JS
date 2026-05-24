@@ -57,7 +57,7 @@ jobs:
         run: |
           unpublish() {
             echo "Unpublishing $1@$VERSION..."
-            npm unpublish "$1@$VERSION" && echo "✓ $1@$VERSION unpublished" || echo "✗ $1@$VERSION failed (may not exist)"
+            npm unpublish "$1@$VERSION" --force && echo "✓ $1@$VERSION unpublished" || echo "✗ $1@$VERSION failed (may not exist)"
           }
 
           [ "${{ inputs.pkg_api }}"   = "true" ] && unpublish "@gebeta/api"
