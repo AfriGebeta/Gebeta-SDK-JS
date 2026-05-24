@@ -1,6 +1,6 @@
 {
   "name": "@gebeta/core",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "description": "Core platform-agnostic implementation for Gebeta Maps SDKs",
   "main": "dist/index.js",
   "module": "dist/index.js",
