@@ -1,5 +1,11 @@
 # @gebeta/api
 
+## 3.0.5
+
+### Patch Changes
+
+- fe7d6b0: Build before publish
+
 ## 3.0.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @gebeta/node
 
+## 3.0.5
+
+### Patch Changes
+
+- fe7d6b0: Build before publish
+- Updated dependencies [fe7d6b0]
+  - @gebeta/api@3.0.5
+
 ## 3.0.4
 
 ### Patch Changes
