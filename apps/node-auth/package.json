@@ -1,0 +1,21 @@
+{
+  "name": "node-auth-example",
+  "version": "0.0.0",
+  "description": "Backend auth endpoint using @gebeta/node — exchanges a client token for access/refresh credentials",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn build && node dist/server.js",
+    "dev": "tsc --watch & node --watch dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gebeta/node": "workspace:*",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

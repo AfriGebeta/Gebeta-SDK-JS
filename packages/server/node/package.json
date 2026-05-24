@@ -11,13 +11,13 @@
   },
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "tsc && tsc -p tsconfig.esm.json && node scripts/rename-to-mjs.js",
+    "build": "tsup",
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.ts\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.ts\" --fix || echo 'No src directory - skipping lint'",
@@ -40,6 +40,7 @@
     "jest-util": "^29.7.0",
     "prettier": "^3.0.0",
     "ts-jest": "^29.1.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0"
   }
 }
