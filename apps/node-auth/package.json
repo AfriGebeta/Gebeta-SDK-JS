@@ -1,6 +1,6 @@
 {
   "name": "node-auth-example",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Backend auth endpoint using @gebeta/node — exchanges a client token for access/refresh credentials",
   "private": true,
   "type": "module",
