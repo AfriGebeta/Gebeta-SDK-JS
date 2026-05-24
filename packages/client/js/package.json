@@ -33,7 +33,10 @@
       "types": "./dist/entries/fencing.d.ts"
     }
   },
-  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && vite build --config vite.config.umd.ts && tsc --emitDeclarationOnly --skipLibCheck",
     "clean": "rm -rf dist",

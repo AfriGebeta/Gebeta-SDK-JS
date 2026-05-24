@@ -4,7 +4,10 @@
   "description": "Shared TypeScript types and constants for Gebeta Maps SDKs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsc",
     "build:declarations": "tsc --emitDeclarationOnly",

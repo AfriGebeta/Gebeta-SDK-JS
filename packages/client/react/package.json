@@ -16,7 +16,10 @@
       "types": "./dist/entries/clustering.d.ts"
     }
   },
-  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && tsc --emitDeclarationOnly --skipLibCheck",
     "clean": "rm -rf dist",
