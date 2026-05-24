@@ -121,7 +121,9 @@ jobs:
           git push
 
       - name: Configure npm auth
-        run: yarn config set npmAuthToken "$NPM_TOKEN"
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+          yarn config set npmAuthToken "${NPM_TOKEN}"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
