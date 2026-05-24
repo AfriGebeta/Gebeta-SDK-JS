@@ -73,7 +73,7 @@ describe('NavigationManager (platform layer)', () => {
 
       // THEN controller is defined and CoreNavigationManager was called with apiKey and empty options
       expect(controller).toBeDefined();
-      expect(CoreNavigationManager).toHaveBeenCalledWith(apiKey, {});
+      expect(CoreNavigationManager).toHaveBeenLastCalledWith(apiKey, {}, undefined);
     });
 
     it('should create NavigationManager with options', () => {
@@ -88,7 +88,7 @@ describe('NavigationManager (platform layer)', () => {
 
       // THEN controller is defined and CoreNavigationManager was called with apiKey and options
       expect(controller).toBeDefined();
-      expect(CoreNavigationManager).toHaveBeenCalledWith(apiKey, options);
+      expect(CoreNavigationManager).toHaveBeenLastCalledWith(apiKey, options, undefined);
     });
 
     it('should throw ValidationError if mapAdapter is missing', () => {
