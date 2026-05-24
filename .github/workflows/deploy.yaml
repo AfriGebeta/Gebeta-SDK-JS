@@ -15,7 +15,6 @@ on:
         type: choice
         options:
           - assets
-          - js
           - npm
         default: 'assets'
 
@@ -74,62 +73,6 @@ jobs:
           echo "$ASSETS_HASH" | ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "cat > ~/static/files/gebeta-maps-assets/releases/$NEW_VERSION/.content-hash"
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn ~/static/files/gebeta-maps-assets/releases/$NEW_VERSION ~/static/files/gebeta-maps-assets/current"
           echo "Assets deployed successfully to https://assets.gebeta.app/icons/maneuvers/"
-
-  deploy-js:
-    name: Deploy JS
-    runs-on: ubuntu-latest
-    if: inputs.target == 'js'
-
-    steps:
-      - name: Check deploy permission
-        run: |
-          ALLOWED="${{ vars.DEPLOY_ALLOWED_ACTORS }}"
-          for u in $ALLOWED; do
-            [ "$u" = "${{ github.actor }}" ] && exit 0
-          done
-          echo "Deploy is restricted to GitHub users: $ALLOWED"
-          echo "Current user (github.actor): ${{ github.actor }}"
-          exit 1
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Install dependencies
-        run: yarn install --immutable
-
-      - name: Build API package
-        run: yarn workspace @gebeta/api build
-
-      - name: Build Core package
-        run: yarn workspace @gebeta/core build
-
-      - name: Build JS package
-        run: yarn workspace @gebeta/js build
-
-      - name: Setup SSH Key
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.MAP_TILE_SERVER_SSH_KEY }}
-
-      - name: Deploy JS to Server
-        env:
-          SERVER_USER: ${{ secrets.MAP_TILE_SERVER_USER }}
-          SERVER_IP: ${{ secrets.MAP_TILE_SERVER_IP }}
-        run: |
-          echo "Deploying JS SDK to CDN"
-          NEW_VERSION=${{ github.sha }}
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p ~/static/files/gebeta-maps-lib/releases/$NEW_VERSION"
-          scp -o StrictHostKeyChecking=no -r packages/client/js/dist/* $SERVER_USER@$SERVER_IP:~/static/files/gebeta-maps-lib/releases/$NEW_VERSION
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn ~/static/files/gebeta-maps-lib/releases/$NEW_VERSION ~/static/files/gebeta-maps-lib/current"
-          echo "JS SDK deployed successfully"
 
   deploy-npm:
     name: Release All SDKs to npm + CDN
@@ -215,7 +158,13 @@ jobs:
           RELEASE_VERSION: ${{ steps.version.outputs.version }}
         run: |
           echo "Deploying JS SDK $RELEASE_VERSION to CDN"
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p ~/static/files/gebeta-maps-lib/releases/$RELEASE_VERSION"
-          scp -o StrictHostKeyChecking=no -r packages/client/js/dist/* $SERVER_USER@$SERVER_IP:~/static/files/gebeta-maps-lib/releases/$RELEASE_VERSION
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn ~/static/files/gebeta-maps-lib/releases/$RELEASE_VERSION ~/static/files/gebeta-maps-lib/current"
-          echo "JS SDK $RELEASE_VERSION deployed successfully"
+          MAJOR=$(echo "$RELEASE_VERSION" | cut -d. -f1)
+          BASE=~/static/files/gebeta-maps-lib
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p $BASE/releases/$RELEASE_VERSION"
+          scp -o StrictHostKeyChecking=no -r packages/client/js/dist/* $SERVER_USER@$SERVER_IP:$BASE/releases/$RELEASE_VERSION
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn $BASE/releases/$RELEASE_VERSION $BASE/v$MAJOR"
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn $BASE/releases/$RELEASE_VERSION $BASE/current"
+          echo "JS SDK $RELEASE_VERSION deployed to:"
+          echo "  $BASE/releases/$RELEASE_VERSION  (pinned)"
+          echo "  $BASE/v$MAJOR                    (major)"
+          echo "  $BASE/current                    (latest)"
