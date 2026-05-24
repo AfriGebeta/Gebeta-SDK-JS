@@ -21,7 +21,10 @@ export class BrowserLocationProvider implements ILocationProvider {
   }
 
   static getInstance(options?: LocationProviderOptions): BrowserLocationProvider {
-    const key = JSON.stringify({ ...API.Platform.Constants.DEFAULT_LOCATION_PROVIDER_OPTIONS, ...options });
+    const key = JSON.stringify({
+      ...API.Platform.Constants.DEFAULT_LOCATION_PROVIDER_OPTIONS,
+      ...options,
+    });
     let instance = BrowserLocationProvider.instances.get(key);
     if (!instance) {
       instance = new BrowserLocationProvider(options);

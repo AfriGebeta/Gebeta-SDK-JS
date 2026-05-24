@@ -46,12 +46,10 @@ export class GebetaAuth {
     }
 
     if (!response.ok) {
-      throw new UnauthorizedError(
-        `Authentication failed with status ${response.status}`
-      );
+      throw new UnauthorizedError(`Authentication failed with status ${response.status}`);
     }
 
-    const data = await response.json() as { data?: AuthCredentials };
+    const data = (await response.json()) as { data?: AuthCredentials };
     const credentials = data?.data;
 
     if (!credentials?.accessToken || !credentials?.refreshToken) {

@@ -47,7 +47,7 @@ export class GebetaMaps {
     if (hasApiKey) {
       console.warn(
         '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
-        'Use service account auth instead: https://docs.gebeta.app/auth'
+          'Use service account auth instead: https://docs.gebeta.app/auth'
       );
       this.auth = options.apiKey!;
     } else {
@@ -125,9 +125,8 @@ export class GebetaMaps {
       attributionControl: false,
       transformRequest: (url: string, _resourceType: string) => {
         if (url.startsWith('https://tiles.gebeta.app')) {
-          const token = typeof this.auth === 'string'
-            ? this.auth
-            : (this.auth as AuthManager).getAccessToken();
+          const token =
+            typeof this.auth === 'string' ? this.auth : (this.auth as AuthManager).getAccessToken();
           const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
           if (this.clientIdManager) {
             headers['X-Device-ID'] = this.clientIdManager.getId();

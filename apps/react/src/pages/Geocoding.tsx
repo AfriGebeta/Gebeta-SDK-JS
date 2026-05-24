@@ -43,7 +43,10 @@ export default function Geocoding() {
     const platform = platformRef.current;
     if (!platform) return;
     mapped.forEach(r => {
-      const mk = platform.markerFactory.createMarker({})?.setLngLat({ lat: r.lat, lng: r.lng }).addTo(platform.mapAdapter);
+      const mk = platform.markerFactory
+        .createMarker({})
+        ?.setLngLat({ lat: r.lat, lng: r.lng })
+        .addTo(platform.mapAdapter);
       if (mk) markersRef.current.push(mk);
     });
     if (mapped[0]) {
@@ -66,7 +69,10 @@ export default function Geocoding() {
     if (!ready || !gebetaMapRef.current) return;
     const lat = parseFloat(latInput);
     const lng = parseFloat(lngInput);
-    if (isNaN(lat) || isNaN(lng)) { alert('Enter valid latitude and longitude.'); return; }
+    if (isNaN(lat) || isNaN(lng)) {
+      alert('Enter valid latitude and longitude.');
+      return;
+    }
     try {
       const res = await gebetaMapRef.current.geocodingManager.reverseGeocode({ lat, lng });
       showResults(res ?? []);
@@ -82,23 +88,53 @@ export default function Geocoding() {
         <div className="control-panel">
           <h3>Geocoding</h3>
           <h4>Forward (search by name)</h4>
-          <input type="text" value={placeInput} onChange={e => setPlaceInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && doGeocode()} placeholder="e.g. Bole, Addis Ababa" />
-          <button className="primary" onClick={doGeocode} disabled={!ready}>Search</button>
+          <input
+            type="text"
+            value={placeInput}
+            onChange={e => setPlaceInput(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && doGeocode()}
+            placeholder="e.g. Bole, Addis Ababa"
+          />
+          <button className="primary" onClick={doGeocode} disabled={!ready}>
+            Search
+          </button>
           <h4>Reverse (search by coordinates)</h4>
-          <input type="number" value={latInput} onChange={e => setLatInput(e.target.value)} placeholder="Latitude" />
-          <input type="number" value={lngInput} onChange={e => setLngInput(e.target.value)} placeholder="Longitude" />
-          <button className="primary" onClick={doReverseGeocode} disabled={!ready}>Find address</button>
+          <input
+            type="number"
+            value={latInput}
+            onChange={e => setLatInput(e.target.value)}
+            placeholder="Latitude"
+          />
+          <input
+            type="number"
+            value={lngInput}
+            onChange={e => setLngInput(e.target.value)}
+            placeholder="Longitude"
+          />
+          <button className="primary" onClick={doReverseGeocode} disabled={!ready}>
+            Find address
+          </button>
           <h4>Results</h4>
           <div className="result-list">
-            {results.length === 0
-              ? <div style={{ padding: 8, color: '#888' }}>No results yet.</div>
-              : results.map(r => (
-                <div key={`${r.lat},${r.lng}`} className="result-item" onClick={() => platformRef.current?.mapAdapter.easeTo({ center: [r.lng, r.lat], zoom: 16 })}>
-                  <strong>{r.name}</strong><br />
-                  <span style={{ color: '#666' }}>{r.lat.toFixed(5)}, {r.lng.toFixed(5)}</span>
+            {results.length === 0 ? (
+              <div style={{ padding: 8, color: '#888' }}>No results yet.</div>
+            ) : (
+              results.map(r => (
+                <div
+                  key={`${r.lat},${r.lng}`}
+                  className="result-item"
+                  onClick={() =>
+                    platformRef.current?.mapAdapter.easeTo({ center: [r.lng, r.lat], zoom: 16 })
+                  }
+                >
+                  <strong>{r.name}</strong>
+                  <br />
+                  <span style={{ color: '#666' }}>
+                    {r.lat.toFixed(5)}, {r.lng.toFixed(5)}
+                  </span>
                 </div>
               ))
-            }
+            )}
           </div>
         </div>
       </Map>

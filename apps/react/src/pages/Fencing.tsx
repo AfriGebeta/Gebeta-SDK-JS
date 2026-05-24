@@ -71,17 +71,37 @@ export default function Fencing() {
           <h3>Fencing</h3>
           <div style={{ marginBottom: 10, fontSize: 13 }}>
             Fences: <strong>{fenceCount}</strong>
-            {drawing && <span style={{ marginLeft: 10, color: '#007cbf' }}>Points: {points.length}</span>}
+            {drawing && (
+              <span style={{ marginLeft: 10, color: '#007cbf' }}>Points: {points.length}</span>
+            )}
           </div>
-          {!drawing
-            ? <button className="primary" onClick={startDrawing}>Start Drawing</button>
-            : <>
-                <button className="primary" onClick={closeFence} disabled={points.length < 3}>Close Fence ({points.length} pts)</button>
-                <button onClick={() => { setDrawing(false); setPoints([]); }}>Cancel</button>
-              </>
-          }
-          <button className="danger" onClick={clearFences} disabled={fenceCount === 0}>Clear All Fences</button>
-          <p className="hint">Click "Start Drawing", then click on the map to add points.<br />Click "Close Fence" to complete the polygon (min 3 points).</p>
+          {!drawing ? (
+            <button className="primary" onClick={startDrawing}>
+              Start Drawing
+            </button>
+          ) : (
+            <>
+              <button className="primary" onClick={closeFence} disabled={points.length < 3}>
+                Close Fence ({points.length} pts)
+              </button>
+              <button
+                onClick={() => {
+                  setDrawing(false);
+                  setPoints([]);
+                }}
+              >
+                Cancel
+              </button>
+            </>
+          )}
+          <button className="danger" onClick={clearFences} disabled={fenceCount === 0}>
+            Clear All Fences
+          </button>
+          <p className="hint">
+            Click "Start Drawing", then click on the map to add points.
+            <br />
+            Click "Close Fence" to complete the polygon (min 3 points).
+          </p>
         </div>
       </Map>
     </div>

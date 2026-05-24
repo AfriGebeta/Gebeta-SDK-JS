@@ -1,28 +1,27 @@
-
 export class Map {
   private handlers: Record<string, ((...args: any[]) => void)[]> = {};
-  
+
   constructor(public options: any) {}
-  
+
   on(event: string, handler: (...args: any[]) => void) {
     if (!this.handlers[event]) this.handlers[event] = [];
     this.handlers[event].push(handler);
   }
-  
+
   once(event: string, handler: (...args: any[]) => void) {
     this.on(event, handler);
   }
-  
+
   off(event: string, handler: (...args: any[]) => void) {
     if (this.handlers[event]) {
       this.handlers[event] = this.handlers[event].filter(h => h !== handler);
     }
   }
-  
+
   getContainer() {
     return document.createElement('div');
   }
-  
+
   getBounds() {
     return {
       getWest: () => 0,
@@ -31,40 +30,40 @@ export class Map {
       getNorth: () => 1,
     };
   }
-  
+
   getZoom() {
     return 10;
   }
-  
+
   easeTo(_options: any) {
     //mock impl.
   }
-  
+
   resize() {}
-  
+
   getStyle() {
     return { layers: [] };
   }
-  
+
   setStyle(_style: any) {}
-  
+
   isStyleLoaded() {
     return true;
   }
-  
+
   addSource(_id: string, _spec: any) {}
   getSource(_id: string) {
     return null;
   }
   removeSource(_id: string) {}
-  
+
   addLayer(_spec: any, _beforeId?: string) {}
   removeLayer(_id: string) {}
-  
+
   addControl(_control: any, _position?: string) {}
-  
+
   fitBounds(_bounds: any, _options?: any) {}
-  
+
   setPaintProperty(_layer: string, _name: string, _value: any) {}
   setLayoutProperty(_layer: string, _name: string, _value: any) {}
 }
@@ -141,4 +140,3 @@ export default {
   NavigationControl,
   LngLatBounds,
 };
-

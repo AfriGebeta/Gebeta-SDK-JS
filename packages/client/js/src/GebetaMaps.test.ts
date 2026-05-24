@@ -72,7 +72,10 @@ describe('GebetaMaps', () => {
       const transformRequest = (map as any).options?.transformRequest as
         | ((url: string, resourceType: string) => { url: string; headers?: Record<string, string> })
         | undefined;
-      const result = transformRequest?.('https://tiles.gebeta.app/styles/standard/style.json', 'Style');
+      const result = transformRequest?.(
+        'https://tiles.gebeta.app/styles/standard/style.json',
+        'Style'
+      );
 
       // THEN the Authorization header contains Bearer access-token-abc
       expect(result?.headers?.['Authorization']).toBe(`Bearer ${VALID_AUTH.accessToken}`);
@@ -90,7 +93,10 @@ describe('GebetaMaps', () => {
       const transformRequest = (map as any).options?.transformRequest as
         | ((url: string, resourceType: string) => { url: string; headers?: Record<string, string> })
         | undefined;
-      const result = transformRequest?.('https://tiles.gebeta.app/styles/standard/style.json', 'Style');
+      const result = transformRequest?.(
+        'https://tiles.gebeta.app/styles/standard/style.json',
+        'Style'
+      );
 
       // THEN the Authorization header contains Bearer my-legacy-api-key
       expect(result?.headers?.['Authorization']).toBe(`Bearer ${VALID_API_KEY}`);

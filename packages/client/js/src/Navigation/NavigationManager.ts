@@ -43,7 +43,10 @@ export class NavigationManager {
       throw new ValidationError('Map adapter is required for NavigationManager', 'mapAdapter');
     }
     if (!markerFactory) {
-      throw new ValidationError('Marker factory is required for NavigationManager', 'markerFactory');
+      throw new ValidationError(
+        'Marker factory is required for NavigationManager',
+        'markerFactory'
+      );
     }
 
     this.mapAdapter = mapAdapter;

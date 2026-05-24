@@ -8,7 +8,6 @@ interface AuthEventMap {
   [API.Auth.Enums.Events.tokenRefreshFailed]: (error: Error) => void;
 }
 
-
 /**
  * Manages service account authentication credentials.
  * Wraps fetch to inject the Authorization header and handles 401 → refresh → single retry.
@@ -131,9 +130,7 @@ export class AuthManager extends EventEmitter<AuthEventMap> {
     }
 
     if (!response.ok) {
-      const err = new UnauthorizedError(
-        `Token refresh failed with status ${response.status}`
-      );
+      const err = new UnauthorizedError(`Token refresh failed with status ${response.status}`);
       this.emit(API.Auth.Enums.Events.tokenRefreshFailed, err);
       throw err;
     }

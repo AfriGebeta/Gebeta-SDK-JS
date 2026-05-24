@@ -20,11 +20,11 @@ export class ClientIdManager {
   }
 
   private static generateUUID(): string {
-    if (typeof crypto.randomUUID === 'function') {
-      return crypto.randomUUID();
+    if (typeof globalThis.crypto?.randomUUID === 'function') {
+      return globalThis.crypto.randomUUID();
     }
     // Fallback for environments where crypto.randomUUID is unavailable (e.g. older React Native)
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = (Math.random() * 16) | 0;
       const v = c === 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);

@@ -32,7 +32,7 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ['dist', 'node_modules', '*.js'],
+  ignorePatterns: ['dist', 'node_modules'],
   overrides: [
     {
       files: ['src/namespaces/**/*.ts'],

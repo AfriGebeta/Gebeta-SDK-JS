@@ -4,9 +4,6 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2022,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
   plugins: ['@typescript-eslint'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
@@ -26,5 +23,5 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
   },
-  ignorePatterns: ['dist', 'node_modules', '*.js'],
+  ignorePatterns: ['dist', 'node_modules'],
 };

@@ -28,7 +28,7 @@ describe('MarkerFactory', () => {
       // THEN a div is created with default className gebeta-marker and marker is returned
       const divIndices = createElementSpy.mock.calls
         .map((call, i) => (call[0] === 'div' ? i : -1))
-        .filter((i) => i >= 0);
+        .filter(i => i >= 0);
       const lastDivIndex = divIndices[divIndices.length - 1] ?? 0;
       const createdElement = createElementSpy.mock.results[lastDivIndex]?.value as HTMLDivElement;
       expect(createdElement.className).toBe('gebeta-marker');
@@ -135,10 +135,7 @@ describe('MarkerFactory', () => {
 
     it('should invoke onClick with lngLat, marker adapter, and event when element is clicked', () => {
       // GIVEN a marker created with onClick callback
-      const onClick = jest.fn<
-        void,
-        [API.Common.Types.LngLatLike, IMarker, MouseEvent]
-      >();
+      const onClick = jest.fn<void, [API.Common.Types.LngLatLike, IMarker, MouseEvent]>();
       const options: MarkerFactoryOptions = { onClick };
 
       // WHEN createMarker is called and the marker element is clicked
@@ -156,11 +153,7 @@ describe('MarkerFactory', () => {
 
       // THEN onClick was called with lngLat { lng: 0, lat: 0 }, the marker adapter, and the event
       expect(onClick).toHaveBeenCalledTimes(1);
-      expect(onClick).toHaveBeenCalledWith(
-        { lng: 0, lat: 0 },
-        marker,
-        clickEvent
-      );
+      expect(onClick).toHaveBeenCalledWith({ lng: 0, lat: 0 }, marker, clickEvent);
     });
 
     it('should not add click listener when onClick is not provided', () => {
@@ -171,7 +164,7 @@ describe('MarkerFactory', () => {
       factory.createMarker({});
 
       // THEN addEventListener was not called with 'click'
-      const clickCalls = addEventListenerSpy.mock.calls.filter((call) => call[0] === 'click');
+      const clickCalls = addEventListenerSpy.mock.calls.filter(call => call[0] === 'click');
       expect(clickCalls).toHaveLength(0);
       addEventListenerSpy.mockRestore();
     });
