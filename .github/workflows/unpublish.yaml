@@ -1,0 +1,69 @@
+# Unpublish specific package versions from npm.
+# Only GitHub usernames in repo variable DEPLOY_ALLOWED_ACTORS can run this.
+name: Unpublish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to unpublish (e.g. 3.0.1)'
+        required: true
+        type: string
+      pkg_api:
+        description: 'Unpublish @gebeta/api'
+        type: boolean
+        default: false
+      pkg_core:
+        description: 'Unpublish @gebeta/core'
+        type: boolean
+        default: false
+      pkg_js:
+        description: 'Unpublish @gebeta/js'
+        type: boolean
+        default: false
+      pkg_react:
+        description: 'Unpublish @gebeta/react'
+        type: boolean
+        default: false
+      pkg_node:
+        description: 'Unpublish @gebeta/node'
+        type: boolean
+        default: false
+
+jobs:
+  unpublish:
+    name: Unpublish packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check permission
+        run: |
+          ALLOWED="${{ vars.DEPLOY_ALLOWED_ACTORS }}"
+          for u in $ALLOWED; do
+            [ "$u" = "${{ github.actor }}" ] && exit 0
+          done
+          echo "Unpublish is restricted to GitHub users: $ALLOWED"
+          echo "Current user (github.actor): ${{ github.actor }}"
+          exit 1
+
+      - name: Configure npm auth
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Unpublish selected packages
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          unpublish() {
+            echo "Unpublishing $1@$VERSION..."
+            npm unpublish "$1@$VERSION" && echo "✓ $1@$VERSION unpublished" || echo "✗ $1@$VERSION failed (may not exist)"
+          }
+
+          [ "${{ inputs.pkg_api }}"   = "true" ] && unpublish "@gebeta/api"
+          [ "${{ inputs.pkg_core }}"  = "true" ] && unpublish "@gebeta/core"
+          [ "${{ inputs.pkg_js }}"    = "true" ] && unpublish "@gebeta/js"
+          [ "${{ inputs.pkg_react }}" = "true" ] && unpublish "@gebeta/react"
+          [ "${{ inputs.pkg_node }}"  = "true" ] && unpublish "@gebeta/node"
+
+          echo "Done."

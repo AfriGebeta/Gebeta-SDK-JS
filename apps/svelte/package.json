@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@gebeta/js": "workspace:*",
+    "@gebeta/js": "latest",
     "maplibre-gl": "^4.0.0",
     "svelte": "^5.0.0"
   },

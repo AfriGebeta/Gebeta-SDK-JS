@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@gebeta/node": "workspace:*",
+    "@gebeta/node": "latest",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {

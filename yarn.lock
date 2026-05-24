@@ -1069,7 +1069,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/js@workspace:*, @gebeta/js@workspace:packages/client/js":
+"@gebeta/js@npm:latest":
+  version: 3.0.1
+  resolution: "@gebeta/js@npm:3.0.1"
+  dependencies:
+    "@gebeta/api": "workspace:*"
+    "@gebeta/core": "workspace:*"
+    maplibre-gl: "npm:^4.0.0"
+    supercluster: "npm:^8.0.0"
+  checksum: 10c0/4a0b241188e841ef6baed03423ff9ed4404286a22780ba430eb868a78e7759a1df7b02a7cbd4756ffa4e4106b4d951dd373ef8e6cf925091cbf408c7eb1cb123
+  languageName: node
+  linkType: hard
+
+"@gebeta/js@workspace:packages/client/js":
   version: 0.0.0-use.local
   resolution: "@gebeta/js@workspace:packages/client/js"
   dependencies:
@@ -1098,7 +1110,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/node@workspace:*, @gebeta/node@workspace:packages/server/node":
+"@gebeta/node@npm:latest":
+  version: 3.0.1
+  resolution: "@gebeta/node@npm:3.0.1"
+  dependencies:
+    "@gebeta/api": "workspace:*"
+  checksum: 10c0/7e770513525f42722b64cd123c1f722b686106ad85401c8583e6e831123ef8d567a3846924b8aa9ae939c8b8b1a8640987abbc11939c99e5af225ea3378ce93d
+  languageName: node
+  linkType: hard
+
+"@gebeta/node@workspace:packages/server/node":
   version: 0.0.0-use.local
   resolution: "@gebeta/node@workspace:packages/server/node"
   dependencies:
@@ -1118,7 +1139,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/react@workspace:*, @gebeta/react@workspace:packages/client/react":
+"@gebeta/react@npm:latest":
+  version: 3.0.1
+  resolution: "@gebeta/react@npm:3.0.1"
+  dependencies:
+    "@gebeta/api": "workspace:*"
+    "@gebeta/core": "workspace:*"
+    maplibre-gl: "npm:^4.0.0"
+    react: "npm:^18.0.0"
+  peerDependencies:
+    react: ^18.0.0
+  checksum: 10c0/bf20a236670c21f20bc7c91a929886a92b4254aa16ae9b8b47b179d34616c5255fc6e28397d9a2538692404782e1f3a09d51510448261291ea298174a34ef178
+  languageName: node
+  linkType: hard
+
+"@gebeta/react@workspace:packages/client/react":
   version: 0.0.0-use.local
   resolution: "@gebeta/react@workspace:packages/client/react"
   dependencies:
@@ -6084,7 +6119,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "node-auth-example@workspace:apps/node-auth"
   dependencies:
-    "@gebeta/node": "workspace:*"
+    "@gebeta/node": "npm:latest"
     "@types/node": "npm:^20.0.0"
     dotenv: "npm:^16.0.0"
     typescript: "npm:^5.0.0"
@@ -6095,7 +6130,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "node-geocoding-example@workspace:apps/node-geocoding"
   dependencies:
-    "@gebeta/js": "workspace:*"
+    "@gebeta/js": "npm:latest"
     "@types/node": "npm:^20.0.0"
     dotenv: "npm:^16.0.0"
     typescript: "npm:^5.0.0"
@@ -6688,8 +6723,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-example@workspace:apps/react"
   dependencies:
-    "@gebeta/js": "workspace:*"
-    "@gebeta/react": "workspace:*"
+    "@gebeta/js": "npm:latest"
+    "@gebeta/react": "npm:latest"
     "@types/react": "npm:^18.0.0"
     "@types/react-dom": "npm:^18.0.0"
     "@vitejs/plugin-react": "npm:^4.2.0"
@@ -7473,7 +7508,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "svelte-example@workspace:apps/svelte"
   dependencies:
-    "@gebeta/js": "workspace:*"
+    "@gebeta/js": "npm:latest"
     "@sveltejs/vite-plugin-svelte": "npm:^4.0.0"
     "@types/node": "npm:^20.0.0"
     maplibre-gl: "npm:^4.0.0"
