@@ -12,7 +12,9 @@ export interface PlatformContext extends API.Platform.Types.IPlatformContext {
   markerFactory: API.Platform.Types.IMarkerFactory;
   popupFactory: API.Platform.Types.IPopupFactory;
   locationProvider: API.Platform.Types.ILocationProvider;
-  getLocationProvider: (options?: API.Platform.Types.LocationProviderOptions) => API.Platform.Types.ILocationProvider;
+  getLocationProvider: (
+    options?: API.Platform.Types.LocationProviderOptions
+  ) => API.Platform.Types.ILocationProvider;
   styleInjector: API.Platform.Types.IStyleInjector;
   clientIdStorage: API.Platform.Types.IClientIdStorage;
 }
@@ -23,7 +25,7 @@ export function createPlatform(map: MapLibreMap): PlatformContext {
     markerFactory: new MarkerFactory(map),
     popupFactory: new PopupFactory(map),
     locationProvider: BrowserLocationProvider.getInstance(),
-    getLocationProvider: (options) => BrowserLocationProvider.getInstance(options),
+    getLocationProvider: options => BrowserLocationProvider.getInstance(options),
     styleInjector: StyleInjector.getInstance(),
     clientIdStorage: new LocalStorageClientIdStorage(),
   };

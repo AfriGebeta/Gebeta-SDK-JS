@@ -47,7 +47,7 @@ export function GebetaMap({
     if (hasApiKey) {
       console.warn(
         '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
-        'Use service account auth instead: https://docs.gebeta.app/auth'
+          'Use service account auth instead: https://docs.gebeta.app/auth'
       );
       return null; // legacy path — token is the apiKey string directly
     }

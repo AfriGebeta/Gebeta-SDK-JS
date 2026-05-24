@@ -227,7 +227,10 @@ describe('BrowserLocationProvider', () => {
       // GIVEN a provider with a callback and a captured error callback from watchPosition
       let errorCallback: (error: GeolocationPositionError) => void = () => {};
       mockWatchPosition.mockImplementation(
-        (_success: (position: GeolocationPosition) => void, error: (error: GeolocationPositionError) => void) => {
+        (
+          _success: (position: GeolocationPosition) => void,
+          error: (error: GeolocationPositionError) => void
+        ) => {
           errorCallback = error;
           return 1;
         }

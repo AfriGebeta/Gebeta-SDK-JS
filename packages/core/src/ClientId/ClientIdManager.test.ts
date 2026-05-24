@@ -3,12 +3,16 @@ import type { API } from '@gebeta/api';
 
 type IClientIdStorage = API.Platform.Types.IClientIdStorage;
 
-function makeStorage(initial: string | null = null): IClientIdStorage & { store: Record<string, string | null> } {
+function makeStorage(
+  initial: string | null = null
+): IClientIdStorage & { store: Record<string, string | null> } {
   const store: Record<string, string | null> = { id: initial };
   return {
     store,
     getClientId: () => store.id,
-    setClientId: (id: string) => { store.id = id; },
+    setClientId: (id: string) => {
+      store.id = id;
+    },
   };
 }
 
@@ -130,9 +134,9 @@ describe('ClientIdManager', () => {
   describe('when crypto.randomUUID is unavailable', () => {
     test('should fall back to Math.random-based UUID generation', () => {
       // GIVEN crypto.randomUUID is not available (e.g. older React Native)
-      const original = crypto.randomUUID;
+      const original = globalThis.crypto?.randomUUID;
       // @ts-expect-error simulating absence of randomUUID
-      crypto.randomUUID = undefined;
+      if (globalThis.crypto) globalThis.crypto.randomUUID = undefined;
 
       // WHEN ClientIdManager is constructed
       const manager = new ClientIdManager();
@@ -140,7 +144,7 @@ describe('ClientIdManager', () => {
       // THEN a valid UUID v4 is still produced via the fallback
       expect(manager.getId()).toMatch(UUID_REGEX);
 
-      crypto.randomUUID = original;
+      if (globalThis.crypto) (globalThis.crypto as typeof globalThis.crypto & { randomUUID: unknown }).randomUUID = original;
     });
   });
 });

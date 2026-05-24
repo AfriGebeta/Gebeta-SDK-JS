@@ -122,9 +122,9 @@ describe('HttpTrackingManager', () => {
         accessToken: 'access-token-abc',
         refreshToken: 'refresh-token-xyz',
       });
-      const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(
-        new Response('{}', { status: 200 })
-      );
+      const authFetchSpy = jest
+        .spyOn(authManager, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const client = new HttpTrackingManager({
         userId: 'test-user',
         auth: authManager,

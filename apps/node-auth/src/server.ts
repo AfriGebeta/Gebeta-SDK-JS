@@ -44,7 +44,7 @@ function json(res: ServerResponse, status: number, body: unknown) {
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     let data = '';
-    req.on('data', (chunk) => (data += chunk));
+    req.on('data', chunk => (data += chunk));
     req.on('end', () => resolve(data));
     req.on('error', reject);
   });
@@ -85,10 +85,7 @@ async function handler(req: IncomingMessage, res: ServerResponse) {
 
   return json(res, 404, {
     error: 'Not found',
-    endpoints: [
-      'POST /auth  body: { "clientToken": "<token>" }',
-      'GET  /health',
-    ],
+    endpoints: ['POST /auth  body: { "clientToken": "<token>" }', 'GET  /health'],
   });
 }
 

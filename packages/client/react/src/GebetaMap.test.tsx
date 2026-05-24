@@ -22,7 +22,13 @@ function spyOnMapConstructor(): { getTransformRequest: () => TransformRequestFn 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   jest.spyOn(maplibre, 'Map' as any).mockImplementation(function (options: any) {
     captured = options?.transformRequest;
-    return { isStyleLoaded: () => true, once: jest.fn(), on: jest.fn(), remove: jest.fn(), addControl: jest.fn() };
+    return {
+      isStyleLoaded: () => true,
+      once: jest.fn(),
+      on: jest.fn(),
+      remove: jest.fn(),
+      addControl: jest.fn(),
+    };
   });
   return { getTransformRequest: () => captured };
 }
@@ -86,7 +92,10 @@ describe('GebetaMap', () => {
       render(<GebetaMap auth={VALID_AUTH} />);
 
       // WHEN a tile URL is transformed
-      const result = getTransformRequest()?.('https://tiles.gebeta.app/styles/standard/style.json', 'Style');
+      const result = getTransformRequest()?.(
+        'https://tiles.gebeta.app/styles/standard/style.json',
+        'Style'
+      );
 
       // THEN the Authorization header contains Bearer access-token-abc
       expect(result?.headers?.['Authorization']).toBe(`Bearer ${VALID_AUTH.accessToken}`);
@@ -98,7 +107,10 @@ describe('GebetaMap', () => {
       render(<GebetaMap apiKey={VALID_API_KEY} />);
 
       // WHEN a tile URL is transformed
-      const result = getTransformRequest()?.('https://tiles.gebeta.app/styles/standard/style.json', 'Style');
+      const result = getTransformRequest()?.(
+        'https://tiles.gebeta.app/styles/standard/style.json',
+        'Style'
+      );
 
       // THEN the Authorization header contains Bearer my-legacy-api-key
       expect(result?.headers?.['Authorization']).toBe(`Bearer ${VALID_API_KEY}`);
@@ -110,7 +122,10 @@ describe('GebetaMap', () => {
       render(<GebetaMap auth={VALID_AUTH} />);
 
       // WHEN a non-tile URL is transformed
-      const result = getTransformRequest()?.('https://mapapi.gebeta.app/api/route/direction/', 'Other');
+      const result = getTransformRequest()?.(
+        'https://mapapi.gebeta.app/api/route/direction/',
+        'Other'
+      );
 
       // THEN no Authorization header is injected
       expect(result?.headers).toBeUndefined();

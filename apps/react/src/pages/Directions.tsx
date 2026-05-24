@@ -19,7 +19,10 @@ export default function Directions() {
   const [mode, setMode] = useState<'origin' | 'destination' | null>(null);
   const [origin, setOrigin] = useState<LngLat | null>(null);
   const [dest, setDest] = useState<LngLat | null>(null);
-  const [routeInfo, setRouteInfo] = useState<{ distance?: string | number; duration?: string | number } | null>(null);
+  const [routeInfo, setRouteInfo] = useState<{
+    distance?: string | number;
+    duration?: string | number;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
 
   const gebetaMapRef = useRef<GebetaMaps | null>(null);
@@ -30,8 +33,12 @@ export default function Directions() {
   modeRef.current = mode;
 
   function addPinMarker(platform: Platform, lng: number, lat: number, iconUrl: string): Marker {
-    return platform.markerFactory.createMarker({ imageUrl: iconUrl, size: [30, 30] })
-      ?.setLngLat({ lng, lat }).addTo(platform.mapAdapter) ?? null;
+    return (
+      platform.markerFactory
+        .createMarker({ imageUrl: iconUrl, size: [30, 30] })
+        ?.setLngLat({ lng, lat })
+        .addTo(platform.mapAdapter) ?? null
+    );
   }
 
   function handleReady(gm: GebetaMaps, _m: MapLibreMap, platform: Platform) {
@@ -74,9 +81,12 @@ export default function Directions() {
   }, []);
 
   const clearAll = useCallback(() => {
-    originMarkerRef.current?.remove(); originMarkerRef.current = null;
-    destMarkerRef.current?.remove(); destMarkerRef.current = null;
-    setOrigin(null); setDest(null);
+    originMarkerRef.current?.remove();
+    originMarkerRef.current = null;
+    destMarkerRef.current?.remove();
+    destMarkerRef.current = null;
+    setOrigin(null);
+    setDest(null);
     clearRoute();
   }, [clearRoute]);
 
@@ -86,14 +96,38 @@ export default function Directions() {
         <div className="control-panel">
           <h3>Directions</h3>
           <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-            <button className={mode === 'origin' ? 'primary' : ''} style={{ flex: 1 }} onClick={() => setMode(m => m === 'origin' ? null : 'origin')}>Set Origin</button>
-            <button className={mode === 'destination' ? 'primary' : ''} style={{ flex: 1 }} onClick={() => setMode(m => m === 'destination' ? null : 'destination')}>Set Destination</button>
+            <button
+              className={mode === 'origin' ? 'primary' : ''}
+              style={{ flex: 1 }}
+              onClick={() => setMode(m => (m === 'origin' ? null : 'origin'))}
+            >
+              Set Origin
+            </button>
+            <button
+              className={mode === 'destination' ? 'primary' : ''}
+              style={{ flex: 1 }}
+              onClick={() => setMode(m => (m === 'destination' ? null : 'destination'))}
+            >
+              Set Destination
+            </button>
           </div>
           <div className="coords-box">
-            <div><strong>Origin:</strong> {origin ? `${origin.lat.toFixed(5)}, ${origin.lng.toFixed(5)}` : 'Not set'}</div>
-            <div><strong>Destination:</strong> {dest ? `${dest.lat.toFixed(5)}, ${dest.lng.toFixed(5)}` : 'Not set'}</div>
+            <div>
+              <strong>Origin:</strong>{' '}
+              {origin ? `${origin.lat.toFixed(5)}, ${origin.lng.toFixed(5)}` : 'Not set'}
+            </div>
+            <div>
+              <strong>Destination:</strong>{' '}
+              {dest ? `${dest.lat.toFixed(5)}, ${dest.lng.toFixed(5)}` : 'Not set'}
+            </div>
           </div>
-          <button className="primary" onClick={getDirections} disabled={!origin || !dest || loading}>{loading ? 'Loading...' : 'Get Directions'}</button>
+          <button
+            className="primary"
+            onClick={getDirections}
+            disabled={!origin || !dest || loading}
+          >
+            {loading ? 'Loading...' : 'Get Directions'}
+          </button>
           <button onClick={clearRoute}>Clear Route</button>
           <button onClick={clearAll}>Clear Points</button>
           {routeInfo && (
@@ -103,7 +137,13 @@ export default function Directions() {
               {routeInfo.duration != null && <p>Duration: {routeInfo.duration}</p>}
             </div>
           )}
-          <p className="hint">Click "Set Origin", then click the map.<br />Then "Set Destination" and click the map.<br />Use "Get Directions" to show the route.</p>
+          <p className="hint">
+            Click "Set Origin", then click the map.
+            <br />
+            Then "Set Destination" and click the map.
+            <br />
+            Use "Get Directions" to show the route.
+          </p>
         </div>
       </Map>
     </div>

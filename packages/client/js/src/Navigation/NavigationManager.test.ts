@@ -95,11 +95,21 @@ describe('NavigationManager (platform layer)', () => {
       // GIVEN null mapAdapter
       // WHEN NavigationManager is constructed with null mapAdapter
       // THEN ValidationError is thrown with correct message
-      expect(() =>
-        new NavigationManager(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
+      expect(
+        () =>
+          new NavigationManager(
+            apiKey,
+            null as unknown as API.Platform.Types.IMapAdapter,
+            markerFactory
+          )
       ).toThrow(ValidationError);
-      expect(() =>
-        new NavigationManager(apiKey, null as unknown as API.Platform.Types.IMapAdapter, markerFactory)
+      expect(
+        () =>
+          new NavigationManager(
+            apiKey,
+            null as unknown as API.Platform.Types.IMapAdapter,
+            markerFactory
+          )
       ).toThrow('Map adapter is required for NavigationManager');
     });
 
@@ -107,11 +117,21 @@ describe('NavigationManager (platform layer)', () => {
       // GIVEN null markerFactory
       // WHEN NavigationManager is constructed with null markerFactory
       // THEN ValidationError is thrown with correct message
-      expect(() =>
-        new NavigationManager(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
+      expect(
+        () =>
+          new NavigationManager(
+            apiKey,
+            mapAdapter,
+            null as unknown as API.Platform.Types.IMarkerFactory
+          )
       ).toThrow(ValidationError);
-      expect(() =>
-        new NavigationManager(apiKey, mapAdapter, null as unknown as API.Platform.Types.IMarkerFactory)
+      expect(
+        () =>
+          new NavigationManager(
+            apiKey,
+            mapAdapter,
+            null as unknown as API.Platform.Types.IMarkerFactory
+          )
       ).toThrow('Marker factory is required for NavigationManager');
     });
   });

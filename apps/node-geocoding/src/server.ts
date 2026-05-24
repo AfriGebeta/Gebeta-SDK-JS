@@ -23,7 +23,10 @@ const { GEBETA_ACCESS_TOKEN, GEBETA_REFRESH_TOKEN, GEBETA_API_KEY, PORT = '3000'
 
 function buildAuth() {
   if (GEBETA_ACCESS_TOKEN && GEBETA_REFRESH_TOKEN) {
-    return new AuthManager({ accessToken: GEBETA_ACCESS_TOKEN, refreshToken: GEBETA_REFRESH_TOKEN });
+    return new AuthManager({
+      accessToken: GEBETA_ACCESS_TOKEN,
+      refreshToken: GEBETA_REFRESH_TOKEN,
+    });
   }
   if (GEBETA_API_KEY) {
     console.warn('[gebeta] Using legacy API key. Migrate to service account auth.');
@@ -92,11 +95,7 @@ async function handler(req: IncomingMessage, res: ServerResponse) {
 
   return json(res, 404, {
     error: 'Not found',
-    endpoints: [
-      'GET /health',
-      'GET /search?q=<place name>',
-      'GET /reverse?lat=<lat>&lng=<lng>',
-    ],
+    endpoints: ['GET /health', 'GET /search?q=<place name>', 'GET /reverse?lat=<lat>&lng=<lng>'],
   });
 }
 

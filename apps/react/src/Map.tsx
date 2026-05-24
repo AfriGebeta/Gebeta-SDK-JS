@@ -51,7 +51,9 @@ export default function Map({
       m.once('style.load', handleStyleLoad);
     }
 
-    return () => { m.remove(); };
+    return () => {
+      m.remove();
+    };
   }, []);
 
   return (

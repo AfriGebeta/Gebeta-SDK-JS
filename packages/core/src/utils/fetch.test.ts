@@ -29,7 +29,9 @@ describe('createFetch', () => {
     test('should inject Authorization: Bearer <apiKey> header into the request', async () => {
       // GIVEN a legacy apiKey string 'my-api-key'
       const apiKey = 'my-api-key';
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch(apiKey);
 
       // WHEN fetchFn is called with a URL
@@ -43,7 +45,9 @@ describe('createFetch', () => {
     test('should preserve existing headers alongside the injected Authorization header', async () => {
       // GIVEN a legacy apiKey and an existing 'Content-Type' header
       const apiKey = 'my-api-key';
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch(apiKey);
 
       // WHEN fetchFn is called with a custom Content-Type header
@@ -62,7 +66,9 @@ describe('createFetch', () => {
     test('should delegate to authManager.fetch() instead of calling globalThis.fetch directly', async () => {
       // GIVEN an AuthManager with access token 'access-token-abc'
       const authManager = new AuthManager(VALID_CREDENTIALS);
-      const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const authFetchSpy = jest
+        .spyOn(authManager, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch(authManager);
 
       // WHEN fetchFn is called with a URL
@@ -76,7 +82,9 @@ describe('createFetch', () => {
     test('should forward init options to authManager.fetch()', async () => {
       // GIVEN an AuthManager and a request with method POST and Content-Type header
       const authManager = new AuthManager(VALID_CREDENTIALS);
-      const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const authFetchSpy = jest
+        .spyOn(authManager, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch(authManager);
       const init: RequestInit = { method: 'POST', headers: { 'Content-Type': 'application/json' } };
 
@@ -91,7 +99,9 @@ describe('createFetch', () => {
   describe('with clientId (X-Device-ID header injection)', () => {
     test('should inject X-Device-ID header when clientId is provided with no auth', async () => {
       // GIVEN no auth and a clientId 'device-abc'
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch(undefined, 'device-abc');
 
       // WHEN fetchFn is called
@@ -104,7 +114,9 @@ describe('createFetch', () => {
 
     test('should inject X-Device-ID alongside Authorization when using a string apiKey', async () => {
       // GIVEN a legacy apiKey and a clientId 'device-abc'
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch('my-api-key', 'device-abc');
 
       // WHEN fetchFn is called
@@ -119,7 +131,9 @@ describe('createFetch', () => {
     test('should pass X-Device-ID to authManager.fetch() when using AuthManager', async () => {
       // GIVEN an AuthManager and a clientId 'device-abc'
       const authManager = new AuthManager(VALID_CREDENTIALS);
-      const authFetchSpy = jest.spyOn(authManager, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const authFetchSpy = jest
+        .spyOn(authManager, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch(authManager, 'device-abc');
 
       // WHEN fetchFn is called
@@ -133,7 +147,9 @@ describe('createFetch', () => {
 
     test('should not inject X-Device-ID when clientId is not provided', async () => {
       // GIVEN a legacy apiKey but no clientId
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch('my-api-key');
 
       // WHEN fetchFn is called
@@ -146,7 +162,9 @@ describe('createFetch', () => {
 
     test('should preserve existing caller headers when injecting X-Device-ID', async () => {
       // GIVEN a legacy apiKey, a clientId, and an existing Content-Type header
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('{}', { status: 200 }));
       const fetchFn = createFetch('my-api-key', 'device-abc');
 
       // WHEN fetchFn is called with a Content-Type header

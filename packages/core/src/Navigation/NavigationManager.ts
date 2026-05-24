@@ -61,7 +61,11 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
    * @param options - Configuration options for navigation behavior
    * @param clientId - Optional stable client identifier for X-Device-ID header
    */
-  constructor(auth: API.Auth.Types.AuthParam, options: NavigationManagerOptions = {}, clientId?: string) {
+  constructor(
+    auth: API.Auth.Types.AuthParam,
+    options: NavigationManagerOptions = {},
+    clientId?: string
+  ) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;

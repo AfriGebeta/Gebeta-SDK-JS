@@ -101,9 +101,10 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
     try {
       const url = new URL(this.wsUrl);
       if (this.options.auth) {
-        const token = typeof this.options.auth === 'string'
-          ? this.options.auth
-          : (this.options.auth as AuthManager).getAccessToken();
+        const token =
+          typeof this.options.auth === 'string'
+            ? this.options.auth
+            : (this.options.auth as AuthManager).getAccessToken();
         url.searchParams.set('token', token);
       }
       url.searchParams.set('userId', this.options.userId);

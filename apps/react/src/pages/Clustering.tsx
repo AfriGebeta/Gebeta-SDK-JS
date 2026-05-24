@@ -52,9 +52,13 @@ function ClusteringPanel() {
       <div style={{ marginBottom: 10, fontSize: 13 }}>
         Markers: <strong>{clustering.getMarkers().length}</strong>
       </div>
-      <button className="primary" onClick={addRandom}>Add 50 random markers</button>
+      <button className="primary" onClick={addRandom}>
+        Add 50 random markers
+      </button>
       <button onClick={addOne}>Add marker at center</button>
-      <button className="danger" onClick={clear}>Clear all</button>
+      <button className="danger" onClick={clear}>
+        Clear all
+      </button>
       <p className="hint">Zoom in/out to see clusters expand and collapse.</p>
     </div>
   );

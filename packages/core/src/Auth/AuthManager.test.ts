@@ -43,9 +43,15 @@ describe('AuthManager', () => {
     test('should call the refresh endpoint and retry the original request on 401', async () => {
       // GIVEN an AuthManager and a server that returns 401 on the first attempt
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response('', { status: 401 }))
-        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify(makeRefreshResponse()), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        )
         .mockResolvedValueOnce(new Response('{}', { status: 200 }));
 
       // WHEN fetch() is called with the target URL
@@ -61,9 +67,15 @@ describe('AuthManager', () => {
     test('should use the new accessToken in the retry request after a successful refresh', async () => {
       // GIVEN an AuthManager and a server that returns 401, then issues new tokens on refresh
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response('', { status: 401 }))
-        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify(makeRefreshResponse()), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        )
         .mockResolvedValueOnce(new Response('{}', { status: 200 }));
 
       // WHEN fetch() is called
@@ -77,9 +89,15 @@ describe('AuthManager', () => {
     test('should throw UnauthorizedError and not retry again if the retry also returns 401', async () => {
       // GIVEN an AuthManager where both the original request and the retry return 401
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response('', { status: 401 }))
-        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify(makeRefreshResponse()), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        )
         .mockResolvedValueOnce(new Response('', { status: 401 }));
 
       // WHEN fetch() is called
@@ -93,7 +111,8 @@ describe('AuthManager', () => {
       const manager = new AuthManager(VALID_CREDENTIALS);
       const onRefreshFailed = jest.fn();
       manager.on(API.Auth.Enums.Events.tokenRefreshFailed, onRefreshFailed);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response('', { status: 401 }))
         .mockResolvedValueOnce(new Response('Unauthorized', { status: 401 }));
 
@@ -108,9 +127,15 @@ describe('AuthManager', () => {
       const manager = new AuthManager(VALID_CREDENTIALS);
       const onRefreshed = jest.fn();
       manager.on(API.Auth.Enums.Events.tokenRefreshed, onRefreshed);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response('', { status: 401 }))
-        .mockResolvedValueOnce(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify(makeRefreshResponse()), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        )
         .mockResolvedValueOnce(new Response('{}', { status: 200 }));
 
       // WHEN fetch() is called
@@ -136,8 +161,12 @@ describe('AuthManager', () => {
     test('should not refresh before 6m 18s and should refresh at exactly 6m 18s', async () => {
       // GIVEN an AuthManager with auto-refresh started
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
-        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
+        new Response(JSON.stringify(makeRefreshResponse()), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      );
 
       manager.startAutoRefresh();
 
@@ -165,8 +194,12 @@ describe('AuthManager', () => {
       const manager = new AuthManager(VALID_CREDENTIALS);
       const onRefreshed = jest.fn();
       manager.on(API.Auth.Enums.Events.tokenRefreshed, onRefreshed);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
-        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
+        new Response(JSON.stringify(makeRefreshResponse()), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      );
 
       manager.startAutoRefresh();
       await jest.advanceTimersByTimeAsync(REFRESH_INTERVAL_MS + 1);
@@ -181,7 +214,10 @@ describe('AuthManager', () => {
       // GIVEN an AuthManager with auto-refresh started then immediately stopped
       const manager = new AuthManager(VALID_CREDENTIALS);
       fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
-        new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } })
+        new Response(JSON.stringify(makeRefreshResponse()), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
       );
 
       manager.startAutoRefresh();
@@ -197,8 +233,12 @@ describe('AuthManager', () => {
     test('should reschedule after a successful refresh', async () => {
       // GIVEN an AuthManager with auto-refresh started
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
-        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
+        new Response(JSON.stringify(makeRefreshResponse()), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      );
 
       manager.startAutoRefresh();
 
@@ -219,9 +259,15 @@ describe('AuthManager', () => {
     test('should reschedule after a failed refresh (transient error recovery)', async () => {
       // GIVEN an AuthManager where the first timer-refresh fails, then succeeds
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response('error', { status: 500 }))
-        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+        .mockResolvedValue(
+          new Response(JSON.stringify(makeRefreshResponse()), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        );
 
       manager.startAutoRefresh();
 
@@ -240,8 +286,12 @@ describe('AuthManager', () => {
     test('calling startAutoRefresh() twice should not cause double refreshes', async () => {
       // GIVEN an AuthManager where startAutoRefresh is called twice
       const manager = new AuthManager(VALID_CREDENTIALS);
-      fetchSpy = jest.spyOn(globalThis, 'fetch')
-        .mockResolvedValue(new Response(JSON.stringify(makeRefreshResponse()), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
+        new Response(JSON.stringify(makeRefreshResponse()), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      );
 
       manager.startAutoRefresh();
       manager.startAutoRefresh();
@@ -273,12 +323,19 @@ describe('AuthManager', () => {
       // GIVEN a DirectionsManager constructed with a legacy string apiKey
       const apiKey = 'my-legacy-api-key';
       const directionsManager = new DirectionsManager(apiKey);
-      fetchSpy = setupFetchSpy(200, {
-        trip: {
-          legs: [{ shape: 'mz`wFa`{xE~A@', maneuvers: [], summary: { length: 1, time: 60 } }],
-          locations: [{ lat: 9.0, lon: 38.7 }, { lat: 9.1, lon: 38.8 }],
+      fetchSpy = setupFetchSpy(
+        200,
+        {
+          trip: {
+            legs: [{ shape: 'mz`wFa`{xE~A@', maneuvers: [], summary: { length: 1, time: 60 } }],
+            locations: [
+              { lat: 9.0, lon: 38.7 },
+              { lat: 9.1, lon: 38.8 },
+            ],
+          },
         },
-      }, 'application/json;charset=UTF-8');
+        'application/json;charset=UTF-8'
+      );
 
       // WHEN getDirections() is called
       await directionsManager.getDirections({ lat: 9.0, lng: 38.7 }, { lat: 9.1, lng: 38.8 });
@@ -295,12 +352,19 @@ describe('AuthManager', () => {
       const authManager = new AuthManager(VALID_CREDENTIALS);
       const directionsManager = new DirectionsManager(authManager);
       const authFetchSpy = jest.spyOn(authManager, 'fetch');
-      fetchSpy = setupFetchSpy(200, {
-        trip: {
-          legs: [{ shape: 'mz`wFa`{xE~A@', maneuvers: [], summary: { length: 1, time: 60 } }],
-          locations: [{ lat: 9.0, lon: 38.7 }, { lat: 9.1, lon: 38.8 }],
+      fetchSpy = setupFetchSpy(
+        200,
+        {
+          trip: {
+            legs: [{ shape: 'mz`wFa`{xE~A@', maneuvers: [], summary: { length: 1, time: 60 } }],
+            locations: [
+              { lat: 9.0, lon: 38.7 },
+              { lat: 9.1, lon: 38.8 },
+            ],
+          },
         },
-      }, 'application/json;charset=UTF-8');
+        'application/json;charset=UTF-8'
+      );
 
       // WHEN getDirections() is called
       await directionsManager.getDirections({ lat: 9.0, lng: 38.7 }, { lat: 9.1, lng: 38.8 });

@@ -67,9 +67,9 @@ describe('GebetaAuth', () => {
     test('should throw UnauthorizedError when the API returns a non-2xx status', async () => {
       // GIVEN a GebetaAuth instance and an API that returns 401
       const auth = new GebetaAuth({ serverToken: SERVER_TOKEN });
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(
-        new Response('Unauthorized', { status: 401 })
-      );
+      fetchSpy = jest
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response('Unauthorized', { status: 401 }));
 
       // WHEN authenticate() is called
       // THEN UnauthorizedError is thrown with the response status
@@ -109,9 +109,7 @@ describe('GebetaAuth', () => {
     test('should throw NetworkError when fetch rejects (network failure)', async () => {
       // GIVEN a GebetaAuth instance and a network that fails with 'ECONNREFUSED'
       const auth = new GebetaAuth({ serverToken: SERVER_TOKEN });
-      fetchSpy = jest.spyOn(globalThis, 'fetch').mockRejectedValue(
-        new Error('ECONNREFUSED')
-      );
+      fetchSpy = jest.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('ECONNREFUSED'));
 
       // WHEN authenticate() is called
       // THEN NetworkError is thrown wrapping the original error

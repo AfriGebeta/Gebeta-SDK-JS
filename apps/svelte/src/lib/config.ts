@@ -22,7 +22,7 @@ function buildAuthParam(): AuthOptions {
   // Fallback: will cause GebetaMaps constructor to throw — surface it clearly at runtime.
   console.warn(
     '[Gebeta] No auth configured. Set VITE_GEBETA_ACCESS_TOKEN + VITE_GEBETA_REFRESH_TOKEN ' +
-    'or VITE_GEBETA_API_KEY in your .env file.'
+      'or VITE_GEBETA_API_KEY in your .env file.'
   );
   return { apiKey: 'MISSING_API_KEY' };
 }
