@@ -22,7 +22,9 @@
     "ci": "yarn lint && yarn format:check && yarn typecheck",
     "changeset": "changeset",
     "version:packages": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "examples:local": "node scripts/switch-deps.mjs --local && yarn install",
+    "examples:npm": "node scripts/switch-deps.mjs --npm && yarn install"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
