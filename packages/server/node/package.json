@@ -1,11 +1,13 @@
 {
   "name": "@gebeta/node",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Node.js backend SDK for Gebeta Maps service account authentication",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

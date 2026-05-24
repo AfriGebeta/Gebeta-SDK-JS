@@ -1,11 +1,13 @@
 {
   "name": "@gebeta/react",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "React SDK for Gebeta Maps",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {

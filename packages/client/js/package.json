@@ -1,12 +1,14 @@
 {
   "name": "@gebeta/js",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Plain JavaScript SDK for Gebeta Maps (browser)",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {

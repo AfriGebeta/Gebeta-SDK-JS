@@ -1,11 +1,13 @@
 {
   "name": "@gebeta/api",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Shared TypeScript types and constants for Gebeta Maps SDKs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
