@@ -12,7 +12,7 @@ type ConstructorOptions: GebetaMapsConstructorOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/map.ts#L6)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@ type InitOptions: GebetaMapsInitOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:7](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/map.ts#L7)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:7](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L7)
 
 ***
 
@@ -36,4 +36,4 @@ type SatelliteToggleOptions: SatelliteToggleOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/map.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L8)

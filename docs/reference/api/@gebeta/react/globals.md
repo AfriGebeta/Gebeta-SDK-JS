@@ -10,13 +10,13 @@
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| `addMarker` | (`marker`: `MarkerData`) => `void` | [hooks/useClustering.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L9) |
-| `clearMarkers` | () => `void` | [hooks/useClustering.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L11) |
-| `getMarker` | (`markerId`: `string`) => `undefined` \| `MarkerData` | [hooks/useClustering.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L13) |
-| `getMarkers` | () => `MarkerData`[] | [hooks/useClustering.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L12) |
-| `getOptions` | () => `NormalizedClusteringOptions` | [hooks/useClustering.ts:15](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L15) |
-| `removeMarker` | (`markerId`: `string`) => `boolean` | [hooks/useClustering.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L10) |
-| `updateOptions` | (`options`: `Partial`\<`ClusteringOptions`\>) => `void` | [hooks/useClustering.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L14) |
+| `addMarker` | (`marker`: `MarkerData`) => `void` | [hooks/useClustering.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L9) |
+| `clearMarkers` | () => `void` | [hooks/useClustering.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L11) |
+| `getMarker` | (`markerId`: `string`) => `undefined` \| `MarkerData` | [hooks/useClustering.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L13) |
+| `getMarkers` | () => `MarkerData`[] | [hooks/useClustering.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L12) |
+| `getOptions` | () => `NormalizedClusteringOptions` | [hooks/useClustering.ts:15](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L15) |
+| `removeMarker` | (`markerId`: `string`) => `boolean` | [hooks/useClustering.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L10) |
+| `updateOptions` | (`options`: `Partial`\<`ClusteringOptions`\>) => `void` | [hooks/useClustering.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L14) |
 
 ## Type Aliases
 
@@ -28,7 +28,7 @@ type GebetaMapProps: GebetaMapProps;
 
 #### Defined in
 
-[GebetaMap.tsx:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/GebetaMap.tsx#L13)
+[GebetaMap.tsx:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/GebetaMap.tsx#L13)
 
 ***
 
@@ -40,7 +40,7 @@ type MarkerData: MarkerData;
 
 #### Defined in
 
-[hooks/useClustering.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L6)
+[hooks/useClustering.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L6)
 
 ## Functions
 
@@ -90,7 +90,7 @@ function App() {
 
 #### Defined in
 
-[GebetaMap.tsx:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/GebetaMap.tsx#L45)
+[GebetaMap.tsx:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/GebetaMap.tsx#L45)
 
 ***
 
@@ -132,4 +132,4 @@ function MarkersLayer() {
 
 #### Defined in
 
-[hooks/useClustering.ts:41](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/client/react/src/hooks/useClustering.ts#L41)
+[hooks/useClustering.ts:41](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/client/react/src/hooks/useClustering.ts#L41)

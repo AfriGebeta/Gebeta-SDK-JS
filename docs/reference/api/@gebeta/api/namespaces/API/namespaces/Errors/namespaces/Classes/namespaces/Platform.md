@@ -12,7 +12,7 @@ const GeolocationDeniedError: typeof GeolocationDeniedError = ErrorsModule.Error
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:194](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L194)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:194](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L194)
 
 ***
 
@@ -24,7 +24,7 @@ const GeolocationTimeoutError: typeof GeolocationTimeoutError = ErrorsModule.Err
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:198](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L198)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:198](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L198)
 
 ***
 
@@ -36,7 +36,7 @@ const GeolocationUnavailableError: typeof GeolocationUnavailableError = ErrorsMo
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:196](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L196)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:196](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L196)
 
 ***
 
@@ -48,4 +48,4 @@ const PlatformError: typeof PlatformError = ErrorsModule.Errors.Classes.Platform
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:193](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L193)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:193](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L193)

@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: Gebeta Maps SDK
-  text: Advanced location technology for businesses, developers, and logistics providers
-  tagline: JavaScript, React, and Node.js SDKs with geocoding, directions, clustering, fencing, and navigation.
+  text: 
+  tagline: Advanced location technology for businesses, developers, and logistics providers
   actions:
     - theme: brand
       text: Get Started

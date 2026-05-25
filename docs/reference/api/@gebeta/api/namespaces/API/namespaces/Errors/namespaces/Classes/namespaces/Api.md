@@ -12,7 +12,7 @@ const ApiError: typeof ApiError = ErrorsModule.Errors.Classes.Api.ApiError;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:177](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L177)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:177](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L177)
 
 ***
 
@@ -24,7 +24,7 @@ const BadRequestError: typeof BadRequestError = ErrorsModule.Errors.Classes.Api.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:178](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L178)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:178](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L178)
 
 ***
 
@@ -36,7 +36,7 @@ const ForbiddenError: typeof ForbiddenError = ErrorsModule.Errors.Classes.Api.Fo
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:180](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L180)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:180](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L180)
 
 ***
 
@@ -48,7 +48,7 @@ const NotFoundError: typeof NotFoundError = ErrorsModule.Errors.Classes.Api.NotF
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:181](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L181)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:181](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L181)
 
 ***
 
@@ -60,7 +60,7 @@ const RateLimitError: typeof RateLimitError = ErrorsModule.Errors.Classes.Api.Ra
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:182](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L182)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:182](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L182)
 
 ***
 
@@ -72,7 +72,7 @@ const ServerError: typeof ServerError = ErrorsModule.Errors.Classes.Api.ServerEr
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:183](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L183)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:183](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L183)
 
 ***
 
@@ -84,4 +84,4 @@ const UnauthorizedError: typeof UnauthorizedError = ErrorsModule.Errors.Classes.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:179](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L179)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:179](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L179)

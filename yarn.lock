@@ -1275,14 +1275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gebeta/api@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@gebeta/api@npm:3.0.5"
-  checksum: 10c0/5db362f2d1c0eecf97288f1743dda68db1eef839e12cf6f891c2f8108576ec374b8101c23e3116162de9ef1486c45cb5b279cd5f547c1e8073a8a3dd0f9ef223
-  languageName: node
-  linkType: hard
-
-"@gebeta/api@workspace:*, @gebeta/api@workspace:packages/api":
+"@gebeta/api@npm:3.0.5, @gebeta/api@workspace:*, @gebeta/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@gebeta/api@workspace:packages/api"
   dependencies:
@@ -1295,17 +1288,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/core@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@gebeta/core@npm:3.0.5"
-  dependencies:
-    "@gebeta/api": "npm:3.0.5"
-    supercluster: "npm:^8.0.0"
-  checksum: 10c0/4777d7311062d1488a4a7d2641e0a5b68559d93aa7335b0e9c2695850948fdae5016bc4eeca35f0a2dd0dca99842e1000017cd7482e1b5143e3a04bdc6664122
-  languageName: node
-  linkType: hard
-
-"@gebeta/core@workspace:*, @gebeta/core@workspace:packages/core":
+"@gebeta/core@npm:3.0.5, @gebeta/core@workspace:*, @gebeta/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@gebeta/core@workspace:packages/core"
   dependencies:

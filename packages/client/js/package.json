@@ -41,7 +41,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"]
+    "entryPoints": [
+      "src/index.ts"
+    ]
   },
   "scripts": {
     "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && vite build --config vite.config.umd.ts && tsc --emitDeclarationOnly --skipLibCheck",

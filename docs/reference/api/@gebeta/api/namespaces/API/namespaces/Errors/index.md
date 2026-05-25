@@ -23,7 +23,7 @@ const Codes: typeof ErrorCode = ErrorsModule.Errors.Codes;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:164](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L164)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:164](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L164)
 
 ***
 
@@ -35,4 +35,4 @@ const Domains: typeof ErrorDomain = ErrorsModule.Errors.Domains;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:165](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/9dbfe61dc9c398296be77dd50f9bf333f8a3e94d/packages/api/src/namespaces/index.ts#L165)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:165](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L165)

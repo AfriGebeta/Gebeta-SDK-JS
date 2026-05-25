@@ -19,7 +19,29 @@ export interface PlatformContext extends API.Platform.Types.IPlatformContext {
   clientIdStorage: API.Platform.Types.IClientIdStorage;
 }
 
+function injectGebetaLogo(map: MapLibreMap): void {
+  const container = map.getContainer();
+  if (container.querySelector('.gebeta-logo')) return;
+
+  // Ensure the container is positioned so absolute children work
+  const containerStyle = getComputedStyle(container);
+  if (containerStyle.position === 'static') {
+    container.style.position = 'relative';
+  }
+
+  const el = document.createElement('div');
+  el.className = 'gebeta-logo';
+  el.style.cssText =
+    'position:absolute;bottom:10px;right:10px;z-index:999;pointer-events:auto;line-height:0';
+  el.innerHTML =
+    '<a href="https://gebetamaps.com" target="_blank" rel="noopener noreferrer">' +
+    '<img src="https://tiles.gebeta.app/static/glogo.svg" alt="Gebeta Maps" ' +
+    'style="height:28px;border-radius:4px;display:block"/></a>';
+  container.appendChild(el);
+}
+
 export function createPlatform(map: MapLibreMap): PlatformContext {
+  injectGebetaLogo(map);
   return {
     mapAdapter: new MapAdapter(map),
     markerFactory: new MarkerFactory(map),

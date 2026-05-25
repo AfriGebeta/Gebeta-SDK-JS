@@ -13,7 +13,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"]
+    "entryPoints": [
+      "src/index.ts"
+    ]
   },
   "scripts": {
     "build": "tsc",

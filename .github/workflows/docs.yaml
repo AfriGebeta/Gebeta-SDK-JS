@@ -37,6 +37,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Build packages (required for TypeDoc)
+        run: |
+          yarn workspace @gebeta/api build
+          yarn workspace @gebeta/core build
+
       - name: Build docs
         run: yarn docs:build
 

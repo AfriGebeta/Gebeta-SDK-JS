@@ -1,0 +1,27 @@
+/* Gebeta brand: #FF971D (orange) derived palette */
+:root {
+  --vp-c-brand-1: #FF971D;
+  --vp-c-brand-2: #e07d00;
+  --vp-c-brand-3: #ffa940;
+  --vp-c-brand-soft: rgba(255, 151, 29, 0.14);
+
+  --vp-button-brand-bg: #FF971D;
+  --vp-button-brand-hover-bg: #e07d00;
+  --vp-button-brand-active-bg: #c96b00;
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #fff;
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, #FF971D 30%, #ffbb6b);
+}
+
+/* Active sidebar link */
+.VPSidebarItem.is-active > .item > .link > .text {
+  color: #FF971D !important;
+}
+
+/* Nav active link indicator */
+.VPNavBarMenuLink.active,
+.VPNavBarMenuLink:hover {
+  color: #FF971D !important;
+}

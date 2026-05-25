@@ -2017,13 +2017,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/api", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-api-npm-3.0.5-dfc3ec3e55-10c0.zip/node_modules/@gebeta/api/",\
-        "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:packages/api", {\
         "packageLocation": "./packages/api/",\
         "packageDependencies": [\
@@ -2039,15 +2032,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/core", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-core-npm-3.0.5-a6ad579216-10c0.zip/node_modules/@gebeta/core/",\
-        "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/core", "npm:3.0.5"],\
-          ["supercluster", "npm:8.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:packages/core", {\
         "packageLocation": "./packages/core/",\
         "packageDependencies": [\
@@ -2074,8 +2058,8 @@ const RAW_RUNTIME_STATE =
       ["npm:3.0.5", {\
         "packageLocation": "../../../../.yarn/berry/cache/@gebeta-js-npm-3.0.5-bcdd68ce5e-10c0.zip/node_modules/@gebeta/js/",\
         "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/core", "npm:3.0.5"],\
+          ["@gebeta/api", "workspace:packages/api"],\
+          ["@gebeta/core", "workspace:packages/core"],\
           ["@gebeta/js", "npm:3.0.5"],\
           ["maplibre-gl", "npm:4.7.1"],\
           ["supercluster", "npm:8.0.1"]\
@@ -2119,7 +2103,7 @@ const RAW_RUNTIME_STATE =
       ["npm:3.0.5", {\
         "packageLocation": "../../../../.yarn/berry/cache/@gebeta-node-npm-3.0.5-2d7e99e950-10c0.zip/node_modules/@gebeta/node/",\
         "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
+          ["@gebeta/api", "workspace:packages/api"],\
           ["@gebeta/node", "npm:3.0.5"]\
         ],\
         "linkType": "HARD"\
@@ -2156,8 +2140,8 @@ const RAW_RUNTIME_STATE =
       ["virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.5", {\
         "packageLocation": "./.yarn/__virtual__/@gebeta-react-virtual-36486c75d2/5/.yarn/berry/cache/@gebeta-react-npm-3.0.5-691a99407d-10c0.zip/node_modules/@gebeta/react/",\
         "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/core", "npm:3.0.5"],\
+          ["@gebeta/api", "workspace:packages/api"],\
+          ["@gebeta/core", "workspace:packages/core"],\
           ["@gebeta/react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.5"],\
           ["@types/react", "npm:18.3.29"],\
           ["maplibre-gl", "npm:4.7.1"],\
