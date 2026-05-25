@@ -24,7 +24,8 @@
     "version:packages": "changeset version",
     "release": "changeset publish",
     "examples:local": "node scripts/switch-deps.mjs --local && yarn install",
-    "examples:npm": "node scripts/switch-deps.mjs --npm && yarn install"
+    "examples:npm": "node scripts/switch-deps.mjs --npm && yarn install",
+    "bundle:audit": "node scripts/bundle-audit.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
@@ -33,7 +34,9 @@
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.0",
-    "typescript": "^5.0.0"
+    "rollup-plugin-visualizer": "^5.12.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
   },
   "engines": {
     "node": ">=20.0.0",
