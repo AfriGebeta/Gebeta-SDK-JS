@@ -5,12 +5,30 @@ type AuthCredentials = API.Auth.Types.AuthCredentials;
 /**
  * Server-side authentication helper for Gebeta Maps service accounts.
  *
- * Exchanges a client token + server token for an access/refresh token pair.
- * The server token is secret and must never leave your backend.
+ * Exchanges a client token and server token for a short-lived access/refresh
+ * token pair. The server token is secret and must never be sent to the browser —
+ * only the resulting `accessToken` is forwarded to the client.
+ *
+ * @example
+ * ```ts
+ * import { GebetaAuth } from '@gebeta/node';
+ *
+ * const auth = new GebetaAuth({ serverToken: process.env.GEBETA_SERVER_TOKEN! });
+ *
+ * // Express endpoint
+ * app.post('/auth', async (req, res) => {
+ *   const credentials = await auth.authenticate(req.body.clientToken);
+ *   res.json(credentials); // { accessToken, refreshToken }
+ * });
+ * ```
  */
 export class GebetaAuth {
   private readonly serverToken: string;
 
+  /**
+   * @param options.serverToken - Secret server token from the Gebeta dashboard.
+   *   Keep this on your backend; never expose it to clients.
+   */
   constructor(options: { serverToken: string }) {
     this.serverToken = options.serverToken;
   }

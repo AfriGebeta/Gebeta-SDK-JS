@@ -14,6 +14,34 @@ export type GebetaMapProps = API.Components.Types.GebetaMapProps;
 
 const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
 
+/**
+ * Main React component for rendering a Gebeta map.
+ *
+ * Manages the MapLibre GL map lifecycle: creates the map on mount, tears it down
+ * on unmount, and exposes a React context that child components can consume via
+ * `useGebetaMap()`.
+ *
+ * @example
+ * ```jsx
+ * import { GebetaMap } from '@gebeta/react';
+ *
+ * const auth = { accessToken: '...', refreshToken: '...' };
+ * const style = { width: '100vw', height: '100vh' };
+ *
+ * function App() {
+ *   return (
+ *     <div style={style}>
+ *       <GebetaMap
+ *         auth={auth}
+ *         center={[38.74, 9.02]}
+ *         zoom={12}
+ *         onLoad={(map) => console.log('Map ready', map)}
+ *       />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export function GebetaMap({
   apiKey,
   auth: authProp,

@@ -15,6 +15,29 @@ export interface UseClusteringResult {
   getOptions: () => ReturnType<ClusteringManager['getOptions']>;
 }
 
+/**
+ * React hook for managing clustered markers on a Gebeta map.
+ *
+ * Must be used inside a GebetaMap component with clustering enabled.
+ *
+ * @returns Object with methods to add, remove, and query clustered markers.
+ * @throws If clustering is not enabled on the parent GebetaMap component.
+ *
+ * @example
+ * ```tsx
+ * function MarkersLayer() {
+ *   const { addMarker, removeMarker } = useClustering();
+ *
+ *   useEffect(() => {
+ *     addMarker({ id: '1', lngLat: [38.74, 9.02] });
+ *     return () => removeMarker('1');
+ *   }, []);
+ * }
+ *
+ * // Parent component
+ * // Wrap with GebetaMap (clustering prop must have enabled: true)
+ * ```
+ */
 export function useClustering(): UseClusteringResult {
   const { clusteringManager } = useGebetaMapContext();
   if (!clusteringManager) {

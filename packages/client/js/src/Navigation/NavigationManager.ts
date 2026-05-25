@@ -13,8 +13,21 @@ type NavigationManagerOptions = API.Navigation.Types.ManagerOptions;
 type NavigationStartOptions = API.Navigation.Types.StartOptions;
 
 /**
- * Platform-specific navigation controller for JavaScript (browser).
- * Wraps the core NavigationManager and adds map/marker integration.
+ * Browser navigation manager — wraps the core NavigationManager and adds
+ * map rendering: a live location marker and a camera that follows the driver.
+ *
+ * Access via `sdk.navigation` after calling `sdk.init()`.
+ *
+ * @example
+ * ```ts
+ * const route = await sdk.getDirections(origin, destination);
+ * sdk.displayRoute(route);
+ *
+ * sdk.navigation.on('progress', e => console.log('remaining:', e.remainingDistance));
+ * sdk.navigation.on('arrive', () => console.log('Arrived!'));
+ *
+ * sdk.navigation.start(route, { userId: 'user-123' }, new BrowserLocationProvider());
+ * ```
  */
 export class NavigationManager {
   private readonly core: CoreNavigationManager;

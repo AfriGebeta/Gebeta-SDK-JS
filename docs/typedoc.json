@@ -1,0 +1,29 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "plugin": ["typedoc-plugin-markdown"],
+  "entryPoints": [
+    "../packages/api",
+    "../packages/client/js",
+    "../packages/client/react",
+    "../packages/server/node"
+  ],
+  "entryPointStrategy": "packages",
+  "out": "reference/api",
+  "readme": "none",
+  "entryFileName": "index",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "skipErrorChecking": true,
+  "sanitizeComments": true,
+  "outputFileStrategy": "modules",
+  "flattenOutputFiles": false,
+  "hidePageHeader": true,
+  "hideBreadcrumbs": false,
+  "useCodeBlocks": true,
+  "parametersFormat": "table",
+  "propertiesFormat": "table",
+  "enumMembersFormat": "table",
+  "typeDeclarationFormat": "table",
+  "indexFormat": "table"
+}

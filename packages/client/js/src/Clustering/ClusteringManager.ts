@@ -9,6 +9,16 @@ type IMarkerFactory = API.Platform.Types.IMarkerFactory;
 type IPopupFactory = API.Platform.Types.IPopupFactory;
 type IMarker = API.Platform.Types.IMarker;
 
+/**
+ * Manages marker clustering on a MapLibre map.
+ *
+ * Groups nearby markers into clusters at lower zoom levels and renders
+ * individual markers when zoomed in. Cluster markers automatically expand
+ * on click unless a custom `clusterOnClick` handler is provided.
+ *
+ * Enable via the constructor: `new GebetaMaps({ clustering: { enabled: true } })`,
+ * then access via `sdk.clustering`.
+ */
 export class ClusteringManager {
   private readonly mapAdapter: IMapAdapter;
   private readonly markerFactory: IMarkerFactory;

@@ -1,48 +1,48 @@
 # @gebeta/react
 
-React SDK for Gebeta Maps. The SDK owns the map internally; you never use Maplibre or react-map-gl directly. Use the `GebetaMap` component and hooks such as `useClustering`.
+React SDK for Gebeta Maps. Provides a `GebetaMap` component and a `useClustering` hook.
 
-## Usage
+## Installation
+
+```bash
+npm install @gebeta/react @gebeta/js
+```
+
+## Quick start
 
 ```tsx
-import { GebetaMap, useClustering } from '@gebeta/react';
+import { GebetaMap } from '@gebeta/react';
 
-function MapWithClustering() {
+function App() {
   return (
-    <div style={{ width: '100%', height: '100vh' }}>
-      <GebetaMap
-        apiKey="YOUR_API_KEY"
-        styleUrl="https://tiles.gebeta.app/styles/standard/style.json"
-        clustering={{ enabled: true, showClusterCount: true }}
-      >
-        <ClusteringPanel />
-      </GebetaMap>
-    </div>
-  );
-}
-
-function ClusteringPanel() {
-  const clustering = useClustering();
-  return (
-    <div>
-      <button
-        onClick={() =>
-          clustering.addMarker({ id: '1', lngLat: { lng: 38.7, lat: 9 }, popupContent: 'Hello' })
-        }
-      >
-        Add marker
-      </button>
-      <button onClick={() => clustering.clearMarkers()}>Clear</button>
-    </div>
+    <GebetaMap
+      accessToken={accessToken}
+      refreshToken={refreshToken}
+      style={{ width: '100%', height: '500px' }}
+      onReady={(gebetaMap, map, platform) => {
+        // Full access to GebetaMaps, MapLibre map, and platform adapters
+      }}
+    />
   );
 }
 ```
 
-## API
+## Clustering
 
-- **GebetaMap** – Renders the map. Props: `apiKey`, `styleUrl` or `style`, `clustering` (optional), `onLoad`, `onError`, `navigationControl`, and other map options. Children are rendered as an overlay on top of the map.
-- **useClustering()** – Returns clustering API (`addMarker`, `removeMarker`, `clearMarkers`, `getMarkers`, `getMarker`, `updateOptions`, `getOptions`). Must be used inside `GebetaMap` with `clustering={{ enabled: true }}`.
+```tsx
+import { useClustering } from '@gebeta/react/clustering';
+
+const { setMarkers, clearMarkers } = useClustering(gebetaMapInstance);
+
+setMarkers([
+  { id: '1', lat: 9.0161, lng: 38.7685, imageUrl: '/pin.png' },
+]);
+```
 
 ## Peer dependencies
 
-- `react` ^18.0.0
+- `react` >= 18
+
+## Documentation
+
+[gebeta-sdk-js docs](https://AfriGebeta.github.io/Gebeta-SDK-JS)

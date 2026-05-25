@@ -21,6 +21,15 @@ type IMapAdapter = API.Platform.Types.IMapAdapter;
 type IMarkerFactory = API.Platform.Types.IMarkerFactory;
 type IMarker = API.Platform.Types.IMarker;
 
+/**
+ * Manages route display on the map.
+ *
+ * Wraps the core DirectionsManager and adds MapLibre GL rendering:
+ * draws the route line and places origin/destination/waypoint markers.
+ *
+ * Use via `sdk.getDirections()` and `sdk.displayRoute()`, or access
+ * directly for advanced use cases.
+ */
 export class DirectionsManager {
   private readonly mapAdapter: IMapAdapter;
   private readonly markerFactory: IMarkerFactory;

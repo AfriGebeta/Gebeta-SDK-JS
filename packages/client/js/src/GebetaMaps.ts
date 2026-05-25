@@ -11,6 +11,21 @@ import { LocalStorageClientIdStorage } from './adapters/LocalStorageClientIdStor
 
 type AuthParam = API.Auth.Types.AuthParam;
 
+/**
+ * Main entry point for the Gebeta Maps JavaScript SDK.
+ *
+ * @example
+ * ```ts
+ * // Service account auth (recommended)
+ * const sdk = new GebetaMaps({
+ *   auth: { accessToken: '...', refreshToken: '...' }
+ * });
+ * const map = sdk.init({ container: '#map', center: [38.74, 9.02], zoom: 12 });
+ *
+ * // Legacy API key (deprecated)
+ * const sdk = new GebetaMaps({ apiKey: 'your-api-key' });
+ * ```
+ */
 export class GebetaMaps {
   private readonly auth: AuthParam;
   private readonly enableClientId: boolean;
@@ -23,6 +38,10 @@ export class GebetaMaps {
   private navigationManager: NavigationManager | null = null;
   private _geocodingManager: GeocodingManager | null = null;
 
+  /**
+   * Access geocoding functionality (forward and reverse).
+   * @throws {PlatformError} If called before `init()` completes map style loading.
+   */
   get geocodingManager(): GeocodingManager {
     if (!this._geocodingManager) {
       throw new PlatformError(
@@ -34,6 +53,18 @@ export class GebetaMaps {
     return this._geocodingManager;
   }
 
+  /**
+   * Creates a new GebetaMaps instance.
+   *
+   * Provide either `apiKey` (deprecated) or `auth` (service account) — not both.
+   *
+   * @param options - Constructor options
+   * @param options.auth - Service account credentials `{ accessToken, refreshToken }`
+   * @param options.apiKey - Deprecated legacy API key
+   * @param options.clustering - Clustering configuration (must be set here; cannot be changed after init)
+   * @param options.enableClientId - Attach a stable `X-Device-ID` header to all requests (default: false)
+   * @throws {ValidationError} If neither `apiKey` nor `auth` is provided, or if both are provided.
+   */
   constructor(options: API.Map.Types.ConstructorOptions & { platform?: PlatformContext }) {
     const hasApiKey = !!options?.apiKey;
     const hasAuth = !!options?.auth;
@@ -105,6 +136,22 @@ export class GebetaMaps {
     );
   }
 
+  /**
+   * Initialize the map and mount it to a DOM element.
+   *
+   * All SDK managers (geocoding, directions, fencing, clustering, navigation) are
+   * created after the map style finishes loading. Do not call manager methods until
+   * the map `style.load` event fires.
+   *
+   * @param options - Initialization options
+   * @param options.container - CSS selector (e.g., `'#map'`) or HTMLElement to mount into
+   * @param options.center - Initial center `[lng, lat]`
+   * @param options.zoom - Initial zoom level (0–22)
+   * @param options.navigationControl - Show zoom +/- buttons (default: false)
+   * @param options.navigationControlPosition - Corner for navigation controls (default: 'top-right')
+   * @param options.styleUrl - Custom map style URL
+   * @returns The underlying MapLibre GL `Map` instance
+   */
   init(options: API.Map.Types.InitOptions): MapLibreMap {
     const defaultStyleUrl = API.Map.Constants.DEFAULT_STYLE_URL;
     const {
@@ -160,6 +207,11 @@ export class GebetaMaps {
     return this.map;
   }
 
+  /**
+   * Returns the platform context (map adapter, marker/popup factories).
+   * Useful for advanced use cases that need direct access to the underlying adapters.
+   * @throws {PlatformError} If called before `init()`.
+   */
   getPlatform(): PlatformContext {
     if (!this.platform) {
       throw new PlatformError(
@@ -171,6 +223,11 @@ export class GebetaMaps {
     return this.platform;
   }
 
+  /**
+   * Add zoom +/- navigation controls to the map.
+   * Alternatively, pass `navigationControl: true` in `init()` options.
+   * @param position - Corner position (default: 'top-right')
+   */
   addNavigationControls(position: string = API.Common.Enums.CornerPosition.TOP_RIGHT): void {
     if (!this.platform) {
       throw new PlatformError(
@@ -184,6 +241,26 @@ export class GebetaMaps {
     }
   }
 
+  /**
+   * Calculate a route between two points.
+   *
+   * @param origin - Starting point `{ lng, lat }`
+   * @param destination - Ending point `{ lng, lat }`
+   * @param options - Optional waypoints and average speed
+   * @returns RouteData with geometry, instructions, and summary
+   * @throws {PlatformError} If called before `init()` completes map style loading.
+   * @throws {ValidationError} If origin or destination coordinates are missing.
+   * @throws {NetworkError} If the directions API request fails.
+   *
+   * @example
+   * ```ts
+   * const route = await sdk.getDirections(
+   *   { lng: 38.74, lat: 9.02 },
+   *   { lng: 38.78, lat: 9.05 }
+   * );
+   * sdk.displayRoute(route);
+   * ```
+   */
   getDirections(
     origin: API.Common.Types.LngLat,
     destination: API.Common.Types.LngLat,
@@ -199,6 +276,11 @@ export class GebetaMaps {
     return this.directionsManager.getDirections(origin, destination, options);
   }
 
+  /**
+   * Render a route on the map as a colored line with optional origin/destination markers.
+   * @param routeData - Route returned from `getDirections()`
+   * @param options - Display options (showMarkers, originIcon, destinationIcon, routeStyle)
+   */
   displayRoute(
     routeData: API.Routing.Types.RouteData,
     options?: API.Routing.Types.DisplayRouteOptions & {
@@ -209,16 +291,19 @@ export class GebetaMaps {
     this.directionsManager.displayRoute(routeData, options);
   }
 
+  /** Remove the currently displayed route line and markers from the map. */
   clearRoute(): void {
     if (!this.directionsManager) return;
     this.directionsManager.clearRoute();
   }
 
+  /** Returns the currently active route, or `null` if no route is loaded. */
   getCurrentRoute(): API.Routing.Types.RouteData | null {
     if (!this.directionsManager) return null;
     return this.directionsManager.getCurrentRoute();
   }
 
+  /** Returns distance, duration, origin, destination, and waypoints for the current route. */
   getRouteSummary(): {
     distance?: string | number | null;
     duration?: string | number | null;
@@ -230,15 +315,27 @@ export class GebetaMaps {
     return this.directionsManager.getRouteSummary();
   }
 
+  /**
+   * Update the visual style of the displayed route line.
+   * @param style - Style properties (`line-color`, `line-width`, `line-opacity`, `line-dasharray`)
+   */
   updateRouteStyle(style: API.Routing.Types.RouteStyleOptions): void {
     if (!this.directionsManager) return;
     this.directionsManager.updateRouteStyle(style);
   }
 
+  /**
+   * Access clustering functionality for grouping nearby markers.
+   * Returns `null` if clustering was not enabled in the constructor options.
+   */
   get clustering(): ClusteringManager | null {
     return this.clusteringManager;
   }
 
+  /**
+   * Access geofencing functionality for drawing and managing polygon fences.
+   * @throws {PlatformError} If called before `init()` completes map style loading.
+   */
   get fencing(): FenceManager {
     if (!this.fenceManager) {
       throw new PlatformError(
@@ -250,10 +347,15 @@ export class GebetaMaps {
     return this.fenceManager;
   }
 
+  /** Returns the underlying MapLibre GL `Map` instance, or `null` before `init()`. */
   getMap(): MapLibreMap | null {
     return this.map;
   }
 
+  /**
+   * Access turn-by-turn navigation with real-time tracking.
+   * @throws {PlatformError} If called before `init()` completes map style loading.
+   */
   get navigation(): NavigationManager {
     if (!this.navigationManager) {
       throw new PlatformError(

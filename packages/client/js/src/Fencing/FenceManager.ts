@@ -33,6 +33,14 @@ export interface FenceManagerOptions {
   onFenceCompleted?: (event: API.Fencing.Events.CompletedEvent) => void;
 }
 
+/**
+ * Manages geofences (polygons) on the map.
+ *
+ * Supports interactive fence drawing, rendering pre-defined fences,
+ * and attaching overlays (HTML labels) at fence centroids.
+ *
+ * Access via `sdk.fencing` after calling `sdk.init()`.
+ */
 export class FenceManager {
   private readonly mapAdapter: IMapAdapter;
   private readonly markerFactory: IMarkerFactory;

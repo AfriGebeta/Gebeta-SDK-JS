@@ -44,3 +44,8 @@ packages/core/config.js
 *.log
 *.tmp
 .cache/
+
+# VitePress
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/reference/api/

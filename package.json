@@ -7,7 +7,8 @@
     "packages/*",
     "packages/client/*",
     "packages/server/*",
-    "apps/*"
+    "apps/*",
+    "docs"
   ],
   "scripts": {
     "build": "bash scripts/run-workspaces.sh build",
@@ -25,7 +26,10 @@
     "release": "changeset publish",
     "examples:local": "node scripts/switch-deps.mjs --local && yarn install",
     "examples:npm": "node scripts/switch-deps.mjs --npm && yarn install",
-    "bundle:audit": "node scripts/bundle-audit.mjs"
+    "bundle:audit": "node scripts/bundle-audit.mjs",
+    "docs:dev": "yarn workspace gebeta-docs dev",
+    "docs:build": "yarn workspace gebeta-docs build",
+    "docs:preview": "yarn workspace gebeta-docs preview"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
