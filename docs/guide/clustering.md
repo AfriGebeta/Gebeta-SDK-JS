@@ -22,14 +22,18 @@ Note: `sdk.clustering` returns `null` if `clustering.enabled` was not set in the
 
 ## React hook
 
-```tsx
+```jsx
 import { GebetaMap } from '@gebeta/react';
 import { useClustering } from '@gebeta/react/clustering';
 import { useEffect } from 'react';
 
+const auth = { accessToken, refreshToken };
+const mapStyle = { width: '100%', height: '500px' };
+const clusteringOptions = { enabled: true };
+
 // Must be a child component inside GebetaMap
 function MarkersLayer() {
-  const { addMarker, removeMarker, clearMarkers } = useClustering();
+  const { addMarker, clearMarkers } = useClustering();
 
   useEffect(() => {
     addMarker({ id: '1', lngLat: [38.7685, 9.0161] });
@@ -43,9 +47,9 @@ function MarkersLayer() {
 function App() {
   return (
     <GebetaMap
-      auth={{ accessToken, refreshToken }}
-      clustering={{ enabled: true }}
-      style={{ width: '100%', height: '500px' }}
+      auth={auth}
+      clustering={clusteringOptions}
+      style={mapStyle}
     >
       <MarkersLayer />
     </GebetaMap>

@@ -22,17 +22,17 @@ const Constants: object = MapModule.Map.Constants;
 
 | Name | Type | Default value | Defined in |
 | ------ | ------ | ------ | ------ |
-| `DEFAULT_POSITIONS` | `object` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:18](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L18) |
-| `DEFAULT_POSITIONS.bottomLeft` | `"bottom-left"` | 'bottom-left' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:84](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/constants/index.ts#L84) |
-| `DEFAULT_POSITIONS.bottomRight` | `"bottom-right"` | 'bottom-right' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:85](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/constants/index.ts#L85) |
-| `DEFAULT_POSITIONS.topLeft` | `"top-left"` | 'top-left' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:82](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/constants/index.ts#L82) |
-| `DEFAULT_POSITIONS.topRight` | `"top-right"` | 'top-right' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:83](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/constants/index.ts#L83) |
-| `DEFAULT_STYLE_URL` | `"https://tiles.gebeta.app/styles/standard/style.json"` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:17](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L17) |
-| `STYLES` | `Record`\<`MapStyle`, `object`\> | MAP\_STYLES | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:16](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L16) |
+| `DEFAULT_POSITIONS` | `object` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:18](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/map.ts#L18) |
+| `DEFAULT_POSITIONS.bottomLeft` | `"bottom-left"` | 'bottom-left' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:84](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/constants/index.ts#L84) |
+| `DEFAULT_POSITIONS.bottomRight` | `"bottom-right"` | 'bottom-right' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:85](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/constants/index.ts#L85) |
+| `DEFAULT_POSITIONS.topLeft` | `"top-left"` | 'top-left' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:82](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/constants/index.ts#L82) |
+| `DEFAULT_POSITIONS.topRight` | `"top-right"` | 'top-right' | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/constants/index.ts:83](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/constants/index.ts#L83) |
+| `DEFAULT_STYLE_URL` | `"https://tiles.gebeta.app/styles/standard/style.json"` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:17](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/map.ts#L17) |
+| `STYLES` | `Record`\<`MapStyle`, `object`\> | MAP\_STYLES | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:16](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/map.ts#L16) |
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:42](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L42)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:42](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L42)
 
 ***
 
@@ -46,8 +46,8 @@ const Enums: object = MapModule.Map.Enums;
 
 | Name | Type | Default value | Defined in |
 | ------ | ------ | ------ | ------ |
-| `Style` | *typeof* `MapStyle` | MapStyle | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/map.ts#L12) |
+| `Style` | *typeof* `MapStyle` | MapStyle | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/map.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/map.ts#L12) |
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:41](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L41)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:41](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L41)

@@ -12,7 +12,7 @@ const NetworkError: typeof NetworkError = ErrorsModule.Errors.Classes.Network.Ne
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:172](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L172)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:172](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L172)
 
 ***
 
@@ -24,7 +24,7 @@ const NetworkOfflineError: typeof NetworkOfflineError = ErrorsModule.Errors.Clas
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:174](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L174)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:174](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L174)
 
 ***
 
@@ -36,4 +36,4 @@ const NetworkTimeoutError: typeof NetworkTimeoutError = ErrorsModule.Errors.Clas
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:173](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L173)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:173](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L173)

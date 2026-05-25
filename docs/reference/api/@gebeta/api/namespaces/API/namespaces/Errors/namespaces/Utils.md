@@ -24,7 +24,7 @@ Extracts request ID from a Response object (from headers or body).
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:233](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L233)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:233](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L233)
 
 ***
 
@@ -48,7 +48,7 @@ Formats an error for logging purposes.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:231](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L231)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:231](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L231)
 
 ***
 
@@ -72,7 +72,7 @@ Gets the error code from an error, or null if not a GebetaError.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:229](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L229)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:229](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L229)
 
 ***
 
@@ -96,7 +96,7 @@ Gets the error domain from an error, or null if not a GebetaError.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:230](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L230)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:230](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L230)
 
 ***
 
@@ -120,7 +120,7 @@ Type guard to check if an error is a GebetaError.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:228](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L228)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:228](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L228)
 
 ***
 
@@ -144,4 +144,4 @@ Parses an API error response from a Response object.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:232](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L232)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:232](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L232)

@@ -22,8 +22,8 @@ const Constants: object;
 
 | Name | Type | Default value | Defined in |
 | ------ | ------ | ------ | ------ |
-| `DEFAULT_OPTIONS` | `Partial`\<`ClusteringOptions`\> | DEFAULT\_CLUSTERING\_OPTIONS | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/clustering.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/clustering.ts#L9) |
+| `DEFAULT_OPTIONS` | `Partial`\<`ClusteringOptions`\> | DEFAULT\_CLUSTERING\_OPTIONS | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/clustering.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/clustering.ts#L9) |
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/clustering.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/clustering.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/clustering.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/clustering.ts#L8)

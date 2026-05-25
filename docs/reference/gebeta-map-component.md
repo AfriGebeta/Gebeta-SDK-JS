@@ -2,7 +2,7 @@
 
 ## Import
 
-```tsx
+```jsx
 import { GebetaMap } from '@gebeta/react';
 ```
 
@@ -26,14 +26,18 @@ import { GebetaMap } from '@gebeta/react';
 
 ## Example
 
-```tsx
+```jsx
+const auth = { accessToken, refreshToken };
+const mapStyle = { width: '100%', height: '500px' };
+const center = [38.7685, 9.0161];
+
 <GebetaMap
-  auth={{ accessToken, refreshToken }}
-  center={[38.7685, 9.0161]}
+  auth={auth}
+  center={center}
   zoom={12}
-  style={{ width: '100%', height: '500px' }}
+  style={mapStyle}
   onLoad={({ clustering }) => {
-    // clustering: ClusteringManager | null (null if clustering not enabled)
+    // clustering: ClusteringManager | null
   }}
 />
 ```
@@ -42,8 +46,10 @@ import { GebetaMap } from '@gebeta/react';
 
 Use `useClustering()` inside a child component rather than via `onLoad`:
 
-```tsx
-<GebetaMap auth={auth} clustering={{ enabled: true }}>
+```jsx
+const clusteringOptions = { enabled: true };
+
+<GebetaMap auth={auth} clustering={clusteringOptions}>
   <MarkersLayer />
 </GebetaMap>
 ```

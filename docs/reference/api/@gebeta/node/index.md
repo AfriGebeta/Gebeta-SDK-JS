@@ -15,12 +15,12 @@ npm install @gebeta/node
 ```ts
 import { GebetaAuth } from '@gebeta/node';
 
-const auth = new GebetaAuth(process.env.GEBETA_SERVER_TOKEN);
+const auth = new GebetaAuth({ serverToken: process.env.GEBETA_SERVER_TOKEN! });
 
-// Express endpoint
+// Express endpoint — receives clientToken from the frontend
 app.post('/auth', async (req, res) => {
-  const tokens = await auth.getTokens();
-  res.json(tokens); // { accessToken, refreshToken }
+  const credentials = await auth.authenticate(req.body.clientToken);
+  res.json(credentials); // { accessToken, refreshToken }
 });
 ```
 

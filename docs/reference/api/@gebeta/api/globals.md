@@ -13,35 +13,35 @@ Organized by category with numeric suffixes for easy filtering.
 
 | Enumeration Member | Value | Defined in |
 | ------ | ------ | ------ |
-| `API_BAD_REQUEST` | `"API_3001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:33](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L33) |
-| `API_FORBIDDEN` | `"API_3003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:35](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L35) |
-| `API_NOT_FOUND` | `"API_3004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L36) |
-| `API_RATE_LIMIT` | `"API_3005"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:37](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L37) |
-| `API_SERVER_ERROR` | `"API_3006"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:38](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L38) |
-| `API_UNAUTHORIZED` | `"API_3002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:34](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L34) |
-| `API_UNKNOWN_ERROR` | `"API_3007"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L39) |
-| `GEOCODING_INVALID_COORDINATES` | `"GEOCODING_4002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:43](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L43) |
-| `GEOCODING_NOT_FOUND` | `"GEOCODING_4001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:42](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L42) |
-| `GEOCODING_REQUEST_FAILED` | `"GEOCODING_4003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:44](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L44) |
-| `NAVIGATION_NOT_STARTED` | `"NAVIGATION_6001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:53](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L53) |
-| `NAVIGATION_OFF_ROUTE` | `"NAVIGATION_6002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:54](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L54) |
-| `NAVIGATION_REQUEST_FAILED` | `"NAVIGATION_6003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:55](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L55) |
-| `NETWORK_FAILED` | `"NETWORK_2001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:27](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L27) |
-| `NETWORK_OFFLINE` | `"NETWORK_2003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:29](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L29) |
-| `NETWORK_REQUEST_FAILED` | `"NETWORK_2004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L30) |
-| `NETWORK_TIMEOUT` | `"NETWORK_2002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:28](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L28) |
-| `PLATFORM_GEOLOCATION_DENIED` | `"PLATFORM_7001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:58](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L58) |
-| `PLATFORM_GEOLOCATION_TIMEOUT` | `"PLATFORM_7003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:60](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L60) |
-| `PLATFORM_GEOLOCATION_UNAVAILABLE` | `"PLATFORM_7002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:59](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L59) |
-| `PLATFORM_NOT_INITIALIZED` | `"PLATFORM_7004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:61](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L61) |
-| `ROUTING_INVALID_POLYLINE` | `"ROUTING_5004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:50](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L50) |
-| `ROUTING_INVALID_WAYPOINTS` | `"ROUTING_5002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:48](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L48) |
-| `ROUTING_NO_ROUTE` | `"ROUTING_5001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:47](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L47) |
-| `ROUTING_REQUEST_FAILED` | `"ROUTING_5003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:49](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L49) |
-| `VALIDATION_INVALID_FORMAT` | `"VALIDATION_1002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:22](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L22) |
-| `VALIDATION_INVALID_TYPE` | `"VALIDATION_1004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:24](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L24) |
-| `VALIDATION_OUT_OF_RANGE` | `"VALIDATION_1003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:23](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L23) |
-| `VALIDATION_REQUIRED_FIELD` | `"VALIDATION_1001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:21](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L21) |
+| `API_BAD_REQUEST` | `"API_3001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:33](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L33) |
+| `API_FORBIDDEN` | `"API_3003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:35](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L35) |
+| `API_NOT_FOUND` | `"API_3004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L36) |
+| `API_RATE_LIMIT` | `"API_3005"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:37](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L37) |
+| `API_SERVER_ERROR` | `"API_3006"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:38](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L38) |
+| `API_UNAUTHORIZED` | `"API_3002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:34](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L34) |
+| `API_UNKNOWN_ERROR` | `"API_3007"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L39) |
+| `GEOCODING_INVALID_COORDINATES` | `"GEOCODING_4002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:43](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L43) |
+| `GEOCODING_NOT_FOUND` | `"GEOCODING_4001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:42](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L42) |
+| `GEOCODING_REQUEST_FAILED` | `"GEOCODING_4003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:44](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L44) |
+| `NAVIGATION_NOT_STARTED` | `"NAVIGATION_6001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:53](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L53) |
+| `NAVIGATION_OFF_ROUTE` | `"NAVIGATION_6002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:54](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L54) |
+| `NAVIGATION_REQUEST_FAILED` | `"NAVIGATION_6003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:55](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L55) |
+| `NETWORK_FAILED` | `"NETWORK_2001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:27](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L27) |
+| `NETWORK_OFFLINE` | `"NETWORK_2003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:29](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L29) |
+| `NETWORK_REQUEST_FAILED` | `"NETWORK_2004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L30) |
+| `NETWORK_TIMEOUT` | `"NETWORK_2002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:28](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L28) |
+| `PLATFORM_GEOLOCATION_DENIED` | `"PLATFORM_7001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:58](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L58) |
+| `PLATFORM_GEOLOCATION_TIMEOUT` | `"PLATFORM_7003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:60](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L60) |
+| `PLATFORM_GEOLOCATION_UNAVAILABLE` | `"PLATFORM_7002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:59](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L59) |
+| `PLATFORM_NOT_INITIALIZED` | `"PLATFORM_7004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:61](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L61) |
+| `ROUTING_INVALID_POLYLINE` | `"ROUTING_5004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:50](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L50) |
+| `ROUTING_INVALID_WAYPOINTS` | `"ROUTING_5002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:48](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L48) |
+| `ROUTING_NO_ROUTE` | `"ROUTING_5001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:47](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L47) |
+| `ROUTING_REQUEST_FAILED` | `"ROUTING_5003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:49](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L49) |
+| `VALIDATION_INVALID_FORMAT` | `"VALIDATION_1002"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:22](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L22) |
+| `VALIDATION_INVALID_TYPE` | `"VALIDATION_1004"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:24](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L24) |
+| `VALIDATION_OUT_OF_RANGE` | `"VALIDATION_1003"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:23](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L23) |
+| `VALIDATION_REQUIRED_FIELD` | `"VALIDATION_1001"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:21](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L21) |
 
 ***
 
@@ -53,14 +53,14 @@ Error domain/feature area where an error occurred.
 
 | Enumeration Member | Value | Defined in |
 | ------ | ------ | ------ |
-| `API` | `"api"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:7](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L7) |
-| `GEOCODING` | `"geocoding"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L8) |
-| `NAVIGATION` | `"navigation"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L10) |
-| `NETWORK` | `"network"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L6) |
-| `PLATFORM` | `"platform"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L12) |
-| `ROUTING` | `"routing"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L9) |
-| `TRACKING` | `"tracking"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L11) |
-| `VALIDATION` | `"validation"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:5](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/codes.ts#L5) |
+| `API` | `"api"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:7](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L7) |
+| `GEOCODING` | `"geocoding"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L8) |
+| `NAVIGATION` | `"navigation"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L10) |
+| `NETWORK` | `"network"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L6) |
+| `PLATFORM` | `"platform"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L12) |
+| `ROUTING` | `"routing"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L9) |
+| `TRACKING` | `"tracking"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L11) |
+| `VALIDATION` | `"validation"` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/codes.ts:5](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/codes.ts#L5) |
 
 ## Classes
 
@@ -114,22 +114,22 @@ new ApiError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L11)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L11)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -151,7 +151,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -172,7 +172,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -213,22 +213,22 @@ new BadRequestError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L45)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L45)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`ApiError`](globals.md#apierror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`ApiError`](globals.md#apierror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`ApiError`](globals.md#apierror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -250,7 +250,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -275,7 +275,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -325,21 +325,21 @@ new BusinessLogicError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/business.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/business.ts#L8)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -361,7 +361,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -398,22 +398,22 @@ new ForbiddenError(message, requestId?): ForbiddenError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:65](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L65)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:65](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L65)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`ApiError`](globals.md#apierror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`ApiError`](globals.md#apierror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`ApiError`](globals.md#apierror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -435,7 +435,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -460,7 +460,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -505,21 +505,21 @@ new GebetaError(details): GebetaError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:16](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L16)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:16](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L16)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | `Error.message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | `Error.name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | `Error.stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -537,7 +537,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -578,21 +578,21 @@ new GeocodingError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:29](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/business.ts#L29)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:29](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/business.ts#L29)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -614,7 +614,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -650,21 +650,21 @@ new GeolocationDeniedError(originalError?): GeolocationDeniedError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/platform.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/platform.ts#L30)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`PlatformError`](globals.md#platformerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`PlatformError`](globals.md#platformerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`PlatformError`](globals.md#platformerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`PlatformError`](globals.md#platformerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`PlatformError`](globals.md#platformerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`PlatformError`](globals.md#platformerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`PlatformError`](globals.md#platformerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`PlatformError`](globals.md#platformerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`PlatformError`](globals.md#platformerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`PlatformError`](globals.md#platformerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`PlatformError`](globals.md#platformerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`PlatformError`](globals.md#platformerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -686,7 +686,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -723,21 +723,21 @@ new GeolocationTimeoutError(timeoutMs?, originalError?): GeolocationTimeoutError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:60](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/platform.ts#L60)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:60](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/platform.ts#L60)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`PlatformError`](globals.md#platformerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`PlatformError`](globals.md#platformerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`PlatformError`](globals.md#platformerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`PlatformError`](globals.md#platformerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`PlatformError`](globals.md#platformerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`PlatformError`](globals.md#platformerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`PlatformError`](globals.md#platformerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`PlatformError`](globals.md#platformerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`PlatformError`](globals.md#platformerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`PlatformError`](globals.md#platformerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`PlatformError`](globals.md#platformerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`PlatformError`](globals.md#platformerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -759,7 +759,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -795,21 +795,21 @@ new GeolocationUnavailableError(originalError?): GeolocationUnavailableError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/platform.ts#L45)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/platform.ts#L45)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`PlatformError`](globals.md#platformerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`PlatformError`](globals.md#platformerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`PlatformError`](globals.md#platformerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`PlatformError`](globals.md#platformerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`PlatformError`](globals.md#platformerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`PlatformError`](globals.md#platformerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`PlatformError`](globals.md#platformerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`PlatformError`](globals.md#platformerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`PlatformError`](globals.md#platformerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`PlatformError`](globals.md#platformerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`PlatformError`](globals.md#platformerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`PlatformError`](globals.md#platformerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`PlatformError`](globals.md#platformerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -831,7 +831,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -872,21 +872,21 @@ new NavigationError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:49](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/business.ts#L49)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:49](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/business.ts#L49)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -908,7 +908,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -956,21 +956,21 @@ new NetworkError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/network.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/network.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/network.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/network.ts#L8)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -992,7 +992,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -1028,21 +1028,21 @@ new NetworkOfflineError(originalError?): NetworkOfflineError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/network.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/network.ts#L45)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/network.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/network.ts#L45)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`NetworkError`](globals.md#networkerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`NetworkError`](globals.md#networkerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`NetworkError`](globals.md#networkerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`NetworkError`](globals.md#networkerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`NetworkError`](globals.md#networkerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`NetworkError`](globals.md#networkerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`NetworkError`](globals.md#networkerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`NetworkError`](globals.md#networkerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`NetworkError`](globals.md#networkerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`NetworkError`](globals.md#networkerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`NetworkError`](globals.md#networkerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`NetworkError`](globals.md#networkerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`NetworkError`](globals.md#networkerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`NetworkError`](globals.md#networkerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`NetworkError`](globals.md#networkerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1064,7 +1064,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -1101,21 +1101,21 @@ new NetworkTimeoutError(timeoutMs?, originalError?): NetworkTimeoutError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/network.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/network.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/network.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/network.ts#L30)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`NetworkError`](globals.md#networkerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`NetworkError`](globals.md#networkerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`NetworkError`](globals.md#networkerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`NetworkError`](globals.md#networkerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`NetworkError`](globals.md#networkerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`NetworkError`](globals.md#networkerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`NetworkError`](globals.md#networkerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`NetworkError`](globals.md#networkerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`NetworkError`](globals.md#networkerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`NetworkError`](globals.md#networkerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`NetworkError`](globals.md#networkerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`NetworkError`](globals.md#networkerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`NetworkError`](globals.md#networkerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`NetworkError`](globals.md#networkerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`NetworkError`](globals.md#networkerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1137,7 +1137,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -1174,22 +1174,22 @@ new NotFoundError(message, requestId?): NotFoundError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:75](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L75)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:75](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L75)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`ApiError`](globals.md#apierror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`ApiError`](globals.md#apierror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`ApiError`](globals.md#apierror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1211,7 +1211,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -1236,7 +1236,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -1285,21 +1285,21 @@ new PlatformError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/platform.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/platform.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/platform.ts#L8)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1321,7 +1321,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -1362,22 +1362,22 @@ new RateLimitError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:85](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L85)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:85](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L85)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`ApiError`](globals.md#apierror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`ApiError`](globals.md#apierror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`ApiError`](globals.md#apierror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1399,7 +1399,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -1424,7 +1424,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -1465,21 +1465,21 @@ new RoutingError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/business.ts#L39)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/business.ts#L39)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1501,7 +1501,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -1542,22 +1542,22 @@ new ServerError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:101](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L101)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:101](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L101)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`ApiError`](globals.md#apierror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`ApiError`](globals.md#apierror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`ApiError`](globals.md#apierror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1579,7 +1579,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -1604,7 +1604,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -1645,21 +1645,21 @@ new TrackingError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:59](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/business.ts#L59)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/business.ts:59](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/business.ts#L59)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`BusinessLogicError`](globals.md#businesslogicerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`BusinessLogicError`](globals.md#businesslogicerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`BusinessLogicError`](globals.md#businesslogicerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`BusinessLogicError`](globals.md#businesslogicerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`BusinessLogicError`](globals.md#businesslogicerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`BusinessLogicError`](globals.md#businesslogicerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1681,7 +1681,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ***
 
@@ -1718,22 +1718,22 @@ new UnauthorizedError(message, requestId?): UnauthorizedError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:55](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L55)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:55](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L55)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`ApiError`](globals.md#apierror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`ApiError`](globals.md#apierror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`ApiError`](globals.md#apierror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`ApiError`](globals.md#apierror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`ApiError`](globals.md#apierror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`ApiError`](globals.md#apierror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`ApiError`](globals.md#apierror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`ApiError`](globals.md#apierror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L9) |
-| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `statusCode` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`statusCode` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L9) |
+| `timestamp` | `readonly` | `number` | [`ApiError`](globals.md#apierror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1755,7 +1755,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ##### fromResponse()
 
@@ -1780,7 +1780,7 @@ static fromResponse(response, statusCode): ApiError
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/api.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/api.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/api.ts#L30)
 
 ***
 
@@ -1821,21 +1821,21 @@ new ValidationError(
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/validation.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/validation.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/validation.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/validation.ts#L8)
 
 #### Properties
 
 | Property | Modifier | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L9) |
-| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L11) |
-| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L10) |
+| `code` | `readonly` | [`ErrorCode`](globals.md#errorcode) | [`GebetaError`](globals.md#gebetaerror).`code` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:9](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L9) |
+| `context?` | `readonly` | `Record`\<`string`, `unknown`\> | [`GebetaError`](globals.md#gebetaerror).`context` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L11) |
+| `domain?` | `readonly` | [`ErrorDomain`](globals.md#errordomain) | [`GebetaError`](globals.md#gebetaerror).`domain` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L10) |
 | `message` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`message` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1077 |
 | `name` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`name` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
-| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L12) |
-| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L14) |
+| `originalError?` | `readonly` | `Error` | [`GebetaError`](globals.md#gebetaerror).`originalError` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L12) |
+| `requestId?` | `readonly` | `string` | [`GebetaError`](globals.md#gebetaerror).`requestId` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L14) |
 | `stack?` | `public` | `string` | [`GebetaError`](globals.md#gebetaerror).`stack` | .yarn/berry/cache/typescript-patch-6fda4d02cf-10c0.zip/node\_modules/typescript/lib/lib.es5.d.ts:1078 |
-| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L13) |
+| `timestamp` | `readonly` | `number` | [`GebetaError`](globals.md#gebetaerror).`timestamp` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L13) |
 
 #### Methods
 
@@ -1857,7 +1857,7 @@ Get error details as a plain object.
 
 ###### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/base.ts#L36)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/base.ts:36](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/base.ts#L36)
 
 ## Interfaces
 
@@ -1869,11 +1869,11 @@ API error response structure from backend.
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| `error` | `object` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:38](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L38) |
-| `error.code?` | `string` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L39) |
-| `error.details?` | `Record`\<`string`, `unknown`\> | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:41](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L41) |
-| `error.message` | `string` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:40](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L40) |
-| `error.requestId?` | `string` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:42](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L42) |
+| `error` | `object` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:38](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L38) |
+| `error.code?` | `string` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L39) |
+| `error.details?` | `Record`\<`string`, `unknown`\> | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:41](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L41) |
+| `error.message` | `string` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:40](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L40) |
+| `error.requestId?` | `string` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:42](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L42) |
 
 ***
 
@@ -1885,13 +1885,13 @@ Base error details structure for all Gebeta errors.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| `code` | [`ErrorCode`](globals.md#errorcode) | Error code for programmatic error handling | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L8) |
-| `context?` | `Record`\<`string`, `unknown`\> | Additional context data for debugging and error handling. Examples: - Field names that failed validation - Retry information (e.g., \{ retryAfter: 60 \}) - Request parameters that caused the error - Any other relevant debugging information | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:21](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L21) |
-| `domain?` | [`ErrorDomain`](globals.md#errordomain) | Domain/feature area where the error occurred | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L12) |
-| `message` | `string` | Human-readable error message | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L10) |
-| `originalError?` | `Error` | Original error that was wrapped (if applicable) | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:23](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L23) |
-| `requestId?` | `string` | Request ID from the API response (for API errors). Used to correlate errors with server-side logs for debugging. Typically returned in response headers (x-request-id) or error response body. | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:31](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L31) |
-| `timestamp` | `number` | Timestamp when the error occurred | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:25](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/types.ts#L25) |
+| `code` | [`ErrorCode`](globals.md#errorcode) | Error code for programmatic error handling | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L8) |
+| `context?` | `Record`\<`string`, `unknown`\> | Additional context data for debugging and error handling. Examples: - Field names that failed validation - Retry information (e.g., \{ retryAfter: 60 \}) - Request parameters that caused the error - Any other relevant debugging information | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:21](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L21) |
+| `domain?` | [`ErrorDomain`](globals.md#errordomain) | Domain/feature area where the error occurred | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:12](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L12) |
+| `message` | `string` | Human-readable error message | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L10) |
+| `originalError?` | `Error` | Original error that was wrapped (if applicable) | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:23](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L23) |
+| `requestId?` | `string` | Request ID from the API response (for API errors). Used to correlate errors with server-side logs for debugging. Typically returned in response headers (x-request-id) or error response body. | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:31](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L31) |
+| `timestamp` | `number` | Timestamp when the error occurred | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/types.ts:25](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/types.ts#L25) |
 
 ## Functions
 
@@ -1922,7 +1922,7 @@ for status code → error code mapping, then instantiates the appropriate error 
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:64](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L64)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:64](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L64)
 
 ***
 
@@ -1951,7 +1951,7 @@ Creates a geocoding error given a code, message and a context.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:116](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L116)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:116](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L116)
 
 ***
 
@@ -1980,7 +1980,7 @@ Creates a navigation error given a code, message and a context.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:138](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L138)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:138](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L138)
 
 ***
 
@@ -2005,7 +2005,7 @@ Creates a network error from a fetch failure given an original error and a conte
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L30)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:30](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L30)
 
 ***
 
@@ -2029,7 +2029,7 @@ Creates a network offline error.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:55](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L55)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:55](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L55)
 
 ***
 
@@ -2054,7 +2054,7 @@ Creates a network timeout error given a timeout in milliseconds and an original 
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L45)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L45)
 
 ***
 
@@ -2083,7 +2083,7 @@ Creates a routing error given a code, message and a context.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:127](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L127)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:127](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L127)
 
 ***
 
@@ -2112,7 +2112,7 @@ Creates a tracking error given a code, message and a context.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:149](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L149)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:149](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L149)
 
 ***
 
@@ -2137,7 +2137,7 @@ Creates a validation error for a required field given a field name and a reason.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:20](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/factories.ts#L20)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/factories.ts:20](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/factories.ts#L20)
 
 ***
 
@@ -2161,7 +2161,7 @@ Extracts request ID from a Response object (from headers or body).
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:79](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/utils.ts#L79)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:79](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/utils.ts#L79)
 
 ***
 
@@ -2185,7 +2185,7 @@ Formats an error for logging purposes.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:35](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/utils.ts#L35)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:35](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/utils.ts#L35)
 
 ***
 
@@ -2209,7 +2209,7 @@ Gets the error code from an error, or null if not a GebetaError.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:15](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/utils.ts#L15)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:15](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/utils.ts#L15)
 
 ***
 
@@ -2233,7 +2233,7 @@ Gets the error domain from an error, or null if not a GebetaError.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:25](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/utils.ts#L25)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:25](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/utils.ts#L25)
 
 ***
 
@@ -2257,7 +2257,7 @@ Type guard to check if an error is a GebetaError.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/utils.ts#L8)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:8](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/utils.ts#L8)
 
 ***
 
@@ -2281,7 +2281,7 @@ Parses an API error response from a Response object.
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:56](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/errors/utils.ts#L56)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/errors/utils.ts:56](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/errors/utils.ts#L56)
 
 ## Namespaces
 

@@ -12,7 +12,7 @@ type ConstructorOptions: ConstructorOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:37](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L37)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:37](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L37)
 
 ***
 
@@ -24,7 +24,7 @@ type InitOptions: InitOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:38](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L38)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:38](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L38)
 
 ***
 
@@ -36,4 +36,4 @@ type SatelliteToggleOptions: SatelliteToggleOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L39)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:39](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L39)

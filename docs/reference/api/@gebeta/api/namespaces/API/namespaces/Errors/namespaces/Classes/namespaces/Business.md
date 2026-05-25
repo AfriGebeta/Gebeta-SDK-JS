@@ -12,7 +12,7 @@ const BusinessLogicError: typeof BusinessLogicError = ErrorsModule.Errors.Classe
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:186](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L186)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:186](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L186)
 
 ***
 
@@ -24,7 +24,7 @@ const GeocodingError: typeof GeocodingError = ErrorsModule.Errors.Classes.Busine
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:187](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L187)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:187](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L187)
 
 ***
 
@@ -36,7 +36,7 @@ const NavigationError: typeof NavigationError = ErrorsModule.Errors.Classes.Busi
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:189](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L189)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:189](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L189)
 
 ***
 
@@ -48,7 +48,7 @@ const RoutingError: typeof RoutingError = ErrorsModule.Errors.Classes.Business.R
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:188](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L188)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:188](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L188)
 
 ***
 
@@ -60,4 +60,4 @@ const TrackingError: typeof TrackingError = ErrorsModule.Errors.Classes.Business
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:190](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L190)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:190](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L190)

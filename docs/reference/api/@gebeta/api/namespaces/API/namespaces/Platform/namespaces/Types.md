@@ -12,7 +12,7 @@ type EaseToOptions: EaseToOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:133](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L133)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:133](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L133)
 
 ***
 
@@ -24,7 +24,7 @@ type IClientIdStorage: IClientIdStorage;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:140](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L140)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:140](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L140)
 
 ***
 
@@ -36,7 +36,7 @@ type ILocationProvider: ILocationProvider;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:138](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L138)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:138](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L138)
 
 ***
 
@@ -48,7 +48,7 @@ type IMapAdapter: IMapAdapter;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:134](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L134)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:134](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L134)
 
 ***
 
@@ -60,7 +60,7 @@ type IMarker: IMarker;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:125](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L125)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:125](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L125)
 
 ***
 
@@ -72,7 +72,7 @@ type IMarkerFactory: IMarkerFactory;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:129](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L129)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:129](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L129)
 
 ***
 
@@ -84,7 +84,7 @@ type IPlatformContext: IPlatformContext;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:141](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L141)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:141](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L141)
 
 ***
 
@@ -96,7 +96,7 @@ type IPlatformDOM: IPlatformDOM;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:135](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L135)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:135](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L135)
 
 ***
 
@@ -108,7 +108,7 @@ type IPopup: IPopup;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:126](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L126)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:126](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L126)
 
 ***
 
@@ -120,7 +120,7 @@ type IPopupFactory: IPopupFactory;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:130](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L130)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:130](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L130)
 
 ***
 
@@ -132,7 +132,7 @@ type IStyleInjector: IStyleInjector;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:139](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L139)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:139](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L139)
 
 ***
 
@@ -144,7 +144,7 @@ type LocationData: LocationData;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:136](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L136)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:136](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L136)
 
 ***
 
@@ -156,7 +156,7 @@ type LocationProviderOptions: LocationProviderOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:137](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L137)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:137](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L137)
 
 ***
 
@@ -168,7 +168,7 @@ type MapBounds: MapBounds;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:131](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L131)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:131](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L131)
 
 ***
 
@@ -180,7 +180,7 @@ type MapStyle: MapStyle;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:132](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L132)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:132](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L132)
 
 ***
 
@@ -192,7 +192,7 @@ type MarkerFactoryOptions: MarkerFactoryOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:127](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L127)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:127](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L127)
 
 ***
 
@@ -204,4 +204,4 @@ type PopupFactoryOptions: PopupFactoryOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:128](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L128)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:128](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L128)

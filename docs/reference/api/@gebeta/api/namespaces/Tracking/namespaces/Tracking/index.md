@@ -22,14 +22,14 @@ const Constants: object;
 
 | Name | Type | Default value | Defined in |
 | ------ | ------ | ------ | ------ |
-| `API_URLS` | `object` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:19](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L19) |
-| `API_URLS.HTTP` | `"https://track.gebeta.app/v1/driver/location"` | API\_BASE\_URLS.trackingHttp | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:21](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L21) |
-| `API_URLS.WEBSOCKET` | `"wss://track.gebeta.app/v1/track"` | API\_BASE\_URLS.tracking | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:20](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L20) |
-| `INTERVAL_MS` | `15000` | TRACKING\_INTERVAL\_MS | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:18](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L18) |
+| `API_URLS` | `object` | - | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:19](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L19) |
+| `API_URLS.HTTP` | `"https://track.gebeta.app/v1/driver/location"` | API\_BASE\_URLS.trackingHttp | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:21](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L21) |
+| `API_URLS.WEBSOCKET` | `"wss://track.gebeta.app/v1/track"` | API\_BASE\_URLS.tracking | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:20](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L20) |
+| `INTERVAL_MS` | `15000` | TRACKING\_INTERVAL\_MS | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:18](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L18) |
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:17](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L17)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:17](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L17)
 
 ***
 
@@ -43,8 +43,8 @@ const Enums: object;
 
 | Name | Type | Defined in |
 | ------ | ------ | ------ |
-| `Precision` | *typeof* `Precision` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L14) |
+| `Precision` | *typeof* `Precision` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:14](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L14) |
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/tracking.ts#L13)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/tracking.ts:13](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/tracking.ts#L13)

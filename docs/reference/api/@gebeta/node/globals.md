@@ -47,7 +47,7 @@ new GebetaAuth(options): GebetaAuth
 
 ###### Defined in
 
-[GebetaAuth.ts:32](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/server/node/src/GebetaAuth.ts#L32)
+[GebetaAuth.ts:32](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/server/node/src/GebetaAuth.ts#L32)
 
 #### Methods
 
@@ -82,4 +82,4 @@ If the request fails at the network level
 
 ###### Defined in
 
-[GebetaAuth.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/server/node/src/GebetaAuth.ts#L45)
+[GebetaAuth.ts:45](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/server/node/src/GebetaAuth.ts#L45)

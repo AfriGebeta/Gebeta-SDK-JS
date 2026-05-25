@@ -8,16 +8,20 @@ npm install @gebeta/react @gebeta/js
 
 ## GebetaMap component
 
-```tsx
+```jsx
 import { GebetaMap } from '@gebeta/react';
+
+const auth = { accessToken, refreshToken };
+const mapStyle = { width: '100%', height: '500px' };
+const center = [38.7685, 9.0161];
 
 function App() {
   return (
     <GebetaMap
-      auth={{ accessToken, refreshToken }}
-      center={[38.7685, 9.0161]}
+      auth={auth}
+      center={center}
       zoom={12}
-      style={{ width: '100%', height: '500px' }}
+      style={mapStyle}
       onLoad={({ clustering }) => {
         console.log('Map ready');
       }}
@@ -30,14 +34,17 @@ function App() {
 
 The `onLoad` callback receives `{ clustering }`. For other operations (geocoding, directions, navigation), use `@gebeta/js` directly or the `@gebeta/js/*` standalone subpaths.
 
-```tsx
+```jsx
+const auth = { accessToken, refreshToken };
+const mapStyle = { width: '100%', height: '500px' };
+
 function MapWithGeocoding() {
   return (
     <GebetaMap
-      auth={{ accessToken, refreshToken }}
-      style={{ width: '100%', height: '500px' }}
+      auth={auth}
+      style={mapStyle}
       onLoad={({ clustering }) => {
-        // clustering is null unless clustering={{ enabled: true }} is set
+        // clustering is null unless clustering.enabled is set
       }}
     />
   );
@@ -46,12 +53,16 @@ function MapWithGeocoding() {
 
 ## useClustering hook
 
-The `useClustering()` hook must be used inside a child component of `GebetaMap`, with `clustering={{ enabled: true }}` set on the parent.
+The `useClustering()` hook must be used inside a child component of `GebetaMap`, with `clustering` enabled on the parent.
 
-```tsx
+```jsx
 import { GebetaMap } from '@gebeta/react';
 import { useClustering } from '@gebeta/react/clustering';
 import { useEffect } from 'react';
+
+const auth = { accessToken, refreshToken };
+const mapStyle = { width: '100%', height: '500px' };
+const clusteringOptions = { enabled: true };
 
 function MarkersLayer() {
   const { addMarker, clearMarkers } = useClustering();
@@ -67,9 +78,9 @@ function MarkersLayer() {
 function ClusterMap() {
   return (
     <GebetaMap
-      auth={{ accessToken, refreshToken }}
-      clustering={{ enabled: true }}
-      style={{ width: '100%', height: '500px' }}
+      auth={auth}
+      clustering={clusteringOptions}
+      style={mapStyle}
     >
       <MarkersLayer />
     </GebetaMap>

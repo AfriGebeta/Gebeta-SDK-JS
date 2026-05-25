@@ -22,9 +22,9 @@ const Enums: object = CommonModule.Common.Enums;
 
 | Name | Type | Defined in |
 | ------ | ------ | ------ |
-| `CornerPosition` | *typeof* `CornerPosition` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/common.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/common.ts#L11) |
-| `Position` | *typeof* `Position` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/common.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/common.ts#L10) |
+| `CornerPosition` | *typeof* `CornerPosition` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/common.ts:11](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/common.ts#L11) |
+| `Position` | *typeof* `Position` | [\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/common.ts:10](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/common.ts#L10) |
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:32](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/index.ts#L32)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/index.ts:32](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/index.ts#L32)

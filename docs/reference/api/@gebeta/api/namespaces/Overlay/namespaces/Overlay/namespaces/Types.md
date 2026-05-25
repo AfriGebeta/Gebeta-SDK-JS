@@ -12,7 +12,7 @@ type AddMarkerResult: AddMarkerResult;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:5](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/overlay.ts#L5)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:5](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/overlay.ts#L5)
 
 ***
 
@@ -24,7 +24,7 @@ type ClusterData: ClusterData;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/overlay.ts#L6)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:6](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/overlay.ts#L6)
 
 ***
 
@@ -36,7 +36,7 @@ type MarkerData: MarkerData;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:4](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/overlay.ts#L4)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:4](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/overlay.ts#L4)
 
 ***
 
@@ -48,4 +48,4 @@ type Options: OverlayOptions;
 
 #### Defined in
 
-[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:3](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/5a1074be69efa161565e6902958e207ebaf1b057/packages/api/src/namespaces/overlay.ts#L3)
+[\_/work/gebeta/Gebeta-SDK-JS/packages/api/src/namespaces/overlay.ts:3](https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/099ca5713a860ecef0b5b6f5066fb0a330f44955/packages/api/src/namespaces/overlay.ts#L3)
