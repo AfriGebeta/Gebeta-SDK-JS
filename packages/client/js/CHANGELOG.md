@@ -1,5 +1,14 @@
 # @gebeta/js
 
+## 3.0.6
+
+### Patch Changes
+
+- a1ea578: Add Branding
+- Updated dependencies [a1ea578]
+  - @gebeta/api@3.0.6
+  - @gebeta/core@3.0.6
+
 ## 3.0.5
 
 ### Patch Changes
