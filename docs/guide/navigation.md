@@ -24,11 +24,11 @@ gebetaMap.navigation.on('progress', (event) => {
   console.log(event.remainingTime);     // seconds
 });
 
-gebetaMap.navigation.on('offRoute', () => {
+gebetaMap.navigation.on('offroute', () => {
   console.log('Off route — rerouting...');
 });
 
-gebetaMap.navigation.on('arrived', () => {
+gebetaMap.navigation.on('arrive', () => {
   console.log('Arrived at destination');
 });
 ```

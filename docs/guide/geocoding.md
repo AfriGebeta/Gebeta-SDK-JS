@@ -18,9 +18,11 @@ const results = await gebetaMap.geocodingManager.reverseGeocode({ lat: 9.0161, l
 Use the subpath import to include only geocoding — no map rendering code:
 
 ```js
-import { GeocodingManager } from '@gebeta/js/geocoding';
+import { GeocodingManager, AuthManager } from '@gebeta/js/geocoding';
 
-const geocoder = new GeocodingManager({ accessToken, refreshToken });
+const geocoder = new GeocodingManager(
+  new AuthManager({ accessToken, refreshToken })
+);
 
 const results = await geocoder.geocode('Bole, Addis Ababa');
 const places = await geocoder.reverseGeocode({ lat: 9.0161, lng: 38.7685 });
@@ -29,10 +31,15 @@ const places = await geocoder.reverseGeocode({ lat: 9.0161, lng: 38.7685 });
 ## Server-side (Node.js)
 
 ```js
-import { GeocodingManager } from '@gebeta/js/geocoding';
+import { GeocodingManager, AuthManager } from '@gebeta/js/geocoding';
 
 // Works in Node.js too — no browser APIs required
-const geocoder = new GeocodingManager({ accessToken, refreshToken });
+const geocoder = new GeocodingManager(
+  new AuthManager({
+    accessToken: process.env.GEBETA_ACCESS_TOKEN,
+    refreshToken: process.env.GEBETA_REFRESH_TOKEN,
+  })
+);
 const results = await geocoder.geocode('Meskel Square');
 ```
 

@@ -49,8 +49,7 @@ import { GebetaMap } from '@gebeta/react';
 function App() {
   return (
     <GebetaMap
-      accessToken={accessToken}
-      refreshToken={refreshToken}
+      auth={{ accessToken, refreshToken }}
       style={{ width: '100%', height: '400px' }}
     />
   );
@@ -58,5 +57,5 @@ function App() {
 ```
 
 ::: tip
-The `GebetaMap` React component manages the map lifecycle automatically. Use the `onReady` callback to access the `GebetaMaps` instance and managers.
+The `GebetaMap` React component manages the map lifecycle automatically. Use the `onLoad` callback or child components with `useClustering()` to interact with the map.
 :::

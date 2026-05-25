@@ -12,6 +12,8 @@ new GebetaMaps(options: ConstructorOptions)
 |--------|------|-------------|
 | `auth` | `{ accessToken: string, refreshToken: string }` | Service account tokens (recommended) |
 | `apiKey` | `string` | Legacy API key (deprecated) |
+| `clustering` | `{ enabled: boolean, ... }` | Clustering options — must be set here; cannot be changed after `init()` |
+| `enableClientId` | `boolean` | Attach a stable `X-Device-ID` header to all requests (default: `false`) |
 
 ## Methods
 
@@ -71,21 +73,38 @@ Removes the current route from the map.
 
 ### `getRouteSummary()`
 
-Returns distance and duration of the current route.
+Returns summary info for the current route, or `null` if no route is loaded.
 
 ```ts
-getRouteSummary(): { distance: number; duration: number } | null
+getRouteSummary(): {
+  distance?: string | number | null;
+  duration?: string | number | null;
+  origin?: { lat: number; lng: number };
+  destination?: { lat: number; lng: number };
+  waypoints?: { lat: number; lng: number }[];
+} | null
 ```
 
 ### `updateRouteStyle(style)`
 
-Updates the visual style of the displayed route.
+Updates the visual style of the displayed route. Style keys use MapLibre's kebab-case format.
+
+```ts
+updateRouteStyle(style: {
+  'line-color'?: string;
+  'line-width'?: number;
+  'line-opacity'?: number;
+  'line-dasharray'?: number[];
+}): void
+```
 
 ## Managers
+
+All managers are initialized after the map style loads. Do not access them before `init()` completes.
 
 | Property | Type | Description |
 |----------|------|-------------|
 | `geocodingManager` | `GeocodingManager` | Forward and reverse geocoding |
-| `clustering` | `ClusteringManager` | Marker clustering |
-| `fenceManager` | `FenceManager` | Geofencing |
+| `clustering` | `ClusteringManager \| null` | Marker clustering — `null` unless `clustering.enabled` was set in constructor |
+| `fencing` | `FenceManager` | Geofencing |
 | `navigation` | `NavigationManager` | Turn-by-turn navigation |

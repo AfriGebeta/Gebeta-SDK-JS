@@ -3,15 +3,22 @@
 ## Import
 
 ```js
-import { ClusteringManager } from '@gebeta/js/clustering';
+// Access via GebetaMaps instance (clustering must be enabled in constructor)
+const clustering = sdk.clustering; // null if not enabled
 ```
 
 ## Methods
 
-### `setMarkers(markers)`
+### `addMarker(marker)`
 
 ```ts
-setMarkers(markers: MarkerData[]): void
+addMarker(marker: MarkerData): void
+```
+
+### `removeMarker(markerId)`
+
+```ts
+removeMarker(markerId: string): boolean
 ```
 
 ### `clearMarkers()`
@@ -20,13 +27,26 @@ setMarkers(markers: MarkerData[]): void
 clearMarkers(): void
 ```
 
+### `getMarkers()`
+
+```ts
+getMarkers(): MarkerData[]
+```
+
+### `getMarker(markerId)`
+
+```ts
+getMarker(markerId: string): MarkerData | undefined
+```
+
 ## MarkerData
 
 ```ts
 interface MarkerData {
   id: string;
-  lat: number;
-  lng: number;
+  lngLat: [number, number] | { lng: number; lat: number }; // [lng, lat] or object
   imageUrl?: string;
+  size?: [number, number]; // [width, height] in pixels, default: [30, 30]
+  onClick?: (lngLat, marker, event) => void;
 }
 ```

@@ -5,7 +5,7 @@ Draw geofences on the map and detect when points enter or exit them.
 ## Add a fence
 
 ```js
-gebetaMap.fenceManager.addFence({
+gebetaMap.fencing.addFence({
   id: 'zone-1',
   coordinates: [
     [38.760, 9.010],
@@ -20,13 +20,13 @@ gebetaMap.fenceManager.addFence({
 ## Check if a point is inside a fence
 
 ```js
-const inside = gebetaMap.fenceManager.isInsideFence('zone-1', { lat: 9.020, lng: 38.770 });
+const inside = gebetaMap.fencing.isInsideFence('zone-1', { lat: 9.020, lng: 38.770 });
 ```
 
 ## Clear fences
 
 ```js
-gebetaMap.fenceManager.clearFences();
+gebetaMap.fencing.clearFences();
 ```
 
 ## Standalone (tree-shaking)

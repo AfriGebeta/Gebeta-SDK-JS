@@ -13,8 +13,8 @@ import { GeocodingManager, AuthManager } from '@gebeta/js/geocoding';
 
 const geocoder = new GeocodingManager(
   new AuthManager({
-    accessToken: process.env.GEBETA_ACCESS_TOKEN,
-    refreshToken: process.env.GEBETA_REFRESH_TOKEN,
+    accessToken: process.env.GEBETA_ACCESS_TOKEN!,
+    refreshToken: process.env.GEBETA_REFRESH_TOKEN!,
   })
 );
 ```

@@ -1,18 +1,29 @@
 # DirectionsManager
 
-## Import
+Directions are accessed via the `GebetaMaps` instance methods. There is no standalone constructor for the visual `DirectionsManager`.
+
+## Usage
 
 ```js
-import { DirectionsManager } from '@gebeta/js/directions';
-const directions = new DirectionsManager(auth);
+import { GebetaMaps } from '@gebeta/js';
+
+const sdk = new GebetaMaps({ auth: { accessToken, refreshToken } });
+sdk.init({ container: 'map' });
+
+// Calculate a route
+const route = await sdk.getDirections(origin, destination);
+
+// Display it on the map
+sdk.displayRoute(route, { showMarkers: true });
+
+// Clear it
+sdk.clearRoute();
 ```
 
-## Methods
-
-### `getRoute(origin, destination, options?)`
+## `sdk.getDirections(origin, destination, options?)`
 
 ```ts
-getRoute(
+getDirections(
   origin: { lat: number; lng: number },
   destination: { lat: number; lng: number },
   options?: DirectionsOptions
@@ -23,10 +34,12 @@ getRoute(
 
 ```ts
 interface RouteData {
-  geometry: GeoJSON.LineString;
+  geometry: { type: 'LineString'; coordinates: [number, number][] };
   origin: { lat: number; lng: number };
   destination: { lat: number; lng: number };
-  summary: { distance: number; time: number };
-  instructions: Instruction[];
+  distance?: string | number | null;   // e.g. "5.2 km" or meters
+  duration?: string | number | null;   // e.g. "15 min" or seconds
+  instructions?: RouteInstruction[];
+  summary?: RouteSummary;
 }
 ```

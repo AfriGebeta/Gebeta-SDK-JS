@@ -39,7 +39,7 @@ getCurrentStepIndex(): number
 ### `on(event, callback)` / `off(event, callback)`
 
 ```ts
-on(event: 'progress' | 'offRoute' | 'arrived', callback: Function): void
+on(event: 'progress' | 'offroute' | 'arrive', callback: Function): void
 ```
 
 ## Events
@@ -47,5 +47,5 @@ on(event: 'progress' | 'offRoute' | 'arrived', callback: Function): void
 | Event | Payload | Description |
 |-------|---------|-------------|
 | `progress` | `ProgressEvent` | Fired on each location update |
-| `offRoute` | — | User has deviated from the route |
-| `arrived` | — | User has reached the destination |
+| `offroute` | — | User has deviated from the route |
+| `arrive` | — | User has reached the destination |

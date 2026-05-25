@@ -8,8 +8,8 @@ import { GebetaMaps } from '@gebeta/js';
 const geocoder = gebetaMap.geocodingManager;
 
 // Standalone (tree-shakeable)
-import { GeocodingManager } from '@gebeta/js/geocoding';
-const geocoder = new GeocodingManager(auth);
+import { GeocodingManager, AuthManager } from '@gebeta/js/geocoding';
+const geocoder = new GeocodingManager(new AuthManager({ accessToken, refreshToken }));
 ```
 
 ## Methods

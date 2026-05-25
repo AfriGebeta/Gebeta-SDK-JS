@@ -14,34 +14,30 @@ import { GebetaMap } from '@gebeta/react';
 function App() {
   return (
     <GebetaMap
-      accessToken={accessToken}
-      refreshToken={refreshToken}
+      auth={{ accessToken, refreshToken }}
       center={[38.7685, 9.0161]}
       zoom={12}
       style={{ width: '100%', height: '500px' }}
-      onReady={(gebetaMap, map, platform) => {
-        // Full access to GebetaMaps instance and managers
-        console.log('Map ready', gebetaMap);
+      onLoad={({ clustering }) => {
+        console.log('Map ready');
       }}
     />
   );
 }
 ```
 
-## Accessing managers via onReady
+## Accessing managers via onLoad
+
+The `onLoad` callback receives `{ clustering }`. For other operations (geocoding, directions, navigation), use `@gebeta/js` directly or the `@gebeta/js/*` standalone subpaths.
 
 ```tsx
 function MapWithGeocoding() {
-  const [results, setResults] = useState([]);
-
   return (
     <GebetaMap
-      accessToken={accessToken}
-      refreshToken={refreshToken}
+      auth={{ accessToken, refreshToken }}
       style={{ width: '100%', height: '500px' }}
-      onReady={async (gebetaMap) => {
-        const res = await gebetaMap.geocodingManager.geocode('Bole');
-        setResults(res);
+      onLoad={({ clustering }) => {
+        // clustering is null unless clustering={{ enabled: true }} is set
       }}
     />
   );
@@ -50,29 +46,33 @@ function MapWithGeocoding() {
 
 ## useClustering hook
 
+The `useClustering()` hook must be used inside a child component of `GebetaMap`, with `clustering={{ enabled: true }}` set on the parent.
+
 ```tsx
 import { GebetaMap } from '@gebeta/react';
 import { useClustering } from '@gebeta/react/clustering';
-import { useState } from 'react';
+import { useEffect } from 'react';
+
+function MarkersLayer() {
+  const { addMarker, clearMarkers } = useClustering();
+
+  useEffect(() => {
+    addMarker({ id: '1', lngLat: [38.7685, 9.0161], imageUrl: '/pin.png' });
+    return () => clearMarkers();
+  }, []);
+
+  return null;
+}
 
 function ClusterMap() {
-  const [gebetaMap, setGebetaMap] = useState(null);
-  const { setMarkers } = useClustering(gebetaMap);
-
   return (
-    <>
-      <GebetaMap
-        accessToken={accessToken}
-        refreshToken={refreshToken}
-        style={{ width: '100%', height: '500px' }}
-        onReady={(gm) => {
-          setGebetaMap(gm);
-          setMarkers([
-            { id: '1', lat: 9.0161, lng: 38.7685, imageUrl: '/pin.png' },
-          ]);
-        }}
-      />
-    </>
+    <GebetaMap
+      auth={{ accessToken, refreshToken }}
+      clustering={{ enabled: true }}
+      style={{ width: '100%', height: '500px' }}
+    >
+      <MarkersLayer />
+    </GebetaMap>
   );
 }
 ```

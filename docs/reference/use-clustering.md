@@ -1,6 +1,6 @@
 # useClustering
 
-React hook for marker clustering.
+React hook for managing clustered markers. Must be used inside a `GebetaMap` component that has `clustering={{ enabled: true }}`.
 
 ## Import
 
@@ -11,18 +11,26 @@ import { useClustering } from '@gebeta/react/clustering';
 ## Usage
 
 ```tsx
-const { setMarkers, clearMarkers } = useClustering(gebetaMapInstance);
+function MarkersLayer() {
+  const { addMarker, removeMarker, clearMarkers } = useClustering();
+
+  useEffect(() => {
+    addMarker({ id: '1', lngLat: [38.7685, 9.0161] });
+    return () => clearMarkers();
+  }, []);
+
+  return null;
+}
 ```
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `gebetaMap` | `GebetaMaps \| null` | The GebetaMaps instance from `onReady` |
 
 ## Returns
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `setMarkers` | `(markers: MarkerData[]) => void` | Set or replace all markers |
+| `addMarker` | `(marker: MarkerData) => void` | Add a marker to the cluster |
+| `removeMarker` | `(markerId: string) => boolean` | Remove a marker by ID |
 | `clearMarkers` | `() => void` | Remove all markers |
+| `getMarkers` | `() => MarkerData[]` | Get all current markers |
+| `getMarker` | `(markerId: string) => MarkerData \| undefined` | Get a single marker by ID |
+| `updateOptions` | `(options: Partial<ClusteringOptions>) => void` | Update clustering options |
+| `getOptions` | `() => ClusteringOptions` | Get current clustering options |

@@ -17,7 +17,9 @@ const gebetaMap = new GebetaMaps({ apiKey: 'your-api-key' });
 
 ```js
 const { accessToken, refreshToken } = await fetch('/auth', {
-  method: 'POST'
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ clientToken: 'YOUR_CLIENT_TOKEN' }),
 }).then(r => r.json());
 
 const gebetaMap = new GebetaMaps({ auth: { accessToken, refreshToken } });

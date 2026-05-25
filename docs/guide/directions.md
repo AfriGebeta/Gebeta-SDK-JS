@@ -30,17 +30,12 @@ gebetaMap.clearRoute();
 
 ```js
 gebetaMap.updateRouteStyle({
-  lineColor: '#0066ff',
-  lineWidth: 4,
-  lineOpacity: 0.8,
+  'line-color': '#0066ff',
+  'line-width': 4,
+  'line-opacity': 0.8,
 });
 ```
 
-## Standalone (tree-shaking)
-
-```js
-import { DirectionsManager } from '@gebeta/js/directions';
-
-const directions = new DirectionsManager({ accessToken, refreshToken });
-const route = await directions.getRoute(origin, destination);
-```
+::: tip
+Directions are accessed via the `GebetaMaps` instance (`sdk.getDirections()`, `sdk.displayRoute()`). The `@gebeta/js/directions` subpath is available for advanced use cases where you need direct access to the visual `DirectionsManager` with a map adapter.
+:::
