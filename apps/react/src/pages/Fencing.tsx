@@ -3,7 +3,7 @@
 
 import { useRef, useState, useCallback } from 'react';
 import Map, { type Platform } from '../Map';
-import { auth } from '../config';
+import type { Auth } from '../config';
 import type { GebetaMaps } from '@gebeta/js';
 import type { Map as MapLibreMap } from 'maplibre-gl';
 import type { API } from '@gebeta/api';
@@ -11,7 +11,7 @@ import '../panel.css';
 
 type LngLat = { lat: number; lng: number };
 
-export default function Fencing() {
+export default function Fencing({ auth }: { auth: Auth }) {
   const [drawing, setDrawing] = useState(false);
   const [points, setPoints] = useState<LngLat[]>([]);
   const [fenceCount, setFenceCount] = useState(0);

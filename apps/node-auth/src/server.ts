@@ -32,12 +32,15 @@ const auth = new GebetaAuth({ serverToken: GEBETA_SERVER_TOKEN });
 // Helpers
 // ---------------------------------------------------------------------------
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 function json(res: ServerResponse, status: number, body: unknown) {
   const payload = JSON.stringify(body, null, 2);
-  res.writeHead(status, {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  });
+  res.writeHead(status, { 'Content-Type': 'application/json', ...CORS_HEADERS });
   res.end(payload);
 }
 
@@ -56,6 +59,11 @@ function readBody(req: IncomingMessage): Promise<string> {
 
 async function handler(req: IncomingMessage, res: ServerResponse) {
   const path = new URL(req.url ?? '/', `http://localhost`).pathname;
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, CORS_HEADERS);
+    return res.end();
+  }
 
   if (path === '/health') {
     return json(res, 200, { status: 'ok' });

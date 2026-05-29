@@ -4,7 +4,7 @@
 import { useCallback, useState } from 'react';
 import { GebetaMap } from '@gebeta/react';
 import { useClustering } from '@gebeta/react/clustering';
-import { auth } from '../config';
+import type { Auth } from '../config';
 import '../panel.css';
 
 const CENTER: [number, number] = [38.7685, 9.0161];
@@ -64,7 +64,7 @@ function ClusteringPanel() {
   );
 }
 
-export default function Clustering() {
+export default function Clustering({ auth }: { auth: Auth }) {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <GebetaMap

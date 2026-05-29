@@ -3,7 +3,7 @@
 
 import { useRef, useState, useCallback } from 'react';
 import Map, { type Platform } from '../Map';
-import { auth } from '../config';
+import type { Auth } from '../config';
 import type { GebetaMaps } from '@gebeta/js';
 import type { Map as MapLibreMap } from 'maplibre-gl';
 import type { API } from '@gebeta/api';
@@ -12,7 +12,7 @@ import '../panel.css';
 type Marker = API.Platform.Types.IMarker;
 type Result = { name: string; lat: number; lng: number };
 
-export default function Geocoding() {
+export default function Geocoding({ auth }: { auth: Auth }) {
   const [placeInput, setPlaceInput] = useState('');
   const [latInput, setLatInput] = useState('');
   const [lngInput, setLngInput] = useState('');

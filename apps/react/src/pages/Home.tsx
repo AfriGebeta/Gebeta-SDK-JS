@@ -135,15 +135,15 @@ export default function Home() {
             lineHeight: 1.6,
           }}
         >
-          <strong>Auth setup:</strong> Create a{' '}
+          <strong>Auth setup:</strong> Start the node-auth server, then set{' '}
           <code style={{ background: '#eee', padding: '2px 5px', borderRadius: 3, fontSize: 12 }}>
-            .env
+            VITE_GEBETA_CLIENT_TOKEN
           </code>{' '}
-          file in{' '}
+          in{' '}
           <code style={{ background: '#eee', padding: '2px 5px', borderRadius: 3, fontSize: 12 }}>
-            apps/react/
-          </code>{' '}
-          with your credentials:
+            apps/react/.env
+          </code>
+          :
           <pre
             style={{
               background: '#f4f4f4',
@@ -154,14 +154,17 @@ export default function Home() {
               margin: '8px 0',
             }}
           >
-            {`VITE_GEBETA_ACCESS_TOKEN=your_access_token
-VITE_GEBETA_REFRESH_TOKEN=your_refresh_token`}
+            {`VITE_GEBETA_CLIENT_TOKEN=your_client_token`}
           </pre>
           Build the SDK first with{' '}
           <code style={{ background: '#eee', padding: '2px 5px', borderRadius: 3, fontSize: 12 }}>
             yarn build
-          </code>{' '}
-          from the repo root, then run{' '}
+          </code>
+          , start the auth server with{' '}
+          <code style={{ background: '#eee', padding: '2px 5px', borderRadius: 3, fontSize: 12 }}>
+            yarn workspace node-auth dev
+          </code>
+          , then run{' '}
           <code style={{ background: '#eee', padding: '2px 5px', borderRadius: 3, fontSize: 12 }}>
             yarn workspace react-example dev
           </code>

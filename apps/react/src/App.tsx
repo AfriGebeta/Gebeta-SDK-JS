@@ -6,8 +6,11 @@ import Geocoding from './pages/Geocoding';
 import Directions from './pages/Directions';
 import Clustering from './pages/Clustering';
 import Fencing from './pages/Fencing';
+import { fetchAuth, type Auth } from './config';
 
-const routes: Record<string, React.ComponentType> = {
+type RouteComponent = React.ComponentType<{ auth: Auth }> | React.ComponentType;
+
+const routes: Record<string, RouteComponent> = {
   '/': Home,
   '/geocoding': Geocoding,
   '/directions': Directions,
@@ -17,6 +20,12 @@ const routes: Record<string, React.ComponentType> = {
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash);
+  const [auth, setAuth] = useState<Auth | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchAuth().then(setAuth).catch(err => setAuthError(String(err)));
+  }, []);
 
   useEffect(() => {
     function onHashChange() {
@@ -28,6 +37,25 @@ export default function App() {
 
   const route = hash.replace(/^#/, '') || '/';
   const Page = routes[route] ?? Home;
+
+  if (authError) {
+    return (
+      <div style={{ padding: 40, fontFamily: 'monospace', color: '#c00' }}>
+        <strong>Auth error:</strong> {authError}
+        <p style={{ color: '#555', fontSize: 13 }}>
+          Make sure the node-auth server is running and VITE_GEBETA_CLIENT_TOKEN is set.
+        </p>
+      </div>
+    );
+  }
+
+  if (!auth) {
+    return (
+      <div style={{ padding: 40, fontFamily: 'monospace', color: '#555' }}>
+        Authenticating…
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
@@ -52,7 +80,7 @@ export default function App() {
           ← Back to examples
         </a>
       )}
-      <Page />
+      <Page auth={auth} />
     </div>
   );
 }

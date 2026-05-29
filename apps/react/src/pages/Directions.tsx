@@ -3,7 +3,7 @@
 
 import { useRef, useState, useCallback } from 'react';
 import Map, { type Platform } from '../Map';
-import { auth } from '../config';
+import type { Auth } from '../config';
 import type { GebetaMaps } from '@gebeta/js';
 import type { Map as MapLibreMap } from 'maplibre-gl';
 import type { API } from '@gebeta/api';
@@ -15,7 +15,7 @@ const DEST_ICON = 'https://cdn-icons-png.flaticon.com/512/3081/3081559.png';
 type Marker = ReturnType<Platform['markerFactory']['createMarker']>;
 type LngLat = { lat: number; lng: number };
 
-export default function Directions() {
+export default function Directions({ auth }: { auth: Auth }) {
   const [mode, setMode] = useState<'origin' | 'destination' | null>(null);
   const [origin, setOrigin] = useState<LngLat | null>(null);
   const [dest, setDest] = useState<LngLat | null>(null);
