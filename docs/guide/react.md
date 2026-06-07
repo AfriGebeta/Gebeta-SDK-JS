@@ -77,11 +77,7 @@ function MarkersLayer() {
 
 function ClusterMap() {
   return (
-    <GebetaMap
-      auth={auth}
-      clustering={clusteringOptions}
-      style={mapStyle}
-    >
+    <GebetaMap auth={auth} clustering={clusteringOptions} style={mapStyle}>
       <MarkersLayer />
     </GebetaMap>
   );

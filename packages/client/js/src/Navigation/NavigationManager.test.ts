@@ -1,5 +1,5 @@
 import { NavigationManager } from './NavigationManager';
-import { NavigationManager as CoreNavigationManager } from '@gebeta/core';
+import { NavigationManager as CoreNavigationManager, resolveAuth } from '@gebeta/core';
 import { API, ValidationError } from '@gebeta/api';
 import { Map as MapLibreMap } from 'maplibre-gl';
 import { MapAdapter, MarkerFactory } from '../adapters';
@@ -18,6 +18,7 @@ const mockCoreInstance = {
 };
 
 jest.mock('@gebeta/core', () => ({
+  ...jest.requireActual('@gebeta/core'),
   NavigationManager: jest.fn().mockImplementation(() => mockCoreInstance),
 }));
 
@@ -27,6 +28,7 @@ describe('NavigationManager (platform layer)', () => {
   let markerFactory: MarkerFactory;
   let navController: NavigationManager;
   const apiKey = 'test-api-key';
+  const auth = resolveAuth({ apiKey });
 
   const mockRoute: RouteData = {
     geometry: {
@@ -62,18 +64,18 @@ describe('NavigationManager (platform layer)', () => {
     mockCoreInstance.getCurrentStepIndex.mockReturnValue(0);
     mockCoreInstance.isNavigating.mockReturnValue(false);
 
-    navController = new NavigationManager(apiKey, mapAdapter, markerFactory);
+    navController = new NavigationManager(auth, mapAdapter, markerFactory);
   });
 
   describe('constructor', () => {
     it('should create NavigationManager with required parameters', () => {
       // GIVEN valid apiKey, mapAdapter, markerFactory
       // WHEN NavigationManager is constructed
-      const controller = new NavigationManager(apiKey, mapAdapter, markerFactory);
+      const controller = new NavigationManager(auth, mapAdapter, markerFactory);
 
       // THEN controller is defined and CoreNavigationManager was called with apiKey and empty options
       expect(controller).toBeDefined();
-      expect(CoreNavigationManager).toHaveBeenLastCalledWith(apiKey, {}, undefined);
+      expect(CoreNavigationManager).toHaveBeenLastCalledWith(auth, {}, undefined);
     });
 
     it('should create NavigationManager with options', () => {
@@ -84,11 +86,11 @@ describe('NavigationManager (platform layer)', () => {
       };
 
       // WHEN NavigationManager is constructed with options
-      const controller = new NavigationManager(apiKey, mapAdapter, markerFactory, options);
+      const controller = new NavigationManager(auth, mapAdapter, markerFactory, options);
 
       // THEN controller is defined and CoreNavigationManager was called with apiKey and options
       expect(controller).toBeDefined();
-      expect(CoreNavigationManager).toHaveBeenLastCalledWith(apiKey, options, undefined);
+      expect(CoreNavigationManager).toHaveBeenLastCalledWith(auth, options, undefined);
     });
 
     it('should throw ValidationError if mapAdapter is missing', () => {
@@ -98,7 +100,7 @@ describe('NavigationManager (platform layer)', () => {
       expect(
         () =>
           new NavigationManager(
-            apiKey,
+            auth,
             null as unknown as API.Platform.Types.IMapAdapter,
             markerFactory
           )
@@ -106,7 +108,7 @@ describe('NavigationManager (platform layer)', () => {
       expect(
         () =>
           new NavigationManager(
-            apiKey,
+            auth,
             null as unknown as API.Platform.Types.IMapAdapter,
             markerFactory
           )
@@ -120,7 +122,7 @@ describe('NavigationManager (platform layer)', () => {
       expect(
         () =>
           new NavigationManager(
-            apiKey,
+            auth,
             mapAdapter,
             null as unknown as API.Platform.Types.IMarkerFactory
           )
@@ -128,7 +130,7 @@ describe('NavigationManager (platform layer)', () => {
       expect(
         () =>
           new NavigationManager(
-            apiKey,
+            auth,
             mapAdapter,
             null as unknown as API.Platform.Types.IMarkerFactory
           )

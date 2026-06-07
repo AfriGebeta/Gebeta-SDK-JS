@@ -37,8 +37,8 @@ interface RouteData {
   geometry: { type: 'LineString'; coordinates: [number, number][] };
   origin: { lat: number; lng: number };
   destination: { lat: number; lng: number };
-  distance?: string | number | null;   // e.g. "5.2 km" or meters
-  duration?: string | number | null;   // e.g. "15 min" or seconds
+  distance?: string | number | null; // e.g. "5.2 km" or meters
+  duration?: string | number | null; // e.g. "15 min" or seconds
   instructions?: RouteInstruction[];
   summary?: RouteSummary;
 }

@@ -82,3 +82,38 @@ if (changed === 0) {
 } else {
   console.log(`\nUpdated ${changed} file(s). Run \`yarn install\` to apply.`);
 }
+
+// Switch the <script src> in plain-HTML JS examples between local build and CDN.
+const CDN_URL = 'https://tiles.gebeta.app/static/current/gebeta-maps.umd.js';
+const LOCAL_PATH = '../../packages/client/js/dist/gebeta-maps.umd.js';
+
+const jsExampleHtmls = [
+  'apps/js/directions.html',
+  'apps/js/geocoding.html',
+  'apps/js/fencing.html',
+  'apps/js/fence-styling.html',
+  'apps/js/clustering.html',
+  'apps/js/navigation.html',
+  'apps/js/navigation-http.html',
+  'apps/js/navigation-simulation.html',
+];
+
+const from = useLocal ? CDN_URL : LOCAL_PATH;
+const to = useLocal ? LOCAL_PATH : CDN_URL;
+
+let htmlChanged = 0;
+
+for (const relPath of jsExampleHtmls) {
+  const fullPath = resolve(root, relPath);
+  const original = readFileSync(fullPath, 'utf8');
+  if (original.includes(from)) {
+    const updated = original.replaceAll(from, to);
+    writeFileSync(fullPath, updated);
+    console.log(`  ${relPath}: script src → ${useLocal ? 'local build' : 'CDN'}`);
+    htmlChanged++;
+  }
+}
+
+if (htmlChanged > 0) {
+  console.log(`\nUpdated ${htmlChanged} HTML file(s) in apps/js/.`);
+}

@@ -1,7 +1,6 @@
 import { NavigationManager as CoreNavigationManager } from '@gebeta/core';
+import type { ResolvedAuth } from '@gebeta/core';
 import { API, ValidationError } from '@gebeta/api';
-
-type AuthParam = API.Auth.Types.AuthParam;
 
 type IMapAdapter = API.Platform.Types.IMapAdapter;
 type IMarkerFactory = API.Platform.Types.IMarkerFactory;
@@ -46,7 +45,7 @@ export class NavigationManager {
    * @throws {ValidationError} If apiKey, mapAdapter, or markerFactory is missing
    */
   constructor(
-    auth: AuthParam,
+    auth: ResolvedAuth,
     mapAdapter: IMapAdapter,
     markerFactory: IMarkerFactory,
     options: NavigationManagerOptions = {},

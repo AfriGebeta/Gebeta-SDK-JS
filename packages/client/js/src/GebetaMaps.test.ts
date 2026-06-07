@@ -81,7 +81,7 @@ describe('GebetaMaps', () => {
       expect(result?.headers?.['Authorization']).toBe(`Bearer ${VALID_AUTH.accessToken}`);
     });
 
-    test('should include Authorization: Bearer <apiKey> in tile requests when using legacy apiKey', () => {
+    test('should append api_key query param in tile requests when using legacy apiKey', () => {
       // GIVEN a GebetaMaps instance constructed with legacy apiKey 'my-legacy-api-key'
       const gebeta = new GebetaMaps({ apiKey: VALID_API_KEY });
       const container = document.createElement('div');
@@ -98,8 +98,11 @@ describe('GebetaMaps', () => {
         'Style'
       );
 
-      // THEN the Authorization header contains Bearer my-legacy-api-key
-      expect(result?.headers?.['Authorization']).toBe(`Bearer ${VALID_API_KEY}`);
+      // THEN the URL contains the api_key query param and no Authorization header
+      expect(result?.url).toBe(
+        `https://tiles.gebeta.app/styles/standard/style.json?apiKey=${VALID_API_KEY}`
+      );
+      expect(result?.headers?.['Authorization']).toBeUndefined();
     });
 
     test('should not inject Authorization header for non-tile URLs', () => {

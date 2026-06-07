@@ -1,6 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { loadIntegrationConfig } from '../_test_utilities/integrationConfig';
 import { DirectionsManager } from './DirectionsManager';
+import { resolveAuth } from '../Auth/resolveAuth';
 
 let config: ReturnType<typeof loadIntegrationConfig>;
 
@@ -12,7 +13,7 @@ describe('DirectionsManager Integration Tests', () => {
   let manager: DirectionsManager;
 
   beforeAll(() => {
-    manager = new DirectionsManager(config.apiKey);
+    manager = new DirectionsManager(resolveAuth({ apiKey: config.apiKey }));
   });
 
   describe('getDirections', () => {

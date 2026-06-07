@@ -1,6 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { NavigationManager } from './NavigationManager';
 import { API, ValidationError } from '@gebeta/api';
+import { resolveAuth } from '../Auth/resolveAuth';
 
 describe('NavigationManager', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;
@@ -63,7 +64,7 @@ describe('NavigationManager', () => {
     test('should create instance with apiKey and options', () => {
       // GIVEN an API key and navigation options
       // WHEN creating a NavigationManager instance
-      const controller = new NavigationManager('test-api-key', {
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }), {
         offRouteThresholdMeters: 50,
       });
       // THEN it should create the instance successfully
@@ -74,7 +75,7 @@ describe('NavigationManager', () => {
   describe('start', () => {
     test('should throw ValidationError if route is invalid', () => {
       // GIVEN a NavigationManager instance and an invalid route
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       // WHEN starting navigation with invalid route
       // THEN it should throw a ValidationError
       expect(() => {
@@ -88,7 +89,7 @@ describe('NavigationManager', () => {
 
     test('should throw ValidationError if userId is missing', () => {
       // GIVEN a NavigationManager instance and a valid route but missing userId
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       // WHEN starting navigation without userId
       // THEN it should throw a ValidationError
       expect(() => {
@@ -102,7 +103,7 @@ describe('NavigationManager', () => {
 
     test('should start navigation with valid route', () => {
       // GIVEN a NavigationManager instance, valid route, and location provider
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       // WHEN starting navigation
       controller.start(mockRoute, { userId: 'test-user' }, mockLocationProvider);
       // THEN it should start the location provider and be navigating
@@ -113,7 +114,7 @@ describe('NavigationManager', () => {
 
     test('should emit start event', done => {
       // GIVEN a NavigationManager instance with a start event listener
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       controller.on('start', event => {
         // THEN it should emit the start event with the route
         expect(event.route).toEqual(mockRoute);
@@ -128,7 +129,7 @@ describe('NavigationManager', () => {
   describe('stop', () => {
     test('should stop navigation', () => {
       // GIVEN a NavigationManager instance that is navigating
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       controller.start(mockRoute, { userId: 'test-user' }, mockLocationProvider);
       // WHEN stopping navigation
       controller.stop();
@@ -139,7 +140,7 @@ describe('NavigationManager', () => {
 
     test('should emit stop event', done => {
       // GIVEN a NavigationManager instance that is navigating with a stop listener
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       controller.start(mockRoute, { userId: 'test-user' }, mockLocationProvider);
       controller.on('stop', () => {
         // THEN it should emit the stop event
@@ -153,7 +154,7 @@ describe('NavigationManager', () => {
   describe('getCurrentRoute', () => {
     test('should return current route when navigating', () => {
       // GIVEN a NavigationManager instance that is navigating
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       controller.start(mockRoute, { userId: 'test-user' }, mockLocationProvider);
       // WHEN getting the current route
       // THEN it should return the route
@@ -163,7 +164,7 @@ describe('NavigationManager', () => {
 
     test('should return null when not navigating', () => {
       // GIVEN a NavigationManager instance that is not navigating
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       // WHEN getting the current route
       // THEN it should return null
       expect(controller.getCurrentRoute()).toBeNull();
@@ -173,7 +174,7 @@ describe('NavigationManager', () => {
   describe('getCurrentStepIndex', () => {
     test('should return current step index', () => {
       // GIVEN a NavigationManager instance that is navigating
-      const controller = new NavigationManager('test-api-key');
+      const controller = new NavigationManager(resolveAuth({ apiKey: 'test-api-key' }));
       controller.start(mockRoute, { userId: 'test-user' }, mockLocationProvider);
       // WHEN getting the current step index
       // THEN it should return a valid step index

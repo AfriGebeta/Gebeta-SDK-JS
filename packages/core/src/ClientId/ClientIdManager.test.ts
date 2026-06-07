@@ -144,7 +144,9 @@ describe('ClientIdManager', () => {
       // THEN a valid UUID v4 is still produced via the fallback
       expect(manager.getId()).toMatch(UUID_REGEX);
 
-      if (globalThis.crypto) (globalThis.crypto as typeof globalThis.crypto & { randomUUID: unknown }).randomUUID = original;
+      if (globalThis.crypto)
+        (globalThis.crypto as typeof globalThis.crypto & { randomUUID: unknown }).randomUUID =
+          original;
     });
   });
 });

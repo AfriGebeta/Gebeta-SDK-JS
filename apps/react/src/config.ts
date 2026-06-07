@@ -1,27 +1,40 @@
-// Fetches auth credentials from the node-auth backend.
-// Set VITE_GEBETA_CLIENT_TOKEN in apps/react/.env.
-// Start the node-auth server first (default: http://localhost:3001).
+// Auth config for the React example app.
+//
+// Two modes:
+//   1. Service account: set VITE_GEBETA_CLIENT_TOKEN and run the node-auth server.
+//   2. API key (legacy): set VITE_GEBETA_API_KEY — no server needed.
 
 const clientToken = import.meta.env.VITE_GEBETA_CLIENT_TOKEN as string | undefined;
-const authUrl = (import.meta.env.VITE_AUTH_URL as string | undefined) ?? 'http://localhost:3001/auth';
+const apiKey = import.meta.env.VITE_GEBETA_API_KEY as string | undefined;
+const authUrl =
+  (import.meta.env.VITE_AUTH_URL as string | undefined) ?? 'http://localhost:3001/auth';
 
-if (!clientToken) {
-  console.warn('[Gebeta] Missing VITE_GEBETA_CLIENT_TOKEN in apps/react/.env');
-}
-
-export type Auth = { accessToken: string; refreshToken: string };
+export type Auth =
+  | { type: 'service_account'; accessToken: string; refreshToken: string }
+  | { type: 'api_key'; apiKey: string };
 
 export async function fetchAuth(): Promise<Auth> {
-  const res = await fetch(authUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ clientToken }),
-  });
+  if (clientToken) {
+    const res = await fetch(authUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientToken }),
+    });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(`Auth failed (${res.status}): ${err.error ?? res.statusText}`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(`Auth failed (${res.status}): ${err.error ?? res.statusText}`);
+    }
+
+    const { accessToken, refreshToken } = await res.json();
+    return { type: 'service_account', accessToken, refreshToken };
   }
 
-  return res.json();
+  if (apiKey) {
+    return { type: 'api_key', apiKey };
+  }
+
+  throw new Error(
+    'No auth configured. Set VITE_GEBETA_CLIENT_TOKEN or VITE_GEBETA_API_KEY in apps/react/.env'
+  );
 }

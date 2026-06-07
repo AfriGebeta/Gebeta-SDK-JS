@@ -20,9 +20,7 @@ Use the subpath import to include only geocoding — no map rendering code:
 ```js
 import { GeocodingManager, AuthManager } from '@gebeta/js/geocoding';
 
-const geocoder = new GeocodingManager(
-  new AuthManager({ accessToken, refreshToken })
-);
+const geocoder = new GeocodingManager(new AuthManager({ accessToken, refreshToken }));
 
 const results = await geocoder.geocode('Bole, Addis Ababa');
 const places = await geocoder.reverseGeocode({ lat: 9.0161, lng: 38.7685 });

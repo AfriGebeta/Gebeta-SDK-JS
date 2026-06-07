@@ -36,7 +36,7 @@ const { accessToken, refreshToken } = await fetch('/auth', {
 }).then(r => r.json());
 
 const gebetaMap = new GebetaMaps({
-  auth: { accessToken, refreshToken }
+  auth: { accessToken, refreshToken },
 });
 ```
 
@@ -52,7 +52,7 @@ API key auth is supported for backwards compatibility but is not recommended for
 
 ```js
 const gebetaMap = new GebetaMaps({
-  apiKey: 'your-api-key'
+  apiKey: 'your-api-key',
 });
 ```
 

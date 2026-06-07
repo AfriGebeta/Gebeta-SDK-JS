@@ -6,14 +6,14 @@
 import { GebetaMaps } from '@gebeta/js';
 
 const gebetaMap = new GebetaMaps({
-  auth: { accessToken, refreshToken }
+  auth: { accessToken, refreshToken },
 });
 
 const map = gebetaMap.init({
-  container: 'map',           // DOM element ID or HTMLElement
-  center: [38.7685, 9.0161],  // [lng, lat] — defaults to Addis Ababa
+  container: 'map', // DOM element ID or HTMLElement
+  center: [38.7685, 9.0161], // [lng, lat] — defaults to Addis Ababa
   zoom: 12,
-  navigationControl: true,    // adds zoom/compass controls
+  navigationControl: true, // adds zoom/compass controls
 });
 ```
 
@@ -36,7 +36,7 @@ gebetaMap.init({
 const map = gebetaMap.getMap();
 
 // Now you can use any MapLibre GL JS API directly
-map.on('click', (e) => {
+map.on('click', e => {
   console.log(e.lngLat);
 });
 ```
@@ -50,12 +50,7 @@ const auth = { accessToken, refreshToken };
 const mapStyle = { width: '100%', height: '400px' };
 
 function App() {
-  return (
-    <GebetaMap
-      auth={auth}
-      style={mapStyle}
-    />
-  );
+  return <GebetaMap auth={auth} style={mapStyle} />;
 }
 ```
 

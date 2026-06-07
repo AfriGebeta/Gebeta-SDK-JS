@@ -15,7 +15,7 @@ sdk.init({ container: 'map' });
 
 // Access the manager after map loads
 sdk.clustering.addMarker({ id: '1', lngLat: [38.7685, 9.0161] });
-sdk.clustering.addMarker({ id: '2', lngLat: [38.7700, 9.0200], imageUrl: '/pin.png' });
+sdk.clustering.addMarker({ id: '2', lngLat: [38.77, 9.02], imageUrl: '/pin.png' });
 ```
 
 Note: `sdk.clustering` returns `null` if `clustering.enabled` was not set in the constructor.
@@ -37,7 +37,7 @@ function MarkersLayer() {
 
   useEffect(() => {
     addMarker({ id: '1', lngLat: [38.7685, 9.0161] });
-    addMarker({ id: '2', lngLat: [38.7700, 9.0200], imageUrl: '/pin.png' });
+    addMarker({ id: '2', lngLat: [38.77, 9.02], imageUrl: '/pin.png' });
     return () => clearMarkers();
   }, []);
 
@@ -46,11 +46,7 @@ function MarkersLayer() {
 
 function App() {
   return (
-    <GebetaMap
-      auth={auth}
-      clustering={clusteringOptions}
-      style={mapStyle}
-    >
+    <GebetaMap auth={auth} clustering={clusteringOptions} style={mapStyle}>
       <MarkersLayer />
     </GebetaMap>
   );

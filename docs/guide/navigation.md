@@ -9,19 +9,23 @@ import { BrowserLocationProvider } from '@gebeta/js';
 
 const route = await gebetaMap.getDirections(origin, destination);
 
-gebetaMap.navigation.start(route, {
-  userId: 'driver-123',
-  role: 'driver',
-}, new BrowserLocationProvider());
+gebetaMap.navigation.start(
+  route,
+  {
+    userId: 'driver-123',
+    role: 'driver',
+  },
+  new BrowserLocationProvider()
+);
 ```
 
 ## Listen to navigation events
 
 ```js
-gebetaMap.navigation.on('progress', (event) => {
-  console.log(event.currentStep);       // current instruction
+gebetaMap.navigation.on('progress', event => {
+  console.log(event.currentStep); // current instruction
   console.log(event.remainingDistance); // meters
-  console.log(event.remainingTime);     // seconds
+  console.log(event.remainingTime); // seconds
 });
 
 gebetaMap.navigation.on('offroute', () => {

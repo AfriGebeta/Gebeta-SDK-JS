@@ -9,22 +9,20 @@ import {
 import type { DirectionsApiResponse } from './types';
 import { transformDirectionsResponse } from './transform';
 import { createFetch } from '../utils/fetch';
+import type { ResolvedAuth } from '../Auth/resolveAuth';
 
-type AuthParam = API.Auth.Types.AuthParam;
+const { AuthTypes } = API.Auth.Enums;
 
 /**
  * DirectionsManager handles route calculation between points.
  * Platform-agnostic: uses fetch API which is available in all JS environments.
  */
 export class DirectionsManager {
-  private readonly auth: AuthParam;
+  private readonly auth: ResolvedAuth;
   private readonly baseUrl: string;
   private readonly clientId?: string;
 
-  constructor(auth: AuthParam, clientId?: string) {
-    if (!auth) {
-      throw new ValidationError('auth is required for DirectionsManager', 'auth');
-    }
+  constructor(auth: ResolvedAuth, clientId?: string) {
     this.auth = auth;
     this.baseUrl = API.Routing.Constants.API_URL;
     this.clientId = clientId;
@@ -61,11 +59,8 @@ export class DirectionsManager {
       format: 'valhalla',
     });
 
-    if (typeof this.auth === 'string') {
-      params.set('apiKey', this.auth);
-    } else {
-      const manager = this.auth as { getAccessToken(): string };
-      params.set('accessToken', manager.getAccessToken());
+    if (this.auth.type === AuthTypes.API_KEY) {
+      params.set('apiKey', this.auth.key);
     }
 
     if (waypoints.length > 0) {

@@ -1,4 +1,10 @@
-import { AUTH_URLS, AuthEvents, TOKEN_EXPIRY_MS, TOKEN_REFRESH_INTERVAL_MS } from '../constants';
+import {
+  AUTH_URLS,
+  AuthEvents,
+  AuthTypes,
+  TOKEN_EXPIRY_MS,
+  TOKEN_REFRESH_INTERVAL_MS,
+} from '../constants';
 
 export namespace Auth {
   export namespace Types {
@@ -9,6 +15,7 @@ export namespace Auth {
 
   export const Enums = {
     Events: AuthEvents,
+    AuthTypes,
   } as const;
 
   export const Constants = {

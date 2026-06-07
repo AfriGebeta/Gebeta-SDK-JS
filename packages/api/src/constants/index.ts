@@ -33,6 +33,15 @@ export const MAP_STYLES: Record<MapStyle, { url: string; imageUrl: string; label
 export const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
 
 /**
+ * Auth type discriminator — resolved once at construction, used everywhere downstream.
+ */
+export const AuthTypes = {
+  SERVICE_ACCOUNT: 'SERVICE_ACCOUNT',
+  API_KEY: 'API_KEY',
+} as const;
+export type AuthType = (typeof AuthTypes)[keyof typeof AuthTypes];
+
+/**
  * Event names emitted by AuthManager.
  */
 export const AuthEvents = {

@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: Gebeta Maps SDK
-  text: 
+  text:
   tagline: Advanced location technology for businesses, developers, and logistics providers
   actions:
     - theme: brand

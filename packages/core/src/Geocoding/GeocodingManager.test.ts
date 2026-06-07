@@ -3,17 +3,19 @@ import '../_test_utilities/consoleMock';
 import { GeocodingManager } from './GeocodingManager';
 import { API } from '@gebeta/api';
 import { ValidationError, NetworkError, BadRequestError } from '@gebeta/api';
+import { resolveAuth } from '../Auth/resolveAuth';
 import { getRandomString } from '../_test_utilities/specialCharacters';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';
 
 describe('GeocodingManager', () => {
   const apiKey = getRandomString(10);
+  const auth = resolveAuth({ apiKey });
   let manager: GeocodingManager;
   let fetchSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    manager = new GeocodingManager(apiKey);
+    manager = new GeocodingManager(auth);
     jest.clearAllMocks();
   });
 
@@ -24,31 +26,12 @@ describe('GeocodingManager', () => {
   });
 
   describe('constructor', () => {
-    test('should create instance with valid API key', () => {
-      // GIVEN a valid API key
-      // WHEN creating a GeocodingManager instance
-      // THEN test should create the instance successfully
+    test('should create instance with valid auth', () => {
       expect(manager).toBeInstanceOf(GeocodingManager);
-      // AND the auth param should be set correctly
-      // @ts-expect-error - Accessing private property for test verification
-      expect(manager.auth).toBe(apiKey);
     });
 
-    test.each(EMPTY_VALUES)(
-      'should throw error if API key is missing (%s)',
-      (_description, givenApiKey?: string | null) => {
-        // GIVEN an invalid API key
-        // WHEN creating a GeocodingManager instance
-        // THEN test should throw an error about missing API key
-        //@ts-expect-error - Testing constructor with invalid API key
-        expect(() => new GeocodingManager(givenApiKey)).toThrow(ValidationError);
-      }
-    );
-
     test('should use API constant for base URL', () => {
-      // GIVEN a GeocodingManager instance
       expect(manager).toBeInstanceOf(GeocodingManager);
-      // THEN it should use the API constant for the base URL
       expect(API.Geocoding.Constants.API_URL).toBeDefined();
     });
   });

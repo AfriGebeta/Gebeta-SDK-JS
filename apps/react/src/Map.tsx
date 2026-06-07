@@ -4,6 +4,7 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { GebetaMaps } from '@gebeta/js';
 import type { Map as MapLibreMap } from 'maplibre-gl';
+import type { Auth } from './config';
 
 export type Platform = ReturnType<GebetaMaps['getPlatform']>;
 
@@ -15,7 +16,7 @@ interface ClusteringOptions {
 }
 
 interface MapProps {
-  auth: { accessToken: string; refreshToken: string };
+  auth: Auth;
   center?: [number, number];
   zoom?: number;
   clustering?: ClusteringOptions;
@@ -38,7 +39,12 @@ export default function Map({
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const gm = new GebetaMaps({ auth, ...(clustering ? { clustering } : {}) });
+    const authOptions =
+      auth.type === 'api_key'
+        ? { apiKey: auth.apiKey }
+        : { auth: { accessToken: auth.accessToken, refreshToken: auth.refreshToken } };
+
+    const gm = new GebetaMaps({ ...authOptions, ...(clustering ? { clustering } : {}) });
     const m = gm.init({ container: containerRef.current, center, zoom, navigationControl: true });
 
     function handleStyleLoad() {

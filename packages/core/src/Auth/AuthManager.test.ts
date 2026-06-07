@@ -3,6 +3,7 @@ import { API } from '@gebeta/api';
 import { UnauthorizedError } from '@gebeta/api';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
 import { DirectionsManager } from '../Directions/DirectionsManager';
+import { resolveAuth } from './resolveAuth';
 
 const VALID_CREDENTIALS = {
   accessToken: 'access-token-abc',
@@ -322,7 +323,7 @@ describe('AuthManager', () => {
     test('should append the apiKey as a query param when constructed with a string', async () => {
       // GIVEN a DirectionsManager constructed with a legacy string apiKey
       const apiKey = 'my-legacy-api-key';
-      const directionsManager = new DirectionsManager(apiKey);
+      const directionsManager = new DirectionsManager(resolveAuth({ apiKey }));
       fetchSpy = setupFetchSpy(
         200,
         {
@@ -348,10 +349,10 @@ describe('AuthManager', () => {
 
   describe('DirectionsManager with AuthManager', () => {
     test('should delegate HTTP calls to authManager.fetch() instead of calling globalThis.fetch directly', async () => {
-      // GIVEN a DirectionsManager constructed with an AuthManager
-      const authManager = new AuthManager(VALID_CREDENTIALS);
-      const directionsManager = new DirectionsManager(authManager);
-      const authFetchSpy = jest.spyOn(authManager, 'fetch');
+      // GIVEN a DirectionsManager constructed with a SERVICE_ACCOUNT ResolvedAuth
+      const auth = resolveAuth({ auth: VALID_CREDENTIALS });
+      const directionsManager = new DirectionsManager(auth);
+      const authFetchSpy = jest.spyOn((auth as any).manager, 'fetch');
       fetchSpy = setupFetchSpy(
         200,
         {

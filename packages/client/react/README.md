@@ -34,9 +34,7 @@ import { useClustering } from '@gebeta/react/clustering';
 
 const { setMarkers, clearMarkers } = useClustering(gebetaMapInstance);
 
-setMarkers([
-  { id: '1', lat: 9.0161, lng: 38.7685, imageUrl: '/pin.png' },
-]);
+setMarkers([{ id: '1', lat: 9.0161, lng: 38.7685, imageUrl: '/pin.png' }]);
 ```
 
 ## Peer dependencies

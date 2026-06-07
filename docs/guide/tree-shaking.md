@@ -32,14 +32,14 @@ import { FenceManager } from '@gebeta/js/fencing';
 
 ## Available subpaths
 
-| Import | Includes |
-|--------|----------|
-| `@gebeta/js` | Everything |
-| `@gebeta/js/geocoding` | GeocodingManager + AuthManager |
+| Import                  | Includes                        |
+| ----------------------- | ------------------------------- |
+| `@gebeta/js`            | Everything                      |
+| `@gebeta/js/geocoding`  | GeocodingManager + AuthManager  |
 | `@gebeta/js/directions` | DirectionsManager + AuthManager |
 | `@gebeta/js/clustering` | ClusteringManager + AuthManager |
 | `@gebeta/js/navigation` | NavigationManager + AuthManager |
-| `@gebeta/js/fencing` | FenceManager + AuthManager |
+| `@gebeta/js/fencing`    | FenceManager + AuthManager      |
 
 ## Auditing your bundle
 

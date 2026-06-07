@@ -2,8 +2,7 @@ import type { ReactNode } from 'react';
 import { useRef, useState, useEffect, useMemo } from 'react';
 import maplibre from 'maplibre-gl';
 import type { API } from '@gebeta/api';
-import { ValidationError } from '@gebeta/api';
-import { AuthManager } from '@gebeta/core';
+import { resolveAuth, createTileTransform } from '@gebeta/core';
 import { GebetaMapContext } from './context/MapContext';
 import { createPlatform } from './adapters';
 import { ClusteringManager } from './Clustering/ClusteringManager';
@@ -62,30 +61,10 @@ export function GebetaMap({
   } | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const authManager = useMemo(() => {
-    const hasApiKey = !!apiKey;
-    const hasAuth = !!authProp;
-
-    if (!hasApiKey && !hasAuth) {
-      throw new ValidationError('Either apiKey or auth is required', 'auth');
-    }
-    if (hasApiKey && hasAuth) {
-      throw new ValidationError('Provide either apiKey or auth, not both', 'auth');
-    }
-    if (hasApiKey) {
-      console.warn(
-        '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
-          'Use service account auth instead: https://docs.gebeta.app/auth'
-      );
-      return null; // legacy path — token is the apiKey string directly
-    }
-    return new AuthManager(authProp!);
-  }, [apiKey, authProp?.accessToken, authProp?.refreshToken]);
-
-  const getToken = (): string => {
-    if (authManager) return authManager.getAccessToken();
-    return apiKey!;
-  };
+  const auth = useMemo(
+    () => resolveAuth({ apiKey, auth: authProp }),
+    [apiKey, authProp?.accessToken, authProp?.refreshToken]
+  );
 
   useEffect(() => {
     const container = containerRef.current;
@@ -93,6 +72,7 @@ export function GebetaMap({
 
     setLoadError(null);
     const resolvedStyle = styleProp || styleUrl || DEFAULT_STYLE_URL;
+    const transformTile = createTileTransform(auth);
 
     const map = new maplibre.Map({
       container,
@@ -101,10 +81,7 @@ export function GebetaMap({
       ...rest,
       transformRequest: (url: string, _resourceType: string) => {
         if (url.startsWith('https://tiles.gebeta.app')) {
-          return {
-            url,
-            headers: { Authorization: `Bearer ${getToken()}` },
-          };
+          return transformTile(url);
         }
         return { url };
       },
@@ -147,7 +124,7 @@ export function GebetaMap({
       map.remove();
       setContextValue(null);
     };
-  }, [apiKey, authManager]);
+  }, [auth]);
 
   return (
     <GebetaMapContext.Provider value={contextValue}>

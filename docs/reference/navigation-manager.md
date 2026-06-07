@@ -44,8 +44,8 @@ on(event: 'progress' | 'offroute' | 'arrive', callback: Function): void
 
 ## Events
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `progress` | `ProgressEvent` | Fired on each location update |
-| `offroute` | — | User has deviated from the route |
-| `arrive` | — | User has reached the destination |
+| Event      | Payload         | Description                      |
+| ---------- | --------------- | -------------------------------- |
+| `progress` | `ProgressEvent` | Fired on each location update    |
+| `offroute` | —               | User has deviated from the route |
+| `arrive`   | —               | User has reached the destination |

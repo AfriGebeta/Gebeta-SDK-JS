@@ -2017,13 +2017,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/api", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-api-npm-3.0.5-dfc3ec3e55-10c0.zip/node_modules/@gebeta/api/",\
-        "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:packages/api", {\
         "packageLocation": "./packages/api/",\
         "packageDependencies": [\
@@ -2039,15 +2032,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/core", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-core-npm-3.0.5-a6ad579216-10c0.zip/node_modules/@gebeta/core/",\
-        "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/core", "npm:3.0.5"],\
-          ["supercluster", "npm:8.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:packages/core", {\
         "packageLocation": "./packages/core/",\
         "packageDependencies": [\
@@ -2071,12 +2055,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/js", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-js-npm-3.0.5-bcdd68ce5e-10c0.zip/node_modules/@gebeta/js/",\
+      ["npm:3.0.6", {\
+        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-js-npm-3.0.6-bbb31694f3-10c0.zip/node_modules/@gebeta/js/",\
         "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/core", "npm:3.0.5"],\
-          ["@gebeta/js", "npm:3.0.5"],\
+          ["@gebeta/api", "workspace:packages/api"],\
+          ["@gebeta/core", "workspace:packages/core"],\
+          ["@gebeta/js", "npm:3.0.6"],\
           ["maplibre-gl", "npm:4.7.1"],\
           ["supercluster", "npm:8.0.1"]\
         ],\
@@ -2116,11 +2100,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/node", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-node-npm-3.0.5-2d7e99e950-10c0.zip/node_modules/@gebeta/node/",\
+      ["npm:3.0.6", {\
+        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-node-npm-3.0.6-b2088978a7-10c0.zip/node_modules/@gebeta/node/",\
         "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/node", "npm:3.0.5"]\
+          ["@gebeta/api", "workspace:packages/api"],\
+          ["@gebeta/node", "npm:3.0.6"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -2146,19 +2130,19 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gebeta/react", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-react-npm-3.0.5-691a99407d-10c0.zip/node_modules/@gebeta/react/",\
+      ["npm:3.0.6", {\
+        "packageLocation": "../../../../.yarn/berry/cache/@gebeta-react-npm-3.0.6-550f6f6ff4-10c0.zip/node_modules/@gebeta/react/",\
         "packageDependencies": [\
-          ["@gebeta/react", "npm:3.0.5"]\
+          ["@gebeta/react", "npm:3.0.6"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.5", {\
-        "packageLocation": "./.yarn/__virtual__/@gebeta-react-virtual-36486c75d2/5/.yarn/berry/cache/@gebeta-react-npm-3.0.5-691a99407d-10c0.zip/node_modules/@gebeta/react/",\
+      ["virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.6", {\
+        "packageLocation": "./.yarn/__virtual__/@gebeta-react-virtual-86877e4c4e/5/.yarn/berry/cache/@gebeta-react-npm-3.0.6-550f6f6ff4-10c0.zip/node_modules/@gebeta/react/",\
         "packageDependencies": [\
-          ["@gebeta/api", "npm:3.0.5"],\
-          ["@gebeta/core", "npm:3.0.5"],\
-          ["@gebeta/react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.5"],\
+          ["@gebeta/api", "workspace:packages/api"],\
+          ["@gebeta/core", "workspace:packages/core"],\
+          ["@gebeta/react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.6"],\
           ["@types/react", "npm:18.3.29"],\
           ["maplibre-gl", "npm:4.7.1"],\
           ["react", "npm:18.3.1"]\
@@ -8467,7 +8451,7 @@ const RAW_RUNTIME_STATE =
       ["workspace:apps/node-auth", {\
         "packageLocation": "./apps/node-auth/",\
         "packageDependencies": [\
-          ["@gebeta/node", "npm:3.0.5"],\
+          ["@gebeta/node", "npm:3.0.6"],\
           ["@types/node", "npm:20.19.41"],\
           ["dotenv", "npm:16.6.1"],\
           ["node-auth-example", "workspace:apps/node-auth"],\
@@ -8480,7 +8464,7 @@ const RAW_RUNTIME_STATE =
       ["workspace:apps/node-geocoding", {\
         "packageLocation": "./apps/node-geocoding/",\
         "packageDependencies": [\
-          ["@gebeta/js", "npm:3.0.5"],\
+          ["@gebeta/js", "npm:3.0.6"],\
           ["@types/node", "npm:20.19.41"],\
           ["dotenv", "npm:16.6.1"],\
           ["node-geocoding-example", "workspace:apps/node-geocoding"],\
@@ -9218,8 +9202,8 @@ const RAW_RUNTIME_STATE =
       ["workspace:apps/react", {\
         "packageLocation": "./apps/react/",\
         "packageDependencies": [\
-          ["@gebeta/js", "npm:3.0.5"],\
-          ["@gebeta/react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.5"],\
+          ["@gebeta/js", "npm:3.0.6"],\
+          ["@gebeta/react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:3.0.6"],\
           ["@types/react", "npm:18.3.29"],\
           ["@types/react-dom", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:18.3.7"],\
           ["@vitejs/plugin-react", "virtual:8934d74100d7afb471b1c9d9a2967e34fe4e1e33f180c674a63ef9464d6ec3264a9592081ade1df911744a6e5712445d6481f50f89d7cba10e91b72b755d6df5#npm:4.7.0"],\
@@ -10038,7 +10022,7 @@ const RAW_RUNTIME_STATE =
       ["workspace:apps/svelte", {\
         "packageLocation": "./apps/svelte/",\
         "packageDependencies": [\
-          ["@gebeta/js", "npm:3.0.5"],\
+          ["@gebeta/js", "npm:3.0.6"],\
           ["@sveltejs/vite-plugin-svelte", "virtual:a82a8ca46e92bd419827a53fda821b717fc538d9f50142e89ae8cbd46e9e5e53ce4e06cc82ddf34b6d3387e4c39892e8e2b8d283c54fc7df56bd745ebccc1d3c#npm:4.0.4"],\
           ["@types/node", "npm:20.19.41"],\
           ["maplibre-gl", "npm:4.7.1"],\

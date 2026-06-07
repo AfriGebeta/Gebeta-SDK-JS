@@ -8,12 +8,12 @@ The main entry point for the JS SDK.
 new GebetaMaps(options: ConstructorOptions)
 ```
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `auth` | `{ accessToken: string, refreshToken: string }` | Service account tokens (recommended) |
-| `apiKey` | `string` | Legacy API key (deprecated) |
-| `clustering` | `{ enabled: boolean, ... }` | Clustering options — must be set here; cannot be changed after `init()` |
-| `enableClientId` | `boolean` | Attach a stable `X-Device-ID` header to all requests (default: `false`) |
+| Option           | Type                                            | Description                                                             |
+| ---------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
+| `auth`           | `{ accessToken: string, refreshToken: string }` | Service account tokens (recommended)                                    |
+| `apiKey`         | `string`                                        | Legacy API key (deprecated)                                             |
+| `clustering`     | `{ enabled: boolean, ... }`                     | Clustering options — must be set here; cannot be changed after `init()` |
+| `enableClientId` | `boolean`                                       | Attach a stable `X-Device-ID` header to all requests (default: `false`) |
 
 ## Methods
 
@@ -102,9 +102,9 @@ updateRouteStyle(style: {
 
 All managers are initialized after the map style loads. Do not access them before `init()` completes.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `geocodingManager` | `GeocodingManager` | Forward and reverse geocoding |
-| `clustering` | `ClusteringManager \| null` | Marker clustering — `null` unless `clustering.enabled` was set in constructor |
-| `fencing` | `FenceManager` | Geofencing |
-| `navigation` | `NavigationManager` | Turn-by-turn navigation |
+| Property           | Type                        | Description                                                                   |
+| ------------------ | --------------------------- | ----------------------------------------------------------------------------- |
+| `geocodingManager` | `GeocodingManager`          | Forward and reverse geocoding                                                 |
+| `clustering`       | `ClusteringManager \| null` | Marker clustering — `null` unless `clustering.enabled` was set in constructor |
+| `fencing`          | `FenceManager`              | Geofencing                                                                    |
+| `navigation`       | `NavigationManager`         | Turn-by-turn navigation                                                       |

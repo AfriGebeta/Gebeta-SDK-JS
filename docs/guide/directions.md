@@ -6,7 +6,7 @@ Calculate and display routes between two points.
 
 ```js
 const origin = { lat: 9.0161, lng: 38.7685 };
-const destination = { lat: 9.0300, lng: 38.7800 };
+const destination = { lat: 9.03, lng: 38.78 };
 
 const route = await gebetaMap.getDirections(origin, destination);
 gebetaMap.displayRoute(route, { showMarkers: true });

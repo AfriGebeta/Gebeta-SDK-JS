@@ -1275,14 +1275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gebeta/api@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@gebeta/api@npm:3.0.5"
-  checksum: 10c0/5db362f2d1c0eecf97288f1743dda68db1eef839e12cf6f891c2f8108576ec374b8101c23e3116162de9ef1486c45cb5b279cd5f547c1e8073a8a3dd0f9ef223
-  languageName: node
-  linkType: hard
-
-"@gebeta/api@workspace:*, @gebeta/api@workspace:packages/api":
+"@gebeta/api@npm:3.0.6, @gebeta/api@workspace:*, @gebeta/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@gebeta/api@workspace:packages/api"
   dependencies:
@@ -1295,17 +1288,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/core@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@gebeta/core@npm:3.0.5"
-  dependencies:
-    "@gebeta/api": "npm:3.0.5"
-    supercluster: "npm:^8.0.0"
-  checksum: 10c0/4777d7311062d1488a4a7d2641e0a5b68559d93aa7335b0e9c2695850948fdae5016bc4eeca35f0a2dd0dca99842e1000017cd7482e1b5143e3a04bdc6664122
-  languageName: node
-  linkType: hard
-
-"@gebeta/core@workspace:*, @gebeta/core@workspace:packages/core":
+"@gebeta/core@npm:3.0.6, @gebeta/core@workspace:*, @gebeta/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@gebeta/core@workspace:packages/core"
   dependencies:
@@ -1327,14 +1310,14 @@ __metadata:
   linkType: soft
 
 "@gebeta/js@npm:latest":
-  version: 3.0.5
-  resolution: "@gebeta/js@npm:3.0.5"
+  version: 3.0.6
+  resolution: "@gebeta/js@npm:3.0.6"
   dependencies:
-    "@gebeta/api": "npm:3.0.5"
-    "@gebeta/core": "npm:3.0.5"
+    "@gebeta/api": "npm:3.0.6"
+    "@gebeta/core": "npm:3.0.6"
     maplibre-gl: "npm:^4.0.0"
     supercluster: "npm:^8.0.0"
-  checksum: 10c0/c5c242688f7e2222bc098dfe206feb5b54e1143b0633d01eb17df28161fea0883b862eb85d12526f3fb9cee74d3ad69ed077cd2af4bc6d463241306da687a005
+  checksum: 10c0/10eb9e155c86dd70a82a3fc6beb0e9145e63532cbf5a7a4b258f3ba4c67bf8c5a8da81d0ecf4958ca5fa297fe364f5bf249b18db1146c9e8e43de72a29446935
   languageName: node
   linkType: hard
 
@@ -1368,11 +1351,11 @@ __metadata:
   linkType: soft
 
 "@gebeta/node@npm:latest":
-  version: 3.0.5
-  resolution: "@gebeta/node@npm:3.0.5"
+  version: 3.0.6
+  resolution: "@gebeta/node@npm:3.0.6"
   dependencies:
-    "@gebeta/api": "npm:3.0.5"
-  checksum: 10c0/e4d01c8b658b4065c9537504291fea7f8c4dbc14abf0f9db1527a1605c0f31c410077421717b1d65fba2fbfde5c5ac66938c854a1102b3f061f4e8bc84054fcf
+    "@gebeta/api": "npm:3.0.6"
+  checksum: 10c0/972358ec0d5e52eeffaaa9df8c9da5c6acd521962c01e72677d603374976cc59555f82bbf13ab57f9a6e78851f014a17f94f0045c3c1acbccf8131c1b33b56c7
   languageName: node
   linkType: hard
 
@@ -1397,16 +1380,16 @@ __metadata:
   linkType: soft
 
 "@gebeta/react@npm:latest":
-  version: 3.0.5
-  resolution: "@gebeta/react@npm:3.0.5"
+  version: 3.0.6
+  resolution: "@gebeta/react@npm:3.0.6"
   dependencies:
-    "@gebeta/api": "npm:3.0.5"
-    "@gebeta/core": "npm:3.0.5"
+    "@gebeta/api": "npm:3.0.6"
+    "@gebeta/core": "npm:3.0.6"
     maplibre-gl: "npm:^4.0.0"
     react: "npm:^18.0.0"
   peerDependencies:
     react: ^18.0.0
-  checksum: 10c0/232a681ddb9a64c0752cb26d6f7169021e1848d547effb1ef586c89174b7374a258dc95dcbd0feb7c0881f0c1bddbb2c0754c9c78f3e6cc7aacff520564e863e
+  checksum: 10c0/e29c1816e2c767b8a39e14f1243c026ef6b05f1b3a81b661adc91b7e6fe795ab42230d66291b5bd6627ef380efce42736fb2366c3df9eccaf3fa5ccb33ca61d3
   languageName: node
   linkType: hard
 

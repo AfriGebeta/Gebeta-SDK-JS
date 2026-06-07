@@ -24,7 +24,9 @@ export default function App() {
   const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchAuth().then(setAuth).catch(err => setAuthError(String(err)));
+    fetchAuth()
+      .then(setAuth)
+      .catch(err => setAuthError(String(err)));
   }, []);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function App() {
       <div style={{ padding: 40, fontFamily: 'monospace', color: '#c00' }}>
         <strong>Auth error:</strong> {authError}
         <p style={{ color: '#555', fontSize: 13 }}>
-          Make sure the node-auth server is running and VITE_GEBETA_CLIENT_TOKEN is set.
+          Set VITE_GEBETA_API_KEY or VITE_GEBETA_CLIENT_TOKEN in apps/react/.env
         </p>
       </div>
     );
@@ -51,9 +53,7 @@ export default function App() {
 
   if (!auth) {
     return (
-      <div style={{ padding: 40, fontFamily: 'monospace', color: '#555' }}>
-        Authenticating…
-      </div>
+      <div style={{ padding: 40, fontFamily: 'monospace', color: '#555' }}>Authenticating…</div>
     );
   }
 

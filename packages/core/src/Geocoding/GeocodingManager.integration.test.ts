@@ -1,6 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { loadIntegrationConfig } from '../_test_utilities/integrationConfig';
 import { GeocodingManager } from './GeocodingManager';
+import { resolveAuth } from '../Auth/resolveAuth';
 
 let config: ReturnType<typeof loadIntegrationConfig>;
 
@@ -12,7 +13,7 @@ describe('GeocodingManager Integration Tests', () => {
   let manager: GeocodingManager;
 
   beforeAll(() => {
-    manager = new GeocodingManager(config.apiKey);
+    manager = new GeocodingManager(resolveAuth({ apiKey: config.apiKey }));
   });
 
   describe('geocode', () => {

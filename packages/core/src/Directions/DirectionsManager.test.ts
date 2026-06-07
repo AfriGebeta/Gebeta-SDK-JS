@@ -1,18 +1,19 @@
 import { DirectionsManager } from './DirectionsManager';
 import { API } from '@gebeta/api';
 import { ValidationError, NetworkError, RoutingError, BadRequestError } from '@gebeta/api';
+import { resolveAuth } from '../Auth/resolveAuth';
 import { getRandomString } from '../_test_utilities/specialCharacters';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
-import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';
 import { encodePolyline } from '../_test_utilities/polylineEncoder';
 
 describe('DirectionsManager', () => {
   const apiKey = getRandomString(10);
+  const auth = resolveAuth({ apiKey });
   let manager: DirectionsManager;
   let fetchSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    manager = new DirectionsManager(apiKey);
+    manager = new DirectionsManager(auth);
     jest.clearAllMocks();
   });
 
@@ -23,19 +24,9 @@ describe('DirectionsManager', () => {
   });
 
   describe('constructor', () => {
-    test('should create instance with valid API key', () => {
+    test('should create instance with valid auth', () => {
       expect(manager).toBeInstanceOf(DirectionsManager);
-      // @ts-expect-error - Accessing private property for test verification
-      expect(manager.auth).toBe(apiKey);
     });
-
-    test.each(EMPTY_VALUES)(
-      'should throw error if API key is missing (%s)',
-      (_description, givenApiKey?: string | null) => {
-        //@ts-expect-error - Testing constructor with invalid API key
-        expect(() => new DirectionsManager(givenApiKey)).toThrow(ValidationError);
-      }
-    );
 
     test('should use API constant for base URL', () => {
       expect(manager).toBeInstanceOf(DirectionsManager);

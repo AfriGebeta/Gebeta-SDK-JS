@@ -9,22 +9,20 @@ import {
 import { GeocodingApiResponse, GeocodingMessage } from './types';
 import { transformGeocodeResult } from './transform';
 import { createFetch } from '../utils/fetch';
+import type { ResolvedAuth } from '../Auth/resolveAuth';
 
-type AuthParam = API.Auth.Types.AuthParam;
+const { AuthTypes } = API.Auth.Enums;
 
 /**
  * GeocodingManager handles forward and reverse geocoding operations.
  * Platform-agnostic: uses fetch API which is available in all JS environments.
  */
 export class GeocodingManager {
-  private readonly auth: AuthParam;
+  private readonly auth: ResolvedAuth;
   private readonly baseUrl: string;
   private readonly clientId?: string;
 
-  constructor(auth: AuthParam, clientId?: string) {
-    if (!auth) {
-      throw new ValidationError('auth is required for GeocodingManager', 'auth');
-    }
+  constructor(auth: ResolvedAuth, clientId?: string) {
     this.auth = auth;
     this.baseUrl = API.Geocoding.Constants.API_URL;
     this.clientId = clientId;
@@ -41,11 +39,8 @@ export class GeocodingManager {
     }
 
     const params = new URLSearchParams({ name });
-    if (typeof this.auth === 'string') {
-      params.set('apiKey', this.auth);
-    } else {
-      const manager = this.auth as { getAccessToken(): string };
-      params.set('accessToken', manager.getAccessToken());
+    if (this.auth.type === AuthTypes.API_KEY) {
+      params.set('apiKey', this.auth.key);
     }
 
     const url = `${this.baseUrl}/geocoding?${params.toString()}`;
@@ -101,11 +96,8 @@ export class GeocodingManager {
       lat: latlng.lat.toString(),
       lon: latlng.lng.toString(),
     });
-    if (typeof this.auth === 'string') {
-      params.set('apiKey', this.auth);
-    } else {
-      const manager = this.auth as { getAccessToken(): string };
-      params.set('accessToken', manager.getAccessToken());
+    if (this.auth.type === AuthTypes.API_KEY) {
+      params.set('apiKey', this.auth.key);
     }
 
     const url = `${this.baseUrl}/revgeocoding?${params.toString()}`;

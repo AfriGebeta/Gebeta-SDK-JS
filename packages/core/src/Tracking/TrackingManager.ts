@@ -1,5 +1,7 @@
 import { API, TrackingError, createTrackingError, ValidationError } from '@gebeta/api';
-import type { AuthManager } from '../Auth/AuthManager';
+import type { ResolvedAuth } from '../Auth/resolveAuth';
+
+const { AuthTypes } = API.Auth.Enums;
 
 type ILocationProvider = API.Platform.Types.ILocationProvider;
 type LocationData = API.Platform.Types.LocationData;
@@ -30,8 +32,11 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
       TrackingManagerOptions,
       'userId' | 'role' | 'sendIntervalMs' | 'autoReconnect' | 'maxReconnectDelayMs'
     >
-  > &
-    Pick<TrackingManagerOptions, 'auth' | 'locationProvider' | 'clientId'>;
+  > & {
+    auth?: ResolvedAuth;
+    locationProvider?: TrackingManagerOptions['locationProvider'];
+    clientId?: string;
+  };
   private readonly wsUrl: string;
   private isConnected = false;
   private isStopped = false;
@@ -41,7 +46,7 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
    * @param options - Configuration options for the tracking client
    * @throws {ValidationError} If userId is missing
    */
-  constructor(options: TrackingManagerOptions) {
+  constructor(options: Omit<TrackingManagerOptions, 'auth'> & { auth?: ResolvedAuth }) {
     super();
 
     if (!options.userId) {
@@ -102,9 +107,9 @@ export class TrackingManager extends EventEmitter<TrackingEventMap> {
       const url = new URL(this.wsUrl);
       if (this.options.auth) {
         const token =
-          typeof this.options.auth === 'string'
-            ? this.options.auth
-            : (this.options.auth as AuthManager).getAccessToken();
+          this.options.auth.type === AuthTypes.API_KEY
+            ? this.options.auth.key
+            : this.options.auth.manager.getAccessToken();
         url.searchParams.set('token', token);
       }
       url.searchParams.set('userId', this.options.userId);

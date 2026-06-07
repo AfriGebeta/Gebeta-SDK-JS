@@ -4,13 +4,13 @@ Gebeta Maps SDK is a set of JavaScript libraries for embedding interactive maps,
 
 ## Packages
 
-| Package | Description | Target |
-|---------|-------------|--------|
-| `@gebeta/js` | Full-featured browser SDK | Browser (bundler or CDN) |
-| `@gebeta/react` | React components and hooks | React apps |
-| `@gebeta/node` | Server-side authentication | Node.js backends |
-| `@gebeta/api` | Shared TypeScript types | TypeScript consumers |
-| `@gebeta/core` | Platform-agnostic logic | Internal |
+| Package         | Description                | Target                   |
+| --------------- | -------------------------- | ------------------------ |
+| `@gebeta/js`    | Full-featured browser SDK  | Browser (bundler or CDN) |
+| `@gebeta/react` | React components and hooks | React apps               |
+| `@gebeta/node`  | Server-side authentication | Node.js backends         |
+| `@gebeta/api`   | Shared TypeScript types    | TypeScript consumers     |
+| `@gebeta/core`  | Platform-agnostic logic    | Internal                 |
 
 ## Choosing the right package
 

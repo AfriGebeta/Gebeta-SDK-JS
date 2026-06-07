@@ -1,7 +1,7 @@
 import '../_test_utilities/consoleMock';
 import { HttpTrackingManager } from './HttpTrackingManager';
 import { API, ValidationError } from '@gebeta/api';
-import { AuthManager } from '../Auth';
+import { resolveAuth } from '../Auth/resolveAuth';
 
 describe('HttpTrackingManager', () => {
   let mockLocationProvider: API.Platform.Types.ILocationProvider;
@@ -33,7 +33,7 @@ describe('HttpTrackingManager', () => {
       // WHEN creating an HttpTrackingManager instance
       // THEN it should throw a ValidationError
       expect(() => {
-        new HttpTrackingManager({} as unknown as API.Tracking.Types.HttpManagerOptions);
+        new HttpTrackingManager({} as never);
       }).toThrow(ValidationError);
     });
 
@@ -99,11 +99,11 @@ describe('HttpTrackingManager', () => {
   });
 
   describe('auth', () => {
-    test('should include Authorization: Bearer <apiKey> header when constructed with a string apiKey', async () => {
+    test('should append apiKey query param when constructed with API_KEY auth', async () => {
       // GIVEN an HttpTrackingManager constructed with legacy apiKey 'my-legacy-key'
       const client = new HttpTrackingManager({
         userId: 'test-user',
-        auth: 'my-legacy-key',
+        auth: resolveAuth({ apiKey: 'my-legacy-key' }),
       });
       client.start(mockLocationProvider);
 
@@ -111,23 +111,23 @@ describe('HttpTrackingManager', () => {
       jest.advanceTimersByTime(API.Tracking.Constants.INTERVAL_MS);
       await Promise.resolve();
 
-      // THEN globalThis.fetch is called with Authorization: Bearer my-legacy-key
-      const [, init] = mockFetch.mock.calls[0];
-      expect(init.headers['Authorization']).toBe('Bearer my-legacy-key');
+      // THEN globalThis.fetch is called with apiKey in the URL, no Authorization header
+      const [url, init] = mockFetch.mock.calls[0];
+      expect(url).toContain('apiKey=my-legacy-key');
+      expect(init?.headers?.['Authorization']).toBeUndefined();
     });
 
-    test('should delegate fetch to authManager.fetch() when constructed with an AuthManager', async () => {
-      // GIVEN an HttpTrackingManager constructed with an AuthManager
-      const authManager = new AuthManager({
-        accessToken: 'access-token-abc',
-        refreshToken: 'refresh-token-xyz',
+    test('should delegate fetch to authManager.fetch() when constructed with SERVICE_ACCOUNT auth', async () => {
+      // GIVEN an HttpTrackingManager constructed with SERVICE_ACCOUNT auth
+      const auth = resolveAuth({
+        auth: { accessToken: 'access-token-abc', refreshToken: 'refresh-token-xyz' },
       });
       const authFetchSpy = jest
-        .spyOn(authManager, 'fetch')
+        .spyOn((auth as any).manager, 'fetch')
         .mockResolvedValue(new Response('{}', { status: 200 }));
       const client = new HttpTrackingManager({
         userId: 'test-user',
-        auth: authManager,
+        auth,
       });
       client.start(mockLocationProvider);
 

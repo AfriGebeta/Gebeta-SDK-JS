@@ -2,6 +2,7 @@ import { API, NavigationError, createNavigationError, ValidationError } from '@g
 import { EventEmitter } from '../utils/EventEmitter';
 import { TrackingManager } from '../Tracking/TrackingManager';
 import { HttpTrackingManager } from '../Tracking/HttpTrackingManager';
+import type { ResolvedAuth } from '../Auth/resolveAuth';
 import {
   nearestPointOnLine,
   calculateRouteDistance,
@@ -49,7 +50,7 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
   private totalRouteDistance = 0;
   private stepDistances: number[] = [];
   private lastLocation: LocationData | null = null;
-  private readonly auth: API.Auth.Types.AuthParam;
+  private readonly auth: ResolvedAuth;
   private readonly clientId?: string;
   private userId: string = '';
   private role: Role = 'driver';
@@ -61,11 +62,7 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
    * @param options - Configuration options for navigation behavior
    * @param clientId - Optional stable client identifier for X-Device-ID header
    */
-  constructor(
-    auth: API.Auth.Types.AuthParam,
-    options: NavigationManagerOptions = {},
-    clientId?: string
-  ) {
+  constructor(auth: ResolvedAuth, options: NavigationManagerOptions = {}, clientId?: string) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;

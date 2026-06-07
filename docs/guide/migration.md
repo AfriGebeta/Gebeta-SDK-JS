@@ -5,6 +5,7 @@
 API key auth still works but is deprecated. Here's how to migrate:
 
 **Before:**
+
 ```js
 const gebetaMap = new GebetaMaps({ apiKey: 'your-api-key' });
 ```
@@ -26,6 +27,7 @@ const gebetaMap = new GebetaMaps({ auth: { accessToken, refreshToken } });
 ```
 
 ## Benefits of migrating
+
 - Tokens expire automatically — no long-lived credentials in your frontend
 - Revocable — invalidate a token without changing your API key
 - Scoped — tokens can be issued with specific permissions

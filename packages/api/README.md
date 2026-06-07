@@ -1,4 +1,4 @@
- # @gebeta/api
+# @gebeta/api
 
 Shared TypeScript types, interfaces, and constants for the Gebeta Maps SDK. No runtime code — types only.
 

@@ -1,8 +1,7 @@
 import type { API } from '@gebeta/api';
 import { DirectionsManager as CoreDirectionsManager } from '@gebeta/core';
+import type { ResolvedAuth } from '@gebeta/core';
 import { ValidationError } from '@gebeta/api';
-
-type AuthParam = API.Auth.Types.AuthParam;
 import { ROUTE_SOURCE_ID, DEFAULT_ROUTE_STYLE, DEFAULT_FIT_BOUNDS_OPTIONS } from './constants';
 import {
   initRouteLayer,
@@ -40,7 +39,7 @@ export class DirectionsManager {
   constructor(
     mapAdapter: IMapAdapter,
     markerFactory: IMarkerFactory,
-    auth: AuthParam,
+    auth: ResolvedAuth,
     clientId?: string
   ) {
     if (!mapAdapter) {

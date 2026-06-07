@@ -20,7 +20,7 @@ npm install @gebeta/js
 import { GebetaMaps } from '@gebeta/js';
 
 const gebetaMap = new GebetaMaps({
-  auth: { accessToken: '...', refreshToken: '...' }
+  auth: { accessToken: '...', refreshToken: '...' },
 });
 
 gebetaMap.init({ container: 'map', zoom: 12 });
@@ -35,7 +35,7 @@ import { GeocodingManager } from '@gebeta/js/geocoding';
 import { DirectionsManager } from '@gebeta/js/directions';
 import { ClusteringManager } from '@gebeta/js/clustering';
 import { NavigationManager } from '@gebeta/js/navigation';
-import { FenceManager }       from '@gebeta/js/fencing';
+import { FenceManager } from '@gebeta/js/fencing';
 ```
 
 ## Features
@@ -53,7 +53,7 @@ Service account auth is recommended. Use `@gebeta/node` on your backend to gener
 
 ```js
 const gebetaMap = new GebetaMaps({
-  auth: { accessToken, refreshToken }
+  auth: { accessToken, refreshToken },
 });
 ```
 

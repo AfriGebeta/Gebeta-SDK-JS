@@ -7,6 +7,7 @@ import {
 } from '@gebeta/api';
 import { EventEmitter } from '../utils/EventEmitter';
 import { createFetch } from '../utils/fetch';
+import type { ResolvedAuth } from '../Auth/resolveAuth';
 
 type HttpTrackingManagerOptions = API.Tracking.Types.HttpManagerOptions;
 type ILocationProvider = API.Platform.Types.ILocationProvider;
@@ -24,8 +25,11 @@ interface HttpTrackingEventMap {
 export class HttpTrackingManager extends EventEmitter<HttpTrackingEventMap> {
   private locationProvider: ILocationProvider | null = null;
   private sendInterval: ReturnType<typeof setInterval> | null = null;
-  private readonly options: Required<Pick<HttpTrackingManagerOptions, 'userId' | 'role'>> &
-    Pick<HttpTrackingManagerOptions, 'auth' | 'locationProvider' | 'clientId'>;
+  private readonly options: Required<Pick<HttpTrackingManagerOptions, 'userId' | 'role'>> & {
+    auth?: ResolvedAuth;
+    locationProvider?: HttpTrackingManagerOptions['locationProvider'];
+    clientId?: string;
+  };
   private readonly httpUrl: string;
   private isStopped = false;
 
@@ -34,7 +38,7 @@ export class HttpTrackingManager extends EventEmitter<HttpTrackingEventMap> {
    * @param options - Configuration options for the HTTP tracking client
    * @throws {ValidationError} If userId is missing
    */
-  constructor(options: HttpTrackingManagerOptions) {
+  constructor(options: Omit<HttpTrackingManagerOptions, 'auth'> & { auth?: ResolvedAuth }) {
     super();
 
     if (!options.userId) {

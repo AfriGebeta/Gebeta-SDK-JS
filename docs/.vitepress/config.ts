@@ -71,7 +71,10 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/introduction' },
       { text: 'Reference', link: '/reference/gebeta-maps' },
-      { text: 'Changelog', link: 'https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/main/CHANGELOG.md' },
+      {
+        text: 'Changelog',
+        link: 'https://github.com/AfriGebeta/Gebeta-SDK-JS/blob/main/CHANGELOG.md',
+      },
     ],
 
     sidebar: {
@@ -164,9 +167,7 @@ export default defineConfig({
       ],
     },
 
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/AfriGebeta/Gebeta-SDK-JS' },
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/AfriGebeta/Gebeta-SDK-JS' }],
 
     footer: {
       copyright: 'Copyright © 2024 Gebeta Maps',

@@ -4,12 +4,12 @@ JavaScript, React, and Node.js SDK for [Gebeta Maps](https://gebetamaps.com).
 
 ## Packages
 
-| Package | Description |
-|---|---|
-| `@gebeta/js` | Browser SDK — map rendering, geocoding, directions, navigation, clustering, fencing |
-| `@gebeta/react` | React component and hooks |
-| `@gebeta/node` | Node.js server-side authentication |
-| `@gebeta/api` | Shared TypeScript types (no runtime code) |
+| Package         | Description                                                                         |
+| --------------- | ----------------------------------------------------------------------------------- |
+| `@gebeta/js`    | Browser SDK — map rendering, geocoding, directions, navigation, clustering, fencing |
+| `@gebeta/react` | React component and hooks                                                           |
+| `@gebeta/node`  | Node.js server-side authentication                                                  |
+| `@gebeta/api`   | Shared TypeScript types (no runtime code)                                           |
 
 ## Documentation
 

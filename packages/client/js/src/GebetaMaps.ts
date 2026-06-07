@@ -4,12 +4,11 @@ import { DirectionsManager } from './Directions/DirectionsManager';
 import { ClusteringManager } from './Clustering/ClusteringManager';
 import { FenceManager } from './Fencing/FenceManager';
 import { NavigationManager } from './Navigation/NavigationManager';
-import { GeocodingManager, AuthManager, ClientIdManager } from '@gebeta/core';
-import { API, ValidationError, PlatformError } from '@gebeta/api';
+import { GeocodingManager, ClientIdManager, createTileTransform, resolveAuth } from '@gebeta/core';
+import type { ResolvedAuth } from '@gebeta/core';
+import { API, PlatformError } from '@gebeta/api';
 import { createPlatform, type PlatformContext } from './adapters';
 import { LocalStorageClientIdStorage } from './adapters/LocalStorageClientIdStorage';
-
-type AuthParam = API.Auth.Types.AuthParam;
 
 /**
  * Main entry point for the Gebeta Maps JavaScript SDK.
@@ -27,7 +26,7 @@ type AuthParam = API.Auth.Types.AuthParam;
  * ```
  */
 export class GebetaMaps {
-  private readonly auth: AuthParam;
+  private readonly auth: ResolvedAuth;
   private readonly enableClientId: boolean;
   private clientIdManager: ClientIdManager | null = null;
   private map: MapLibreMap | null = null;
@@ -66,25 +65,7 @@ export class GebetaMaps {
    * @throws {ValidationError} If neither `apiKey` nor `auth` is provided, or if both are provided.
    */
   constructor(options: API.Map.Types.ConstructorOptions & { platform?: PlatformContext }) {
-    const hasApiKey = !!options?.apiKey;
-    const hasAuth = !!options?.auth;
-
-    if (!hasApiKey && !hasAuth) {
-      throw new ValidationError('Either apiKey or auth is required', 'auth');
-    }
-    if (hasApiKey && hasAuth) {
-      throw new ValidationError('Provide either apiKey or auth, not both', 'auth');
-    }
-    if (hasApiKey) {
-      console.warn(
-        '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
-          'Use service account auth instead: https://docs.gebeta.app/auth'
-      );
-      this.auth = options.apiKey!;
-    } else {
-      this.auth = new AuthManager(options.auth!);
-    }
-
+    this.auth = resolveAuth(options);
     this.clusteringOptions = options.clustering;
     this.enableClientId = options.enableClientId ?? false;
     this.platform = options.platform ?? null;
@@ -164,6 +145,7 @@ export class GebetaMaps {
     } = options;
 
     const resolvedStyle = style || styleUrl || defaultStyleUrl;
+    const transformTile = createTileTransform(this.auth, this.clientIdManager?.getId());
 
     this.map = new maplibre.Map({
       ...mapOptions,
@@ -172,13 +154,7 @@ export class GebetaMaps {
       attributionControl: false,
       transformRequest: (url: string, _resourceType: string) => {
         if (url.startsWith('https://tiles.gebeta.app')) {
-          const token =
-            typeof this.auth === 'string' ? this.auth : (this.auth as AuthManager).getAccessToken();
-          const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
-          if (this.clientIdManager) {
-            headers['X-Device-ID'] = this.clientIdManager.getId();
-          }
-          return { url, headers };
+          return transformTile(url);
         }
         return { url };
       },

@@ -14,8 +14,8 @@ import { GebetaAuth } from '@gebeta/node';
 new GebetaAuth(options: { serverToken: string })
 ```
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter             | Type     | Description                                          |
+| --------------------- | -------- | ---------------------------------------------------- |
 | `options.serverToken` | `string` | Your Gebeta server token (keep secret, backend only) |
 
 ## Methods
@@ -28,8 +28,8 @@ Exchanges a client token and server token for a short-lived access/refresh token
 authenticate(clientToken: string): Promise<{ accessToken: string; refreshToken: string }>
 ```
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter     | Type     | Description                                          |
+| ------------- | -------- | ---------------------------------------------------- |
 | `clientToken` | `string` | The public client token received from the client app |
 
 ## Example

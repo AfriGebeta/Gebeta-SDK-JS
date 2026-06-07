@@ -45,7 +45,7 @@ describe('TrackingManager', () => {
       // WHEN creating a TrackingManager instance
       // THEN it should throw a ValidationError
       expect(() => {
-        new TrackingManager({} as unknown as API.Tracking.Types.ManagerOptions);
+        new TrackingManager({} as any);
       }).toThrow(ValidationError);
     });
 
