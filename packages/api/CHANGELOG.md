@@ -1,5 +1,11 @@
 # @gebeta/api
 
+## 3.0.7
+
+### Patch Changes
+
+- 2c07534: Fix api key auth, homogenize auth type decision
+
 ## 3.0.6
 
 ### Patch Changes
