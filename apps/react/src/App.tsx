@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import Geocoding from './pages/Geocoding';
 import Directions from './pages/Directions';
+import Navigation from './pages/Navigation';
 import Clustering from './pages/Clustering';
 import Fencing from './pages/Fencing';
 import { fetchAuth, type Auth } from './config';
@@ -14,6 +15,7 @@ const routes: Record<string, RouteComponent> = {
   '/': Home,
   '/geocoding': Geocoding,
   '/directions': Directions,
+  '/navigation': Navigation,
   '/clustering': Clustering,
   '/fencing': Fencing,
 };

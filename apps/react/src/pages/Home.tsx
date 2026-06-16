@@ -15,6 +15,13 @@ const examples = [
     description: 'Click the map to set origin and destination, then get and display a route.',
   },
   {
+    route: '/navigation',
+    title: 'Navigation',
+    import: "import { GebetaMaps, BrowserLocationProvider } from '@gebeta/js'",
+    description:
+      'Turn-by-turn navigation with progress, ETA, and off-route detection. Choose simulated or real GPS.',
+  },
+  {
     route: '/clustering',
     title: 'Marker Clustering',
     import: "import { ClusteringManager } from '@gebeta/js/clustering'",
