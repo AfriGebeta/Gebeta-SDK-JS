@@ -49,7 +49,7 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "lint": "test -d src && eslint \"src/**/*.ts\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.ts\" --fix || echo 'No src directory - skipping lint'",
     "typecheck": "test -d src && (yarn workspace @gebeta/api build && tsc --noEmit) || echo 'No src directory - skipping typecheck'",
