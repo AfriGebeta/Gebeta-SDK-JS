@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react';
-import { useRef, useState, useEffect, useMemo } from 'react';
+import type { ReactNode, Ref } from 'react';
+import { useRef, useState, useEffect, useMemo, useImperativeHandle, forwardRef } from 'react';
 import maplibre from 'maplibre-gl';
+import type { Map as MapLibreMap } from 'maplibre-gl';
 import type { API } from '@gebeta/api';
 import { resolveAuth, createTileTransform } from '@gebeta/core';
 import { GebetaMapContext } from './context/MapContext';
@@ -10,6 +11,7 @@ import { ClusteringManager } from './Clustering/ClusteringManager';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 export type GebetaMapProps = API.Components.Types.GebetaMapProps;
+export type GebetaMapRef = MapLibreMap;
 
 const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
 
@@ -41,25 +43,31 @@ const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
  * }
  * ```
  */
-export function GebetaMap({
-  apiKey,
-  auth: authProp,
-  styleUrl,
-  style: styleProp,
-  clustering,
-  onLoad,
-  onError,
-  children,
-  navigationControl = false,
-  navigationControlPosition = 'top-right',
-  ...rest
-}: GebetaMapProps): ReactNode {
+function GebetaMapImpl(
+  {
+    apiKey,
+    auth: authProp,
+    styleUrl,
+    style: styleProp,
+    clustering,
+    onLoad,
+    onError,
+    children,
+    navigationControl = false,
+    navigationControlPosition = 'top-right',
+    ...rest
+  }: GebetaMapProps,
+  ref: Ref<GebetaMapRef>
+): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<MapLibreMap | null>(null);
   const [contextValue, setContextValue] = useState<{
     platform: import('./adapters/createPlatform').PlatformContext;
     clusteringManager: ClusteringManager | null;
   } | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+
+  useImperativeHandle(ref, () => mapRef.current as MapLibreMap, [contextValue]);
 
   const auth = useMemo(
     () => resolveAuth({ apiKey, auth: authProp }),
@@ -86,6 +94,7 @@ export function GebetaMap({
         return { url };
       },
     });
+    mapRef.current = map;
 
     const platform = createPlatform(map);
 
@@ -122,6 +131,7 @@ export function GebetaMap({
 
     return () => {
       map.remove();
+      mapRef.current = null;
       setContextValue(null);
     };
   }, [auth]);
@@ -170,3 +180,5 @@ export function GebetaMap({
     </GebetaMapContext.Provider>
   );
 }
+
+export const GebetaMap = forwardRef<GebetaMapRef, GebetaMapProps>(GebetaMapImpl);
