@@ -1,23 +1,17 @@
 import { createContext, useContext } from 'react';
-import type { PlatformContext } from '../adapters/createPlatform';
-import type { ClusteringManager } from '../Clustering/ClusteringManager';
+import type { GebetaMaps } from '@gebeta/js';
 
-export interface GebetaMapContextValue {
-  platform: PlatformContext | null;
-  clusteringManager: ClusteringManager | null;
-}
+const GebetaMapContext = createContext<GebetaMaps | null>(null);
 
-const GebetaMapContext = createContext<GebetaMapContextValue | null>(null);
-
-export function useGebetaMapContext(): GebetaMapContextValue {
+export function useGebetaMap(): GebetaMaps {
   const value = useContext(GebetaMapContext);
   if (!value) {
-    throw new Error('useClustering must be used within a GebetaMap component');
+    throw new Error('useGebetaMap must be used within a GebetaMap component');
   }
   return value;
 }
 
-export function useGebetaMapContextOrNull(): GebetaMapContextValue | null {
+export function useGebetaMapOrNull(): GebetaMaps | null {
   return useContext(GebetaMapContext);
 }
 

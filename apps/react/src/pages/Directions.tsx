@@ -1,19 +1,26 @@
 // Directions.tsx — click map to set origin/destination, then display route.
-// Accesses DirectionsManager via gebetaMap.getDirections() / displayRoute() after onReady.
 
 import { useRef, useState, useCallback } from 'react';
-import Map, { type Platform } from '../Map';
-import type { Auth } from '../config';
-import type { GebetaMaps } from '@gebeta/js';
-import type { Map as MapLibreMap } from 'maplibre-gl';
+import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
+import { authProps, type Auth } from '../config';
 import type { API } from '@gebeta/api';
 import '../panel.css';
 
 const ORIGIN_ICON = 'https://cdn-icons-png.flaticon.com/512/1828/1828640.png';
 const DEST_ICON = 'https://cdn-icons-png.flaticon.com/512/3081/3081559.png';
 
+type Platform = ReturnType<GebetaMapRef['getPlatform']>;
 type Marker = ReturnType<Platform['markerFactory']['createMarker']>;
 type LngLat = { lat: number; lng: number };
+
+function addPinMarker(platform: Platform, lng: number, lat: number, iconUrl: string): Marker {
+  return (
+    platform.markerFactory
+      .createMarker({ imageUrl: iconUrl, size: [30, 30] })
+      ?.setLngLat({ lng, lat })
+      .addTo(platform.mapAdapter) ?? null
+  );
+}
 
 export default function Directions({ auth }: { auth: Auth }) {
   const [mode, setMode] = useState<'origin' | 'destination' | null>(null);
@@ -25,25 +32,14 @@ export default function Directions({ auth }: { auth: Auth }) {
   } | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const gebetaMapRef = useRef<GebetaMaps | null>(null);
-  const platformRef = useRef<Platform | null>(null);
+  const gebetaMapRef = useRef<GebetaMapRef>(null);
   const originMarkerRef = useRef<Marker>(null);
   const destMarkerRef = useRef<Marker>(null);
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
-  function addPinMarker(platform: Platform, lng: number, lat: number, iconUrl: string): Marker {
-    return (
-      platform.markerFactory
-        .createMarker({ imageUrl: iconUrl, size: [30, 30] })
-        ?.setLngLat({ lng, lat })
-        .addTo(platform.mapAdapter) ?? null
-    );
-  }
-
-  function handleReady(gm: GebetaMaps, _m: MapLibreMap, platform: Platform) {
-    gebetaMapRef.current = gm;
-    platformRef.current = platform;
+  function handleLoad(gm: GebetaMapRef) {
+    const platform = gm.getPlatform();
     platform.mapAdapter.on('click', (...args: unknown[]) => {
       const e = args[0] as { lngLat: API.Common.Types.LngLat };
       const { lat, lng } = e.lngLat;
@@ -67,7 +63,10 @@ export default function Directions({ auth }: { auth: Auth }) {
     try {
       const routeData = await gebetaMapRef.current.getDirections(origin, dest, {});
       gebetaMapRef.current.displayRoute(routeData, { showMarkers: false });
-      setRouteInfo({ distance: routeData.distance, duration: routeData.duration });
+      setRouteInfo({
+        distance: routeData.distance ?? undefined,
+        duration: routeData.duration ?? undefined,
+      });
     } catch (err) {
       alert('Directions failed: ' + String(err instanceof Error ? err.message : err));
     } finally {
@@ -92,7 +91,14 @@ export default function Directions({ auth }: { auth: Auth }) {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <Map auth={auth} center={[38.7685, 9.0161]} zoom={12} onReady={handleReady}>
+      <GebetaMap
+        ref={gebetaMapRef}
+        {...authProps(auth)}
+        center={[38.7685, 9.0161]}
+        zoom={12}
+        navigationControl
+        onLoad={handleLoad}
+      >
         <div className="control-panel">
           <h3>Directions</h3>
           <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
@@ -145,7 +151,7 @@ export default function Directions({ auth }: { auth: Auth }) {
             Use "Get Directions" to show the route.
           </p>
         </div>
-      </Map>
+      </GebetaMap>
     </div>
   );
 }

@@ -1,37 +1,43 @@
 import type { GebetaMapsInitOptions, ClusteringOptions } from './options';
-import type { ServiceAccountAuth } from './auth';
+import type { AuthOptions } from './auth';
 
 /**
  * Props for the main GebetaMap component (React/React Native/Vue...).
  *
- * This combines constructor options (`apiKey`, `clustering`) and init options
- * (`container`, `styleUrl`, etc.) into a single props interface for component-based APIs.
+ * Combines constructor options (auth, clustering) and init options
+ * (`container`, `styleUrl`, etc.) into a single props interface.
+ *
+ * Auth is enforced as a compile-time discriminated union via `AuthOptions`:
+ * exactly one of `apiKey` (deprecated) or `auth` (service account) must be passed.
  *
  * Usage:
- * - React: `<GebetaMap apiKey="..." container={ref} styleUrl="..." />`
- * - React Native: `<GebetaMap apiKey="..." styleUrl="..." />`
- * - Vue: `<GebetaMap :api-key="..." :style-url="..." />`
+ * - React: `<GebetaMap auth={{ accessToken, refreshToken }} styleUrl="..." />`
+ * - React Native: `<GebetaMap auth={{ accessToken, refreshToken }} styleUrl="..." />`
+ * - Vue: `<GebetaMap :auth="{ accessToken, refreshToken }" :style-url="..." />`
  *
  * For the imperative JS API, use `GebetaMapsConstructorOptions` + `GebetaMapsInitOptions` separately:
  * ```js
- * const map = new GebetaMaps({ apiKey: '...', clustering: {...} });
+ * const map = new GebetaMaps({ auth: {...}, clustering: {...} });
  * map.init({ container: '#map', styleUrl: '...' });
  * ```
  */
-export interface GebetaMapProps extends GebetaMapsInitOptions {
-  /** @deprecated Use `auth` instead. API key authentication is insecure — the key is visible in browser devtools. */
-  apiKey?: string;
-  /** Service account authentication credentials (access + refresh token pair) */
-  auth?: ServiceAccountAuth;
-  /** Clustering configuration options */
-  clustering?: ClusteringOptions;
-  /** Callback when map is loaded and ready */
-  onLoad?: (map: any) => void;
-  /** Callback when map encounters an error */
-  onError?: (error: Error) => void;
-  /** Child components (platform-specific) */
-  children?: any;
-}
+export type GebetaMapProps<TInstance = unknown> = AuthOptions &
+  GebetaMapsInitOptions & {
+    /** Clustering configuration options */
+    clustering?: ClusteringOptions;
+    /**
+     * Callback when map is loaded and ready.
+     * The argument's concrete type is set by the platform client
+     * (e.g. `GebetaMaps` in `@gebeta/js`). When unspecified, the callback
+     * receives `unknown` and consumers must narrow before use — but in
+     * practice every client wires `TInstance` to its concrete SDK class.
+     */
+    onLoad?: (instance: TInstance) => void;
+    /** Callback when map encounters an error */
+    onError?: (error: Error) => void;
+    /** Child components (platform-specific) */
+    children?: any;
+  };
 
 /**
  * Props for the NavigationUI component.

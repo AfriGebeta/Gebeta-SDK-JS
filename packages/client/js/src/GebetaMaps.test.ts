@@ -45,6 +45,8 @@ describe('GebetaMaps', () => {
       // GIVEN no auth credentials and no apiKey
       // WHEN GebetaMaps is constructed with an empty options object
       // THEN ValidationError is thrown
+      // @ts-expect-error - intentionally passing invalid options to verify the runtime guard;
+      // the discriminated union in @gebeta/api forbids this at compile time.
       expect(() => new GebetaMaps({})).toThrow(ValidationError);
     });
 
@@ -52,9 +54,11 @@ describe('GebetaMaps', () => {
       // GIVEN both apiKey 'my-legacy-api-key' and auth credentials
       // WHEN GebetaMaps is constructed with both options
       // THEN ValidationError is thrown
-      expect(() => new GebetaMaps({ apiKey: VALID_API_KEY, auth: VALID_AUTH })).toThrow(
-        ValidationError
-      );
+      expect(() =>
+        // @ts-expect-error - intentionally passing both apiKey and auth to verify the runtime guard;
+        // the discriminated union in @gebeta/api forbids this at compile time.
+        new GebetaMaps({ apiKey: VALID_API_KEY, auth: VALID_AUTH })
+      ).toThrow(ValidationError);
     });
   });
 

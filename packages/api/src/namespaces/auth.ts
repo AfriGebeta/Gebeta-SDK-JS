@@ -11,6 +11,7 @@ export namespace Auth {
     export type AuthCredentials = import('../types/auth').AuthCredentials;
     export type ServiceAccountAuth = import('../types/auth').ServiceAccountAuth;
     export type AuthParam = import('../types/auth').AuthParam;
+    export type AuthOptions = import('../types/auth').AuthOptions;
   }
 
   export const Enums = {

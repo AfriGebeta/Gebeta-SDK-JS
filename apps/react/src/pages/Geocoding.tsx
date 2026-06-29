@@ -1,11 +1,8 @@
 // Geocoding.tsx — forward and reverse geocoding example.
-// Accesses GeocodingManager via gebetaMap.geocodingManager after onReady.
 
 import { useRef, useState, useCallback } from 'react';
-import Map, { type Platform } from '../Map';
-import type { Auth } from '../config';
-import type { GebetaMaps } from '@gebeta/js';
-import type { Map as MapLibreMap } from 'maplibre-gl';
+import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
+import { authProps, type Auth } from '../config';
 import type { API } from '@gebeta/api';
 import '../panel.css';
 
@@ -19,15 +16,8 @@ export default function Geocoding({ auth }: { auth: Auth }) {
   const [results, setResults] = useState<Result[]>([]);
   const [ready, setReady] = useState(false);
 
-  const gebetaMapRef = useRef<GebetaMaps | null>(null);
-  const platformRef = useRef<Platform | null>(null);
+  const gebetaMapRef = useRef<GebetaMapRef>(null);
   const markersRef = useRef<Marker[]>([]);
-
-  function handleReady(gm: GebetaMaps, _m: MapLibreMap, platform: Platform) {
-    gebetaMapRef.current = gm;
-    platformRef.current = platform;
-    setReady(true);
-  }
 
   function clearResultMarkers() {
     markersRef.current.forEach(mk => mk.remove());
@@ -40,7 +30,7 @@ export default function Geocoding({ auth }: { auth: Auth }) {
       .filter(i => i.lngLat != null)
       .map(i => ({ name: i.name ?? 'Unknown', lat: i.lngLat!.lat, lng: i.lngLat!.lng }));
     setResults(mapped);
-    const platform = platformRef.current;
+    const platform = gebetaMapRef.current?.getPlatform();
     if (!platform) return;
     mapped.forEach(r => {
       const mk = platform.markerFactory
@@ -84,7 +74,14 @@ export default function Geocoding({ auth }: { auth: Auth }) {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <Map auth={auth} center={[38.7685, 9.0161]} zoom={12} onReady={handleReady}>
+      <GebetaMap
+        ref={gebetaMapRef}
+        {...authProps(auth)}
+        center={[38.7685, 9.0161]}
+        zoom={12}
+        navigationControl
+        onLoad={() => setReady(true)}
+      >
         <div className="control-panel">
           <h3>Geocoding</h3>
           <h4>Forward (search by name)</h4>
@@ -124,7 +121,9 @@ export default function Geocoding({ auth }: { auth: Auth }) {
                   key={`${r.lat},${r.lng}`}
                   className="result-item"
                   onClick={() =>
-                    platformRef.current?.mapAdapter.easeTo({ center: [r.lng, r.lat], zoom: 16 })
+                    gebetaMapRef.current
+                      ?.getPlatform()
+                      .mapAdapter.easeTo({ center: [r.lng, r.lat], zoom: 16 })
                   }
                 >
                   <strong>{r.name}</strong>
@@ -137,7 +136,7 @@ export default function Geocoding({ auth }: { auth: Auth }) {
             )}
           </div>
         </div>
-      </Map>
+      </GebetaMap>
     </div>
   );
 }
