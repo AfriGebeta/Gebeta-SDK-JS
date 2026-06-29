@@ -1,5 +1,14 @@
 # @gebeta/js
 
+## 3.0.8
+
+### Patch Changes
+
+- ef1b6f6: Expose map ref
+- Updated dependencies [ef1b6f6]
+  - @gebeta/core@3.0.8
+  - @gebeta/api@3.0.8
+
 ## 3.0.7
 
 ### Patch Changes

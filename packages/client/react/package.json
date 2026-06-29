@@ -1,6 +1,6 @@
 {
   "name": "@gebeta/react",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "React SDK for Gebeta Maps",
   "main": "dist/index.js",
   "module": "dist/index.js",

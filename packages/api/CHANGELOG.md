@@ -1,5 +1,11 @@
 # @gebeta/api
 
+## 3.0.8
+
+### Patch Changes
+
+- ef1b6f6: Expose map ref
+
 ## 3.0.7
 
 ### Patch Changes
