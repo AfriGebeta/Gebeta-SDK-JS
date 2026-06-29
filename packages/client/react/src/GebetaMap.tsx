@@ -1,46 +1,27 @@
-import type { ReactNode, Ref } from 'react';
-import { useRef, useState, useEffect, useMemo, useImperativeHandle, forwardRef } from 'react';
-import maplibre from 'maplibre-gl';
-import type { Map as MapLibreMap } from 'maplibre-gl';
+import type { ReactNode, Ref, MutableRefObject, ForwardRefRenderFunction } from 'react';
+import { useRef, useState, useEffect, useMemo, forwardRef } from 'react';
 import type { API } from '@gebeta/api';
-import { resolveAuth, createTileTransform } from '@gebeta/core';
+import { GebetaMaps } from '@gebeta/js';
 import { GebetaMapContext } from './context/MapContext';
-import { createPlatform } from './adapters';
-import { ClusteringManager } from './Clustering/ClusteringManager';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export type GebetaMapProps = API.Components.Types.GebetaMapProps;
-export type GebetaMapRef = MapLibreMap;
-
-const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
+export type GebetaMapProps = API.Components.Types.GebetaMapProps<GebetaMaps>;
+export type GebetaMapRef = GebetaMaps;
 
 /**
  * Main React component for rendering a Gebeta map.
  *
- * Manages the MapLibre GL map lifecycle: creates the map on mount, tears it down
- * on unmount, and exposes a React context that child components can consume via
- * `useGebetaMap()`.
+ * Constructs a `GebetaMaps` instance, mounts the map, and surfaces the instance
+ * to consumers in two ways:
+ *  - `ref` — read `ref.current` anywhere after `onLoad` has fired.
+ *  - `onLoad(gm)` — called once the map style is loaded, with the instance.
+ *
+ * Children may also call `useGebetaMap()` to access the instance from context.
  *
  * @example
- * ```jsx
- * import { GebetaMap } from '@gebeta/react';
- *
- * const auth = { accessToken: '...', refreshToken: '...' };
- * const style = { width: '100vw', height: '100vh' };
- *
- * function App() {
- *   return (
- *     <div style={style}>
- *       <GebetaMap
- *         auth={auth}
- *         center={[38.74, 9.02]}
- *         zoom={12}
- *         onLoad={(map) => console.log('Map ready', map)}
- *       />
- *     </div>
- *   );
- * }
+ * ```tsx
+ * <GebetaMap auth={auth} onLoad={(gm) => gm.geocodingManager.geocode('Bole')} />
  * ```
  */
 function GebetaMapImpl(
@@ -48,29 +29,32 @@ function GebetaMapImpl(
     apiKey,
     auth: authProp,
     styleUrl,
-    style: styleProp,
     clustering,
     onLoad,
     onError,
     children,
     navigationControl = false,
     navigationControlPosition = 'top-right',
+    center,
+    zoom,
     ...rest
   }: GebetaMapProps,
   ref: Ref<GebetaMapRef>
 ): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<MapLibreMap | null>(null);
-  const [contextValue, setContextValue] = useState<{
-    platform: import('./adapters/createPlatform').PlatformContext;
-    clusteringManager: ClusteringManager | null;
-  } | null>(null);
+  const [gebetaMaps, setGebetaMaps] = useState<GebetaMaps | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  useImperativeHandle(ref, () => mapRef.current as MapLibreMap, [contextValue]);
+  function assignRef(value: GebetaMaps | null) {
+    if (typeof ref === 'function') {
+      ref(value);
+    } else if (ref) {
+      (ref as MutableRefObject<GebetaMaps | null>).current = value;
+    }
+  }
 
-  const auth = useMemo(
-    () => resolveAuth({ apiKey, auth: authProp }),
+  const authKey = useMemo(
+    () => (authProp ? `${authProp.accessToken}|${authProp.refreshToken}` : (apiKey ?? '')),
     [apiKey, authProp?.accessToken, authProp?.refreshToken]
   );
 
@@ -79,41 +63,27 @@ function GebetaMapImpl(
     if (!container) return;
 
     setLoadError(null);
-    const resolvedStyle = styleProp || styleUrl || DEFAULT_STYLE_URL;
-    const transformTile = createTileTransform(auth);
 
-    const map = new maplibre.Map({
-      container,
-      style: resolvedStyle,
-      attributionControl: false,
-      ...rest,
-      transformRequest: (url: string, _resourceType: string) => {
-        if (url.startsWith('https://tiles.gebeta.app')) {
-          return transformTile(url);
-        }
-        return { url };
-      },
+    const gm = new GebetaMaps({
+      ...(authProp ? { auth: authProp } : { apiKey: apiKey as string }),
+      ...(clustering ? { clustering } : {}),
     });
-    mapRef.current = map;
 
-    const platform = createPlatform(map);
+    const map = gm.init({
+      container,
+      center,
+      zoom,
+      styleUrl,
+      navigationControl,
+      navigationControlPosition,
+      ...rest,
+    });
 
-    if (navigationControl && platform.mapAdapter.addControl) {
-      platform.mapAdapter.addControl(new maplibre.NavigationControl(), navigationControlPosition);
-    }
+    assignRef(gm);
 
     const onStyleLoad = () => {
-      let clusteringManager: ClusteringManager | null = null;
-      if (clustering?.enabled) {
-        clusteringManager = new ClusteringManager(
-          platform.mapAdapter,
-          platform.markerFactory,
-          platform.popupFactory,
-          clustering
-        );
-      }
-      setContextValue({ platform, clusteringManager });
-      onLoad?.({ clustering: clusteringManager });
+      setGebetaMaps(gm);
+      onLoad?.(gm);
     };
 
     if (map.isStyleLoaded()) {
@@ -131,16 +101,16 @@ function GebetaMapImpl(
 
     return () => {
       map.remove();
-      mapRef.current = null;
-      setContextValue(null);
+      assignRef(null);
+      setGebetaMaps(null);
     };
-  }, [auth]);
+  }, [authKey]);
 
   return (
-    <GebetaMapContext.Provider value={contextValue}>
+    <GebetaMapContext.Provider value={gebetaMaps}>
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <div ref={containerRef} style={{ position: 'absolute', inset: 0 }} />
-        {!contextValue ? (
+        {!gebetaMaps ? (
           <div
             style={{
               position: 'absolute',
@@ -166,19 +136,17 @@ function GebetaMapImpl(
             )}
           </div>
         ) : (
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              pointerEvents: 'none',
-            }}
-          >
-            <div style={{ pointerEvents: 'auto' }}>{children}</div>
-          </div>
+          children
         )}
       </div>
     </GebetaMapContext.Provider>
   );
 }
 
-export const GebetaMap = forwardRef<GebetaMapRef, GebetaMapProps>(GebetaMapImpl);
+// `forwardRef`'s `Omit<P, 'ref'>` distributes over discriminated unions; the
+// resulting `props` type widens and stops being assignable to `GebetaMapProps`.
+// Cast the impl to a non-union shape for forwardRef's sake, then cast the
+// result back to a component that takes the original discriminated-union props.
+export const GebetaMap = forwardRef(
+  GebetaMapImpl as ForwardRefRenderFunction<GebetaMapRef, never>
+) as unknown as (props: GebetaMapProps & { ref?: Ref<GebetaMapRef> }) => ReactNode;

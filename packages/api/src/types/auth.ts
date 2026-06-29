@@ -26,3 +26,18 @@ export interface ServiceAccountAuth {
  * Managers narrow at runtime using `typeof auth === 'string'`.
  */
 export type AuthParam = object | string;
+
+/**
+ * Auth options for SDK constructors and component props.
+ *
+ * Discriminated union that enforces "exactly one of apiKey or auth" at
+ * compile time. The type-level XOR prevents accidentally passing both
+ * (would throw at runtime) or neither (would also throw at runtime).
+ *
+ * Used by `GebetaMapsConstructorOptions` and `GebetaMapProps` (composed
+ * via intersection) so React / React Native / Vue / plain-JS clients
+ * all share the same compile-time guarantee.
+ */
+export type AuthOptions =
+  | { apiKey: string; auth?: never }
+  | { apiKey?: never; auth: ServiceAccountAuth };

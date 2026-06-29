@@ -19,6 +19,7 @@ export namespace API {
       export type AuthCredentials = AuthModule.Auth.Types.AuthCredentials;
       export type ServiceAccountAuth = AuthModule.Auth.Types.ServiceAccountAuth;
       export type AuthParam = AuthModule.Auth.Types.AuthParam;
+      export type AuthOptions = AuthModule.Auth.Types.AuthOptions;
     }
     export const Enums = AuthModule.Auth.Enums;
     export const Constants = AuthModule.Auth.Constants;
@@ -144,7 +145,8 @@ export namespace API {
 
   export namespace Components {
     export namespace Types {
-      export type GebetaMapProps = ComponentsModule.Components.Types.GebetaMapProps;
+      export type GebetaMapProps<TInstance = unknown> =
+        ComponentsModule.Components.Types.GebetaMapProps<TInstance>;
       export type NavigationUIProps = ComponentsModule.Components.Types.NavigationUIProps;
     }
   }

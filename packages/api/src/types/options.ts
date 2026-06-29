@@ -1,24 +1,23 @@
 import type { CornerPosition, LngLat, Position, Precision, Role } from './common';
 import type { RouteData, ClusterData } from './data';
-import type { AuthParam, ServiceAccountAuth } from './auth';
+import type { AuthOptions, AuthParam } from './auth';
 
 /**
  * Options for constructing a GebetaMaps instance (imperative JS API).
- * Used with: `new GebetaMaps({ apiKey, clustering })`
+ * Used with: `new GebetaMaps({ apiKey, clustering })` or `new GebetaMaps({ auth, clustering })`.
+ *
+ * Auth is enforced as a compile-time discriminated union via `AuthOptions`:
+ * exactly one of `apiKey` (deprecated) or `auth` (service account) must be passed.
  *
  * Note: For React/React Native/Vue components, use `GebetaMapProps` instead,
  * which combines constructor and init options into a single props interface.
  */
-export interface GebetaMapsConstructorOptions {
-  /** @deprecated Use `auth` instead. API key authentication is insecure — the key is visible in browser devtools. */
-  apiKey?: string;
-  /** Service account authentication credentials (access + refresh token pair) */
-  auth?: ServiceAccountAuth;
+export type GebetaMapsConstructorOptions = AuthOptions & {
   /** Clustering configuration options */
   clustering?: ClusteringOptions;
   /** Enable stable client identification via X-Device-ID header on all outgoing requests. Default: false. */
   enableClientId?: boolean;
-}
+};
 
 /**
  * Options for initializing the map (imperative JS API).

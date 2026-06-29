@@ -13,6 +13,16 @@ export type Auth =
   | { type: 'service_account'; accessToken: string; refreshToken: string }
   | { type: 'api_key'; apiKey: string };
 
+export type AuthProps =
+  | { auth: { accessToken: string; refreshToken: string }; apiKey?: never }
+  | { apiKey: string; auth?: never };
+
+export function authProps(auth: Auth): AuthProps {
+  return auth.type === 'service_account'
+    ? { auth: { accessToken: auth.accessToken, refreshToken: auth.refreshToken } }
+    : { apiKey: auth.apiKey };
+}
+
 export async function fetchAuth(): Promise<Auth> {
   if (clientToken) {
     const res = await fetch(authUrl, {

@@ -1,78 +1,66 @@
 // Fencing.tsx — draw geofences by clicking on the map.
-// Accesses FenceManager via gebetaMap.fenceManager after onReady.
 
 import { useRef, useState, useCallback } from 'react';
-import Map, { type Platform } from '../Map';
-import type { Auth } from '../config';
-import type { GebetaMaps } from '@gebeta/js';
-import type { Map as MapLibreMap } from 'maplibre-gl';
-import type { API } from '@gebeta/api';
+import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
+import { authProps, type Auth } from '../config';
 import '../panel.css';
-
-type LngLat = { lat: number; lng: number };
 
 export default function Fencing({ auth }: { auth: Auth }) {
   const [drawing, setDrawing] = useState(false);
-  const [points, setPoints] = useState<LngLat[]>([]);
+  const [pointCount, setPointCount] = useState(0);
   const [fenceCount, setFenceCount] = useState(0);
 
-  const gebetaMapRef = useRef<GebetaMaps | null>(null);
-  const platformRef = useRef<Platform | null>(null);
-  const drawingRef = useRef(drawing);
-  const pointsRef = useRef(points);
-  drawingRef.current = drawing;
-  pointsRef.current = points;
+  const gebetaMapRef = useRef<GebetaMapRef>(null);
 
-  function handleReady(gm: GebetaMaps, _m: MapLibreMap, platform: Platform) {
-    gebetaMapRef.current = gm;
-    platformRef.current = platform;
-    platform.mapAdapter.on('click', (...args: unknown[]) => {
-      if (!drawingRef.current) return;
-      const e = args[0] as { lngLat: API.Common.Types.LngLat };
-      const pt = { lat: e.lngLat.lat, lng: e.lngLat.lng };
-      const newPoints = [...pointsRef.current, pt];
-      pointsRef.current = newPoints;
-      setPoints(newPoints);
-    });
+  function refreshState() {
+    const fencing = gebetaMapRef.current?.fencing;
+    if (!fencing) return;
+    setDrawing(fencing.isDrawingFence());
+    setPointCount(fencing.getCurrentFencePoints().length);
+    setFenceCount(fencing.getFences().length);
+  }
+
+  function handleLoad(gm: GebetaMapRef) {
+    gm.fencing.on('fenceCompleted', refreshState);
+    refreshState();
   }
 
   const startDrawing = useCallback(() => {
-    setDrawing(true);
-    setPoints([]);
+    gebetaMapRef.current?.fencing.startDrawing();
+    refreshState();
+  }, []);
+
+  const stopDrawing = useCallback(() => {
+    gebetaMapRef.current?.fencing.stopDrawing();
+    refreshState();
   }, []);
 
   const closeFence = useCallback(() => {
-    if (!gebetaMapRef.current || pointsRef.current.length < 3) {
-      alert('Need at least 3 points to close a fence.');
-      return;
-    }
-    try {
-      gebetaMapRef.current.fenceManager.addFence({
-        id: `fence-${Date.now()}`,
-        coordinates: pointsRef.current,
-      });
-      setFenceCount(c => c + 1);
-    } catch (err) {
-      alert('Failed to add fence: ' + String(err instanceof Error ? err.message : err));
-    }
-    setDrawing(false);
-    setPoints([]);
+    gebetaMapRef.current?.fencing.closeFence();
+    refreshState();
   }, []);
 
   const clearFences = useCallback(() => {
-    gebetaMapRef.current?.fenceManager.clearFences();
-    setFenceCount(0);
+    gebetaMapRef.current?.fencing.clearAllFences();
+    refreshState();
   }, []);
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <Map auth={auth} center={[38.7685, 9.0161]} zoom={12} onReady={handleReady}>
+      <GebetaMap
+        ref={gebetaMapRef}
+        {...authProps(auth)}
+        center={[38.7685, 9.0161]}
+        zoom={12}
+        navigationControl
+        onLoad={handleLoad}
+      >
         <div className="control-panel">
           <h3>Fencing</h3>
           <div style={{ marginBottom: 10, fontSize: 13 }}>
             Fences: <strong>{fenceCount}</strong>
             {drawing && (
-              <span style={{ marginLeft: 10, color: '#007cbf' }}>Points: {points.length}</span>
+              <span style={{ marginLeft: 10, color: '#007cbf' }}>Points: {pointCount}</span>
             )}
           </div>
           {!drawing ? (
@@ -81,17 +69,10 @@ export default function Fencing({ auth }: { auth: Auth }) {
             </button>
           ) : (
             <>
-              <button className="primary" onClick={closeFence} disabled={points.length < 3}>
-                Close Fence ({points.length} pts)
+              <button className="primary" onClick={closeFence} disabled={pointCount < 3}>
+                Close Fence ({pointCount} pts)
               </button>
-              <button
-                onClick={() => {
-                  setDrawing(false);
-                  setPoints([]);
-                }}
-              >
-                Cancel
-              </button>
+              <button onClick={stopDrawing}>Cancel</button>
             </>
           )}
           <button className="danger" onClick={clearFences} disabled={fenceCount === 0}>
@@ -100,10 +81,11 @@ export default function Fencing({ auth }: { auth: Auth }) {
           <p className="hint">
             Click "Start Drawing", then click on the map to add points.
             <br />
-            Click "Close Fence" to complete the polygon (min 3 points).
+            Click "Close Fence" to complete the polygon (min 3 points), or click the first point on
+            the map.
           </p>
         </div>
-      </Map>
+      </GebetaMap>
     </div>
   );
 }

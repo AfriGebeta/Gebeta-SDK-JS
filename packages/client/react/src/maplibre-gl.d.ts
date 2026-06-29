@@ -1,11 +1,4 @@
 declare module 'maplibre-gl' {
-  export interface LngLatBounds {
-    getWest(): number;
-    getSouth(): number;
-    getEast(): number;
-    getNorth(): number;
-  }
-
   export class Map {
     constructor(options?: unknown);
     isStyleLoaded(): boolean;

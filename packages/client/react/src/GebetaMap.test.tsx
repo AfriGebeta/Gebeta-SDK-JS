@@ -72,16 +72,22 @@ describe('GebetaMap', () => {
       // GIVEN no apiKey and no auth
       // WHEN GebetaMap is rendered with no auth props
       // THEN ValidationError is thrown during render
-      expect(() => render(<GebetaMap />)).toThrow(ValidationError);
+      expect(() =>
+        // @ts-expect-error - intentionally omitting auth props to verify the runtime guard;
+        // the discriminated union in @gebeta/api forbids this at compile time.
+        render(<GebetaMap />)
+      ).toThrow(ValidationError);
     });
 
     test('should throw ValidationError when both apiKey and auth are provided', () => {
       // GIVEN both apiKey 'my-legacy-api-key' and auth credentials
       // WHEN GebetaMap is rendered with both props
       // THEN ValidationError is thrown during render
-      expect(() => render(<GebetaMap apiKey={VALID_API_KEY} auth={VALID_AUTH} />)).toThrow(
-        ValidationError
-      );
+      expect(() =>
+        // @ts-expect-error - intentionally passing both apiKey and auth to verify the runtime guard;
+        // the discriminated union in @gebeta/api forbids this at compile time.
+        render(<GebetaMap apiKey={VALID_API_KEY} auth={VALID_AUTH} />)
+      ).toThrow(ValidationError);
     });
   });
 

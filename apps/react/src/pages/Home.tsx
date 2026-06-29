@@ -4,33 +4,33 @@ const examples = [
   {
     route: '/geocoding',
     title: 'Geocoding',
-    import: "import { GeocodingManager } from '@gebeta/js/geocoding'",
+    import: "import { GebetaMap } from '@gebeta/react'",
     description:
       'Forward and reverse geocoding. Search by place name or look up an address from coordinates.',
   },
   {
     route: '/directions',
     title: 'Directions',
-    import: "import { DirectionsManager } from '@gebeta/js/directions'",
+    import: "import { GebetaMap } from '@gebeta/react'",
     description: 'Click the map to set origin and destination, then get and display a route.',
   },
   {
     route: '/navigation',
     title: 'Navigation',
-    import: "import { GebetaMaps, BrowserLocationProvider } from '@gebeta/js'",
+    import: "import { GebetaMap, BrowserLocationProvider } from '@gebeta/react'",
     description:
       'Turn-by-turn navigation with progress, ETA, and off-route detection. Choose simulated or real GPS.',
   },
   {
     route: '/clustering',
     title: 'Marker Clustering',
-    import: "import { ClusteringManager } from '@gebeta/js/clustering'",
+    import: "import { GebetaMap, useClustering } from '@gebeta/react'",
     description: 'Add random markers and see them cluster. Controls for radius and max zoom.',
   },
   {
     route: '/fencing',
     title: 'Fencing',
-    import: "import { FenceManager } from '@gebeta/js/fencing'",
+    import: "import { GebetaMap } from '@gebeta/react'",
     description: 'Draw geofences by clicking on the map. Close the fence to complete a polygon.',
   },
 ];
@@ -61,18 +61,6 @@ export default function Home() {
         </h1>
         <p style={{ textAlign: 'center', color: '#666', margin: '0 0 30px 0', fontSize: 15 }}>
           React examples using{' '}
-          <code
-            style={{
-              background: '#f0f4f8',
-              padding: '2px 6px',
-              borderRadius: 4,
-              fontSize: 13,
-              color: '#007cbf',
-            }}
-          >
-            @gebeta/js
-          </code>{' '}
-          and{' '}
           <code
             style={{
               background: '#f0f4f8',
