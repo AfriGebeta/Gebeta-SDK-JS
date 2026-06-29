@@ -122,8 +122,9 @@ describe('HttpTrackingManager', () => {
       const auth = resolveAuth({
         auth: { accessToken: 'access-token-abc', refreshToken: 'refresh-token-xyz' },
       });
+      if (auth.type !== 'SERVICE_ACCOUNT') throw new Error('expected SERVICE_ACCOUNT auth');
       const authFetchSpy = jest
-        .spyOn((auth as any).manager, 'fetch')
+        .spyOn(auth.manager, 'fetch')
         .mockResolvedValue(new Response('{}', { status: 200 }));
       const client = new HttpTrackingManager({
         userId: 'test-user',

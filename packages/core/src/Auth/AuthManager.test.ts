@@ -351,8 +351,9 @@ describe('AuthManager', () => {
     test('should delegate HTTP calls to authManager.fetch() instead of calling globalThis.fetch directly', async () => {
       // GIVEN a DirectionsManager constructed with a SERVICE_ACCOUNT ResolvedAuth
       const auth = resolveAuth({ auth: VALID_CREDENTIALS });
+      if (auth.type !== 'SERVICE_ACCOUNT') throw new Error('expected SERVICE_ACCOUNT auth');
       const directionsManager = new DirectionsManager(auth);
-      const authFetchSpy = jest.spyOn((auth as any).manager, 'fetch');
+      const authFetchSpy = jest.spyOn(auth.manager, 'fetch');
       fetchSpy = setupFetchSpy(
         200,
         {
