@@ -1,5 +1,11 @@
 # @gebeta/api
 
+## 3.0.9
+
+### Patch Changes
+
+- 28524fb: version bump
+
 ## 3.0.8
 
 ### Patch Changes

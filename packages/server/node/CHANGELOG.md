@@ -1,5 +1,13 @@
 # @gebeta/node
 
+## 3.0.9
+
+### Patch Changes
+
+- 28524fb: version bump
+- Updated dependencies [28524fb]
+  - @gebeta/api@3.0.9
+
 ## 3.0.8
 
 ### Patch Changes
