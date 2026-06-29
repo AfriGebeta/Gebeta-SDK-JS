@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "build:declarations": "tsc --emitDeclarationOnly",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "typecheck": "tsc --noEmit",

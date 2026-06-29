@@ -29,7 +29,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && tsc --emitDeclarationOnly --skipLibCheck",
+    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && yarn workspace @gebeta/js build && vite build && tsc --emitDeclarationOnly --skipLibCheck",
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.{ts,tsx}\" --fix || echo 'No src directory - skipping lint'",
