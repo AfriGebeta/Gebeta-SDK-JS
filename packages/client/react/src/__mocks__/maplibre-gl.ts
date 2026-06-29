@@ -1,18 +1,20 @@
+type Handler = (...args: unknown[]) => void;
+
 export class Map {
-  private handlers: Record<string, ((...args: any[]) => void)[]> = {};
+  private handlers: Record<string, Handler[]> = {};
 
-  constructor(public options: any) {}
+  constructor(public options: unknown) {}
 
-  on(event: string, handler: (...args: any[]) => void) {
+  on(event: string, handler: Handler) {
     if (!this.handlers[event]) this.handlers[event] = [];
     this.handlers[event].push(handler);
   }
 
-  once(event: string, handler: (...args: any[]) => void) {
+  once(event: string, handler: Handler) {
     this.on(event, handler);
   }
 
-  off(event: string, handler: (...args: any[]) => void) {
+  off(event: string, handler: Handler) {
     if (this.handlers[event]) {
       this.handlers[event] = this.handlers[event].filter(h => h !== handler);
     }
@@ -35,7 +37,7 @@ export class Map {
     return 10;
   }
 
-  easeTo(_options: any) {
+  easeTo(_options: unknown) {
     //mock impl.
   }
 
@@ -45,29 +47,29 @@ export class Map {
     return { layers: [] };
   }
 
-  setStyle(_style: any) {}
+  setStyle(_style: unknown) {}
 
   isStyleLoaded() {
     return true;
   }
 
-  addSource(_id: string, _spec: any) {}
+  addSource(_id: string, _spec: unknown) {}
   getSource(_id: string) {
     return null;
   }
   removeSource(_id: string) {}
 
-  addLayer(_spec: any, _beforeId?: string) {}
+  addLayer(_spec: unknown, _beforeId?: string) {}
   removeLayer(_id: string) {}
 
-  addControl(_control: any, _position?: string) {}
+  addControl(_control: unknown, _position?: string) {}
 
   remove() {}
 
-  fitBounds(_bounds: any, _options?: any) {}
+  fitBounds(_bounds: unknown, _options?: unknown) {}
 
-  setPaintProperty(_layer: string, _name: string, _value: any) {}
-  setLayoutProperty(_layer: string, _name: string, _value: any) {}
+  setPaintProperty(_layer: string, _name: string, _value: unknown) {}
+  setLayoutProperty(_layer: string, _name: string, _value: unknown) {}
 }
 
 export class Marker {

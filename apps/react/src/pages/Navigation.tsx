@@ -47,7 +47,7 @@ function createSimulatedLocationProvider(
     const dLng = ((to[0] - from[0]) * Math.PI) / 180;
     const y = Math.sin(dLng) * Math.cos(lat2);
     const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
-    return (((Math.atan2(y, x) * 180) / Math.PI) + 360) % 360;
+    return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
   }
 
   return {
@@ -233,11 +233,7 @@ export default function Navigation({ auth }: { auth: Auth }) {
       });
     }
 
-    gm.navigation.start(
-      route,
-      { userId: `demo-user-${Date.now()}` },
-      locationProviderRef.current
-    );
+    gm.navigation.start(route, { userId: `demo-user-${Date.now()}` }, locationProviderRef.current);
   }, [source]);
 
   const stopNavigation = useCallback(() => {
@@ -270,7 +266,11 @@ export default function Navigation({ auth }: { auth: Auth }) {
     s == null ? '—' : s < 60 ? `${Math.round(s)} s` : `${Math.round(s / 60)} min`;
 
   const navInfoClass =
-    status === 'navigating' ? 'route-info active' : status === 'offroute' ? 'route-info warning' : 'route-info';
+    status === 'navigating'
+      ? 'route-info active'
+      : status === 'offroute'
+        ? 'route-info warning'
+        : 'route-info';
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
