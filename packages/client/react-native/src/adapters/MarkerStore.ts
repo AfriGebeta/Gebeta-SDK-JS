@@ -26,6 +26,11 @@ export interface MarkerRecord {
    * content is stripped to text and rendered as a styled bubble instead of an image/pin).
    */
   text?: string;
+  /**
+   * Cluster point count. When set, the marker renders as a cluster bubble (circle + count,
+   * or `imageUrl` with a count badge) instead of a pin. Used by the ClusteringManager.
+   */
+  clusterCount?: number;
   /** Whether this marker is currently added to the map (addTo called, remove not yet). */
   visible: boolean;
 }

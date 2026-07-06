@@ -21,6 +21,8 @@ export {
 
 export { useDirections, type UseDirectionsResult } from './hooks/useDirections';
 export { useUserLocation, type UseUserLocationResult } from './hooks/useUserLocation';
+export { useClustering, type UseClusteringResult } from './hooks/useClustering';
+export { ClusteringManager } from './Clustering';
 
 // Re-export MapLibre's declarative user-location components so consumers can render the
 // location dot/puck without importing @maplibre/maplibre-react-native directly.

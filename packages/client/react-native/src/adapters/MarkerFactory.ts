@@ -3,9 +3,18 @@ import type { MarkerStore, MarkerRecord } from './MarkerStore';
 
 type IMarker = API.Platform.Types.IMarker;
 type IMarkerFactory = API.Platform.Types.IMarkerFactory;
-type MarkerFactoryOptions = API.Platform.Types.MarkerFactoryOptions;
 type LngLatLike = API.Common.Types.LngLatLike;
 type LngLat = API.Common.Types.LngLat;
+
+/**
+ * RN-specific superset of `MarkerFactoryOptions`. RN can't style markers via a DOM `element`
+ * (the web escape hatch), so cluster styling is passed structurally via `clusterCount`. The
+ * factory's implementation accepts this superset; callers using the plain `IMarkerFactory`
+ * contract are unaffected.
+ */
+export type RNMarkerFactoryOptions = API.Platform.Types.MarkerFactoryOptions & {
+  clusterCount?: number;
+};
 
 function toLngLat(lngLat: LngLatLike): LngLat {
   if (Array.isArray(lngLat)) return { lng: lngLat[0], lat: lngLat[1] };
@@ -47,7 +56,7 @@ class RNMarker implements IMarker {
 export class MarkerFactory implements IMarkerFactory {
   constructor(private store: MarkerStore) {}
 
-  createMarker(options: MarkerFactoryOptions): IMarker | null {
+  createMarker(options: RNMarkerFactoryOptions): IMarker | null {
     const onClick = options.onClick;
     const record: Omit<MarkerRecord, 'id' | 'visible'> = {
       // Placeholder position; the caller sets the real coordinate via setLngLat before addTo.
@@ -56,6 +65,7 @@ export class MarkerFactory implements IMarkerFactory {
       size: options.size,
       anchor: options.anchor,
       offset: normalizeOffset(options.offset),
+      clusterCount: options.clusterCount,
     };
 
     const id = this.store.create(record);

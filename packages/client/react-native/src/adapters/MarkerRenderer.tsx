@@ -39,6 +39,30 @@ export function MarkerRenderer({ store }: { store: MarkerStore }): ReactElement 
 }
 
 function renderContent(marker: MarkerRecord): ReactElement {
+  // Cluster records render as a count circle (or a custom image with a count badge).
+  if (marker.clusterCount !== undefined) {
+    if (marker.imageUrl) {
+      const [w, h] = marker.size ?? [40, 40];
+      return (
+        <View>
+          <Image
+            source={{ uri: marker.imageUrl }}
+            style={{ width: w, height: h }}
+            resizeMode="contain"
+          />
+          <View style={styles.clusterBadge}>
+            <Text style={styles.clusterBadgeText}>{marker.clusterCount}</Text>
+          </View>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.clusterCircle}>
+        <Text style={styles.clusterCircleText}>{marker.clusterCount}</Text>
+      </View>
+    );
+  }
+
   // Popups (text records) render as a bubble rather than a pin/image.
   if (marker.text !== undefined) {
     return (
@@ -94,5 +118,43 @@ const styles = StyleSheet.create({
   bubbleText: {
     fontSize: 12,
     color: '#222',
+  },
+  clusterCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#007cbf',
+    borderWidth: 2,
+    borderColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  clusterCircleText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  clusterBadge: {
+    position: 'absolute',
+    top: -6,
+    right: -6,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    paddingHorizontal: 4,
+    backgroundColor: '#e53935',
+    borderWidth: 1,
+    borderColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  clusterBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '700',
   },
 });

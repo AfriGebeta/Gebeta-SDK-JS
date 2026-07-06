@@ -21,9 +21,10 @@ import {
 } from 'react-native-safe-area-context';
 import Directions from './src/pages/Directions';
 import LocationPage from './src/pages/Location';
+import Clustering from './src/pages/Clustering';
 import { getAuth, type Auth } from './src/config';
 
-type Page = 'home' | 'directions' | 'location';
+type Page = 'home' | 'directions' | 'location' | 'clustering';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -67,6 +68,11 @@ function AppContent() {
             active={page === 'location'}
             onPress={() => setPage('location')}
           />
+          <Tab
+            label="Cluster"
+            active={page === 'clustering'}
+            onPress={() => setPage('clustering')}
+          />
         </View>
       </View>
       <View style={styles.body}>
@@ -84,8 +90,10 @@ function AppContent() {
           </View>
         ) : page === 'directions' ? (
           auth && <Directions auth={auth} />
-        ) : (
+        ) : page === 'location' ? (
           auth && <LocationPage auth={auth} />
+        ) : (
+          auth && <Clustering auth={auth} />
         )}
       </View>
     </View>
