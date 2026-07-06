@@ -1,0 +1,56 @@
+{
+  "name": "@gebeta/react-native",
+  "version": "0.1.0",
+  "description": "React Native SDK for Gebeta Maps",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "react-native": "src/index.ts",
+  "exports": {
+    ".": {
+      "react-native": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/index.ts"
+    ]
+  },
+  "scripts": {
+    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && tsc",
+    "clean": "rm -rf dist",
+    "lint": "test -d src && eslint \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping lint'",
+    "lint:fix": "test -d src && eslint \"src/**/*.{ts,tsx}\" --fix || echo 'No src directory - skipping lint'",
+    "typecheck": "test -d src && tsc --noEmit || echo 'No src directory - skipping typecheck'",
+    "format": "test -d src && prettier --write \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format'",
+    "format:check": "test -d src && prettier --check \"src/**/*.{ts,tsx}\" || echo 'No src directory - skipping format check'"
+  },
+  "dependencies": {
+    "@gebeta/api": "workspace:*",
+    "@gebeta/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@maplibre/maplibre-react-native": "^11.3.6",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "react": "19.2.3",
+    "react-native": "0.86.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@maplibre/maplibre-react-native": "^11.0.0",
+    "react": ">=19.1.0",
+    "react-native": ">=0.80.0"
+  }
+}

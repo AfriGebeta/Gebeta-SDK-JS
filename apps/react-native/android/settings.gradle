@@ -1,0 +1,24 @@
+// Resolve @react-native/gradle-plugin via Node instead of a hardcoded relative path. In this
+// Yarn workspaces monorepo the package is hoisted to the repo-root node_modules, not the
+// app-local one, so `../node_modules/...` does not exist. `require.resolve` finds it wherever
+// Yarn placed it, keeping the build robust to hoisting.
+//
+// The resolution must live inside pluginManagement {} / plugins {} scopes: Gradle forbids any
+// other top-level statement before the plugins {} block.
+pluginManagement {
+  def gradlePluginDir = providers.exec {
+    workingDir(rootDir)
+    commandLine("node", "--print", "require('path').dirname(require.resolve('@react-native/gradle-plugin/package.json'))")
+  }.standardOutput.asText.get().trim()
+  includeBuild(gradlePluginDir)
+}
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'GebetaRNExample'
+include ':app'
+includeBuild(
+  providers.exec {
+    workingDir(rootDir)
+    commandLine("node", "--print", "require('path').dirname(require.resolve('@react-native/gradle-plugin/package.json'))")
+  }.standardOutput.asText.get().trim()
+)

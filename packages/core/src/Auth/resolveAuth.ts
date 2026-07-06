@@ -30,7 +30,10 @@ export function resolveAuth(options: {
       '[Gebeta] apiKey auth is deprecated and will be removed in a future release. ' +
         'Use service account auth instead: https://docs.gebeta.app/auth'
     );
-    return { type: AuthTypes.API_KEY, key: options.apiKey! };
+    // Trim surrounding whitespace/newlines — API keys are long JWTs that consumers often
+    // paste (or inject via env vars) with a stray trailing newline, which would otherwise
+    // corrupt the `?apiKey=` query param on every signed tile/API URL.
+    return { type: AuthTypes.API_KEY, key: options.apiKey!.trim() };
   }
 
   return { type: AuthTypes.SERVICE_ACCOUNT, manager: new AuthManager(options.auth!) };
