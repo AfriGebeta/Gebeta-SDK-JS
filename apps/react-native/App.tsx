@@ -20,9 +20,10 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import Directions from './src/pages/Directions';
+import LocationPage from './src/pages/Location';
 import { getAuth, type Auth } from './src/config';
 
-type Page = 'home' | 'directions';
+type Page = 'home' | 'directions' | 'location';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -61,6 +62,11 @@ function AppContent() {
             active={page === 'directions'}
             onPress={() => setPage('directions')}
           />
+          <Tab
+            label="Location"
+            active={page === 'location'}
+            onPress={() => setPage('location')}
+          />
         </View>
       </View>
       <View style={styles.body}>
@@ -76,8 +82,10 @@ function AppContent() {
               store.
             </Text>
           </View>
-        ) : (
+        ) : page === 'directions' ? (
           auth && <Directions auth={auth} />
+        ) : (
+          auth && <LocationPage auth={auth} />
         )}
       </View>
     </View>

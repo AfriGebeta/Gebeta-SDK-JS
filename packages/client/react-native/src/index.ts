@@ -20,3 +20,8 @@ export {
 } from './Directions';
 
 export { useDirections, type UseDirectionsResult } from './hooks/useDirections';
+export { useUserLocation, type UseUserLocationResult } from './hooks/useUserLocation';
+
+// Re-export MapLibre's declarative user-location components so consumers can render the
+// location dot/puck without importing @maplibre/maplibre-react-native directly.
+export { UserLocation } from '@maplibre/maplibre-react-native';
