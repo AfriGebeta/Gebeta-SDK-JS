@@ -22,6 +22,7 @@ import { resolveAuth, createTileTransform } from '@gebeta/core';
 import { GebetaMapContext } from './context/MapContext';
 import { createPlatform, type PlatformContext } from './adapters/createPlatform';
 import { MapSpecRenderer } from './adapters/MapSpecRenderer';
+import { MarkerRenderer } from './adapters/MarkerRenderer';
 import { fetchSignedStyle } from './utils/signStyle';
 
 const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
@@ -176,6 +177,7 @@ export function GebetaMap({
               initialViewState={{ center, zoom }}
             />
             <MapSpecRenderer store={contextValue.platform.mapHandle.store} />
+            <MarkerRenderer store={contextValue.platform.markerStore} />
           </MapLibreMap>
         ) : (
           <View style={styles.placeholder}>

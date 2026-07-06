@@ -1,33 +1,26 @@
 /**
- * Directions demo — the end-to-end test for the RN declarative map store (Step 3).
+ * Directions demo.
  *
  * Flow:
- *   1. Tap the map to set origin, then destination (map 'click' event from the RN adapter).
- *   2. Fetch a route with core's platform-agnostic `DirectionsManager`.
- *   3. Render the route line by driving the RN `MapAdapter` with `addSource` / `addLayer` /
- *      `getSource().setData` — exactly the calls the web route-layer helper makes.
- *
- * If the blue line appears on the native map, the declarative store + renderer bridge works:
- * imperative adapter calls became `<ShapeSource>`/`<LineLayer>` children.
+ *   1. Tap the map to set origin, then destination (map 'click' event drops a pick-marker).
+ *   2. `useDirections()` gives a DirectionsManager wired to this map's platform.
+ *   3. Get Directions calls `directions.getDirections()` + `directions.displayRoute()`, which
+ *      draws the route line (via the declarative MapSpecStore) and origin/destination markers,
+ *      and fits the camera to the route.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { GebetaMap, useGebetaMapContextOrNull } from '@gebeta/react-native';
+import {
+  GebetaMap,
+  useGebetaMapContextOrNull,
+  useDirections,
+} from '@gebeta/react-native';
 import type { API } from '@gebeta/api';
-import { DirectionsManager, resolveAuth } from '@gebeta/core';
 import { authProps, type Auth } from '../config';
 
-const ROUTE_SOURCE_ID = 'gebeta-route';
-const ROUTE_LAYER_ID = 'gebeta-route';
-
-const DEFAULT_ROUTE_STYLE = {
-  'line-color': '#007cbf',
-  'line-width': 4,
-  'line-opacity': 0.8,
-  'line-join': 'round' as const,
-  'line-cap': 'round' as const,
-};
+const ORIGIN_ICON = 'https://cdn-icons-png.flaticon.com/512/1828/1828640.png';
+const DEST_ICON = 'https://cdn-icons-png.flaticon.com/512/3081/3081559.png';
 
 type LngLat = API.Common.Types.LngLat;
 
@@ -61,14 +54,27 @@ function DirectionsPanel({ auth }: { auth: Auth }) {
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
-  const directions = useMemo(() => {
-    if (!platform) return null;
-    return new DirectionsManager(
-      resolveAuth({
-        apiKey: auth.type === 'api_key' ? auth.apiKey : undefined,
-      }),
-    );
-  }, [platform, auth]);
+  type Marker = ReturnType<
+    NonNullable<typeof platform>['markerFactory']['createMarker']
+  >;
+  const originMarkerRef = useRef<Marker>(null);
+  const destMarkerRef = useRef<Marker>(null);
+
+  const dropMarker = useCallback(
+    (lng: number, lat: number, iconUrl: string): Marker => {
+      if (!platform) return null;
+      return (
+        platform.markerFactory
+          .createMarker({ imageUrl: iconUrl, size: [30, 30], anchor: 'bottom' })
+          ?.setLngLat({ lng, lat })
+          .addTo(platform.mapAdapter) ?? null
+      );
+    },
+    [platform],
+  );
+
+  // The DirectionsManager, wired to this <GebetaMap>'s platform (map adapter + marker factory).
+  const { directions } = useDirections(authProps(auth));
 
   // Bind the map 'click' handler to the live mapAdapter. Using an effect (not a render-body
   // ref guard) ensures we bind to the CURRENT adapter and clean up if it changes.
@@ -78,9 +84,13 @@ function DirectionsPanel({ auth }: { auth: Auth }) {
       const e = args[0] as { lngLat: LngLat };
       const point = { lat: e.lngLat.lat, lng: e.lngLat.lng };
       if (modeRef.current === 'origin') {
+        originMarkerRef.current?.remove();
+        originMarkerRef.current = dropMarker(point.lng, point.lat, ORIGIN_ICON);
         setOrigin(point);
         setMode(null);
       } else if (modeRef.current === 'destination') {
+        destMarkerRef.current?.remove();
+        destMarkerRef.current = dropMarker(point.lng, point.lat, DEST_ICON);
         setDest(point);
         setMode(null);
       }
@@ -89,56 +99,20 @@ function DirectionsPanel({ auth }: { auth: Auth }) {
     return () => {
       platform.mapAdapter.off('click', onClick);
     };
-  }, [platform]);
-
-  const drawRoute = useCallback(
-    (coordinates: [number, number][]) => {
-      if (!platform) return;
-      const adapter = platform.mapAdapter;
-      if (!adapter.getSource(ROUTE_SOURCE_ID)) {
-        adapter.addSource(ROUTE_SOURCE_ID, {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            properties: {},
-            geometry: { type: 'LineString', coordinates },
-          },
-        });
-        adapter.addLayer({
-          id: ROUTE_LAYER_ID,
-          type: 'line',
-          source: ROUTE_SOURCE_ID,
-          layout: {
-            'line-join': DEFAULT_ROUTE_STYLE['line-join'],
-            'line-cap': DEFAULT_ROUTE_STYLE['line-cap'],
-            visibility: 'visible',
-          },
-          paint: {
-            'line-color': DEFAULT_ROUTE_STYLE['line-color'],
-            'line-width': DEFAULT_ROUTE_STYLE['line-width'],
-            'line-opacity': DEFAULT_ROUTE_STYLE['line-opacity'],
-          },
-        });
-      } else {
-        const source = adapter.getSource(ROUTE_SOURCE_ID) as {
-          setData?: (d: unknown) => void;
-        };
-        source.setData?.({
-          type: 'Feature',
-          properties: {},
-          geometry: { type: 'LineString', coordinates },
-        });
-      }
-    },
-    [platform],
-  );
+  }, [platform, dropMarker]);
 
   const getDirections = useCallback(async () => {
     if (!directions || !origin || !dest) return;
     setLoading(true);
     try {
       const route = await directions.getDirections(origin, dest, {});
-      drawRoute(route.geometry?.coordinates ?? []);
+      // The manager draws the route line and its own origin/destination markers, so remove the
+      // temporary pick-markers first to avoid duplicates.
+      originMarkerRef.current?.remove();
+      originMarkerRef.current = null;
+      destMarkerRef.current?.remove();
+      destMarkerRef.current = null;
+      directions.displayRoute(route, { showMarkers: true });
       setInfo({
         distance: route.distance ?? undefined,
         duration: route.duration ?? undefined,
@@ -150,15 +124,18 @@ function DirectionsPanel({ auth }: { auth: Auth }) {
     } finally {
       setLoading(false);
     }
-  }, [directions, origin, dest, drawRoute]);
+  }, [directions, origin, dest]);
 
   const clearAll = useCallback(() => {
-    platform?.mapAdapter.removeLayer(ROUTE_LAYER_ID);
-    platform?.mapAdapter.removeSource(ROUTE_SOURCE_ID);
+    directions?.clearRoute();
+    originMarkerRef.current?.remove();
+    originMarkerRef.current = null;
+    destMarkerRef.current?.remove();
+    destMarkerRef.current = null;
     setOrigin(null);
     setDest(null);
     setInfo(null);
-  }, [platform]);
+  }, [directions]);
 
   return (
     <View style={styles.panel}>

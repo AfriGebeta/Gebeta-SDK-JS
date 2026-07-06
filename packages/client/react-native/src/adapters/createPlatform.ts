@@ -1,6 +1,7 @@
 import type { API } from '@gebeta/api';
 import { MapAdapter } from './MapAdapter';
 import { MapHandle } from './MapHandle';
+import { MarkerStore } from './MarkerStore';
 import { MarkerFactory } from './MarkerFactory';
 import { PopupFactory } from './PopupFactory';
 import { RNLocationProvider } from './LocationProvider';
@@ -23,6 +24,11 @@ export interface PlatformContext extends API.Platform.Types.IPlatformContext {
    * context so the `<GebetaMap>` component can wire the refs after mount.
    */
   mapHandle: MapHandle;
+  /**
+   * Declarative marker store. `MarkerFactory` writes marker records here; `GebetaMap` renders
+   * them via a `MarkerRenderer`. Exposed so the map component can render the markers.
+   */
+  markerStore: MarkerStore;
 }
 
 export function createPlatform(options: {
@@ -30,11 +36,13 @@ export function createPlatform(options: {
   zoom: number;
 }): PlatformContext {
   const mapHandle = new MapHandle(options.center, options.zoom);
+  const markerStore = new MarkerStore();
   return {
     mapAdapter: new MapAdapter(mapHandle),
     mapHandle,
-    markerFactory: new MarkerFactory(),
-    popupFactory: new PopupFactory(),
+    markerStore,
+    markerFactory: new MarkerFactory(markerStore),
+    popupFactory: new PopupFactory(markerStore),
     locationProvider: RNLocationProvider.getInstance(),
     getLocationProvider: options => RNLocationProvider.getInstance(options),
     styleInjector: StyleInjector.getInstance(),
