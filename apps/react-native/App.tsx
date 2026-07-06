@@ -8,6 +8,7 @@
 
 import { useState } from 'react';
 import {
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -22,9 +23,10 @@ import {
 import Directions from './src/pages/Directions';
 import LocationPage from './src/pages/Location';
 import Clustering from './src/pages/Clustering';
+import Fencing from './src/pages/Fencing';
 import { getAuth, type Auth } from './src/config';
 
-type Page = 'home' | 'directions' | 'location' | 'clustering';
+type Page = 'home' | 'directions' | 'location' | 'clustering' | 'fencing';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -52,7 +54,11 @@ function AppContent() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <Text style={styles.title}>Gebeta Maps RN</Text>
-        <View style={styles.tabs}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tabs}
+        >
           <Tab
             label="Home"
             active={page === 'home'}
@@ -73,7 +79,12 @@ function AppContent() {
             active={page === 'clustering'}
             onPress={() => setPage('clustering')}
           />
-        </View>
+          <Tab
+            label="Fence"
+            active={page === 'fencing'}
+            onPress={() => setPage('fencing')}
+          />
+        </ScrollView>
       </View>
       <View style={styles.body}>
         {authError ? (
@@ -92,8 +103,10 @@ function AppContent() {
           auth && <Directions auth={auth} />
         ) : page === 'location' ? (
           auth && <LocationPage auth={auth} />
-        ) : (
+        ) : page === 'clustering' ? (
           auth && <Clustering auth={auth} />
+        ) : (
+          auth && <Fencing auth={auth} />
         )}
       </View>
     </View>

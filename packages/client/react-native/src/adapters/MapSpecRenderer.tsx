@@ -52,8 +52,26 @@ export function MapSpecRenderer({ store }: { store: MapSpecStore }): ReactElemen
   );
 }
 
+const EMPTY_GEOJSON: GeoJSON.GeoJSON = { type: 'FeatureCollection', features: [] };
+
+/**
+ * MapLibre native rejects degenerate geometries (a LineString with <2 points, a Polygon with an
+ * empty ring). Managers seed sources with such placeholders before real data arrives, so sanitize
+ * them to an empty FeatureCollection (which renders nothing without erroring).
+ */
 function toData(source: GeoJsonSourceSpec): GeoJSON.GeoJSON {
-  return source.data as GeoJSON.GeoJSON;
+  const data = source.data as GeoJSON.GeoJSON;
+  const geometry = data && data.type === 'Feature' ? (data as GeoJSON.Feature).geometry : undefined;
+  if (geometry) {
+    if (geometry.type === 'LineString' && geometry.coordinates.length < 2) return EMPTY_GEOJSON;
+    if (
+      geometry.type === 'Polygon' &&
+      (geometry.coordinates.length === 0 || geometry.coordinates[0].length < 4)
+    ) {
+      return EMPTY_GEOJSON;
+    }
+  }
+  return data;
 }
 
 const SUPPORTED_LAYER_TYPES = new Set(['line', 'fill', 'circle', 'symbol']);
