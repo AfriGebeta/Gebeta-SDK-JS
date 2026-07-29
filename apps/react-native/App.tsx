@@ -24,9 +24,16 @@ import Directions from './src/pages/Directions';
 import LocationPage from './src/pages/Location';
 import Clustering from './src/pages/Clustering';
 import Fencing from './src/pages/Fencing';
+import Navigation from './src/pages/Navigation';
 import { getAuth, type Auth } from './src/config';
 
-type Page = 'home' | 'directions' | 'location' | 'clustering' | 'fencing';
+type Page =
+  | 'home'
+  | 'directions'
+  | 'location'
+  | 'clustering'
+  | 'fencing'
+  | 'navigation';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -84,6 +91,11 @@ function AppContent() {
             active={page === 'fencing'}
             onPress={() => setPage('fencing')}
           />
+          <Tab
+            label="Navigate"
+            active={page === 'navigation'}
+            onPress={() => setPage('navigation')}
+          />
         </ScrollView>
       </View>
       <View style={styles.body}>
@@ -105,8 +117,10 @@ function AppContent() {
           auth && <LocationPage auth={auth} />
         ) : page === 'clustering' ? (
           auth && <Clustering auth={auth} />
-        ) : (
+        ) : page === 'fencing' ? (
           auth && <Fencing auth={auth} />
+        ) : (
+          auth && <Navigation auth={auth} />
         )}
       </View>
     </View>

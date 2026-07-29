@@ -25,6 +25,12 @@ export { useClustering, type UseClusteringResult } from './hooks/useClustering';
 export { ClusteringManager } from './Clustering';
 export { useFencing, type UseFencingResult } from './hooks/useFencing';
 export { FenceManager, type FenceManagerOptions } from './Fencing';
+export { useNavigation, type UseNavigationResult } from './hooks/useNavigation';
+export {
+  NavigationManager,
+  type NavigationEventMap,
+  createSimulatedLocationProvider,
+} from './Navigation';
 
 // Re-export MapLibre's declarative user-location components so consumers can render the
 // location dot/puck without importing @maplibre/maplibre-react-native directly.
