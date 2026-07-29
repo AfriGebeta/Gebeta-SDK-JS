@@ -1,5 +1,11 @@
 # @gebeta/api
 
+## 3.0.10
+
+### Patch Changes
+
+- 2907c15: Add react native sdk deployment
+
 ## 3.0.9
 
 ### Patch Changes

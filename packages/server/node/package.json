@@ -1,6 +1,6 @@
 {
   "name": "@gebeta/node",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "description": "Node.js backend SDK for Gebeta Maps service account authentication",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
