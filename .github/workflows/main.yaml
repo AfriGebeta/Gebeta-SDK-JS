@@ -35,3 +35,9 @@ jobs:
     uses: ./.github/workflows/react.yaml
     secrets: inherit
     needs: [api, core]
+
+  react-native:
+    name: Platforms / React Native
+    uses: ./.github/workflows/react-native.yaml
+    secrets: inherit
+    needs: [api, core]

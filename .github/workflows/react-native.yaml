@@ -1,0 +1,51 @@
+name: React Native Package CI
+
+on:
+  workflow_call:
+
+jobs:
+  lint-build:
+    name: Lint, Format, Build React Native
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run ESLint on React Native package
+        run: yarn workspace @gebeta/react-native lint
+
+      - name: Check Prettier formatting on React Native package
+        run: yarn workspace @gebeta/react-native format:check
+
+      - name: Build API and Core packages
+        run: yarn workspace @gebeta/api build && yarn workspace @gebeta/core build
+
+      - name: Type check React Native package
+        run: yarn workspace @gebeta/react-native typecheck
+
+      - name: Build React Native package
+        run: yarn workspace @gebeta/react-native build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f "packages/client/react-native/dist/index.js" ]; then
+            echo "Build failed: index.js not found"
+            exit 1
+          fi
+          if [ ! -f "packages/client/react-native/dist/index.d.ts" ]; then
+            echo "Build failed: index.d.ts not found"
+            exit 1
+          fi
+          echo "Build output verified successfully"
