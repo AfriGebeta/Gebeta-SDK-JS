@@ -1,6 +1,6 @@
 {
   "name": "@gebeta/react-native",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "React Native SDK for Gebeta Maps",
   "main": "dist/index.js",
   "module": "dist/index.js",
