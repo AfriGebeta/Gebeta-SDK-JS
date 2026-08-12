@@ -2327,6 +2327,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gebeta/api@npm:3.0.11, @gebeta/api@npm:latest":
+  version: 3.0.11
+  resolution: "@gebeta/api@npm:3.0.11"
+  checksum: 10c0/00d7417a6fcc8be4e7dfd8c3078185eb3f9fb2bfc62feddafe032fe03b2e9aea5cca270df8c88d0a9bb120b290432fb947c69266b3a78f1c9977a7bc0d26fa82
+  languageName: node
+  linkType: hard
+
 "@gebeta/api@workspace:*, @gebeta/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@gebeta/api@workspace:packages/api"
@@ -2347,6 +2354,16 @@ __metadata:
     "@gebeta/api": "npm:3.0.10"
     supercluster: "npm:^8.0.0"
   checksum: 10c0/e5ff0e79d3644085f853726ddf3723f5134d40a623efe5b626fa4c2b6aa54a09e8e1e6f78a8a2af64f3e3d6624555bc28c8658f869bddd234ffd5117fd5744d7
+  languageName: node
+  linkType: hard
+
+"@gebeta/core@npm:3.0.11, @gebeta/core@npm:latest":
+  version: 3.0.11
+  resolution: "@gebeta/core@npm:3.0.11"
+  dependencies:
+    "@gebeta/api": "npm:3.0.11"
+    supercluster: "npm:^8.0.0"
+  checksum: 10c0/2f4c33d3659148bab1b162ff338e1abce5e430a22c68b303a71204139261af7a94b73c49066c7cd6ce27c9b1b8ccfb66df00cc4c3d6362c7fb9c6bc4d0f9ac37
   languageName: node
   linkType: hard
 
@@ -2441,7 +2458,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gebeta/react-native@workspace:*, @gebeta/react-native@workspace:packages/client/react-native":
+"@gebeta/react-native@npm:latest":
+  version: 1.0.0
+  resolution: "@gebeta/react-native@npm:1.0.0"
+  dependencies:
+    "@gebeta/api": "npm:3.0.11"
+    "@gebeta/core": "npm:3.0.11"
+  peerDependencies:
+    "@maplibre/maplibre-react-native": ^11.0.0
+    react: ">=19.1.0"
+    react-native: ">=0.80.0"
+  bin:
+    setup-ios: ./scripts/setup-ios.js
+  checksum: 10c0/ae22ffef1ff04c2339a8a4c98bb248aecb05cec3e80474a467f4bb62452a9db5f557c604f866ec57a173cef760233e089c023c40a711f44f2c579fcda5f1b1aa
+  languageName: node
+  linkType: hard
+
+"@gebeta/react-native@workspace:packages/client/react-native":
   version: 0.0.0-use.local
   resolution: "@gebeta/react-native@workspace:packages/client/react-native"
   dependencies:
@@ -7646,9 +7679,9 @@ __metadata:
     "@babel/plugin-transform-export-namespace-from": "npm:^7.24.7"
     "@babel/preset-env": "npm:^7.25.3"
     "@babel/runtime": "npm:^7.25.0"
-    "@gebeta/api": "workspace:*"
-    "@gebeta/core": "workspace:*"
-    "@gebeta/react-native": "workspace:*"
+    "@gebeta/api": "npm:latest"
+    "@gebeta/core": "npm:latest"
+    "@gebeta/react-native": "npm:latest"
     "@maplibre/maplibre-react-native": "npm:^11.3.6"
     "@react-native-community/cli": "npm:20.1.0"
     "@react-native-community/cli-platform-android": "npm:20.1.0"

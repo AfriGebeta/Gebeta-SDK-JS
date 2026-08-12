@@ -2,13 +2,35 @@
   "name": "@gebeta/react-native",
   "version": "1.0.0",
   "description": "React Native SDK for Gebeta Maps",
+  "license": "MIT",
+  "homepage": "https://github.com/AfriGebeta/Gebeta-SDK-JS#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AfriGebeta/Gebeta-SDK-JS.git",
+    "directory": "packages/client/react-native"
+  },
+  "bugs": {
+    "url": "https://github.com/AfriGebeta/Gebeta-SDK-JS/issues"
+  },
+  "keywords": [
+    "gebeta",
+    "maps",
+    "react-native",
+    "maplibre",
+    "navigation",
+    "directions",
+    "geocoding",
+    "clustering",
+    "geofencing"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src",
-    "scripts"
+    "scripts",
+    "README.md"
   ],
   "bin": {
     "setup-ios": "./scripts/setup-ios.js"
