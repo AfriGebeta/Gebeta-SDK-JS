@@ -7,8 +7,12 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "scripts"
   ],
+  "bin": {
+    "setup-ios": "./scripts/setup-ios.js"
+  },
   "sideEffects": false,
   "react-native": "src/index.ts",
   "exports": {
