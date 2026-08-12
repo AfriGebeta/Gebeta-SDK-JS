@@ -73,8 +73,7 @@ describe('GebetaMap', () => {
       // WHEN GebetaMap is rendered with no auth props
       // THEN ValidationError is thrown during render
       expect(() =>
-        // @ts-expect-error - intentionally omitting auth props to verify the runtime guard;
-        // the discriminated union in @gebeta/api forbids this at compile time.
+        // intentionally omitting auth props to verify the runtime guard
         render(<GebetaMap />)
       ).toThrow(ValidationError);
     });
@@ -84,8 +83,7 @@ describe('GebetaMap', () => {
       // WHEN GebetaMap is rendered with both props
       // THEN ValidationError is thrown during render
       expect(() =>
-        // @ts-expect-error - intentionally passing both apiKey and auth to verify the runtime guard;
-        // the discriminated union in @gebeta/api forbids this at compile time.
+        // intentionally passing both apiKey and auth to verify the runtime guard
         render(<GebetaMap apiKey={VALID_API_KEY} auth={VALID_AUTH} />)
       ).toThrow(ValidationError);
     });

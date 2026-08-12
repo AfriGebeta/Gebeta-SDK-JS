@@ -6,7 +6,9 @@ import { GebetaMapContext } from './context/MapContext';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export type GebetaMapProps = API.Components.Types.GebetaMapProps<GebetaMaps>;
+export type GebetaMapProps = Omit<API.Components.Types.GebetaMapProps<GebetaMaps>, 'children'> & {
+  children?: ReactNode;
+};
 export type GebetaMapRef = GebetaMaps;
 
 /**

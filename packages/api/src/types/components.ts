@@ -36,7 +36,7 @@ export type GebetaMapProps<TInstance = unknown> = AuthOptions &
     /** Callback when map encounters an error */
     onError?: (error: Error) => void;
     /** Child components (platform-specific) */
-    children?: any;
+    children?: unknown;
   };
 
 /**
