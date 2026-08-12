@@ -2457,6 +2457,8 @@ __metadata:
     "@maplibre/maplibre-react-native": ^11.0.0
     react: ">=19.1.0"
     react-native: ">=0.80.0"
+  bin:
+    setup-ios: ./scripts/setup-ios.js
   languageName: unknown
   linkType: soft
 
