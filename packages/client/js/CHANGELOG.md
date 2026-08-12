@@ -1,5 +1,13 @@
 # @gebeta/js
 
+## 3.0.12
+
+### Patch Changes
+
+- e6a2301: fix CDN deployment to new server
+  - @gebeta/api@3.0.12
+  - @gebeta/core@3.0.12
+
 ## 3.0.11
 
 ### Patch Changes

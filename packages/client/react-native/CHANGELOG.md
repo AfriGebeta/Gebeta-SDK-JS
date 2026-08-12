@@ -1,5 +1,12 @@
 # @gebeta/react-native
 
+## 1.0.3
+
+### Patch Changes
+
+- @gebeta/api@3.0.12
+- @gebeta/core@3.0.12
+
 ## 1.0.2
 
 ### Patch Changes

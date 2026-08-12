@@ -1,5 +1,11 @@
 # @gebeta/node
 
+## 3.0.12
+
+### Patch Changes
+
+- @gebeta/api@3.0.12
+
 ## 3.0.11
 
 ### Patch Changes
