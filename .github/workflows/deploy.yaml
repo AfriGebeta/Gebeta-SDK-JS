@@ -153,7 +153,7 @@ jobs:
         run: |
           for pkg in packages/api packages/core packages/client/js packages/client/react packages/client/react-native packages/server/node; do
             echo "Publishing $pkg..."
-            yarn workspace $(node -p "require('./$pkg/package.json').name") npm publish --access public
+            yarn workspace $(node -p "require('./$pkg/package.json').name") npm publish --access public --tolerate-republish || true
           done
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
