@@ -178,10 +178,10 @@ jobs:
         run: |
           echo "Deploying JS SDK $RELEASE_VERSION to CDN"
           MAJOR=$(echo "$RELEASE_VERSION" | cut -d. -f1)
-          BASE=/root/static/files/gebeta-maps-lib
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p $BASE/releases/$RELEASE_VERSION"
-          scp -o StrictHostKeyChecking=no -r packages/client/js/dist/* $SERVER_USER@$SERVER_IP:$BASE/releases/$RELEASE_VERSION
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn $BASE/releases/$RELEASE_VERSION $BASE/v$MAJOR && ln -sfn $BASE/releases/$RELEASE_VERSION $BASE/current"
+          REMOTE_BASE=$(ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "echo \$HOME/static/files/gebeta-maps-lib")
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p $REMOTE_BASE/releases/$RELEASE_VERSION"
+          scp -o StrictHostKeyChecking=no -r packages/client/js/dist/* $SERVER_USER@$SERVER_IP:$REMOTE_BASE/releases/$RELEASE_VERSION
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "ln -sfn $REMOTE_BASE/releases/$RELEASE_VERSION $REMOTE_BASE/v$MAJOR && ln -sfn $REMOTE_BASE/releases/$RELEASE_VERSION $REMOTE_BASE/current"
           echo "JS SDK $RELEASE_VERSION deployed to:"
           echo "  https://tiles.gebeta.app/static/releases/$RELEASE_VERSION/gebeta-maps.umd.js  (pinned)"
           echo "  https://tiles.gebeta.app/static/v$MAJOR/gebeta-maps.umd.js                    (major)"
