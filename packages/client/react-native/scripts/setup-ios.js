@@ -19,6 +19,13 @@ const path = require('path');
 
 const USE_FRAMEWORKS_LINE = 'use_frameworks! :linkage => :static';
 const POST_INSTALL_CALL = '    $MLRN.post_install(installer)';
+const XCODE_FLAGS_CALL = `    # Fix C++ compiler conflicts introduced by native map dependencies on Xcode 16+
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+        config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+      end
+    end`;
 
 function findPodfile() {
   let dir = process.cwd();
@@ -48,9 +55,8 @@ function patchPodfile(podfilePath) {
     console.log('  · use_frameworks! :linkage => :static already present');
   }
 
-  // 2. Add $MLRN.post_install inside post_install block if not already present
+  // 2. Add $MLRN.post_install and Xcode flag overrides inside post_install block
   if (!content.includes('$MLRN.post_install')) {
-    // Insert before the closing `end` of the post_install block
     content = content.replace(
       /(post_install do \|installer\|[\s\S]*?)(^\s*end)/m,
       (match, body, closing) => `${body}${POST_INSTALL_CALL}\n${closing}`
@@ -59,6 +65,18 @@ function patchPodfile(podfilePath) {
     console.log('  ✓ Added $MLRN.post_install(installer) to post_install block');
   } else {
     console.log('  · $MLRN.post_install already present');
+  }
+
+  // 3. Add Xcode 16 C++ compiler flag overrides if not already present
+  if (!content.includes('GCC_WARN_INHIBIT_ALL_WARNINGS')) {
+    content = content.replace(
+      /(post_install do \|installer\|[\s\S]*?)(^\s*end)/m,
+      (match, body, closing) => `${body}${XCODE_FLAGS_CALL}\n${closing}`
+    );
+    changed = true;
+    console.log('  ✓ Added Xcode 16 C++ compiler flag overrides');
+  } else {
+    console.log('  · Xcode 16 C++ compiler flag overrides already present');
   }
 
   if (changed) {
