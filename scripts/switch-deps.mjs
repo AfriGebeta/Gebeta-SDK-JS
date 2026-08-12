@@ -39,6 +39,7 @@ const appPackageJsonPaths = [
   'apps/react/package.json',
   'apps/node-geocoding/package.json',
   'apps/node-auth/package.json',
+  'apps/react-native/package.json',
 ];
 
 /** All @gebeta/* package names used in apps */
@@ -47,6 +48,7 @@ const gebetaPackages = [
   '@gebeta/core',
   '@gebeta/js',
   '@gebeta/react',
+  '@gebeta/react-native',
   '@gebeta/node',
 ];
 
