@@ -1,5 +1,11 @@
 # @gebeta/react-native
 
+## 1.0.2
+
+### Patch Changes
+
+- 69c5bba: Add README, repository, homepage, license, keywords, and bugs URL to npm package metadata
+
 ## 1.0.1
 
 ### Patch Changes
