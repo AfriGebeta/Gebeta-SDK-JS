@@ -9,7 +9,7 @@ import {
 import { GeocodingApiResponse, GeocodingMessage } from './types';
 import { transformGeocodeResult } from './transform';
 import { createFetch } from '../utils/fetch';
-import type { ResolvedAuth } from '../Auth/resolveAuth';
+import { normalizeAuth, type AuthInput, type ResolvedAuth } from '../Auth/resolveAuth';
 
 const { AuthTypes } = API.Auth.Enums;
 
@@ -22,8 +22,8 @@ export class GeocodingManager {
   private readonly baseUrl: string;
   private readonly clientId?: string;
 
-  constructor(auth: ResolvedAuth, clientId?: string) {
-    this.auth = auth;
+  constructor(auth: AuthInput, clientId?: string) {
+    this.auth = normalizeAuth(auth);
     this.baseUrl = API.Geocoding.Constants.API_URL;
     this.clientId = clientId;
   }

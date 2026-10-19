@@ -25,7 +25,7 @@ npm install @gebeta/js
 import { GebetaMaps } from '@gebeta/js';
 
 const sdk = new GebetaMaps({ auth: { accessToken: '...', refreshToken: '...' } });
-const map = sdk.init({ container: '#map', center: [38.74, 9.02], zoom: 12 });
+const map = sdk.init({ container: 'map', center: [38.74, 9.02], zoom: 12 });
 ```
 
 Or via CDN:

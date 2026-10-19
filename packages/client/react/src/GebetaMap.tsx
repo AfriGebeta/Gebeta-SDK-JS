@@ -1,4 +1,10 @@
-import type { ReactNode, Ref, MutableRefObject, ForwardRefRenderFunction } from 'react';
+import type {
+  CSSProperties,
+  ReactNode,
+  Ref,
+  MutableRefObject,
+  ForwardRefRenderFunction,
+} from 'react';
 import { useRef, useState, useEffect, useMemo, forwardRef } from 'react';
 import type { API } from '@gebeta/api';
 import { GebetaMaps } from '@gebeta/js';
@@ -6,9 +12,55 @@ import { GebetaMapContext } from './context/MapContext';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export type GebetaMapProps = Omit<API.Components.Types.GebetaMapProps<GebetaMaps>, 'children'> & {
-  children?: ReactNode;
+/**
+ * Extra MapLibre map options forwarded to `new maplibregl.Map()`.
+ * `container`, `style`, `center` and `zoom` are managed by the component.
+ */
+type ForwardedMapOptions = {
+  pitch?: number;
+  bearing?: number;
+  minZoom?: number;
+  maxZoom?: number;
+  minPitch?: number;
+  maxPitch?: number;
+  maxBounds?: [[number, number], [number, number]];
+  interactive?: boolean;
+  hash?: boolean | string;
+  cooperativeGestures?: boolean;
+  renderWorldCopies?: boolean;
+  /** Any other MapLibre `MapOptions` key. */
+  [option: string]: unknown;
 };
+
+// Declared explicitly (instead of `Omit<API.Components.Types.GebetaMapProps>`) because that type
+// has a `[key: string]: any` index signature, and `Omit` over it collapses every prop to `any`.
+export type GebetaMapProps = API.Auth.Types.AuthOptions &
+  ForwardedMapOptions & {
+    /** Initial center `[lng, lat]`. Only read on mount. */
+    center?: [number, number];
+    /** Initial zoom. Only read on mount. */
+    zoom?: number;
+    /** Map style JSON URL (defaults to the Gebeta standard style). */
+    styleUrl?: string;
+    /** Map style URL or style object; takes precedence over `styleUrl`. */
+    mapStyle?: string | object;
+    /** Clustering configuration (read on mount). */
+    clustering?: API.Clustering.Types.Options;
+    /** Show zoom/compass controls (default: false). */
+    navigationControl?: boolean;
+    /** Corner for navigation controls (default: 'top-right'). */
+    navigationControlPosition?: string;
+    /** Called once the map style has loaded, with the GebetaMaps instance. */
+    onLoad?: (instance: GebetaMaps) => void;
+    /** Called on map errors. */
+    onError?: (error: Error) => void;
+    /** CSS styles for the map wrapper element (defaults to filling the parent). */
+    style?: CSSProperties;
+    /** CSS class for the map wrapper element. */
+    className?: string;
+    /** Rendered over the map once it has loaded. */
+    children?: ReactNode;
+  };
 export type GebetaMapRef = GebetaMaps;
 
 /**
@@ -31,10 +83,13 @@ function GebetaMapImpl(
     apiKey,
     auth: authProp,
     styleUrl,
+    mapStyle,
     clustering,
     onLoad,
     onError,
     children,
+    style,
+    className,
     navigationControl = false,
     navigationControlPosition = 'top-right',
     center,
@@ -66,16 +121,19 @@ function GebetaMapImpl(
 
     setLoadError(null);
 
+    // Pass both through so GebetaMaps rejects "neither" and "both" with a ValidationError.
     const gm = new GebetaMaps({
-      ...(authProp ? { auth: authProp } : { apiKey: apiKey as string }),
+      auth: authProp,
+      apiKey,
       ...(clustering ? { clustering } : {}),
-    });
+    } as ConstructorParameters<typeof GebetaMaps>[0]);
 
     const map = gm.init({
       container,
       center,
       zoom,
-      styleUrl,
+      styleUrl: typeof mapStyle === 'string' ? mapStyle : styleUrl,
+      ...(mapStyle && typeof mapStyle === 'object' ? { style: mapStyle } : {}),
       navigationControl,
       navigationControlPosition,
       ...rest,
@@ -110,7 +168,10 @@ function GebetaMapImpl(
 
   return (
     <GebetaMapContext.Provider value={gebetaMaps}>
-      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div
+        className={className}
+        style={{ position: 'relative', width: '100%', height: '100%', ...style }}
+      >
         <div ref={containerRef} style={{ position: 'absolute', inset: 0 }} />
         {!gebetaMaps ? (
           <div

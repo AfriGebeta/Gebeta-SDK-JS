@@ -18,7 +18,7 @@ import type { AuthOptions } from './auth';
  * For the imperative JS API, use `GebetaMapsConstructorOptions` + `GebetaMapsInitOptions` separately:
  * ```js
  * const map = new GebetaMaps({ auth: {...}, clustering: {...} });
- * map.init({ container: '#map', styleUrl: '...' });
+ * map.init({ container: 'map', styleUrl: '...' });
  * ```
  */
 export type GebetaMapProps<TInstance = unknown> = AuthOptions &

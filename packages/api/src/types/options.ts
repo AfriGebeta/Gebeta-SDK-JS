@@ -30,7 +30,7 @@ export type GebetaMapsConstructorOptions = AuthOptions & {
 export interface GebetaMapsInitOptions {
   /**
    * Container for the map. Platform-specific:
-   * - JS: string selector (e.g., '#map') or HTMLElement
+   * - JS: element id (e.g., 'map', without '#') or HTMLElement
    * - React: ref to container element
    * - React Native: view ref
    */

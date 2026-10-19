@@ -2,7 +2,7 @@ import { API, NavigationError, createNavigationError, ValidationError } from '@g
 import { EventEmitter } from '../utils/EventEmitter';
 import { TrackingManager } from '../Tracking/TrackingManager';
 import { HttpTrackingManager } from '../Tracking/HttpTrackingManager';
-import type { ResolvedAuth } from '../Auth/resolveAuth';
+import { normalizeAuth, type AuthInput, type ResolvedAuth } from '../Auth/resolveAuth';
 import {
   nearestPointOnLine,
   calculateRouteDistance,
@@ -19,7 +19,7 @@ type ILocationProvider = API.Platform.Types.ILocationProvider;
 type Precision = (typeof API.Tracking.Enums.Precision)[keyof typeof API.Tracking.Enums.Precision];
 type Role = API.Tracking.Types.Role;
 
-interface NavigationEventMap {
+export interface NavigationEventMap {
   start: (event: API.Navigation.Events.StartEvent) => void;
   stop: (event: API.Navigation.Events.StopEvent) => void;
   progress: (event: API.Navigation.Events.ProgressEvent) => void;
@@ -62,7 +62,7 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
    * @param options - Configuration options for navigation behavior
    * @param clientId - Optional stable client identifier for X-Device-ID header
    */
-  constructor(auth: ResolvedAuth, options: NavigationManagerOptions = {}, clientId?: string) {
+  constructor(auth: AuthInput, options: NavigationManagerOptions = {}, clientId?: string) {
     super();
 
     const defaults = API.Navigation.Constants.DEFAULT_OPTIONS;
@@ -73,7 +73,7 @@ export class NavigationManager extends EventEmitter<NavigationEventMap> {
       rerouteFn: options.rerouteFn ?? null,
     };
 
-    this.auth = auth;
+    this.auth = normalizeAuth(auth);
     this.clientId = clientId;
   }
 

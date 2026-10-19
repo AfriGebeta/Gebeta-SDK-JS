@@ -32,6 +32,7 @@ module.exports = {
   moduleNameMapper: {
     '^@gebeta/api$': '<rootDir>/../../api/src/index.ts',
     '^@gebeta/core$': '<rootDir>/../../core/src/index.ts',
+    '^@gebeta/js$': '<rootDir>/../js/src/index.ts',
     '^maplibre-gl$': '<rootDir>/src/__mocks__/maplibre-gl.ts',
     '\\.css$': '<rootDir>/src/__mocks__/styleMock.js',
   },

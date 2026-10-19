@@ -1,5 +1,5 @@
 import { NavigationManager as CoreNavigationManager } from '@gebeta/core';
-import type { ResolvedAuth } from '@gebeta/core';
+import type { AuthInput, NavigationEventMap } from '@gebeta/core';
 import { API, ValidationError } from '@gebeta/api';
 
 type IMapAdapter = API.Platform.Types.IMapAdapter;
@@ -25,7 +25,7 @@ type NavigationStartOptions = API.Navigation.Types.StartOptions;
  * sdk.navigation.on('progress', e => console.log('remaining:', e.remainingDistance));
  * sdk.navigation.on('arrive', () => console.log('Arrived!'));
  *
- * sdk.navigation.start(route, { userId: 'user-123' }, new BrowserLocationProvider());
+ * sdk.navigation.start(route, { userId: 'user-123' }, BrowserLocationProvider.getInstance());
  * ```
  */
 export class NavigationManager {
@@ -45,7 +45,7 @@ export class NavigationManager {
    * @throws {ValidationError} If apiKey, mapAdapter, or markerFactory is missing
    */
   constructor(
-    auth: ResolvedAuth,
+    auth: AuthInput,
     mapAdapter: IMapAdapter,
     markerFactory: IMarkerFactory,
     options: NavigationManagerOptions = {},
@@ -263,17 +263,15 @@ export class NavigationManager {
     return this.core.isNavigating();
   }
 
-  on<K extends Parameters<CoreNavigationManager['on']>[0]>(
-    event: K,
-    callback: Parameters<CoreNavigationManager['on']>[1]
-  ): void {
+  /**
+   * Register a navigation event listener. Payload type is inferred from the event name.
+   */
+  on<K extends keyof NavigationEventMap>(event: K, callback: NavigationEventMap[K]): void {
     this.core.on(event, callback as never);
   }
 
-  off<K extends Parameters<CoreNavigationManager['off']>[0]>(
-    event: K,
-    callback: Parameters<CoreNavigationManager['off']>[1]
-  ): void {
+  /** Remove a navigation event listener. */
+  off<K extends keyof NavigationEventMap>(event: K, callback: NavigationEventMap[K]): void {
     this.core.off(event, callback as never);
   }
 }

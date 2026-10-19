@@ -19,16 +19,12 @@ type TransformRequestFn = (
 /** Spy on new maplibre.Map() and capture the transformRequest option passed to it. */
 function spyOnMapConstructor(): { getTransformRequest: () => TransformRequestFn | undefined } {
   let captured: TransformRequestFn | undefined;
+  const MockMap = maplibre.Map;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   jest.spyOn(maplibre, 'Map' as any).mockImplementation(function (options: any) {
     captured = options?.transformRequest;
-    return {
-      isStyleLoaded: () => true,
-      once: jest.fn(),
-      on: jest.fn(),
-      remove: jest.fn(),
-      addControl: jest.fn(),
-    };
+    // Delegate to the full maplibre mock (src/__mocks__/maplibre-gl.ts) so the SDK can initialize.
+    return new MockMap(options);
   });
   return { getTransformRequest: () => captured };
 }
@@ -74,6 +70,7 @@ describe('GebetaMap', () => {
       // THEN ValidationError is thrown during render
       expect(() =>
         // intentionally omitting auth props to verify the runtime guard
+        // @ts-expect-error -- auth props are required at compile time
         render(<GebetaMap />)
       ).toThrow(ValidationError);
     });
@@ -84,6 +81,7 @@ describe('GebetaMap', () => {
       // THEN ValidationError is thrown during render
       expect(() =>
         // intentionally passing both apiKey and auth to verify the runtime guard
+        // @ts-expect-error -- apiKey and auth are mutually exclusive at compile time
         render(<GebetaMap apiKey={VALID_API_KEY} auth={VALID_AUTH} />)
       ).toThrow(ValidationError);
     });
@@ -136,6 +134,52 @@ describe('GebetaMap', () => {
 
       // THEN no Authorization header is injected
       expect(result?.headers).toBeUndefined();
+    });
+  });
+
+  describe('container props', () => {
+    /** Capture the options passed to new maplibre.Map(). */
+    function captureMapOptions(): () => Record<string, unknown> | undefined {
+      let captured: Record<string, unknown> | undefined;
+      const MockMap = maplibre.Map;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      jest.spyOn(maplibre, 'Map' as any).mockImplementation(function (options: any) {
+        captured = options;
+        return new MockMap(options);
+      });
+      return () => captured;
+    }
+
+    test('should apply style and className to the wrapper instead of the MapLibre style', () => {
+      // GIVEN a GebetaMap with CSS styles and a class name
+      const getOptions = captureMapOptions();
+      const { container } = render(
+        <GebetaMap auth={VALID_AUTH} style={{ height: '500px' }} className="my-map" />
+      );
+
+      // THEN the wrapper gets the CSS and the map keeps the default Gebeta style URL
+      const wrapper = container.firstChild as HTMLElement;
+      expect(wrapper.className).toBe('my-map');
+      expect(wrapper.style.height).toBe('500px');
+      expect(getOptions()?.style).toBe('https://tiles.gebeta.app/styles/standard/style.json');
+    });
+
+    test('should use mapStyle as the MapLibre style', () => {
+      // GIVEN a GebetaMap with a mapStyle URL
+      const getOptions = captureMapOptions();
+      render(<GebetaMap auth={VALID_AUTH} mapStyle="https://example.com/style.json" />);
+
+      // THEN MapLibre receives that style
+      expect(getOptions()?.style).toBe('https://example.com/style.json');
+    });
+
+    test('should infer the GebetaMaps instance type in onLoad', () => {
+      // GIVEN an onLoad callback without a parameter annotation (compile-time check)
+      const onLoad = jest.fn();
+      render(<GebetaMap auth={VALID_AUTH} onLoad={gm => onLoad(gm.getMap())} />);
+
+      // THEN it is called with the instance once the style is loaded
+      expect(onLoad).toHaveBeenCalled();
     });
   });
 });
