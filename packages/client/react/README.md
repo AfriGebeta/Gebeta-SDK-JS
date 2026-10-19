@@ -11,35 +11,59 @@ npm install @gebeta/react @gebeta/js
 ## Quick start
 
 ```tsx
-import { GebetaMap } from '@gebeta/react';
+import { useRef } from 'react';
+import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
 
-function App() {
+function App({ accessToken, refreshToken }: { accessToken: string; refreshToken: string }) {
+  const mapRef = useRef<GebetaMapRef>(null);
+
   return (
     <GebetaMap
-      accessToken={accessToken}
-      refreshToken={refreshToken}
+      ref={mapRef}
+      auth={{ accessToken, refreshToken }}
+      center={[38.7578, 9.0301]}
+      zoom={13}
+      navigationControl
       style={{ width: '100%', height: '500px' }}
-      onReady={(gebetaMap, map, platform) => {
-        // Full access to GebetaMaps, MapLibre map, and platform adapters
+      onLoad={gm => {
+        // gm is the GebetaMaps instance (same as mapRef.current); all managers are ready here
+        gm.getMap()?.on('click', e => console.log(e.lngLat));
       }}
     />
   );
 }
 ```
 
+- `style` / `className` apply to the map wrapper (it fills its parent by default).
+- Use `styleUrl` (or `mapStyle` for a URL or style object) to change the map style.
+- `center` and `zoom` are read on mount; move the camera with `mapRef.current?.getMap()?.flyTo(...)`.
+- Other MapLibre map options (`pitch`, `bearing`, `maxBounds`, …) are forwarded to the map.
+
 ## Clustering
 
 ```tsx
-import { useClustering } from '@gebeta/react/clustering';
+import { useEffect } from 'react';
+import { GebetaMap, useClustering } from '@gebeta/react';
 
-const { setMarkers, clearMarkers } = useClustering(gebetaMapInstance);
+const clustering = { enabled: true, showClusterCount: true };
 
-setMarkers([{ id: '1', lat: 9.0161, lng: 38.7685, imageUrl: '/pin.png' }]);
+function Markers() {
+  const { addMarker, clearMarkers } = useClustering(); // must be a child of <GebetaMap clustering>
+  useEffect(() => {
+    addMarker({ id: '1', lngLat: [38.7685, 9.0161], imageUrl: '/pin.png' });
+    return () => clearMarkers();
+  }, [addMarker, clearMarkers]);
+  return null;
+}
+
+<GebetaMap auth={auth} clustering={clustering}>
+  <Markers />
+</GebetaMap>;
 ```
 
 ## Peer dependencies
 
-- `react` >= 18
+- `react` >= 19
 
 ## Documentation
 

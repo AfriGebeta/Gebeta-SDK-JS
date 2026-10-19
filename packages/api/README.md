@@ -16,7 +16,7 @@ This package is automatically installed as a dependency of `@gebeta/js`, `@gebet
 import { API } from '@gebeta/api';
 
 // Map styles
-const style = API.Map.Constants.MAP_STYLES.STANDARD;
+const styleUrl = API.Map.Constants.STYLES.standard.url; // also .satellite, .terrain
 
 // Types
 type RouteData = API.Routing.Types.RouteData;

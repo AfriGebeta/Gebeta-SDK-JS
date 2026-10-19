@@ -19,7 +19,7 @@ import { LocalStorageClientIdStorage } from './adapters/LocalStorageClientIdStor
  * const sdk = new GebetaMaps({
  *   auth: { accessToken: '...', refreshToken: '...' }
  * });
- * const map = sdk.init({ container: '#map', center: [38.74, 9.02], zoom: 12 });
+ * const map = sdk.init({ container: 'map', center: [38.74, 9.02], zoom: 12 });
  *
  * // Legacy API key (deprecated)
  * const sdk = new GebetaMaps({ apiKey: 'your-api-key' });
@@ -125,7 +125,7 @@ export class GebetaMaps {
    * the map `style.load` event fires.
    *
    * @param options - Initialization options
-   * @param options.container - CSS selector (e.g., `'#map'`) or HTMLElement to mount into
+   * @param options.container - Element id (e.g., `'map'`, without `#`) or HTMLElement to mount into
    * @param options.center - Initial center `[lng, lat]`
    * @param options.zoom - Initial zoom level (0–22)
    * @param options.navigationControl - Show zoom +/- buttons (default: false)

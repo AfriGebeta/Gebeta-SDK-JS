@@ -38,3 +38,40 @@ export function resolveAuth(options: {
 
   return { type: AuthTypes.SERVICE_ACCOUNT, manager: new AuthManager(options.auth!) };
 }
+
+/**
+ * Auth accepted by standalone manager constructors:
+ * - `ResolvedAuth` (what GebetaMaps passes internally)
+ * - `AuthManager` instance (service account)
+ * - `string` (legacy API key, deprecated)
+ */
+export type AuthInput = ResolvedAuth | AuthManager | string;
+
+/**
+ * Normalizes any AuthInput into a ResolvedAuth so standalone managers
+ * (e.g. `new GeocodingManager(new AuthManager({...}))`) work the same as the internal path.
+ */
+export function normalizeAuth(auth: AuthInput): ResolvedAuth {
+  if (typeof auth === 'string') {
+    const key = auth.trim();
+    if (!key) {
+      throw new ValidationError('API key must not be empty', 'auth');
+    }
+    return { type: AuthTypes.API_KEY, key };
+  }
+  // Duck-typed fallback covers AuthManager instances from a duplicate copy of @gebeta/core.
+  const candidate = auth as unknown as Partial<AuthManager> | null;
+  if (
+    auth instanceof AuthManager ||
+    (typeof candidate?.fetch === 'function' && typeof candidate?.getAccessToken === 'function')
+  ) {
+    return { type: AuthTypes.SERVICE_ACCOUNT, manager: auth as unknown as AuthManager };
+  }
+  if (auth && (auth.type === AuthTypes.API_KEY || auth.type === AuthTypes.SERVICE_ACCOUNT)) {
+    return auth;
+  }
+  throw new ValidationError(
+    'Invalid auth: pass an AuthManager instance or an API key string',
+    'auth'
+  );
+}
