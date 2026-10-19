@@ -36,6 +36,45 @@ describe('GeocodingManager', () => {
     });
   });
 
+  describe('success message casing', () => {
+    const givenResult = { name: 'bole addis area', latitude: 9.011257, longitude: 38.836167 };
+    const expectedResult = { name: 'bole addis area', lngLat: { lat: 9.011257, lng: 38.836167 } };
+
+    // the live API sends 'Ok'; older responses used 'ok'
+    test.each(['ok', 'Ok', 'OK'])('geocode should treat msg "%s" as success', async givenMsg => {
+      // GIVEN the API returns a success message with the given casing
+      fetchSpy = setupFetchSpy(
+        200,
+        { msg: givenMsg, data: [givenResult] },
+        'application/json;charset=UTF-8'
+      );
+
+      // WHEN geocoding
+      const results = await manager.geocode('bole');
+
+      // THEN it resolves with parsed results instead of throwing
+      expect(results[0]).toMatchObject(expectedResult);
+    });
+
+    test.each(['ok', 'Ok', 'OK'])(
+      'reverseGeocode should treat msg "%s" as success',
+      async givenMsg => {
+        // GIVEN the API returns a success message with the given casing
+        fetchSpy = setupFetchSpy(
+          200,
+          { msg: givenMsg, data: [givenResult] },
+          'application/json;charset=UTF-8'
+        );
+
+        // WHEN reverse geocoding
+        const results = await manager.reverseGeocode({ lat: 9.011257, lng: 38.836167 });
+
+        // THEN it resolves with parsed results instead of throwing
+        expect(results[0]).toMatchObject(expectedResult);
+      }
+    );
+  });
+
   describe('geocode', () => {
     test.each(EMPTY_VALUES)(
       'should throw error if name is missing',

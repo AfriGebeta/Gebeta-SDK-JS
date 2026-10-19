@@ -13,6 +13,11 @@ import { normalizeAuth, type AuthInput, type ResolvedAuth } from '../Auth/resolv
 
 const { AuthTypes } = API.Auth.Enums;
 
+/** The geocoding API is inconsistent about casing ('ok' vs 'Ok'), so compare case-insensitively. */
+function isOkMessage(msg: unknown): boolean {
+  return typeof msg === 'string' && msg.toLowerCase() === GeocodingMessage.OK;
+}
+
 /**
  * GeocodingManager handles forward and reverse geocoding operations.
  * Platform-agnostic: uses fetch API which is available in all JS environments.
@@ -65,7 +70,7 @@ export class GeocodingManager {
 
     const data: GeocodingApiResponse = await response.json();
 
-    if (data.msg === GeocodingMessage.OK) {
+    if (isOkMessage(data.msg)) {
       if (!data.data) {
         return [];
       }
@@ -122,7 +127,7 @@ export class GeocodingManager {
 
     const data: GeocodingApiResponse = await response.json();
 
-    if (data.msg === GeocodingMessage.OK) {
+    if (isOkMessage(data.msg)) {
       if (!data.data) {
         return [];
       }
