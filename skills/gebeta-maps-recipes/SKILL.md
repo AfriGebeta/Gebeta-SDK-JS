@@ -1,28 +1,37 @@
 ---
-name: gebeta-maplibre-examples
-description: Recipes for doing anything from the MapLibre GL JS examples gallery (camera animation, fly-to, GeoJSON lines/polygons/points, raster/vector/WMS/video/image sources, realtime data, icons and symbols, data-driven styling, expressions, filters, heatmaps, native clusters, 3D buildings/extrusions, terrain, hillshade, sky, markers, popups, labels, Amharic/English language switching, hover/click queries, draw/measure tools, deck.gl, PMTiles, synced maps) on top of a Gebeta map. Use whenever a Gebeta Maps app (@gebeta/js, @gebeta/react, or the Gebeta CDN script) needs a MapLibre feature that the Gebeta SDK does not wrap, or when porting a MapLibre/Mapbox example to Gebeta. Load together with the gebeta-maps skill.
+name: gebeta-maps-recipes
+description: Recipes for any interactive-map feature on a Gebeta map — everything in the MapLibre GL JS examples gallery, written with Gebeta names only (camera animation, fly-to, GeoJSON lines/polygons/points, raster/vector/WMS/video/image sources, realtime data, icons and symbols, data-driven styling, expressions, filters, heatmaps, native clusters, 3D buildings/extrusions, terrain, hillshade, sky, markers, popups, labels, Amharic/English language switching, hover/click queries, draw/measure tools, deck.gl, PMTiles, synced maps) on top of a Gebeta map. Use whenever a Gebeta Maps app (@gebeta/js, @gebeta/react, or the Gebeta CDN script) needs a map feature beyond geocoding/directions/navigation/clustering/fencing, or when porting a MapLibre/Mapbox example to Gebeta. Load together with the gebeta-maps skill.
 ---
 
-# MapLibre examples on Gebeta Maps
+# Gebeta Maps recipes
 
-A Gebeta map **is** a `maplibregl.Map` (MapLibre GL JS **4.7.x**). Get it, wait for `load`, then
-use the normal MapLibre API. This skill lists the Gebeta-specific adjustments and gives a recipe
-for every example in https://maplibre.org/maplibre-gl-js/docs/examples/.
+Every feature from the map-examples gallery
+(https://maplibre.org/maplibre-gl-js/docs/examples/), written the Gebeta way. The map engine is
+MapLibre GL JS 4.7.x — that's for you to know which API/style-spec docs apply — but **user code
+only ever says Gebeta**:
+
+- `map` is what `sdk.init()` returns; layers, sources, camera and events are methods on it.
+- Classes and controls come from the `gebeta` namespace: `import { gebeta } from '@gebeta/js'`
+  (or `@gebeta/react`; `window.gebeta` on CDN). Markers/popups: prefer `sdk.addMarker` / `sdk.addPopup`.
+- Never write `maplibregl`, `import … from 'maplibre-gl'` or its CSS path. When porting a gallery
+  example, rename `maplibregl.X` → `gebeta.X` (Marker, Popup, LngLat, LngLatBounds,
+  MercatorCoordinate, NavigationControl, GeolocateControl, FullscreenControl, ScaleControl,
+  AttributionControl, TerrainControl, addProtocol, removeProtocol).
+- Requires `@gebeta/js` newer than 3.0.12 (that's when the `gebeta` namespace and `addMarker` landed).
 
 ## Get the map
 
 ```js
 // bundler
-import maplibregl from 'maplibre-gl'; // same instance the SDK uses (it's external)
-import 'maplibre-gl/dist/maplibre-gl.css';
-import { GebetaMaps } from '@gebeta/js';
+import '@gebeta/js/style.css';
+import { GebetaMaps, gebeta } from '@gebeta/js';
 const sdk = new GebetaMaps({ auth }); // or { apiKey }
 const map = sdk.init({ container: 'map', center: [38.7578, 9.0301], zoom: 13 });
 map.on('load', () => {
   /* recipes go here */
 });
 
-// CDN: window.GebetaMaps and window.maplibregl are globals; CSS is auto-injected.
+// CDN: window.GebetaMaps and window.gebeta are globals; CSS is auto-injected.
 // React: <GebetaMap onLoad={gm => { const map = gm.getMap(); ... }} />
 ```
 
@@ -30,7 +39,7 @@ In every recipe, `map` is that instance and code runs after `load`.
 
 ## Gebeta adjustments (apply to every ported example)
 
-1. **Don't replace the basemap.** MapLibre examples start with
+1. **Don't replace the basemap.** Gallery examples start with
    `new maplibregl.Map({ style: 'https://demotiles...' })`. Replace that with the
    `sdk.init(...)` above. Keep the example's `center` only if it is meant to show a specific
    place; otherwise use Addis Ababa `[38.7578, 9.0301]`.
@@ -59,14 +68,15 @@ In every recipe, `map` is that instance and code runs after `load`.
    by hand (e.g. the satellite raster or DEM tiles) is signed for you; third-party URLs are not touched.
 8. **setStyle clears everything you added** (and SDK routes/fences). Re-add on `style.load`, or use
    `map.setStyle(url, { transformStyle: (prev, next) => ({ ...next, sources: {...next.sources, ...mySources}, layers: [...next.layers, ...myLayers] }) })`.
-9. **Version.** Bundled MapLibre is 4.7.x, but the examples gallery runs MapLibre v6. Before
+9. **Version.** The engine is 4.7.x, but the examples gallery runs v6. Before
    porting, confirm each API/property exists in 4.7 (`typeof map.someMethod === 'function'`; style
    properties missing in v4 fail validation with an error in the console). Examples marked **v5+** below (globe, color-relief,
    multidirectional hillshade, MLT tiles, global-state filters, custom projections,
    center-above-ground…) are **not available** — tell the user, and offer the closest v4
-   alternative listed. Don't silently install maplibre-gl@5 next to the SDK.
+   alternative listed. Never install the engine package yourself next to the SDK.
 10. **Plugins** (deck.gl, terra-draw, PMTiles, turf, COG protocol) are installed with npm/CDN
-    as usual and attached to `map`.
+    as usual and attached to `map`. Some third-party plugin package names contain "maplibre";
+    that's unavoidable for those plugins — pass them `gebeta` / `map`, never a separate engine import.
 
 ## Example index → recipe file
 

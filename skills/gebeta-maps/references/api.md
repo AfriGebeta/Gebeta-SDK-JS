@@ -9,27 +9,27 @@
 | `clustering`     | `ClusteringOptions`             | Constructor-only. `{ enabled, radius=50, maxZoom=16, clusterImage, clusterOnClick, showClusterCount=false }` |
 | `enableClientId` | `boolean` (default `false`)     | Sends a stable `X-Device-ID` header (stored in localStorage).                                                |
 
-## `sdk.init(options): maplibregl.Map`
+## `sdk.init(options): GebetaMapInstance`
 
-| Option                      | Default          | Notes                                                                                                                                      |
-| --------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `container`                 | —                | Element **id** string (no `#`) or `HTMLElement`.                                                                                           |
-| `center`                    | MapLibre default | `[lng, lat]`. Addis Ababa ≈ `[38.7578, 9.0301]`.                                                                                           |
-| `zoom`                      | MapLibre default |                                                                                                                                            |
-| `styleUrl`                  | standard style   | Style JSON URL.                                                                                                                            |
-| `style`                     | —                | Style URL or object; wins over `styleUrl`.                                                                                                 |
-| `navigationControl`         | `false`          | Adds `maplibregl.NavigationControl`.                                                                                                       |
-| `navigationControlPosition` | `'top-right'`    |                                                                                                                                            |
-| _anything else_             |                  | Forwarded to `new maplibregl.Map(...)` (pitch, bearing, maxBounds, minZoom, hash, interactive, cooperativeGestures, renderWorldCopies, …). |
+| Option                      | Default        | Notes                                                                                                                                  |
+| --------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `container`                 | —              | Element **id** string (no `#`) or `HTMLElement`.                                                                                       |
+| `center`                    | engine default | `[lng, lat]`. Addis Ababa ≈ `[38.7578, 9.0301]`.                                                                                       |
+| `zoom`                      | engine default |                                                                                                                                        |
+| `styleUrl`                  | standard style | Style JSON URL.                                                                                                                        |
+| `style`                     | —              | Style URL or object; wins over `styleUrl`.                                                                                             |
+| `navigationControl`         | `false`        | Adds `gebeta.NavigationControl`.                                                                                                       |
+| `navigationControlPosition` | `'top-right'`  |                                                                                                                                        |
+| _anything else_             |                | Forwarded to `new gebeta.Map(...)` (pitch, bearing, maxBounds, minZoom, hash, interactive, cooperativeGestures, renderWorldCopies, …). |
 
 `attributionControl` is forced to `false` by the SDK; add one yourself if you need it:
-`map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left')`.
+`map.addControl(new gebeta.AttributionControl({ compact: true }), 'bottom-left')`.
 
 Other instance members:
 
 | Member                                                     | Notes                                                                                      |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `getMap()`                                                 | `maplibregl.Map \| null`                                                                   |
+| `getMap()`                                                 | `GebetaMapInstance \| null`                                                                |
 | `getPlatform()`                                            | `{ mapAdapter, markerFactory, popupFactory, ... }` — throws before `init()`                |
 | `addNavigationControls(position?)`                         | Same as `navigationControl: true`                                                          |
 | `geocodingManager`                                         | Throws until style loaded                                                                  |
@@ -41,31 +41,40 @@ Other instance members:
 | `fencing`                                                  | `FenceManager` — throws until style loaded                                                 |
 | `navigation`                                               | `NavigationManager` — throws until style loaded                                            |
 
-SDK-owned MapLibre ids (useful as `beforeId`, or to restyle): source+layer `gebeta-route`;
+SDK-owned map ids (useful as `beforeId`, or to restyle): source+layer `gebeta-route`;
 fences `gebeta-fence-<id>` / `gebeta-fence-layer-<id>` / `gebeta-fence-border-layer-<id>`;
 drawing preview `gebeta-fence-source`, `gebeta-fence-layer`, `gebeta-fence-dynamic-polyline-layer`.
-Clustered markers are DOM markers (not layers) — for >1–2k points prefer a native MapLibre
-GeoJSON cluster source (see gebeta-maplibre-examples → layers).
+Clustered markers are DOM markers (not layers) — for >1–2k points prefer a native
+GeoJSON cluster source (see gebeta-maps-recipes → layers).
 
-## Platform helpers (marker/popup factories)
+## Markers & popups (`sdk.addMarker` / `sdk.addPopup`, after 3.0.12)
+
+Both work right after `init()` (no need to wait for `load`) and return objects with `.remove()`.
+
+| `addMarker` option      | Notes                                                                   |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `lngLat`                | `[lng, lat]` or `{ lng, lat }` (required)                               |
+| `element`               | Custom HTML pin; wins over `imageUrl` / `color`                         |
+| `imageUrl`, `size`      | Image pin (default size `[30, 30]`, anchored at the bottom)             |
+| `color`                 | Color of the default pin                                                |
+| `anchor`, `offset`      | `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, corners; `[x, y]` |
+| `draggable`             | With `onDragEnd(({ lng, lat }, marker) => …)`                           |
+| `rotation`, `className` |                                                                         |
+| `popup`                 | Text (XSS-safe) or `HTMLElement`, opened on click                       |
+| `onClick`               | `(marker, event) => …`                                                  |
+
+`addPopup({ lngLat, text | html | element, closeButton = true, closeOnClick = true, anchor, offset, maxWidth, className })`
+— `text` is XSS-safe; use `html` only with trusted markup.
 
 ```js
-const { markerFactory, popupFactory, mapAdapter } = sdk.getPlatform();
-const popup = popupFactory.createPopup({ content: '<b>Hi</b>', closeable: true, offset: 20 });
-const marker = markerFactory
-  .createMarker({
-    imageUrl: '/pin.png',
-    size: [32, 32],
-    anchor: 'bottom',
-    onClick: (lngLat, m, ev) => {},
-  })
-  ?.setLngLat({ lng: 38.76, lat: 9.01 })
-  .addTo(mapAdapter);
-marker?.setPopup?.(popup);
-marker?.remove();
+const a = sdk.addMarker({ lngLat: origin, element: pinEl('A'), anchor: 'bottom' });
+const b = sdk.addMarker({ lngLat: destination, element: pinEl('B'), anchor: 'bottom' });
+const popup = sdk.addPopup({ lngLat: origin, text: 'Start here' });
+[a, b, popup].forEach(x => x.remove());
 ```
 
-Plain `new maplibregl.Marker()` / `new maplibregl.Popup()` added to `sdk.getMap()` work equally.
+For lower-level control use the namespace: `new gebeta.Marker({ … }).setLngLat(ll).addTo(map)`.
+(`sdk.getPlatform().markerFactory` is internal plumbing; don't use it in app code.)
 
 ## Types (`@gebeta/api`)
 
@@ -206,7 +215,7 @@ const hits = await geocoder.geocode('Piassa');
 
 ## CDN globals
 
-`window.GebetaMaps`, `window.maplibregl` (4.7.x), `GeocodingManager`, `DirectionsManager`,
+`window.GebetaMaps`, `window.gebeta` (Marker, Popup, controls…), `GeocodingManager`, `DirectionsManager`,
 `ClusteringManager`, `FenceManager`, `NavigationManager`, `BrowserLocationProvider`,
 `GebetaMaps.VERSION`. URLs: `/static/current/` (latest), `/static/v3/` (major, recommended),
 `/static/releases/<x.y.z>/` (exact) under `https://tiles.gebeta.app`.

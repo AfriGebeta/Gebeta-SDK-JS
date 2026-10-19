@@ -73,8 +73,30 @@ export class Map {
 export class Marker {
   private lngLat: unknown;
   private _popup: unknown = null;
+  private readonly element: HTMLElement;
+  private readonly handlers: Record<string, Handler[]> = {};
 
-  constructor(public options?: unknown) {}
+  constructor(public options?: { element?: HTMLElement }) {
+    this.element = options?.element ?? document.createElement('div');
+  }
+
+  getElement() {
+    return this.element;
+  }
+
+  getPopup() {
+    return this._popup;
+  }
+
+  on(event: string, handler: Handler) {
+    (this.handlers[event] ??= []).push(handler);
+    return this;
+  }
+
+  /** Test helper: fire a marker event (e.g. 'dragend'). */
+  fire(event: string) {
+    (this.handlers[event] ?? []).forEach(h => h());
+  }
 
   setLngLat(lngLat: unknown) {
     this.lngLat = lngLat;
@@ -100,17 +122,28 @@ export class Marker {
 }
 
 export class Popup {
+  content: { text?: string; html?: string; element?: unknown } = {};
+  lngLat: unknown;
+
   constructor(public options?: Record<string, unknown>) {}
 
-  setLngLat(_lngLat: unknown) {
+  setLngLat(lngLat: unknown) {
+    this.lngLat = lngLat;
     return this;
   }
 
-  setHTML(_html: string) {
+  setHTML(html: string) {
+    this.content = { html };
     return this;
   }
 
-  setDOMContent(_element: unknown) {
+  setText(text: string) {
+    this.content = { text };
+    return this;
+  }
+
+  setDOMContent(element: unknown) {
+    this.content = { element };
     return this;
   }
 
@@ -124,6 +157,23 @@ export class Popup {
 }
 
 export class NavigationControl {}
+export class GeolocateControl {}
+export class FullscreenControl {}
+export class ScaleControl {}
+export class AttributionControl {}
+export class TerrainControl {}
+
+export class LngLat {
+  constructor(
+    public lng: number,
+    public lat: number
+  ) {}
+}
+
+export class MercatorCoordinate {}
+
+export function addProtocol(_name: string, _handler: unknown) {}
+export function removeProtocol(_name: string) {}
 
 export class LngLatBounds {
   extendedPoints: [number, number][] = [];
@@ -140,5 +190,14 @@ export default {
   Marker,
   Popup,
   NavigationControl,
+  GeolocateControl,
+  FullscreenControl,
+  ScaleControl,
+  AttributionControl,
+  TerrainControl,
+  LngLat,
+  MercatorCoordinate,
   LngLatBounds,
+  addProtocol,
+  removeProtocol,
 };

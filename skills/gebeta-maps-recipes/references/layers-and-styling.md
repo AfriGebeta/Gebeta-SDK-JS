@@ -1,4 +1,4 @@
-# Layers, icons, expressions, filters, clusters, data viz (MapLibre 4.7 on Gebeta)
+# Layers, icons, expressions, filters, clusters, data viz (Gebeta Maps)
 
 `const beforeId = map.getStyle().layers.find(l => l.type === 'symbol')?.id;`
 Text in symbol layers: always `'text-font': ['JakartaSans']`.
@@ -131,7 +131,7 @@ const triangle = {
       [38.74, 9.04],
       [38.78, 9.04],
       [38.76, 9.01],
-    ].map(c => maplibregl.MercatorCoordinate.fromLngLat(c));
+    ].map(c => gebeta.MercatorCoordinate.fromLngLat(c));
     this.buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(p.flatMap(m => [m.x, m.y])), gl.STATIC_DRAW);
@@ -280,7 +280,7 @@ map.on('mouseleave', 'clusters', () => (map.getCanvas().style.cursor = ''));
 ```
 
 HTML clusters with custom properties: keep the clustered source, hide its layers
-(`circle-opacity: 0`), and on `render` create/update `maplibregl.Marker({ element })` for each
+(`circle-opacity: 0`), and on `render` create/update `gebeta.Marker({ element })` for each
 `map.querySourceFeatures('shops')` cluster (cache markers by `cluster_id`, add/remove on each render).
 
 ## Data visualization

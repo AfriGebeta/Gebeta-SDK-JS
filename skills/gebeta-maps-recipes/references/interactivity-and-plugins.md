@@ -1,4 +1,4 @@
-# Events, queries & plugins (MapLibre 4.7 on Gebeta)
+# Events, queries & plugins (Gebeta Maps)
 
 ## Features under the mouse / polygon info on click
 
@@ -12,7 +12,7 @@ map.on('mousemove', e => {
   );
 });
 map.on('click', 'zone-fill', e =>
-  new maplibregl.Popup().setLngLat(e.lngLat).setText(e.features[0].properties.name).addTo(map)
+  new gebeta.Popup().setLngLat(e.lngLat).setText(e.features[0].properties.name).addTo(map)
 );
 ```
 
@@ -101,7 +101,9 @@ map.getSource('search')
   : map.addSource('search', { type: 'geojson', data: fc });
 ```
 
-If the user wants `@maplibre/maplibre-gl-geocoder`, plug Gebeta in as `forwardGeocode`:
+If the user wants a ready-made search control, the third-party `@maplibre/maplibre-gl-geocoder`
+plugin works with Gebeta geocoding as `forwardGeocode` (its package name is the plugin's own).
+Prefer the plain Gebeta search above unless the user asks for this control:
 
 ```js
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
@@ -120,7 +122,7 @@ map.addControl(
         })),
       }),
     },
-    { maplibregl }
+    { maplibregl: gebeta } // the plugin's option name; pass the Gebeta namespace
   ),
   'top-left'
 );
@@ -131,14 +133,14 @@ map.addControl(
 ```js
 import { Protocol } from 'pmtiles';
 const protocol = new Protocol();
-maplibregl.addProtocol('pmtiles', protocol.tile);
+gebeta.addProtocol('pmtiles', protocol.tile);
 map.addSource('pm', { type: 'vector', url: 'pmtiles://https://example.com/data.pmtiles' });
-// cleanup: maplibregl.removeProtocol('pmtiles')
+// cleanup: gebeta.removeProtocol('pmtiles')
 ```
 
 ## addProtocol to transform feature properties
 
-`maplibregl.addProtocol('custom', async (params, abort) => { const r = await fetch(params.url.replace('custom://', 'https://'), { signal: abort.signal }); return { data: await r.arrayBuffer() }; })`
+`gebeta.addProtocol('custom', async (params, abort) => { const r = await fetch(params.url.replace('custom://', 'https://'), { signal: abort.signal }); return { data: await r.arrayBuffer() }; })`
 (v4 handler returns a Promise `{ data }`). Do **not** register a protocol for `tiles.gebeta.app`
 URLs — that bypasses the SDK's auth signing.
 

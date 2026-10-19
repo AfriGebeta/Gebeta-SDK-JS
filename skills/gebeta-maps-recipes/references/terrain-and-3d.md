@@ -1,4 +1,4 @@
-# Terrain, hillshade, sky, 3D buildings & models (MapLibre 4.7 on Gebeta)
+# Terrain, hillshade, sky, 3D buildings & models (Gebeta Maps)
 
 ## Gebeta DEM
 
@@ -19,7 +19,7 @@ map.on('load', () => {
     maxzoom: 12,
   });
   map.setTerrain({ source: 'dem', exaggeration: 1.5 });
-  map.addControl(new maplibregl.TerrainControl({ source: 'dem', exaggeration: 1.5 }));
+  map.addControl(new gebeta.TerrainControl({ source: 'dem', exaggeration: 1.5 }));
 });
 ```
 
@@ -91,7 +91,7 @@ map.setSky({
 ## Contour lines (plugin)
 
 `npm i maplibre-contour` → create a `DemSource` with the Gebeta DEM URL (`encoding: 'mapbox'`,
-`maxzoom: 12`), `demSource.setupMaplibre(maplibregl)`, add `demSource.contourProtocolUrl({...})`
+`maxzoom: 12`), `demSource.setupMaplibre(gebeta)` (it only needs `addProtocol`), add `demSource.contourProtocolUrl({...})`
 as a vector source and style `contours` lines + `ele` labels with `'text-font': ['JakartaSans']`.
 Because the plugin fetches tiles itself, pass auth: build the URL with `?apiKey=` (API-key auth) or
 fetch via a backend proxy for service-account auth.
@@ -160,7 +160,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const origin = [38.7578, 9.0301],
   alt = 0;
-const mc = maplibregl.MercatorCoordinate.fromLngLat(origin, alt);
+const mc = gebeta.MercatorCoordinate.fromLngLat(origin, alt);
 const s = mc.meterInMercatorCoordinateUnits();
 const modelLayer = {
   id: 'model',
@@ -200,5 +200,5 @@ built from the inverse of `camera.projectionMatrix`. Quantized-mesh terrain requ
 
 ## Globe (all globe examples) — v5+
 
-`map.setProjection({ type: 'globe' })` does not exist in MapLibre 4.7. Tell the user globe needs
+`map.setProjection({ type: 'globe' })` does not exist in the current Gebeta engine (4.7). Tell the user globe needs
 a newer SDK; for a "world overview" use `zoom: 1.5`, `renderWorldCopies: false`.

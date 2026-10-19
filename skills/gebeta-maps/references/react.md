@@ -4,7 +4,7 @@
 
 1. `<GebetaMap>` fills its **parent** (`width:100%; height:100%`). After 3.0.12, `style` /
    `className` style the wrapper and `mapStyle` (URL or object) / `styleUrl` set the map style.
-   On **3.0.12 and earlier** do **not** pass `style={{...}}` — it is forwarded as the MapLibre
+   On **3.0.12 and earlier** do **not** pass `style={{...}}` — it is forwarded as the map
    style (broken map); size the parent instead.
 2. The map is created once per auth value. Changing `center` / `zoom` props after mount does
    nothing — move the camera imperatively (`ref.current.getMap().flyTo(...)`).
@@ -15,7 +15,7 @@
    instance down (or keep it in your own context).
 5. Keep `auth` stable (memoize / state). A new token pair object with different strings
    re-creates the map.
-6. `import 'maplibre-gl/dist/maplibre-gl.css'` is done by the component already.
+6. The map stylesheet is imported by the component already (no CSS import needed).
 7. TypeScript on 3.0.12: the `onLoad` parameter is not inferred (implicit `any`) — annotate it:
    `onLoad={(gm: GebetaMapRef) => ...}`. Later versions infer it.
 
@@ -24,7 +24,7 @@
 `auth` | `apiKey` (exactly one), `center`, `zoom`, `styleUrl`, `mapStyle` (after 3.0.12),
 `style` / `className` (wrapper, after 3.0.12), `clustering`,
 `navigationControl`, `navigationControlPosition`, `onLoad(gm)`, `onError(err)`, `children`,
-`ref` (→ `GebetaMaps`), plus any MapLibre map option (`pitch`, `bearing`, `maxBounds`, …).
+`ref` (→ `GebetaMaps`), plus any map option (`pitch`, `bearing`, `maxBounds`, …).
 
 ## Template
 
@@ -117,20 +117,28 @@ function Shops({ shops }: { shops: { id: string; lng: number; lat: number; name:
 </GebetaMap>;
 ```
 
-## Adding MapLibre layers in React
+## Adding layers and markers in React
 
 Add sources/layers in `onLoad`, keep data updates in effects that call
-`(map.getSource(id) as maplibregl.GeoJSONSource).setData(data)`. Don't add the same layer twice
+`map.getSource(id).setData(data)`. Don't add the same layer twice
 on re-render — guard with `map.getLayer(id)`.
 
 ```tsx
-import type { GeoJSONSource } from 'maplibre-gl';
+import type { GeoJSONSource } from '@gebeta/react';
 
 useEffect(() => {
   const map = mapRef.current?.getMap();
   const src = map?.getSource('vehicles') as GeoJSONSource | undefined;
   src?.setData(vehiclesGeoJson);
 }, [vehiclesGeoJson]);
+
+// markers tied to React state: add in an effect, remove in its cleanup
+useEffect(() => {
+  const gm = mapRef.current;
+  if (!gm) return;
+  const markers = shops.map(s => gm.addMarker({ lngLat: [s.lng, s.lat], popup: s.name }));
+  return () => markers.forEach(m => m.remove());
+}, [shops]);
 ```
 
 ## Directions / navigation from React
@@ -141,6 +149,6 @@ cleanup (`return () => mapRef.current?.navigation.stop()`).
 
 ## Next.js / SSR
 
-MapLibre needs `window`. Render the map client-only:
+The map needs `window`. Render the map client-only:
 `const MapPage = dynamic(() => import('./MapPage'), { ssr: false })` in a `'use client'` file.
 Token exchange belongs in a Route Handler (`app/api/gebeta/auth/route.ts`) using `@gebeta/node`.

@@ -13,3 +13,27 @@ export {
   ClusteringManager,
   BrowserLocationProvider,
 } from '@gebeta/js';
+
+export {
+  gebeta,
+  Marker,
+  Popup,
+  LngLat,
+  LngLatBounds,
+  MercatorCoordinate,
+  NavigationControl,
+  GeolocateControl,
+  FullscreenControl,
+  ScaleControl,
+  AttributionControl,
+  TerrainControl,
+  addProtocol,
+  removeProtocol,
+} from '@gebeta/js';
+export type {
+  GebetaMapInstance,
+  GebetaMarkerOptions,
+  GebetaPopupOptions,
+  GeoJSONSource,
+  MapMouseEvent,
+} from '@gebeta/js';

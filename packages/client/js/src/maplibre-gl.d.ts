@@ -25,11 +25,22 @@ declare module 'maplibre-gl' {
   }
 
   export class Marker {
-    constructor(options?: { element?: HTMLElement });
+    constructor(options?: {
+      element?: HTMLElement;
+      anchor?: string;
+      offset?: number | [number, number];
+      color?: string;
+      draggable?: boolean;
+      rotation?: number;
+      className?: string;
+    });
     setLngLat(lngLat: [number, number]): this;
+    getLngLat(): LngLat;
+    getElement(): HTMLElement;
     addTo(map: Map): this;
     remove(): void;
     setPopup(popup: Popup | null): this;
+    on(event: string, fn: (...args: unknown[]) => void): this;
   }
 
   export class Popup {
@@ -38,8 +49,11 @@ declare module 'maplibre-gl' {
       closeOnClick?: boolean;
       closeButton?: boolean;
       anchor?: string;
+      maxWidth?: string;
+      className?: string;
     });
     setHTML(html: string): this;
+    setText(text: string): this;
     setDOMContent(element: HTMLElement): this;
     setLngLat(lngLat: [number, number]): this;
     addTo(map: Map): this;
@@ -56,8 +70,41 @@ declare module 'maplibre-gl' {
   }
 
   export class NavigationControl {
-    constructor();
+    constructor(options?: unknown);
   }
+
+  export class LngLat {
+    constructor(lng: number, lat: number);
+    lng: number;
+    lat: number;
+  }
+
+  export class MercatorCoordinate {
+    constructor(x: number, y: number, z?: number);
+  }
+
+  export class GeolocateControl {
+    constructor(options?: unknown);
+  }
+
+  export class FullscreenControl {
+    constructor(options?: unknown);
+  }
+
+  export class ScaleControl {
+    constructor(options?: unknown);
+  }
+
+  export class AttributionControl {
+    constructor(options?: unknown);
+  }
+
+  export class TerrainControl {
+    constructor(options?: unknown);
+  }
+
+  export function addProtocol(name: string, handler: unknown): void;
+  export function removeProtocol(name: string): void;
 
   export interface GeoJSONSource {
     type: 'geojson';
