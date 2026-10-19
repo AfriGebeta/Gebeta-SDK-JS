@@ -11,11 +11,14 @@ import { NavigationManager } from './Navigation/NavigationManager';
 import { GebetaMaps } from './GebetaMaps';
 import { injectMapLibreStyles } from './injectMapLibreStyles';
 import { BrowserLocationProvider } from './adapters/LocationProvider';
+import { gebeta } from './gebeta';
 
 // Expose everything on window for CDN usage
 if (typeof window !== 'undefined') {
   injectMapLibreStyles();
+  // `maplibregl` kept for backwards compatibility; prefer `gebeta`.
   (window as unknown as Record<string, unknown>).maplibregl = maplibre;
+  (window as unknown as Record<string, unknown>).gebeta = gebeta;
   (GebetaMaps as unknown as Record<string, unknown>).VERSION = __GEBETA_VERSION__;
   (window as unknown as Record<string, unknown>).GebetaMaps = GebetaMaps;
   (window as unknown as Record<string, unknown>).GeocodingManager = GeocodingManager;
@@ -34,4 +37,5 @@ export {
   FenceManager,
   NavigationManager,
   BrowserLocationProvider,
+  gebeta,
 };

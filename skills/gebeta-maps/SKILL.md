@@ -1,13 +1,35 @@
 ---
 name: gebeta-maps
-description: Build maps and location features with the Gebeta Maps SDK (@gebeta/js, @gebeta/react, @gebeta/node, CDN). Use when adding an interactive map, geocoding/reverse geocoding, directions/routes, turn-by-turn navigation, marker clustering, or geofencing with Gebeta; when wiring Gebeta service-account auth (clientToken → backend → accessToken/refreshToken); or when a Gebeta map is blank, throws "not initialized", or tiles return 401. For general MapLibre features on top of a Gebeta map (layers, 3D, popups, animations, terrain…), also load the gebeta-maplibre-examples skill.
+description: Build maps and location features with the Gebeta Maps SDK (@gebeta/js, @gebeta/react, @gebeta/node, CDN). Use when adding an interactive map, geocoding/reverse geocoding, directions/routes, turn-by-turn navigation, marker clustering, or geofencing with Gebeta; when wiring Gebeta service-account auth (clientToken → backend → accessToken/refreshToken); or when a Gebeta map is blank, throws "not initialized", or tiles return 401. For anything else on the map (layers, 3D, terrain, heatmaps, animations, controls…), also load the gebeta-maps-recipes skill.
 ---
 
 # Gebeta Maps SDK
 
-Gebeta Maps is a MapLibre GL JS wrapper (SDK v3, bundles **maplibre-gl 4.7.x**) that adds
-authenticated Gebeta tiles plus geocoding, directions, navigation, clustering and fencing.
+Gebeta Maps gives you authenticated Gebeta tiles plus geocoding, directions, navigation,
+clustering and fencing, and the full interactive-map API (markers, popups, layers, 3D, terrain…).
 Default map center is Addis Ababa. Coordinates are **[lng, lat]** arrays or `{ lng, lat }` objects.
+
+## Brand rule (always)
+
+Code you write for the user references **only Gebeta**: `@gebeta/*` packages, the `gebeta`
+namespace and `sdk.*` methods. Never write `import … from 'maplibre-gl'`, `maplibregl.…`,
+`window.maplibregl` or `maplibre-gl/dist/maplibre-gl.css` in user code, and don't add
+`maplibre-gl` to their `package.json`.
+
+| Need                                | Write                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Marker (pin, image, custom element) | `sdk.addMarker({ lngLat, color \| imageUrl \| element, anchor, popup, draggable, onClick, onDragEnd })`                                                                                                                                                                                                                                                                                                                             |
+| Popup                               | `sdk.addPopup({ lngLat, text \| html \| element })`                                                                                                                                                                                                                                                                                                                                                                                 |
+| Classes & controls                  | `import { gebeta } from '@gebeta/js'` → `gebeta.Marker`, `gebeta.Popup`, `gebeta.LngLat`, `gebeta.LngLatBounds`, `gebeta.MercatorCoordinate`, `gebeta.NavigationControl`, `gebeta.GeolocateControl`, `gebeta.FullscreenControl`, `gebeta.ScaleControl`, `gebeta.AttributionControl`, `gebeta.TerrainControl`, `gebeta.addProtocol`, `gebeta.removeProtocol` (also named exports; same from `@gebeta/react`; `window.gebeta` on CDN) |
+| Map type (TypeScript)               | `import type { GebetaMapInstance } from '@gebeta/js'`                                                                                                                                                                                                                                                                                                                                                                               |
+| Stylesheet (bundlers)               | `import '@gebeta/js/style.css'`                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Layers, sources, camera, events     | methods on `map` (the object `sdk.init()` returns)                                                                                                                                                                                                                                                                                                                                                                                  |
+
+These need `@gebeta/js` / `@gebeta/react` **newer than 3.0.12**. If the project is pinned to
+3.0.12, tell the user to upgrade rather than falling back to engine imports.
+
+Engine note for you (not for user code): the map engine is MapLibre GL JS 4.7.x, so its style
+spec and API docs apply to `map`.
 
 Everything below was checked against the SDK source. Where the public docs disagree, trust this
 file (see "Version notes" at the bottom).
@@ -17,14 +39,11 @@ file (see "Version notes" at the bottom).
 | Situation                                | Install                                                                |
 | ---------------------------------------- | ---------------------------------------------------------------------- |
 | Plain HTML, no bundler                   | `<script src="https://tiles.gebeta.app/static/v3/gebeta-maps.umd.js">` |
-| Vanilla JS / Vue / Svelte with a bundler | `npm i @gebeta/js maplibre-gl@^4`                                      |
-| React 19                                 | `npm i @gebeta/react @gebeta/js maplibre-gl@^4`                        |
+| Vanilla JS / Vue / Svelte with a bundler | `npm i @gebeta/js`                                                     |
+| React 19                                 | `npm i @gebeta/react @gebeta/js`                                       |
 | Backend that issues tokens               | `npm i @gebeta/node`                                                   |
 | Geocoding only (browser or Node)         | `npm i @gebeta/js` and import from `@gebeta/js/geocoding`              |
 | Types only                               | `@gebeta/api`                                                          |
-
-`maplibre-gl` is external to the SDK build, so `import maplibregl from 'maplibre-gl'` in the app
-is the **same instance** the SDK uses — use it for `Marker`, `Popup`, controls, `addProtocol`.
 
 ## 2. Auth (do this first)
 
@@ -58,7 +77,7 @@ const auth = await fetch('/gebeta/auth', {
 }).then(r => r.json());
 ```
 
-Only requests to `https://tiles.gebeta.app/...` are signed (via MapLibre `transformRequest`).
+Only requests to `https://tiles.gebeta.app/...` are signed (the SDK's request transform).
 Third-party sources you add are fetched untouched.
 
 ## 3. Minimal map
@@ -69,8 +88,8 @@ Third-party sources you add are fetched untouched.
 <div id="map" style="width:100%;height:100vh"></div>
 <script src="https://tiles.gebeta.app/static/v3/gebeta-maps.umd.js"></script>
 <script>
-  // globals: GebetaMaps, maplibregl, GeocodingManager, BrowserLocationProvider, ...
-  // maplibre CSS is injected automatically by the UMD build
+  // globals: GebetaMaps, gebeta (Marker, Popup, controls…), BrowserLocationProvider, ...
+  // map CSS is injected automatically by the CDN build
   const sdk = new GebetaMaps({ apiKey: 'YOUR_KEY' }); // or { auth: { accessToken, refreshToken } }
   const map = sdk.init({
     container: 'map',
@@ -79,7 +98,8 @@ Third-party sources you add are fetched untouched.
     navigationControl: true,
   });
   map.on('load', () => {
-    /* SDK managers + any MapLibre API are ready here */
+    sdk.addMarker({ lngLat: [38.7578, 9.0301], color: '#e63946', popup: 'Meskel Square' });
+    map.addControl(new gebeta.FullscreenControl());
   });
 </script>
 ```
@@ -87,15 +107,17 @@ Third-party sources you add are fetched untouched.
 ### Bundler (`@gebeta/js`)
 
 ```js
-import 'maplibre-gl/dist/maplibre-gl.css'; // REQUIRED with bundlers (only the CDN build injects it)
-import { GebetaMaps } from '@gebeta/js';
+import '@gebeta/js/style.css'; // REQUIRED with bundlers (the CDN build injects it)
+import { GebetaMaps, gebeta } from '@gebeta/js';
 
 const sdk = new GebetaMaps({ auth });
 const map = sdk.init({ container: 'map', center: [38.7578, 9.0301], zoom: 13 });
 map.on('load', async () => {
   const [place] = await sdk.geocodingManager.geocode('Meskel Square');
   map.flyTo({ center: [place.lngLat.lng, place.lngLat.lat], zoom: 16 });
+  sdk.addMarker({ lngLat: place.lngLat, popup: place.name });
 });
+map.addControl(new gebeta.ScaleControl({ unit: 'metric' }), 'bottom-left');
 ```
 
 ### React → see `references/react.md` (on SDK ≤ 3.0.12 size the **parent**, never pass `style`).
@@ -104,13 +126,13 @@ map.on('load', async () => {
 
 1. `container` string is an **element id** (`'map'`), not a selector — `'#map'` throws
    `Container '#map' not found`. An `HTMLElement` also works.
-2. `init()` returns the MapLibre `Map` immediately, but `sdk.geocodingManager`, `sdk.fencing`,
+2. `init()` returns the map immediately (`sdk.addMarker` / `sdk.addPopup` work right away), but `sdk.geocodingManager`, `sdk.fencing`,
    `sdk.navigation`, `sdk.getDirections()` throw `PlatformError PLATFORM_NOT_INITIALIZED` until
    the style loads. Call them inside `map.on('load')` (or React `onLoad`).
 3. `clustering: { enabled: true }` must be passed to the **constructor**; `sdk.clustering` is
    `null` otherwise and cannot be enabled later.
 4. Anything else in `init()` options (`pitch`, `bearing`, `maxBounds`, `hash`,
-   `cooperativeGestures`, `interactive`, …) is forwarded to `new maplibregl.Map()`.
+   `cooperativeGestures`, `interactive`, …) is passed through to the map.
    `style` (object) or `styleUrl` (string) override the default style.
 5. `map.setStyle()` wipes SDK layers (route, fences) and your own layers — re-add them on
    `style.load`.
@@ -199,12 +221,21 @@ Point-in-fence checks are **not** in the SDK — use `@turf/boolean-point-in-pol
 Full details, types, and standalone/tree-shaken usage: `references/api.md`.
 Backend + Node geocoding: `references/server.md`. React: `references/react.md`.
 
-## 6. Using raw MapLibre
+## 6. Markers, popups and the rest of the map API
 
-`sdk.getMap()` (or the return of `init()`) is a normal `maplibregl.Map`. Anything from
-https://maplibre.org/maplibre-gl-js/docs/examples/ works on it, with Gebeta-specific
-adjustments (fonts, sprite icons, layer ids, v4 vs v5) — load the **gebeta-maplibre-examples**
-skill for those recipes.
+```js
+// markers & popups (work right after init)
+const pin = sdk.addMarker({ lngLat: [38.7578, 9.0301], color: '#e63946', popup: 'Meskel Square' });
+sdk.addMarker({ lngLat: origin, element: myPinEl, anchor: 'bottom' }); // custom HTML pin
+sdk.addMarker({ lngLat: shop, imageUrl: '/shop.png', size: [32, 32], onClick: m => select(shop) });
+sdk.addMarker({ lngLat, draggable: true, onDragEnd: ({ lng, lat }) => save(lng, lat) });
+sdk.addPopup({ lngLat: [38.7578, 9.0301], text: 'Hello' }); // text is XSS-safe
+pin.remove();
+```
+
+Everything else (layers, sources, camera animation, 3D, terrain, events, controls) is called on
+`map` plus the `gebeta` namespace. Load the **gebeta-maps-recipes** skill: it has a recipe for
+every feature in the map-examples gallery with Gebeta fonts, icons and layer ids.
 
 ## 7. Troubleshooting
 
@@ -215,7 +246,7 @@ skill for those recipes.
 | Map has 0 height                                 | Give the container (React: its parent) an explicit height            |
 | `... manager not initialized. Call init() first` | Called before style load; move into `map.on('load')` / `onLoad`      |
 | `sdk.clustering` is `null`                       | Enable clustering in the constructor (React: `clustering` prop)      |
-| Controls/popups unstyled, markers mispositioned  | Missing `import 'maplibre-gl/dist/maplibre-gl.css'`                  |
+| Controls/popups unstyled, markers mispositioned  | Missing `import '@gebeta/js/style.css'`                              |
 | Custom labels don't render                       | Use `"text-font": ["JakartaSans"]` (see examples skill)              |
 | Route/fences vanish after switching style        | `setStyle` clears layers; re-add on `style.load`                     |
 
@@ -233,9 +264,9 @@ Old docs (pre-GebetaDocs) were wrong in places; trust this skill:
 
 Fixed after 3.0.12 (check the installed `@gebeta/*` version; on 3.0.12 apply the workaround):
 
-| Issue on 3.0.12                                                    | Workaround on 3.0.12                                                                  |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
-| `new GeocodingManager(new AuthManager(...))` / `(apiKey)` crashes  | `new GeocodingManager({ type: 'SERVICE_ACCOUNT', manager: new AuthManager(tokens) })` |
-| `<GebetaMap style={{...}}>` is passed to MapLibre as the map style | Size the parent element; don't pass `style`                                           |
-| `onLoad` / navigation `on()` callbacks are untyped (`any`)         | Annotate: `(gm: GebetaMapRef)`, `(e: API.Navigation.Events.ProgressEvent)`            |
-| `<GebetaMap apiKey auth>` silently ignores `apiKey`                | Pass only one                                                                         |
+| Issue on 3.0.12                                                   | Workaround on 3.0.12                                                                  |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `new GeocodingManager(new AuthManager(...))` / `(apiKey)` crashes | `new GeocodingManager({ type: 'SERVICE_ACCOUNT', manager: new AuthManager(tokens) })` |
+| `<GebetaMap style={{...}}>` becomes the map style (broken map)    | Size the parent element; don't pass `style`                                           |
+| `onLoad` / navigation `on()` callbacks are untyped (`any`)        | Annotate: `(gm: GebetaMapRef)`, `(e: API.Navigation.Events.ProgressEvent)`            |
+| `<GebetaMap apiKey auth>` silently ignores `apiKey`               | Pass only one                                                                         |

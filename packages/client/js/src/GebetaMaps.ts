@@ -9,6 +9,9 @@ import type { ResolvedAuth } from '@gebeta/core';
 import { API, PlatformError } from '@gebeta/api';
 import { createPlatform, type PlatformContext } from './adapters';
 import { LocalStorageClientIdStorage } from './adapters/LocalStorageClientIdStorage';
+import { addMarker, addPopup } from './Markers/helpers';
+import type { GebetaMarkerOptions, GebetaPopupOptions } from './Markers/helpers';
+import type { Marker, Popup } from 'maplibre-gl';
 
 /**
  * Main entry point for the Gebeta Maps JavaScript SDK.
@@ -321,6 +324,47 @@ export class GebetaMaps {
       );
     }
     return this.fenceManager;
+  }
+
+  /**
+   * Add a marker to the map. Can be called right after `init()`.
+   *
+   * @example
+   * ```ts
+   * sdk.addMarker({ lngLat: [38.7578, 9.0301], color: '#e63946', popup: 'Meskel Square' });
+   * sdk.addMarker({ lngLat: origin, element: pinEl, anchor: 'bottom' });
+   * sdk.addMarker({ lngLat, draggable: true, onDragEnd: ({ lng, lat }) => save(lng, lat) });
+   * ```
+   * @returns The marker; call `.remove()` to delete it.
+   * @throws {PlatformError} If called before `init()`.
+   */
+  addMarker(options: GebetaMarkerOptions): Marker {
+    return addMarker(this.requireMap('addMarker'), options);
+  }
+
+  /**
+   * Open a popup on the map. Can be called right after `init()`.
+   *
+   * @example
+   * ```ts
+   * sdk.addPopup({ lngLat: [38.7578, 9.0301], text: 'Meskel Square' });
+   * ```
+   * @returns The popup; call `.remove()` to close it.
+   * @throws {PlatformError} If called before `init()`.
+   */
+  addPopup(options: GebetaPopupOptions): Popup {
+    return addPopup(this.requireMap('addPopup'), options);
+  }
+
+  private requireMap(method: string): MapLibreMap {
+    if (!this.map) {
+      throw new PlatformError(
+        API.Errors.Codes.PLATFORM_NOT_INITIALIZED,
+        'Map not initialized. Call init() first.',
+        { method }
+      );
+    }
+    return this.map;
   }
 
   /** Returns the underlying MapLibre GL `Map` instance, or `null` before `init()`. */

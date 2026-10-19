@@ -1,7 +1,7 @@
-# Map basics, camera & controls (MapLibre 4.7 on Gebeta)
+# Map basics, camera & controls (Gebeta Maps)
 
 `map` = `sdk.init(...)` result; run after `map.on('load')` unless noted. Init-time options go in
-`sdk.init({ container: 'map', ...options })` — they are forwarded to `new maplibregl.Map`.
+`sdk.init({ container: 'map', ...options })` — they are forwarded to `new gebeta.Map`.
 
 ## Display a map / satellite / terrain style
 
@@ -21,7 +21,7 @@ map.setStyle(API.Map.Constants.STYLES.satellite.url);
 ## Attribution position
 
 The SDK disables the default attribution; add your own where you like:
-`map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: '© Gebeta Maps' }), 'top-left')`
+`map.addControl(new gebeta.AttributionControl({ compact: true, customAttribution: '© Gebeta Maps' }), 'top-left')`
 
 ## Check WebGL support
 
@@ -159,7 +159,7 @@ map.fitBounds(
   { padding: 40 }
 ); // [[west,south],[east,north]]
 const coords = route.geometry.coordinates;
-const b = coords.reduce((b, c) => b.extend(c), new maplibregl.LngLatBounds(coords[0], coords[0]));
+const b = coords.reduce((b, c) => b.extend(c), new gebeta.LngLatBounds(coords[0], coords[0]));
 map.fitBounds(b, { padding: 60, maxZoom: 16 });
 ```
 
@@ -214,9 +214,9 @@ map.setMaxBounds([
 ```js
 sdk.init({
   container: 'map',
-  // return only what you change; center must be a maplibregl.LngLat
+  // return only what you change; center must be a gebeta.LngLat
   transformCameraUpdate: ({ center }) => ({
-    center: new maplibregl.LngLat(
+    center: new gebeta.LngLat(
       Math.min(Math.max(center.lng, 38.6), 38.92),
       Math.min(Math.max(center.lat, 8.83), 9.12)
     ),
@@ -226,17 +226,17 @@ sdk.init({
 
 ## First-person walk / 360° photosphere / center above ground / LOD control / MLT
 
-Need MapLibre v5+. Closest v4: `sdk.init({ maxPitch: 85 })` + keyboard handler calling
+Needs engine v5+ (not in the current SDK). Closest today: `sdk.init({ maxPitch: 85 })` + keyboard handler calling
 `map.jumpTo({ center, bearing, pitch: 80, zoom: 19 })`; for photospheres use a separate viewer
 (e.g. Pannellum) opened from a marker popup.
 
 ## Controls
 
 ```js
-map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right'); // or init({ navigationControl: true })
-map.addControl(new maplibregl.FullscreenControl(), 'top-right');
-map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left');
-const geolocate = new maplibregl.GeolocateControl({
+map.addControl(new gebeta.NavigationControl({ visualizePitch: true }), 'top-right'); // or init({ navigationControl: true })
+map.addControl(new gebeta.FullscreenControl(), 'top-right');
+map.addControl(new gebeta.ScaleControl({ unit: 'metric' }), 'bottom-left');
+const geolocate = new gebeta.GeolocateControl({
   positionOptions: { enableHighAccuracy: true },
   trackUserLocation: true,
 });

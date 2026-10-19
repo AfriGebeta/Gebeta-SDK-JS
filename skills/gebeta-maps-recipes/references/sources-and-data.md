@@ -1,4 +1,4 @@
-# Sources & data (MapLibre 4.7 on Gebeta)
+# Sources & data (Gebeta Maps)
 
 Insert data layers below Gebeta labels:
 `const beforeId = map.getStyle().layers.find(l => l.type === 'symbol')?.id;`
@@ -179,9 +179,9 @@ map.addLayer({ id: 'wms', type: 'raster', source: 'wms' }, beforeId);
 ## COG raster (plugin)
 
 `npm i @geomatico/maplibre-cog-protocol` →
-`maplibregl.addProtocol('cog', cogProtocol)` then
+`gebeta.addProtocol('cog', cogProtocol)` then
 `map.addSource('cog', { type: 'raster', url: 'cog://https://example.com/file.tif', tileSize: 256 })`.
-Check the plugin's supported MapLibre range; pin a version that supports 4.x.
+Check the plugin's supported engine range; pin a version that supports MapLibre 4.x (the Gebeta engine).
 
 ## Image, video, canvas, animated image series
 

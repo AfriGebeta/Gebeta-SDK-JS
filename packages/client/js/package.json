@@ -9,7 +9,9 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -34,7 +36,8 @@
     "./fencing": {
       "import": "./dist/fencing.js",
       "types": "./dist/entries/fencing.d.ts"
-    }
+    },
+    "./style.css": "./dist/gebeta-maps.css"
   },
   "publishConfig": {
     "access": "public",
@@ -46,7 +49,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && vite build --config vite.config.umd.ts && tsc --emitDeclarationOnly --skipLibCheck",
+    "build": "yarn workspace @gebeta/api build && yarn workspace @gebeta/core build && vite build && vite build --config vite.config.umd.ts && tsc --emitDeclarationOnly --skipLibCheck && node -e \"require('fs').copyFileSync(require.resolve('maplibre-gl/dist/maplibre-gl.css'), 'dist/gebeta-maps.css')\"",
     "clean": "rm -rf dist",
     "lint": "test -d src && eslint \"src/**/*.{ts,js}\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.{ts,js}\" --fix || echo 'No src directory - skipping lint'",

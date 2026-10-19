@@ -1,27 +1,31 @@
-# Markers, popups, labels & language (MapLibre 4.7 on Gebeta)
+# Markers, popups, labels & language (Gebeta Maps)
 
-Markers/popups need the MapLibre CSS (auto with CDN/React; `import 'maplibre-gl/dist/maplibre-gl.css'` with `@gebeta/js`).
-For hundreds+ of points use a GeoJSON `symbol`/`circle` layer instead of DOM markers.
+Markers/popups need the map stylesheet (automatic with CDN/React; `import '@gebeta/js/style.css'`
+with `@gebeta/js`). For hundreds+ of points use a GeoJSON `symbol`/`circle` layer instead of DOM markers.
 
-## Markers
+## Markers (`sdk.addMarker`)
 
 ```js
-new maplibregl.Marker({ color: '#e63946' }).setLngLat([38.7578, 9.0301]).addTo(map); // default
+sdk.addMarker({ lngLat: [38.7578, 9.0301], color: '#e63946' }); // default pin
 
-const el = document.createElement('div'); // custom icon
+const el = document.createElement('div'); // custom HTML pin
 el.className = 'shop-marker'; // CSS: width/height/background-image/border-radius
-el.style.backgroundImage = 'url(/logo.png)';
-new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([38.76, 9.02]).addTo(map);
+sdk.addMarker({ lngLat: [38.76, 9.02], element: el, anchor: 'bottom' });
 
-const drag = new maplibregl.Marker({ draggable: true }).setLngLat([38.7578, 9.0301]).addTo(map); // draggable
-drag.on('dragend', async () => {
-  const { lng, lat } = drag.getLngLat();
-  const [place] = await sdk.geocodingManager.reverseGeocode({ lat, lng }); // Gebeta reverse geocode
-  info.textContent = place?.name ?? `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+sdk.addMarker({ lngLat: [38.76, 9.02], imageUrl: '/logo.png', size: [32, 32] }); // image pin
+
+sdk.addMarker({
+  // draggable + Gebeta reverse geocode
+  lngLat: [38.7578, 9.0301],
+  draggable: true,
+  onDragEnd: async ({ lng, lat }) => {
+    const [place] = await sdk.geocodingManager.reverseGeocode({ lat, lng });
+    info.textContent = place?.name ?? `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  },
 });
 
 // animate a marker
-const m = new maplibregl.Marker().setLngLat([38.7578, 9.0301]).addTo(map);
+const m = sdk.addMarker({ lngLat: [38.7578, 9.0301] });
 (function tick(ts) {
   const a = ts / 1000;
   m.setLngLat([38.7578 + Math.cos(a) * 0.01, 9.0301 + Math.sin(a) * 0.01]);
@@ -29,8 +33,9 @@ const m = new maplibregl.Marker().setLngLat([38.7578, 9.0301]).addTo(map);
 })(0);
 ```
 
-SDK-native alternative (same look as SDK markers):
-`sdk.getPlatform().markerFactory.createMarker({ imageUrl, size: [32, 32] })?.setLngLat(ll).addTo(sdk.getPlatform().mapAdapter)`.
+`sdk.addMarker` returns a `gebeta.Marker`, so `.setLngLat()`, `.setPopup()`, `.remove()`,
+`.getElement()` all work. Building one by hand is also fine:
+`new gebeta.Marker({ color }).setLngLat(ll).addTo(map)`.
 
 ## Draggable point (GeoJSON, many points friendly)
 
@@ -73,35 +78,26 @@ map.on('touchstart', 'drag', e => {
 ## Popups
 
 ```js
-new maplibregl.Popup({ closeOnClick: false })
-  .setLngLat([38.7578, 9.0301])
-  .setHTML('<h3>Meskel Square</h3>')
-  .addTo(map); // static
+sdk.addPopup({ lngLat: [38.7578, 9.0301], text: 'Meskel Square', closeOnClick: false }); // static
 
 map.on('click', 'places', e => {
   // on click
   const f = e.features[0];
-  new maplibregl.Popup()
-    .setLngLat(f.geometry.coordinates.slice())
-    .setHTML(`<b>${escapeHtml(f.properties.name)}</b>`)
-    .addTo(map);
+  sdk.addPopup({ lngLat: f.geometry.coordinates.slice(), text: f.properties.name });
 });
 map.on('mouseenter', 'places', () => (map.getCanvas().style.cursor = 'pointer'));
 map.on('mouseleave', 'places', () => (map.getCanvas().style.cursor = ''));
 
-const hover = new maplibregl.Popup({ closeButton: false, closeOnClick: false }); // on hover
+const hover = new gebeta.Popup({ closeButton: false, closeOnClick: false }); // on hover
 map.on('mousemove', 'places', e =>
   hover.setLngLat(e.lngLat).setText(e.features[0].properties.name).addTo(map)
 );
 map.on('mouseleave', 'places', () => hover.remove());
 
-new maplibregl.Marker()
-  .setLngLat([38.76, 9.02])
-  .setPopup(new maplibregl.Popup({ offset: 25 }).setText('Bole'))
-  .addTo(map); // on marker
+sdk.addMarker({ lngLat: [38.76, 9.02], popup: 'Bole' }); // on marker
 ```
 
-Use `setText` or escape user data before `setHTML` (XSS).
+Use `text` / `setText` for user data; only pass trusted markup to `html` / `setHTML` (XSS).
 
 Click on Gebeta POIs from the basemap: layer ids like `poi-restaurant`, `poi-hotel`, `poi-bank`,
 `poi-hospital` etc. — `map.on('click', 'poi-restaurant', e => ...)`.
