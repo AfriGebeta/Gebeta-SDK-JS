@@ -141,6 +141,7 @@ jobs:
           yarn workspace @gebeta/react build
           yarn workspace @gebeta/react-native build
           yarn workspace @gebeta/node build
+          yarn workspace @gebeta/create build
 
       - name: Configure npm auth
         run: |
@@ -151,7 +152,7 @@ jobs:
 
       - name: Publish to npm
         run: |
-          for pkg in packages/api packages/core packages/client/js packages/client/react packages/client/react-native packages/server/node; do
+          for pkg in packages/api packages/core packages/client/js packages/client/react packages/client/react-native packages/server/node packages/create; do
             echo "Publishing $pkg..."
             yarn workspace $(node -p "require('./$pkg/package.json').name") npm publish --access public --tolerate-republish || true
           done
