@@ -1,7 +1,7 @@
 export namespace Components {
   export namespace Types {
-    export type GebetaMapProps<TInstance = unknown> =
-      import('../types/components').GebetaMapProps<TInstance>;
+    export type GebetaMapsProps<TInstance = unknown> =
+      import('../types/components').GebetaMapsProps<TInstance>;
     export type NavigationUIProps = import('../types/components').NavigationUIProps;
   }
 }

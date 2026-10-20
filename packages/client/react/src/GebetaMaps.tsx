@@ -32,9 +32,9 @@ type ForwardedMapOptions = {
   [option: string]: unknown;
 };
 
-// Declared explicitly (instead of `Omit<API.Components.Types.GebetaMapProps>`) because that type
+// Declared explicitly (instead of `Omit<API.Components.Types.GebetaMapsProps>`) because that type
 // has a `[key: string]: any` index signature, and `Omit` over it collapses every prop to `any`.
-export type GebetaMapProps = API.Auth.Types.AuthOptions &
+export type GebetaMapsProps = API.Auth.Types.AuthOptions &
   ForwardedMapOptions & {
     /** Initial center `[lng, lat]`. Only read on mount. */
     center?: [number, number];
@@ -61,7 +61,7 @@ export type GebetaMapProps = API.Auth.Types.AuthOptions &
     /** Rendered over the map once it has loaded. */
     children?: ReactNode;
   };
-export type GebetaMapRef = GebetaMaps;
+export type GebetaMapsRef = GebetaMaps;
 
 /**
  * Main React component for rendering a Gebeta map.
@@ -75,7 +75,7 @@ export type GebetaMapRef = GebetaMaps;
  *
  * @example
  * ```tsx
- * <GebetaMap auth={auth} onLoad={(gm) => gm.geocodingManager.geocode('Bole')} />
+ * <GebetaMaps auth={auth} onLoad={(gm) => gm.geocodingManager.geocode('Bole')} />
  * ```
  */
 function GebetaMapImpl(
@@ -95,8 +95,8 @@ function GebetaMapImpl(
     center,
     zoom,
     ...rest
-  }: GebetaMapProps,
-  ref: Ref<GebetaMapRef>
+  }: GebetaMapsProps,
+  ref: Ref<GebetaMapsRef>
 ): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
   const [gebetaMaps, setGebetaMaps] = useState<GebetaMaps | null>(null);
@@ -207,9 +207,9 @@ function GebetaMapImpl(
 }
 
 // `forwardRef`'s `Omit<P, 'ref'>` distributes over discriminated unions; the
-// resulting `props` type widens and stops being assignable to `GebetaMapProps`.
+// resulting `props` type widens and stops being assignable to `GebetaMapsProps`.
 // Cast the impl to a non-union shape for forwardRef's sake, then cast the
 // result back to a component that takes the original discriminated-union props.
-export const GebetaMap = forwardRef(
-  GebetaMapImpl as ForwardRefRenderFunction<GebetaMapRef, never>
-) as unknown as (props: GebetaMapProps & { ref?: Ref<GebetaMapRef> }) => ReactNode;
+export const GebetaMaps = forwardRef(
+  GebetaMapImpl as ForwardRefRenderFunction<GebetaMapsRef, never>
+) as unknown as (props: GebetaMapsProps & { ref?: Ref<GebetaMapsRef> }) => ReactNode;

@@ -8,8 +8,8 @@ export interface UseFencingResult {
 }
 
 /**
- * Hook that provides a {@link FenceManager} wired to the enclosing `<GebetaMap>` (map adapter +
- * marker/popup factories). Must be called from a component rendered inside `<GebetaMap>`.
+ * Hook that provides a {@link FenceManager} wired to the enclosing `<GebetaMaps>` (map adapter +
+ * marker/popup factories). Must be called from a component rendered inside `<GebetaMaps>`.
  */
 export function useFencing(options: FenceManagerOptions = {}): UseFencingResult {
   const ctx = useGebetaMapContextOrNull();

@@ -48,7 +48,7 @@ describe('envTemplate', () => {
 // ─── React ────────────────────────────────────────────────────────────────────
 
 describe('reactAppTemplate', () => {
-  it('imports GebetaMap from @gebeta/react', () => {
+  it('imports GebetaMaps from @gebeta/react', () => {
     expect(reactAppTemplate(cfg())).toContain("from '@gebeta/react'");
   });
 
@@ -122,10 +122,9 @@ describe('vueAppTemplate', () => {
 // ─── React Native ─────────────────────────────────────────────────────────────
 
 describe('reactNativeAppTemplate', () => {
-  it('imports GebetaMap (not GebetaMaps) from @gebeta/react-native', () => {
+  it('imports GebetaMaps from @gebeta/react-native', () => {
     const out = reactNativeAppTemplate(cfg({ framework: 'react-native' }));
-    expect(out).toContain("GebetaMap } from '@gebeta/react-native'");
-    expect(out).not.toContain('GebetaMaps');
+    expect(out).toContain("GebetaMaps } from '@gebeta/react-native'");
   });
 
   it('uses process.env.GEBETA_API_KEY', () => {

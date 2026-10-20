@@ -1,6 +1,6 @@
 # useClustering
 
-React hook for managing clustered markers. Must be used inside a `GebetaMap` component that has clustering enabled via the `clustering` prop.
+React hook for managing clustered markers. Must be used inside a `GebetaMaps` component that has clustering enabled via the `clustering` prop.
 
 ## Import
 

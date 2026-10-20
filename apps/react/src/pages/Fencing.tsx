@@ -1,7 +1,7 @@
 // Fencing.tsx — draw geofences by clicking on the map.
 
 import { useRef, useState, useCallback } from 'react';
-import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
+import { GebetaMaps, type GebetaMapsRef } from '@gebeta/react';
 import { authProps, type Auth } from '../config';
 import '../panel.css';
 
@@ -10,7 +10,7 @@ export default function Fencing({ auth }: { auth: Auth }) {
   const [pointCount, setPointCount] = useState(0);
   const [fenceCount, setFenceCount] = useState(0);
 
-  const gebetaMapRef = useRef<GebetaMapRef>(null);
+  const gebetaMapRef = useRef<GebetaMapsRef>(null);
 
   function refreshState() {
     const fencing = gebetaMapRef.current?.fencing;
@@ -20,7 +20,7 @@ export default function Fencing({ auth }: { auth: Auth }) {
     setFenceCount(fencing.getFences().length);
   }
 
-  function handleLoad(gm: GebetaMapRef) {
+  function handleLoad(gm: GebetaMapsRef) {
     gm.fencing.on('fenceCompleted', refreshState);
     refreshState();
   }
@@ -47,7 +47,7 @@ export default function Fencing({ auth }: { auth: Auth }) {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <GebetaMap
+      <GebetaMaps
         ref={gebetaMapRef}
         {...authProps(auth)}
         center={[38.7685, 9.0161]}
@@ -85,7 +85,7 @@ export default function Fencing({ auth }: { auth: Auth }) {
             the map.
           </p>
         </div>
-      </GebetaMap>
+      </GebetaMaps>
     </div>
   );
 }

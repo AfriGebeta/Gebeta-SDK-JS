@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
-  GebetaMap,
+  GebetaMaps,
   useGebetaMapContextOrNull,
   useDirections,
 } from '@gebeta/react-native';
@@ -26,18 +26,18 @@ type LngLat = API.Common.Types.LngLat;
 
 export default function Directions({ auth }: { auth: Auth }) {
   return (
-    <GebetaMap
+    <GebetaMaps
       {...authProps(auth)}
       center={[38.7685, 9.0161]}
       zoom={12}
       style={styles.map}
     >
       <DirectionsPanel auth={auth} />
-    </GebetaMap>
+    </GebetaMaps>
   );
 }
 
-/** Rendered as a child of <GebetaMap>, so it can read the platform from context. */
+/** Rendered as a child of <GebetaMaps>, so it can read the platform from context. */
 function DirectionsPanel({ auth }: { auth: Auth }) {
   const ctx = useGebetaMapContextOrNull();
   const platform = ctx?.platform ?? null;
@@ -73,7 +73,7 @@ function DirectionsPanel({ auth }: { auth: Auth }) {
     [platform],
   );
 
-  // The DirectionsManager, wired to this <GebetaMap>'s platform (map adapter + marker factory).
+  // The DirectionsManager, wired to this <GebetaMaps>'s platform (map adapter + marker factory).
   const { directions } = useDirections(authProps(auth));
 
   // Bind the map 'click' handler to the live mapAdapter. Using an effect (not a render-body

@@ -9,19 +9,19 @@
 
 import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { GebetaMap, useFencing } from '@gebeta/react-native';
+import { GebetaMaps, useFencing } from '@gebeta/react-native';
 import { authProps, type Auth } from '../config';
 
 export default function Fencing({ auth }: { auth: Auth }) {
   return (
-    <GebetaMap
+    <GebetaMaps
       {...authProps(auth)}
       center={[38.7685, 9.0161]}
       zoom={13}
       style={styles.map}
     >
       <FencingPanel />
-    </GebetaMap>
+    </GebetaMaps>
   );
 }
 

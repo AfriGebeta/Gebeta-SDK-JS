@@ -18,16 +18,16 @@ export interface UseClusteringResult {
 /**
  * React hook for managing clustered markers on a Gebeta map.
  *
- * Must be used inside a GebetaMap component with clustering enabled.
+ * Must be used inside a GebetaMaps component with clustering enabled.
  *
- * @throws If clustering is not enabled on the parent GebetaMap component.
+ * @throws If clustering is not enabled on the parent GebetaMaps component.
  */
 export function useClustering(): UseClusteringResult {
   const gm = useGebetaMap();
   const clusteringManager = gm.clustering;
   if (!clusteringManager) {
     throw new Error(
-      'useClustering requires clustering to be enabled on GebetaMap (clustering={{ enabled: true }})'
+      'useClustering requires clustering to be enabled on GebetaMaps (clustering={{ enabled: true }})'
     );
   }
   return useMemo<UseClusteringResult>(

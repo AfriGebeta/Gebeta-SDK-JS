@@ -1,7 +1,7 @@
 // Directions.tsx — click map to set origin/destination, then display route.
 
 import { useRef, useState, useCallback } from 'react';
-import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
+import { GebetaMaps, type GebetaMapsRef } from '@gebeta/react';
 import { authProps, type Auth } from '../config';
 import type { API } from '@gebeta/api';
 import '../panel.css';
@@ -9,7 +9,7 @@ import '../panel.css';
 const ORIGIN_ICON = 'https://cdn-icons-png.flaticon.com/512/1828/1828640.png';
 const DEST_ICON = 'https://cdn-icons-png.flaticon.com/512/3081/3081559.png';
 
-type Platform = ReturnType<GebetaMapRef['getPlatform']>;
+type Platform = ReturnType<GebetaMapsRef['getPlatform']>;
 type Marker = ReturnType<Platform['markerFactory']['createMarker']>;
 type LngLat = { lat: number; lng: number };
 
@@ -32,13 +32,13 @@ export default function Directions({ auth }: { auth: Auth }) {
   } | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const gebetaMapRef = useRef<GebetaMapRef>(null);
+  const gebetaMapRef = useRef<GebetaMapsRef>(null);
   const originMarkerRef = useRef<Marker>(null);
   const destMarkerRef = useRef<Marker>(null);
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
-  function handleLoad(gm: GebetaMapRef) {
+  function handleLoad(gm: GebetaMapsRef) {
     const platform = gm.getPlatform();
     platform.mapAdapter.on('click', (...args: unknown[]) => {
       const e = args[0] as { lngLat: API.Common.Types.LngLat };
@@ -91,7 +91,7 @@ export default function Directions({ auth }: { auth: Auth }) {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <GebetaMap
+      <GebetaMaps
         ref={gebetaMapRef}
         {...authProps(auth)}
         center={[38.7685, 9.0161]}
@@ -151,7 +151,7 @@ export default function Directions({ auth }: { auth: Auth }) {
             Use "Get Directions" to show the route.
           </p>
         </div>
-      </GebetaMap>
+      </GebetaMaps>
     </div>
   );
 }

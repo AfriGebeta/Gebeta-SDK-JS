@@ -4,33 +4,33 @@ const examples = [
   {
     route: '/geocoding',
     title: 'Geocoding',
-    import: "import { GebetaMap } from '@gebeta/react'",
+    import: "import { GebetaMaps } from '@gebeta/react'",
     description:
       'Forward and reverse geocoding. Search by place name or look up an address from coordinates.',
   },
   {
     route: '/directions',
     title: 'Directions',
-    import: "import { GebetaMap } from '@gebeta/react'",
+    import: "import { GebetaMaps } from '@gebeta/react'",
     description: 'Click the map to set origin and destination, then get and display a route.',
   },
   {
     route: '/navigation',
     title: 'Navigation',
-    import: "import { GebetaMap, BrowserLocationProvider } from '@gebeta/react'",
+    import: "import { GebetaMaps, BrowserLocationProvider } from '@gebeta/react'",
     description:
       'Turn-by-turn navigation with progress, ETA, and off-route detection. Choose simulated or real GPS.',
   },
   {
     route: '/clustering',
     title: 'Marker Clustering',
-    import: "import { GebetaMap, useClustering } from '@gebeta/react'",
+    import: "import { GebetaMaps, useClustering } from '@gebeta/react'",
     description: 'Add random markers and see them cluster. Controls for radius and max zoom.',
   },
   {
     route: '/fencing',
     title: 'Fencing',
-    import: "import { GebetaMap } from '@gebeta/react'",
+    import: "import { GebetaMaps } from '@gebeta/react'",
     description: 'Draw geofences by clicking on the map. Close the fence to complete a polygon.',
   },
 ];

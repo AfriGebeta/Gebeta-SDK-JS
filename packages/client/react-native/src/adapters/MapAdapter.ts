@@ -16,7 +16,7 @@ type LngLat = API.Common.Types.LngLat;
  * bridge the gap:
  *
  * 1. **Cached region.** The synchronous getters (`getZoom`, `getCenter`, `getBounds`) read
- *    `MapHandle.region`, which `GebetaMap` keeps fresh from `onRegionDidChange`. This gives
+ *    `MapHandle.region`, which `GebetaMaps` keeps fresh from `onRegionDidChange`. This gives
  *    real values without an `await` at the call site.
  * 2. **Declarative store.** `addSource`/`addLayer`/`setPaintProperty` write to
  *    `MapHandle.store`; a `MapSpecRenderer` turns those specs into `<ShapeSource>`/layer
@@ -101,9 +101,9 @@ export class MapAdapter implements IMapAdapter {
   }
 
   setStyle(): this {
-    // Style is driven declaratively via GebetaMap's `styleUrl` prop, not imperatively.
+    // Style is driven declaratively via GebetaMaps's `styleUrl` prop, not imperatively.
     throw new Error(
-      'MapAdapter.setStyle is not supported on React Native — set the `styleUrl` prop on <GebetaMap> instead.'
+      'MapAdapter.setStyle is not supported on React Native — set the `styleUrl` prop on <GebetaMaps> instead.'
     );
   }
 

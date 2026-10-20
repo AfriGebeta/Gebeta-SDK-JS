@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { GebetaMap } from './GebetaMap';
+import { GebetaMaps } from './GebetaMaps';
 import { ValidationError } from '@gebeta/api';
 import maplibre from 'maplibre-gl';
 
@@ -29,7 +29,7 @@ function spyOnMapConstructor(): { getTransformRequest: () => TransformRequestFn 
   return { getTransformRequest: () => captured };
 }
 
-describe('GebetaMap', () => {
+describe('GebetaMaps', () => {
   let warnSpy: jest.SpyInstance;
   let errorSpy: jest.SpyInstance;
 
@@ -47,8 +47,8 @@ describe('GebetaMap', () => {
   describe('auth validation', () => {
     test('should render without error when only auth credentials are provided', () => {
       // GIVEN only auth credentials (accessToken 'access-token-abc', no apiKey)
-      // WHEN GebetaMap is rendered with auth prop
-      render(<GebetaMap auth={VALID_AUTH} />);
+      // WHEN GebetaMaps is rendered with auth prop
+      render(<GebetaMaps auth={VALID_AUTH} />);
 
       // THEN no deprecation warning is logged
       expect(warnSpy).not.toHaveBeenCalled();
@@ -56,8 +56,8 @@ describe('GebetaMap', () => {
 
     test('should log a deprecation warning when only a legacy apiKey is provided', () => {
       // GIVEN only legacy apiKey 'my-legacy-api-key' (no auth)
-      // WHEN GebetaMap is rendered with apiKey prop
-      render(<GebetaMap apiKey={VALID_API_KEY} />);
+      // WHEN GebetaMaps is rendered with apiKey prop
+      render(<GebetaMaps apiKey={VALID_API_KEY} />);
 
       // THEN console.warn is called once with a deprecation message
       expect(warnSpy).toHaveBeenCalledTimes(1);
@@ -66,32 +66,32 @@ describe('GebetaMap', () => {
 
     test('should throw ValidationError when neither apiKey nor auth is provided', () => {
       // GIVEN no apiKey and no auth
-      // WHEN GebetaMap is rendered with no auth props
+      // WHEN GebetaMaps is rendered with no auth props
       // THEN ValidationError is thrown during render
       expect(() =>
         // intentionally omitting auth props to verify the runtime guard
         // @ts-expect-error -- auth props are required at compile time
-        render(<GebetaMap />)
+        render(<GebetaMaps />)
       ).toThrow(ValidationError);
     });
 
     test('should throw ValidationError when both apiKey and auth are provided', () => {
       // GIVEN both apiKey 'my-legacy-api-key' and auth credentials
-      // WHEN GebetaMap is rendered with both props
+      // WHEN GebetaMaps is rendered with both props
       // THEN ValidationError is thrown during render
       expect(() =>
         // intentionally passing both apiKey and auth to verify the runtime guard
         // @ts-expect-error -- apiKey and auth are mutually exclusive at compile time
-        render(<GebetaMap apiKey={VALID_API_KEY} auth={VALID_AUTH} />)
+        render(<GebetaMaps apiKey={VALID_API_KEY} auth={VALID_AUTH} />)
       ).toThrow(ValidationError);
     });
   });
 
   describe('transformRequest — tile URL authorization', () => {
     test('should inject Authorization: Bearer <accessToken> for tile URLs when using auth', () => {
-      // GIVEN a GebetaMap rendered with auth credentials (accessToken 'access-token-abc')
+      // GIVEN a GebetaMaps rendered with auth credentials (accessToken 'access-token-abc')
       const { getTransformRequest } = spyOnMapConstructor();
-      render(<GebetaMap auth={VALID_AUTH} />);
+      render(<GebetaMaps auth={VALID_AUTH} />);
 
       // WHEN a tile URL is transformed
       const result = getTransformRequest()?.(
@@ -104,9 +104,9 @@ describe('GebetaMap', () => {
     });
 
     test('should append api_key query param for tile URLs when using legacy apiKey', () => {
-      // GIVEN a GebetaMap rendered with legacy apiKey 'my-legacy-api-key'
+      // GIVEN a GebetaMaps rendered with legacy apiKey 'my-legacy-api-key'
       const { getTransformRequest } = spyOnMapConstructor();
-      render(<GebetaMap apiKey={VALID_API_KEY} />);
+      render(<GebetaMaps apiKey={VALID_API_KEY} />);
 
       // WHEN a tile URL is transformed
       const result = getTransformRequest()?.(
@@ -122,9 +122,9 @@ describe('GebetaMap', () => {
     });
 
     test('should not inject Authorization header for non-tile URLs', () => {
-      // GIVEN a GebetaMap rendered with auth credentials
+      // GIVEN a GebetaMaps rendered with auth credentials
       const { getTransformRequest } = spyOnMapConstructor();
-      render(<GebetaMap auth={VALID_AUTH} />);
+      render(<GebetaMaps auth={VALID_AUTH} />);
 
       // WHEN a non-tile URL is transformed
       const result = getTransformRequest()?.(
@@ -151,10 +151,10 @@ describe('GebetaMap', () => {
     }
 
     test('should apply style and className to the wrapper instead of the MapLibre style', () => {
-      // GIVEN a GebetaMap with CSS styles and a class name
+      // GIVEN a GebetaMaps with CSS styles and a class name
       const getOptions = captureMapOptions();
       const { container } = render(
-        <GebetaMap auth={VALID_AUTH} style={{ height: '500px' }} className="my-map" />
+        <GebetaMaps auth={VALID_AUTH} style={{ height: '500px' }} className="my-map" />
       );
 
       // THEN the wrapper gets the CSS and the map keeps the default Gebeta style URL
@@ -165,9 +165,9 @@ describe('GebetaMap', () => {
     });
 
     test('should use mapStyle as the MapLibre style', () => {
-      // GIVEN a GebetaMap with a mapStyle URL
+      // GIVEN a GebetaMaps with a mapStyle URL
       const getOptions = captureMapOptions();
-      render(<GebetaMap auth={VALID_AUTH} mapStyle="https://example.com/style.json" />);
+      render(<GebetaMaps auth={VALID_AUTH} mapStyle="https://example.com/style.json" />);
 
       // THEN MapLibre receives that style
       expect(getOptions()?.style).toBe('https://example.com/style.json');
@@ -176,7 +176,7 @@ describe('GebetaMap', () => {
     test('should infer the GebetaMaps instance type in onLoad', () => {
       // GIVEN an onLoad callback without a parameter annotation (compile-time check)
       const onLoad = jest.fn();
-      render(<GebetaMap auth={VALID_AUTH} onLoad={gm => onLoad(gm.getMap())} />);
+      render(<GebetaMaps auth={VALID_AUTH} onLoad={gm => onLoad(gm.getMap())} />);
 
       // THEN it is called with the instance once the style is loaded
       expect(onLoad).toHaveBeenCalled();

@@ -32,13 +32,13 @@ export function envExampleTemplate(cfg: TemplateConfig): string {
 
 export function reactAppTemplate(cfg: TemplateConfig): string {
   const geocoding = cfg.features.includes('geocoding');
-  return `${geocoding ? `import { GeocodingManager } from '@gebeta/react';\n` : ''}import { GebetaMap } from '@gebeta/react';
+  return `${geocoding ? `import { GeocodingManager } from '@gebeta/react';\n` : ''}import { GebetaMaps } from '@gebeta/react';
 import '@gebeta/js/style.css';
 
 export default function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <GebetaMap
+      <GebetaMaps
         apiKey={import.meta.env.VITE_GEBETA_API_KEY}
         style={{ width: '100%', height: '100%' }}
         initialViewState={{ longitude: 38.7469, latitude: 9.0227, zoom: 12 }}
@@ -54,13 +54,13 @@ export default function App() {
 export function nextPageTemplate(_cfg: TemplateConfig): string {
   return `'use client';
 
-import { GebetaMap } from '@gebeta/react';
+import { GebetaMaps } from '@gebeta/react';
 import '@gebeta/js/style.css';
 
 export default function MapPage() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <GebetaMap
+      <GebetaMaps
         apiKey={process.env.NEXT_PUBLIC_GEBETA_API_KEY!}
         style={{ width: '100%', height: '100%' }}
         initialViewState={{ longitude: 38.7469, latitude: 9.0227, zoom: 12 }}
@@ -147,12 +147,12 @@ onUnmounted(() => map?.remove());
 export function reactNativeAppTemplate(_cfg: TemplateConfig): string {
   return `import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { GebetaMap } from '@gebeta/react-native';
+import { GebetaMaps } from '@gebeta/react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <GebetaMap
+      <GebetaMaps
         apiKey={process.env.GEBETA_API_KEY ?? ''}
         style={styles.map}
         initialViewState={{ longitude: 38.7469, latitude: 9.0227, zoom: 12 }}

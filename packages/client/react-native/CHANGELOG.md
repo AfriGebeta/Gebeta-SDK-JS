@@ -1,5 +1,14 @@
 # @gebeta/react-native
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [7830e03]
+- Updated dependencies [5c4deee]
+  - @gebeta/core@3.1.0
+  - @gebeta/api@3.1.0
+
 ## 1.0.3
 
 ### Patch Changes

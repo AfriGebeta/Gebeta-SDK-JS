@@ -34,7 +34,7 @@ export type AuthParam = object | string;
  * compile time. The type-level XOR prevents accidentally passing both
  * (would throw at runtime) or neither (would also throw at runtime).
  *
- * Used by `GebetaMapsConstructorOptions` and `GebetaMapProps` (composed
+ * Used by `GebetaMapsConstructorOptions` and `GebetaMapsProps` (composed
  * via intersection) so React / React Native / Vue / plain-JS clients
  * all share the same compile-time guarantee.
  */

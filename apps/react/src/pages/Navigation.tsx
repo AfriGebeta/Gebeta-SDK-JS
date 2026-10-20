@@ -2,7 +2,7 @@
 // navigation using either the browser's GPS or a simulated location provider.
 
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { GebetaMap, type GebetaMapRef, BrowserLocationProvider } from '@gebeta/react';
+import { GebetaMaps, type GebetaMapsRef, BrowserLocationProvider } from '@gebeta/react';
 import { authProps, type Auth } from '../config';
 import type { API } from '@gebeta/api';
 import '../panel.css';
@@ -10,7 +10,7 @@ import '../panel.css';
 const ORIGIN_ICON = 'https://cdn-icons-png.flaticon.com/512/1828/1828640.png';
 const DEST_ICON = 'https://cdn-icons-png.flaticon.com/512/3081/3081559.png';
 
-type Platform = ReturnType<GebetaMapRef['getPlatform']>;
+type Platform = ReturnType<GebetaMapsRef['getPlatform']>;
 type Marker = ReturnType<Platform['markerFactory']['createMarker']>;
 type LngLat = { lat: number; lng: number };
 type Source = 'gps' | 'simulation';
@@ -127,7 +127,7 @@ export default function Navigation({ auth }: { auth: Auth }) {
     instruction?: string;
   }>({});
 
-  const gebetaMapRef = useRef<GebetaMapRef>(null);
+  const gebetaMapRef = useRef<GebetaMapsRef>(null);
   const originMarkerRef = useRef<Marker>(null);
   const destMarkerRef = useRef<Marker>(null);
   const routeDataRef = useRef<API.Routing.Types.RouteData | null>(null);
@@ -146,7 +146,7 @@ export default function Navigation({ auth }: { auth: Auth }) {
     );
   }
 
-  function handleLoad(gm: GebetaMapRef) {
+  function handleLoad(gm: GebetaMapsRef) {
     const platform = gm.getPlatform();
 
     platform.mapAdapter.on('click', (...args: unknown[]) => {
@@ -274,7 +274,7 @@ export default function Navigation({ auth }: { auth: Auth }) {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <GebetaMap
+      <GebetaMaps
         ref={gebetaMapRef}
         {...authProps(auth)}
         center={[38.7685, 9.0161]}
@@ -395,7 +395,7 @@ export default function Navigation({ auth }: { auth: Auth }) {
             <strong>Real GPS</strong> uses your device location (requires permission).
           </p>
         </div>
-      </GebetaMap>
+      </GebetaMaps>
     </div>
   );
 }

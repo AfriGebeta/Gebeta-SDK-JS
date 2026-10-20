@@ -1,8 +1,8 @@
 // Clustering.tsx — add random markers and see them cluster.
-// Uses useClustering from @gebeta/react/clustering via GebetaMap.
+// Uses useClustering from @gebeta/react/clustering via GebetaMaps.
 
 import { useCallback, useState } from 'react';
-import { GebetaMap } from '@gebeta/react';
+import { GebetaMaps } from '@gebeta/react';
 import { useClustering } from '@gebeta/react/clustering';
 import { authProps, type Auth } from '../config';
 import '../panel.css';
@@ -67,7 +67,7 @@ function ClusteringPanel() {
 export default function Clustering({ auth }: { auth: Auth }) {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <GebetaMap
+      <GebetaMaps
         {...authProps(auth)}
         center={CENTER}
         zoom={12}
@@ -75,7 +75,7 @@ export default function Clustering({ auth }: { auth: Auth }) {
         navigationControl
       >
         <ClusteringPanel />
-      </GebetaMap>
+      </GebetaMaps>
     </div>
   );
 }

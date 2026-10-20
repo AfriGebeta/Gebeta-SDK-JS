@@ -7,12 +7,12 @@
  */
 
 import { StyleSheet, Text, View } from 'react-native';
-import { GebetaMap, UserLocation, useUserLocation } from '@gebeta/react-native';
+import { GebetaMaps, UserLocation, useUserLocation } from '@gebeta/react-native';
 import { authProps, type Auth } from '../config';
 
 export default function Location({ auth }: { auth: Auth }) {
   return (
-    <GebetaMap
+    <GebetaMaps
       {...authProps(auth)}
       center={[38.7685, 9.0161]}
       zoom={13}
@@ -20,7 +20,7 @@ export default function Location({ auth }: { auth: Auth }) {
     >
       <UserLocation accuracy heading />
       <LocationPanel />
-    </GebetaMap>
+    </GebetaMaps>
   );
 }
 

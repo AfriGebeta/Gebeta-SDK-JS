@@ -267,6 +267,6 @@ Fixed after 3.0.12 (check the installed `@gebeta/*` version; on 3.0.12 apply the
 | Issue on 3.0.12                                                   | Workaround on 3.0.12                                                                  |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | `new GeocodingManager(new AuthManager(...))` / `(apiKey)` crashes | `new GeocodingManager({ type: 'SERVICE_ACCOUNT', manager: new AuthManager(tokens) })` |
-| `<GebetaMap style={{...}}>` becomes the map style (broken map)    | Size the parent element; don't pass `style`                                           |
-| `onLoad` / navigation `on()` callbacks are untyped (`any`)        | Annotate: `(gm: GebetaMapRef)`, `(e: API.Navigation.Events.ProgressEvent)`            |
-| `<GebetaMap apiKey auth>` silently ignores `apiKey`               | Pass only one                                                                         |
+| `<GebetaMaps style={{...}}>` becomes the map style (broken map)    | Size the parent element; don't pass `style`                                           |
+| `onLoad` / navigation `on()` callbacks are untyped (`any`)        | Annotate: `(gm: GebetaMapsRef)`, `(e: API.Navigation.Events.ProgressEvent)`            |
+| `<GebetaMaps apiKey auth>` silently ignores `apiKey`               | Pass only one                                                                         |

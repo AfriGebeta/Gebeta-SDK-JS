@@ -1,6 +1,6 @@
 # @gebeta/react
 
-React SDK for Gebeta Maps. Provides a `GebetaMap` component and a `useClustering` hook.
+React SDK for Gebeta Maps. Provides a `GebetaMaps` component and a `useClustering` hook.
 
 ## Installation
 
@@ -12,13 +12,13 @@ npm install @gebeta/react @gebeta/js
 
 ```tsx
 import { useRef } from 'react';
-import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
+import { GebetaMaps, type GebetaMapsRef } from '@gebeta/react';
 
 function App({ accessToken, refreshToken }: { accessToken: string; refreshToken: string }) {
-  const mapRef = useRef<GebetaMapRef>(null);
+  const mapRef = useRef<GebetaMapsRef>(null);
 
   return (
-    <GebetaMap
+    <GebetaMaps
       ref={mapRef}
       auth={{ accessToken, refreshToken }}
       center={[38.7578, 9.0301]}
@@ -43,12 +43,12 @@ function App({ accessToken, refreshToken }: { accessToken: string; refreshToken:
 
 ```tsx
 import { useEffect } from 'react';
-import { GebetaMap, useClustering } from '@gebeta/react';
+import { GebetaMaps, useClustering } from '@gebeta/react';
 
 const clustering = { enabled: true, showClusterCount: true };
 
 function Markers() {
-  const { addMarker, clearMarkers } = useClustering(); // must be a child of <GebetaMap clustering>
+  const { addMarker, clearMarkers } = useClustering(); // must be a child of <GebetaMaps clustering>
   useEffect(() => {
     addMarker({ id: '1', lngLat: [38.7685, 9.0161], imageUrl: '/pin.png' });
     return () => clearMarkers();
@@ -56,9 +56,9 @@ function Markers() {
   return null;
 }
 
-<GebetaMap auth={auth} clustering={clustering}>
+<GebetaMaps auth={auth} clustering={clustering}>
   <Markers />
-</GebetaMap>;
+</GebetaMaps>;
 ```
 
 ## Peer dependencies
