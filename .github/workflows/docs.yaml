@@ -41,6 +41,7 @@ jobs:
         run: |
           yarn workspace @gebeta/api build
           yarn workspace @gebeta/core build
+          yarn workspace @gebeta/js build:declarations
 
       - name: Build docs
         run: yarn docs:build
