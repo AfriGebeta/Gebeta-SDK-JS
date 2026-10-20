@@ -2416,15 +2416,12 @@ __metadata:
   dependencies:
     "@clack/prompts": "npm:^1.8.1"
     "@types/node": "npm:^20.0.0"
-    "@types/prompts": "npm:^2.4.9"
-    kleur: "npm:^4.1.5"
     picocolors: "npm:^1.1.1"
-    prompts: "npm:^2.4.2"
     tsup: "npm:^8.0.0"
     typescript: "npm:^5.0.0"
   bin:
     create-gebeta: ./dist/cli.js
-    gebeta: ./dist/cli.js
+    gebeta-init: ./dist/cli.js
   languageName: unknown
   linkType: soft
 
@@ -4344,16 +4341,6 @@ __metadata:
   version: 3.0.5
   resolution: "@types/pbf@npm:3.0.5"
   checksum: 10c0/c32348c6c81e6c31fe4a1f59983e3a9904727b809fb1e5ddec4fad49abaf93070ec26ee0c04c6516536c181c945b3c7d9e226549eaac3b2e12cb7b57f549a49c
-  languageName: node
-  linkType: hard
-
-"@types/prompts@npm:^2.4.9":
-  version: 2.4.9
-  resolution: "@types/prompts@npm:2.4.9"
-  dependencies:
-    "@types/node": "npm:*"
-    kleur: "npm:^3.0.3"
-  checksum: 10c0/22fe0da6807681c85e88ba283184f4be4c8a95c744ea12a638865c98c4e0c22e7f733542f6b0f1fbca02245cdc3fe84feacf9c9adf4ddd8bc98a337fd679d8d2
   languageName: node
   linkType: hard
 
