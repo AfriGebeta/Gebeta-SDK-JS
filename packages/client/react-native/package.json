@@ -1,6 +1,6 @@
 {
   "name": "@gebeta/react-native",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "React Native SDK for Gebeta Maps",
   "license": "MIT",
   "homepage": "https://github.com/AfriGebeta/Gebeta-SDK-JS#readme",

@@ -1,5 +1,28 @@
 # @gebeta/api
 
+## 3.2.0
+
+### Minor Changes
+
+- 78a8ee9: Rename `GebetaMap` component to `GebetaMaps` for consistency with the JS SDK class name.
+
+  **Breaking change:** The React and React Native component export has been renamed.
+
+  ```diff
+  - import { GebetaMap, type GebetaMapProps, type GebetaMapRef } from '@gebeta/react';
+  + import { GebetaMaps, type GebetaMapsProps, type GebetaMapsRef } from '@gebeta/react';
+
+  - import { GebetaMap, type GebetaMapProps } from '@gebeta/react-native';
+  + import { GebetaMaps, type GebetaMapsProps } from '@gebeta/react-native';
+  ```
+
+  JSX usage:
+
+  ```diff
+  - <GebetaMap apiKey="..." />
+  + <GebetaMaps apiKey="..." />
+  ```
+
 ## 3.1.0
 
 ### Minor Changes
