@@ -1,0 +1,45 @@
+{
+  "name": "@gebeta/create",
+  "version": "1.0.0",
+  "description": "Scaffold or integrate Gebeta Maps into any JavaScript/TypeScript project",
+  "type": "module",
+  "bin": {
+    "create-gebeta": "./dist/cli.js",
+    "gebeta-init": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.8.1",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "gebeta",
+    "maps",
+    "create",
+    "init",
+    "scaffold",
+    "cli"
+  ]
+}
