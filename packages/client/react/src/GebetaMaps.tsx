@@ -7,7 +7,7 @@ import type {
 } from 'react';
 import { useRef, useState, useEffect, useMemo, forwardRef } from 'react';
 import type { API } from '@gebeta/api';
-import { GebetaMaps } from '@gebeta/js';
+import { GebetaMaps as GebetaMapsClass } from '@gebeta/js';
 import { GebetaMapContext } from './context/MapContext';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -51,7 +51,7 @@ export type GebetaMapsProps = API.Auth.Types.AuthOptions &
     /** Corner for navigation controls (default: 'top-right'). */
     navigationControlPosition?: string;
     /** Called once the map style has loaded, with the GebetaMaps instance. */
-    onLoad?: (instance: GebetaMaps) => void;
+    onLoad?: (instance: GebetaMapsClass) => void;
     /** Called on map errors. */
     onError?: (error: Error) => void;
     /** CSS styles for the map wrapper element (defaults to filling the parent). */
@@ -61,7 +61,7 @@ export type GebetaMapsProps = API.Auth.Types.AuthOptions &
     /** Rendered over the map once it has loaded. */
     children?: ReactNode;
   };
-export type GebetaMapsRef = GebetaMaps;
+export type GebetaMapsRef = GebetaMapsClass;
 
 /**
  * Main React component for rendering a Gebeta map.
@@ -99,14 +99,14 @@ function GebetaMapImpl(
   ref: Ref<GebetaMapsRef>
 ): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [gebetaMaps, setGebetaMaps] = useState<GebetaMaps | null>(null);
+  const [gebetaMaps, setGebetaMaps] = useState<GebetaMapsClass | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  function assignRef(value: GebetaMaps | null) {
+  function assignRef(value: GebetaMapsClass | null) {
     if (typeof ref === 'function') {
       ref(value);
     } else if (ref) {
-      (ref as MutableRefObject<GebetaMaps | null>).current = value;
+      (ref as MutableRefObject<GebetaMapsClass | null>).current = value;
     }
   }
 
@@ -122,11 +122,11 @@ function GebetaMapImpl(
     setLoadError(null);
 
     // Pass both through so GebetaMaps rejects "neither" and "both" with a ValidationError.
-    const gm = new GebetaMaps({
+    const gm = new GebetaMapsClass({
       auth: authProp,
       apiKey,
       ...(clustering ? { clustering } : {}),
-    } as ConstructorParameters<typeof GebetaMaps>[0]);
+    } as ConstructorParameters<typeof GebetaMapsClass>[0]);
 
     const map = gm.init({
       container,
