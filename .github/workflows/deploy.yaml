@@ -84,6 +84,7 @@ jobs:
     if: inputs.target == 'npm'
     permissions:
       contents: write
+      id-token: write # npm Trusted Publishing (OIDC)
 
     steps:
       - name: Check deploy permission
@@ -114,13 +115,23 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
+      # Trusted Publishing needs npm >= 11.5.1
+      - name: Install npm 11
+        run: npm install -g npm@11.6.2
+
       - name: Install dependencies
         run: yarn install --immutable
 
+      # npm publish tries Trusted Publishing (OIDC) first and falls back to NPM_TOKEN.
+      # With a token configured, check it up front so a bad token fails before versions are bumped.
       - name: Verify npm auth
         run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "No NPM_TOKEN secret: relying on npm Trusted Publishing."
+            exit 0
+          fi
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-          npm whoami || { echo "NPM_TOKEN is missing, expired or invalid."; exit 1; }
+          npm whoami || { echo "NPM_TOKEN is expired or invalid."; exit 1; }
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -151,20 +162,23 @@ jobs:
           yarn workspace @gebeta/node build
           yarn workspace @gebeta/create build
 
-      - name: Configure npm auth
-        run: yarn config set npmAuthToken "${NPM_TOKEN}"
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
+      # yarn pack rewrites workspace: dependencies; npm publish then handles auth (OIDC or token).
       - name: Publish to npm
         run: |
           set -e
+          mkdir -p "$RUNNER_TEMP/packs"
           for pkg in packages/api packages/core packages/client/js packages/client/react packages/client/react-native packages/server/node packages/create; do
-            echo "Publishing $pkg..."
-            yarn workspace $(node -p "require('./$pkg/package.json').name") npm publish --access public --tolerate-republish
+            NAME=$(node -p "require('./$pkg/package.json').name")
+            VERSION=$(node -p "require('./$pkg/package.json').version")
+            if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+              echo "$NAME@$VERSION already published, skipping"
+              continue
+            fi
+            echo "Publishing $NAME@$VERSION..."
+            TARBALL="$RUNNER_TEMP/packs/$(echo "$NAME" | tr -d @ | tr / -)-$VERSION.tgz"
+            yarn workspace "$NAME" pack -o "$TARBALL"
+            npm publish "$TARBALL" --access public
           done
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Get release version
         id: version
