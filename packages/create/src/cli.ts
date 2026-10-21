@@ -46,9 +46,9 @@ function isCancel(v: unknown): v is symbol {
   return typeof v === 'symbol';
 }
 
-function guard<T>(v: T | symbol): T {
+function guard<T>(v: T): Exclude<T, symbol> {
   if (isCancel(v)) cancel();
-  return v as T;
+  return v as Exclude<T, symbol>;
 }
 
 // ─── Scaffolders ──────────────────────────────────────────────────────────────
@@ -194,7 +194,7 @@ async function main() {
     const name = guard(await p.text({
       message: 'Project name',
       placeholder: 'my-gebeta-app',
-      validate: v => /^[a-z0-9-_]+$/i.test(v) ? undefined : 'Use only letters, numbers, dashes, underscores',
+      validate: v => /^[a-z0-9-_]+$/i.test(v ?? '') ? undefined : 'Use only letters, numbers, dashes, underscores',
     }));
     projectName = name;
     targetDir = path.join(cwd, projectName);
@@ -205,7 +205,7 @@ async function main() {
   // ── Prompts group ─────────────────────────────────────────────────────────
   const answers = await p.group(
     {
-      framework: () => p.select<{ value: Framework; label: string }[], Framework>({
+      framework: () => p.select<Framework>({
         message: 'Framework',
         initialValue: existingFramework ?? 'react',
         options: (Object.entries(FRAMEWORK_LABELS) as [Framework, string][]).map(([value, label]) => ({
@@ -226,7 +226,7 @@ async function main() {
           ? ALL_FEATURES.filter(f => (NODE_FEATURES as string[]).includes(f.value))
           : ALL_FEATURES;
 
-        return p.multiselect<{ value: Feature; label: string; hint: string }[], Feature>({
+        return p.multiselect<Feature>({
           message: 'Features to include',
           options: available.map(f => ({ ...f, label: `${f.label}  ${pc.dim(f.hint)}` })),
           initialValues: ['geocoding'],
@@ -234,7 +234,7 @@ async function main() {
         });
       },
 
-      pm: () => p.select<{ value: PackageManager; label: string }[], PackageManager>({
+      pm: () => p.select<PackageManager>({
         message: 'Package manager',
         initialValue: detectedPm,
         options: [
@@ -247,7 +247,7 @@ async function main() {
 
       apiKey: () => p.password({
         message: 'Gebeta Maps API key',
-        validate: v => v.length > 0 ? undefined : 'Required — get one at https://gebeta.app/dashboard',
+        validate: v => v ? undefined : 'Required — get one at https://gebeta.app/dashboard',
       }),
     },
     { onCancel: () => cancel() },
