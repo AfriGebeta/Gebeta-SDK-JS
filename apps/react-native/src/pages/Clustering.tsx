@@ -7,7 +7,7 @@
 
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { GebetaMaps, useClustering } from '@gebeta/react-native';
+import { GebetaMap, useClustering } from '@gebeta/react-native';
 import type { API } from '@gebeta/api';
 import { authProps, type Auth } from '../config';
 
@@ -33,14 +33,14 @@ function makeMarkers(): API.Overlay.Types.MarkerData[] {
 
 export default function Clustering({ auth }: { auth: Auth }) {
   return (
-    <GebetaMaps
+    <GebetaMap
       {...authProps(auth)}
       center={[38.7685, 9.0161]}
       zoom={11}
       style={styles.map}
     >
       <ClusteringPanel />
-    </GebetaMaps>
+    </GebetaMap>
   );
 }
 

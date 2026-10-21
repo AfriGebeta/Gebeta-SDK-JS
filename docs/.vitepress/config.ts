@@ -119,7 +119,7 @@ export default defineConfig({
           text: 'Overview',
           items: [
             { text: 'GebetaMaps', link: '/reference/gebeta-maps' },
-            { text: 'GebetaMaps (React)', link: '/reference/gebeta-map-component' },
+            { text: 'GebetaMap (React)', link: '/reference/gebeta-map-component' },
             { text: 'GebetaAuth (Node)', link: '/reference/gebeta-auth' },
           ],
         },

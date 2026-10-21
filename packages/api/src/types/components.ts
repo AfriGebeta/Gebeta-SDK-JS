@@ -2,7 +2,7 @@ import type { GebetaMapsInitOptions, ClusteringOptions } from './options';
 import type { AuthOptions } from './auth';
 
 /**
- * Props for the main GebetaMaps component (React/React Native/Vue...).
+ * Props for the main GebetaMap component (React/React Native/Vue...).
  *
  * Combines constructor options (auth, clustering) and init options
  * (`container`, `styleUrl`, etc.) into a single props interface.
@@ -11,9 +11,9 @@ import type { AuthOptions } from './auth';
  * exactly one of `apiKey` (deprecated) or `auth` (service account) must be passed.
  *
  * Usage:
- * - React: `<GebetaMaps auth={{ accessToken, refreshToken }} styleUrl="..." />`
- * - React Native: `<GebetaMaps auth={{ accessToken, refreshToken }} styleUrl="..." />`
- * - Vue: `<GebetaMaps :auth="{ accessToken, refreshToken }" :style-url="..." />`
+ * - React: `<GebetaMap auth={{ accessToken, refreshToken }} styleUrl="..." />`
+ * - React Native: `<GebetaMap auth={{ accessToken, refreshToken }} styleUrl="..." />`
+ * - Vue: `<GebetaMap :auth="{ accessToken, refreshToken }" :style-url="..." />`
  *
  * For the imperative JS API, use `GebetaMapsConstructorOptions` + `GebetaMapsInitOptions` separately:
  * ```js
@@ -21,7 +21,7 @@ import type { AuthOptions } from './auth';
  * map.init({ container: 'map', styleUrl: '...' });
  * ```
  */
-export type GebetaMapsProps<TInstance = unknown> = AuthOptions &
+export type GebetaMapProps<TInstance = unknown> = AuthOptions &
   GebetaMapsInitOptions & {
     /** Clustering configuration options */
     clustering?: ClusteringOptions;

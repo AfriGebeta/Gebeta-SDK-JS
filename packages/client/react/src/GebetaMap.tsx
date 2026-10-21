@@ -7,7 +7,7 @@ import type {
 } from 'react';
 import { useRef, useState, useEffect, useMemo, forwardRef } from 'react';
 import type { API } from '@gebeta/api';
-import { GebetaMaps as GebetaMapsClass } from '@gebeta/js';
+import { GebetaMaps } from '@gebeta/js';
 import { GebetaMapContext } from './context/MapContext';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -32,9 +32,9 @@ type ForwardedMapOptions = {
   [option: string]: unknown;
 };
 
-// Declared explicitly (instead of `Omit<API.Components.Types.GebetaMapsProps>`) because that type
+// Declared explicitly (instead of `Omit<API.Components.Types.GebetaMapProps>`) because that type
 // has a `[key: string]: any` index signature, and `Omit` over it collapses every prop to `any`.
-export type GebetaMapsProps = API.Auth.Types.AuthOptions &
+export type GebetaMapProps = API.Auth.Types.AuthOptions &
   ForwardedMapOptions & {
     /** Initial center `[lng, lat]`. Only read on mount. */
     center?: [number, number];
@@ -51,7 +51,7 @@ export type GebetaMapsProps = API.Auth.Types.AuthOptions &
     /** Corner for navigation controls (default: 'top-right'). */
     navigationControlPosition?: string;
     /** Called once the map style has loaded, with the GebetaMaps instance. */
-    onLoad?: (instance: GebetaMapsClass) => void;
+    onLoad?: (instance: GebetaMaps) => void;
     /** Called on map errors. */
     onError?: (error: Error) => void;
     /** CSS styles for the map wrapper element (defaults to filling the parent). */
@@ -61,7 +61,7 @@ export type GebetaMapsProps = API.Auth.Types.AuthOptions &
     /** Rendered over the map once it has loaded. */
     children?: ReactNode;
   };
-export type GebetaMapsRef = GebetaMapsClass;
+export type GebetaMapRef = GebetaMaps;
 
 /**
  * Main React component for rendering a Gebeta map.
@@ -75,7 +75,7 @@ export type GebetaMapsRef = GebetaMapsClass;
  *
  * @example
  * ```tsx
- * <GebetaMaps auth={auth} onLoad={(gm) => gm.geocodingManager.geocode('Bole')} />
+ * <GebetaMap auth={auth} onLoad={(gm) => gm.geocodingManager.geocode('Bole')} />
  * ```
  */
 function GebetaMapImpl(
@@ -95,18 +95,18 @@ function GebetaMapImpl(
     center,
     zoom,
     ...rest
-  }: GebetaMapsProps,
-  ref: Ref<GebetaMapsRef>
+  }: GebetaMapProps,
+  ref: Ref<GebetaMapRef>
 ): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [gebetaMaps, setGebetaMaps] = useState<GebetaMapsClass | null>(null);
+  const [gebetaMaps, setGebetaMaps] = useState<GebetaMaps | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  function assignRef(value: GebetaMapsClass | null) {
+  function assignRef(value: GebetaMaps | null) {
     if (typeof ref === 'function') {
       ref(value);
     } else if (ref) {
-      (ref as MutableRefObject<GebetaMapsClass | null>).current = value;
+      (ref as MutableRefObject<GebetaMaps | null>).current = value;
     }
   }
 
@@ -122,11 +122,11 @@ function GebetaMapImpl(
     setLoadError(null);
 
     // Pass both through so GebetaMaps rejects "neither" and "both" with a ValidationError.
-    const gm = new GebetaMapsClass({
+    const gm = new GebetaMaps({
       auth: authProp,
       apiKey,
       ...(clustering ? { clustering } : {}),
-    } as ConstructorParameters<typeof GebetaMapsClass>[0]);
+    } as ConstructorParameters<typeof GebetaMaps>[0]);
 
     const map = gm.init({
       container,
@@ -207,9 +207,9 @@ function GebetaMapImpl(
 }
 
 // `forwardRef`'s `Omit<P, 'ref'>` distributes over discriminated unions; the
-// resulting `props` type widens and stops being assignable to `GebetaMapsProps`.
+// resulting `props` type widens and stops being assignable to `GebetaMapProps`.
 // Cast the impl to a non-union shape for forwardRef's sake, then cast the
 // result back to a component that takes the original discriminated-union props.
-export const GebetaMaps = forwardRef(
-  GebetaMapImpl as ForwardRefRenderFunction<GebetaMapsRef, never>
-) as unknown as (props: GebetaMapsProps & { ref?: Ref<GebetaMapsRef> }) => ReactNode;
+export const GebetaMap = forwardRef(
+  GebetaMapImpl as ForwardRefRenderFunction<GebetaMapRef, never>
+) as unknown as (props: GebetaMapProps & { ref?: Ref<GebetaMapRef> }) => ReactNode;

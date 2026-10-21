@@ -1,7 +1,7 @@
 // Geocoding.tsx — forward and reverse geocoding example.
 
 import { useRef, useState, useCallback } from 'react';
-import { GebetaMaps, type GebetaMapsRef } from '@gebeta/react';
+import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
 import { authProps, type Auth } from '../config';
 import type { API } from '@gebeta/api';
 import '../panel.css';
@@ -16,7 +16,7 @@ export default function Geocoding({ auth }: { auth: Auth }) {
   const [results, setResults] = useState<Result[]>([]);
   const [ready, setReady] = useState(false);
 
-  const gebetaMapRef = useRef<GebetaMapsRef>(null);
+  const gebetaMapRef = useRef<GebetaMapRef>(null);
   const markersRef = useRef<Marker[]>([]);
 
   function clearResultMarkers() {
@@ -74,7 +74,7 @@ export default function Geocoding({ auth }: { auth: Auth }) {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <GebetaMaps
+      <GebetaMap
         ref={gebetaMapRef}
         {...authProps(auth)}
         center={[38.7685, 9.0161]}
@@ -136,7 +136,7 @@ export default function Geocoding({ auth }: { auth: Auth }) {
             )}
           </div>
         </div>
-      </GebetaMaps>
+      </GebetaMap>
     </div>
   );
 }

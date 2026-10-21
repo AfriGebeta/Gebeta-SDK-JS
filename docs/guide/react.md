@@ -6,10 +6,10 @@
 npm install @gebeta/react @gebeta/js
 ```
 
-## GebetaMaps component
+## GebetaMap component
 
 ```jsx
-import { GebetaMaps } from '@gebeta/react';
+import { GebetaMap } from '@gebeta/react';
 
 const auth = { accessToken, refreshToken };
 const mapStyle = { width: '100%', height: '500px' };
@@ -17,7 +17,7 @@ const center = [38.7685, 9.0161];
 
 function App() {
   return (
-    <GebetaMaps
+    <GebetaMap
       auth={auth}
       center={center}
       zoom={12}
@@ -40,7 +40,7 @@ const mapStyle = { width: '100%', height: '500px' };
 
 function MapWithGeocoding() {
   return (
-    <GebetaMaps
+    <GebetaMap
       auth={auth}
       style={mapStyle}
       onLoad={({ clustering }) => {
@@ -53,10 +53,10 @@ function MapWithGeocoding() {
 
 ## useClustering hook
 
-The `useClustering()` hook must be used inside a child component of `GebetaMaps`, with `clustering` enabled on the parent.
+The `useClustering()` hook must be used inside a child component of `GebetaMap`, with `clustering` enabled on the parent.
 
 ```jsx
-import { GebetaMaps } from '@gebeta/react';
+import { GebetaMap } from '@gebeta/react';
 import { useClustering } from '@gebeta/react/clustering';
 import { useEffect } from 'react';
 
@@ -77,9 +77,9 @@ function MarkersLayer() {
 
 function ClusterMap() {
   return (
-    <GebetaMaps auth={auth} clustering={clusteringOptions} style={mapStyle}>
+    <GebetaMap auth={auth} clustering={clusteringOptions} style={mapStyle}>
       <MarkersLayer />
-    </GebetaMaps>
+    </GebetaMap>
   );
 }
 ```

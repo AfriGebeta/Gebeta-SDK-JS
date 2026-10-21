@@ -2,7 +2,7 @@
 
 ## Rules that differ from what you'd guess
 
-1. `<GebetaMaps>` fills its **parent** (`width:100%; height:100%`). After 3.0.12, `style` /
+1. `<GebetaMap>` fills its **parent** (`width:100%; height:100%`). After 3.0.12, `style` /
    `className` style the wrapper and `mapStyle` (URL or object) / `styleUrl` set the map style.
    On **3.0.12 and earlier** do **not** pass `style={{...}}` — it is forwarded as the map
    style (broken map); size the parent instead.
@@ -17,7 +17,7 @@
    re-creates the map.
 6. The map stylesheet is imported by the component already (no CSS import needed).
 7. TypeScript on 3.0.12: the `onLoad` parameter is not inferred (implicit `any`) — annotate it:
-   `onLoad={(gm: GebetaMapsRef) => ...}`. Later versions infer it.
+   `onLoad={(gm: GebetaMapRef) => ...}`. Later versions infer it.
 
 ## Props
 
@@ -30,7 +30,7 @@
 
 ```tsx
 import { useEffect, useRef, useState, type RefObject } from 'react';
-import { GebetaMaps, type GebetaMapsRef } from '@gebeta/react';
+import { GebetaMap, type GebetaMapRef } from '@gebeta/react';
 
 type Auth = { accessToken: string; refreshToken: string };
 
@@ -51,32 +51,32 @@ function useGebetaAuth() {
 
 export function MapPage() {
   const { auth, error } = useGebetaAuth();
-  const mapRef = useRef<GebetaMapsRef>(null);
+  const mapRef = useRef<GebetaMapRef>(null);
 
   if (error) return <p>Map unavailable: {error}</p>;
   if (!auth) return <p>Loading…</p>;
 
   return (
     <div style={{ height: '100vh', position: 'relative' }}>
-      <GebetaMaps
+      <GebetaMap
         ref={mapRef}
         auth={auth}
         center={[38.7578, 9.0301]}
         zoom={13}
         navigationControl
-        onLoad={(gm: GebetaMapsRef) => {
+        onLoad={(gm: GebetaMapRef) => {
           const map = gm.getMap()!;
           map.on('click', e => console.log(e.lngLat));
         }}
         onError={err => console.error(err)}
       >
         <SearchPanel mapRef={mapRef} />
-      </GebetaMaps>
+      </GebetaMap>
     </div>
   );
 }
 
-function SearchPanel({ mapRef }: { mapRef: RefObject<GebetaMapsRef | null> }) {
+function SearchPanel({ mapRef }: { mapRef: RefObject<GebetaMapRef | null> }) {
   const [q, setQ] = useState('');
   async function search() {
     const gm = mapRef.current;
@@ -112,9 +112,9 @@ function Shops({ shops }: { shops: { id: string; lng: number; lat: number; name:
   return null;
 }
 
-<GebetaMaps auth={auth} clustering={clustering}>
+<GebetaMap auth={auth} clustering={clustering}>
   <Shops shops={shops} />
-</GebetaMaps>;
+</GebetaMap>;
 ```
 
 ## Adding layers and markers in React

@@ -1,5 +1,5 @@
-export { GebetaMaps } from './GebetaMaps';
-export type { GebetaMapsProps } from './GebetaMaps';
+export { GebetaMap } from './GebetaMap';
+export type { GebetaMapProps } from './GebetaMap';
 
 export {
   GebetaMapContext,

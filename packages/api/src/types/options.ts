@@ -9,7 +9,7 @@ import type { AuthOptions, AuthParam } from './auth';
  * Auth is enforced as a compile-time discriminated union via `AuthOptions`:
  * exactly one of `apiKey` (deprecated) or `auth` (service account) must be passed.
  *
- * Note: For React/React Native/Vue components, use `GebetaMapsProps` instead,
+ * Note: For React/React Native/Vue components, use `GebetaMapProps` instead,
  * which combines constructor and init options into a single props interface.
  */
 export type GebetaMapsConstructorOptions = AuthOptions & {
@@ -25,7 +25,7 @@ export type GebetaMapsConstructorOptions = AuthOptions & {
  *
  * This is called AFTER constructing the instance. For component-based APIs
  * (React/RN/Vue), these options are combined with constructor options into
- * `GebetaMapsProps` and passed as props when rendering the component.
+ * `GebetaMapProps` and passed as props when rendering the component.
  */
 export interface GebetaMapsInitOptions {
   /**

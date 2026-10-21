@@ -44,16 +44,16 @@ map.on('click', e => {
 ## React
 
 ```jsx
-import { GebetaMaps } from '@gebeta/react';
+import { GebetaMap } from '@gebeta/react';
 
 const auth = { accessToken, refreshToken };
 const mapStyle = { width: '100%', height: '400px' };
 
 function App() {
-  return <GebetaMaps auth={auth} style={mapStyle} />;
+  return <GebetaMap auth={auth} style={mapStyle} />;
 }
 ```
 
 ::: tip
-The `GebetaMaps` React component manages the map lifecycle automatically. Use the `onLoad` callback or child components with `useClustering()` to interact with the map.
+The `GebetaMap` React component manages the map lifecycle automatically. Use the `onLoad` callback or child components with `useClustering()` to interact with the map.
 :::

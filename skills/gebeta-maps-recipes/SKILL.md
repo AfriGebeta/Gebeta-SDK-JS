@@ -32,7 +32,7 @@ map.on('load', () => {
 });
 
 // CDN: window.GebetaMaps and window.gebeta are globals; CSS is auto-injected.
-// React: <GebetaMaps onLoad={gm => { const map = gm.getMap(); ... }} />
+// React: <GebetaMap onLoad={gm => { const map = gm.getMap(); ... }} />
 ```
 
 In every recipe, `map` is that instance and code runs after `load`.

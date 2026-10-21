@@ -1,6 +1,6 @@
 # @gebeta/react-native
 
-React Native SDK for Gebeta Maps. Provides a `GebetaMaps` component and hooks for directions, navigation, clustering, fencing, and user location.
+React Native SDK for Gebeta Maps. Provides a `GebetaMap` component and hooks for directions, navigation, clustering, fencing, and user location.
 
 ## Installation
 
@@ -20,11 +20,11 @@ cd ios && pod install
 ## Quick start
 
 ```tsx
-import { GebetaMaps } from '@gebeta/react-native';
+import { GebetaMap } from '@gebeta/react-native';
 
 export default function App() {
   return (
-    <GebetaMaps
+    <GebetaMap
       accessToken="your-access-token"
       refreshToken="your-refresh-token"
       style={{ flex: 1 }}

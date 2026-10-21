@@ -19,11 +19,11 @@ export interface UseNavigationResult {
 }
 
 /**
- * Hook that provides a {@link NavigationManager} wired to the enclosing `<GebetaMaps>`, plus
+ * Hook that provides a {@link NavigationManager} wired to the enclosing `<GebetaMap>`, plus
  * reactive navigation state (isNavigating / progress / arrived) driven by the manager's events.
- * Must be called from a component rendered inside `<GebetaMaps>`.
+ * Must be called from a component rendered inside `<GebetaMap>`.
  *
- * Pass the same auth you gave `<GebetaMaps>`.
+ * Pass the same auth you gave `<GebetaMap>`.
  */
 export function useNavigation(
   auth: { apiKey?: string; auth?: API.Auth.Types.ServiceAccountAuth },

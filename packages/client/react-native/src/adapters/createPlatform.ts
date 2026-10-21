@@ -19,13 +19,13 @@ export interface PlatformContext extends API.Platform.Types.IPlatformContext {
   styleInjector: API.Platform.Types.IStyleInjector;
   clientIdStorage: API.Platform.Types.IClientIdStorage;
   /**
-   * Live handle to the mounted MapLibre-RN map. `GebetaMaps` attaches the MapView/Camera
+   * Live handle to the mounted MapLibre-RN map. `GebetaMap` attaches the MapView/Camera
    * refs and pushes region updates here; the `MapAdapter` reads through it. Exposed on the
-   * context so the `<GebetaMaps>` component can wire the refs after mount.
+   * context so the `<GebetaMap>` component can wire the refs after mount.
    */
   mapHandle: MapHandle;
   /**
-   * Declarative marker store. `MarkerFactory` writes marker records here; `GebetaMaps` renders
+   * Declarative marker store. `MarkerFactory` writes marker records here; `GebetaMap` renders
    * them via a `MarkerRenderer`. Exposed so the map component can render the markers.
    */
   markerStore: MarkerStore;

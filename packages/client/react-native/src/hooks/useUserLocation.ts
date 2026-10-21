@@ -10,11 +10,11 @@ export interface UseUserLocationResult {
 }
 
 /**
- * Hook that subscribes to the device location via the enclosing `<GebetaMaps>`'s
+ * Hook that subscribes to the device location via the enclosing `<GebetaMap>`'s
  * `ILocationProvider` (MapLibre's native LocationManager). Requests location permission on
  * mount, streams updates while mounted, and stops on unmount.
  *
- * Must be called from a component rendered inside `<GebetaMaps>`. Ensure the app declares the
+ * Must be called from a component rendered inside `<GebetaMap>`. Ensure the app declares the
  * ACCESS_FINE_LOCATION / ACCESS_COARSE_LOCATION permissions.
  *
  * @param enabled pass false to pause tracking without unmounting (default true).

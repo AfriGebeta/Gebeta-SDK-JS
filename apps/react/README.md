@@ -1,6 +1,6 @@
 # React example app
 
-Example app for the Gebeta Maps React SDK. Uses only `GebetaMaps` and `useClustering`; no Maplibre or react-map-gl in the app.
+Example app for the Gebeta Maps React SDK. Uses only `GebetaMap` and `useClustering`; no Maplibre or react-map-gl in the app.
 
 ## Prerequisites
 
@@ -24,5 +24,5 @@ Set `VITE_GEBETA_API_KEY` in a `.env` file in this directory (or in the repo roo
 
 ## What it does
 
-- Renders a full-screen map via `<GebetaMaps apiKey="..." styleUrl="..." clustering={{ enabled: true, showClusterCount: true }}>`.
-- A control panel (child of GebetaMaps) uses `useClustering()` to add/clear markers. Clusters appear when zoomed out; click clusters to zoom in.
+- Renders a full-screen map via `<GebetaMap apiKey="..." styleUrl="..." clustering={{ enabled: true, showClusterCount: true }}>`.
+- A control panel (child of GebetaMap) uses `useClustering()` to add/clear markers. Clusters appear when zoomed out; click clusters to zoom in.

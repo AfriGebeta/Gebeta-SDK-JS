@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
-  GebetaMaps,
+  GebetaMap,
   useGebetaMapContextOrNull,
   useDirections,
   useNavigation,
@@ -29,14 +29,14 @@ type RouteData = API.Routing.Types.RouteData;
 
 export default function Navigation({ auth }: { auth: Auth }) {
   return (
-    <GebetaMaps
+    <GebetaMap
       {...authProps(auth)}
       center={[38.7685, 9.0161]}
       zoom={13}
       style={styles.map}
     >
       <NavigationPanel auth={auth} />
-    </GebetaMaps>
+    </GebetaMap>
   );
 }
 

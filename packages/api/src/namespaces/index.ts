@@ -145,8 +145,8 @@ export namespace API {
 
   export namespace Components {
     export namespace Types {
-      export type GebetaMapsProps<TInstance = unknown> =
-        ComponentsModule.Components.Types.GebetaMapsProps<TInstance>;
+      export type GebetaMapProps<TInstance = unknown> =
+        ComponentsModule.Components.Types.GebetaMapProps<TInstance>;
       export type NavigationUIProps = ComponentsModule.Components.Types.NavigationUIProps;
     }
   }

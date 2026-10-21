@@ -11,10 +11,10 @@ export interface UseDirectionsResult {
 
 /**
  * Hook that provides a ready-to-use {@link DirectionsManager} wired to the enclosing
- * `<GebetaMaps>`'s platform (map adapter + marker factory). Must be called from a component
- * rendered inside `<GebetaMaps>`.
+ * `<GebetaMap>`'s platform (map adapter + marker factory). Must be called from a component
+ * rendered inside `<GebetaMap>`.
  *
- * Pass the same auth you gave `<GebetaMaps>`. Returns `{ directions: null }` until the map is
+ * Pass the same auth you gave `<GebetaMap>`. Returns `{ directions: null }` until the map is
  * mounted.
  */
 export function useDirections(auth: {

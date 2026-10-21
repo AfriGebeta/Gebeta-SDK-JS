@@ -3,7 +3,7 @@ import type { API } from '@gebeta/api';
 import { MapSpecStore } from './MapSpecStore';
 
 /**
- * Live handle to a mounted MapLibre-RN (v11) map. `MapAdapter` reads through this; `GebetaMaps`
+ * Live handle to a mounted MapLibre-RN (v11) map. `MapAdapter` reads through this; `GebetaMap`
  * populates it once `<Map>`/`<Camera>` refs attach and keeps `region` current from
  * `onRegionDidChange`.
  *
@@ -59,7 +59,7 @@ export class MapHandle {
     this.listeners.get(event)?.delete(fn);
   }
 
-  /** Called by GebetaMaps from Map/Camera callbacks. */
+  /** Called by GebetaMap from Map/Camera callbacks. */
   emit(event: string, ...args: unknown[]): void {
     this.listeners.get(event)?.forEach(fn => fn(...args));
   }

@@ -29,7 +29,7 @@ const DEFAULT_STYLE_URL = 'https://tiles.gebeta.app/styles/standard/style.json';
 const LOGO_URI = 'https://tiles.gebeta.app/static/glogo.svg';
 const LOGO_LINK = 'https://gebetamaps.com';
 
-export interface GebetaMapsProps {
+export interface GebetaMapProps {
   /** @deprecated Use `auth` instead. */
   apiKey?: string;
   auth?: API.Auth.Types.ServiceAccountAuth;
@@ -50,7 +50,7 @@ export interface GebetaMapsProps {
  * `GebetaMapContext`. Hooks like `useGeocoding`, `useDirections`, etc. consume the
  * context to drive map features.
  */
-export function GebetaMaps({
+export function GebetaMap({
   apiKey,
   auth: authProp,
   center = [38.74, 9.02],
@@ -60,7 +60,7 @@ export function GebetaMaps({
   children,
   onLoad,
   onError,
-}: GebetaMapsProps): ReactNode {
+}: GebetaMapProps): ReactNode {
   const [contextValue, setContextValue] = useState<{ platform: PlatformContext } | null>(null);
   const [signedStyleJson, setSignedStyleJson] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);

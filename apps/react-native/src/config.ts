@@ -17,7 +17,7 @@ export type Auth =
   | { type: 'service_account'; accessToken: string; refreshToken: string }
   | { type: 'api_key'; apiKey: string };
 
-/** Props to spread onto <GebetaMaps>. Mirrors the discriminated auth union. */
+/** Props to spread onto <GebetaMap>. Mirrors the discriminated auth union. */
 export type AuthProps =
   | { auth: API.Auth.Types.ServiceAccountAuth; apiKey?: never }
   | { apiKey: string; auth?: never };

@@ -10,7 +10,7 @@ const GebetaMapContext = createContext<GebetaMapContextValue | null>(null);
 export function useGebetaMapContext(): GebetaMapContextValue {
   const value = useContext(GebetaMapContext);
   if (!value) {
-    throw new Error('useGebetaMapContext must be used within a GebetaMaps component');
+    throw new Error('useGebetaMapContext must be used within a GebetaMap component');
   }
   return value;
 }

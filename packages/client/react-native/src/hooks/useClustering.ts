@@ -13,9 +13,9 @@ export interface UseClusteringResult {
 }
 
 /**
- * Hook that provides a {@link ClusteringManager} wired to the enclosing `<GebetaMaps>`. Optionally
+ * Hook that provides a {@link ClusteringManager} wired to the enclosing `<GebetaMap>`. Optionally
  * seeds it with an initial marker set (re-seeded whenever `markers` identity changes). Must be
- * called from a component rendered inside `<GebetaMaps>`.
+ * called from a component rendered inside `<GebetaMap>`.
  */
 export function useClustering(
   options: ClusteringOptions = {},
