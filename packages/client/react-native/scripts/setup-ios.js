@@ -45,10 +45,7 @@ function patchPodfile(podfilePath) {
 
   // 1. Add use_frameworks! before the first `target` block if not already present
   if (!content.includes(USE_FRAMEWORKS_LINE)) {
-    content = content.replace(
-      /^(target\s+['"])/m,
-      `${USE_FRAMEWORKS_LINE}\n\n$1`
-    );
+    content = content.replace(/^(target\s+['"])/m, `${USE_FRAMEWORKS_LINE}\n\n$1`);
     changed = true;
     console.log('  ✓ Added use_frameworks! :linkage => :static');
   } else {

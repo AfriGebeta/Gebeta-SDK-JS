@@ -20,14 +20,14 @@ bun create @gebeta           # or: bunx @gebeta/create
 
 The CLI detects your framework and package manager automatically and walks you through:
 
-| Step | What it asks |
-|------|-------------|
-| Mode | New project or add to existing |
-| Framework | React · Next.js · Vue · Vanilla · React Native · Node.js |
-| TypeScript | Yes / No |
-| Features | Geocoding · Directions · Navigation · Clustering · Fencing · Tracking |
-| Package manager | Auto-detected from lockfile / `packageManager` field |
-| API key | Validated live before continuing |
+| Step            | What it asks                                                          |
+| --------------- | --------------------------------------------------------------------- |
+| Mode            | New project or add to existing                                        |
+| Framework       | React · Next.js · Vue · Vanilla · React Native · Node.js              |
+| TypeScript      | Yes / No                                                              |
+| Features        | Geocoding · Directions · Navigation · Clustering · Fencing · Tracking |
+| Package manager | Auto-detected from lockfile / `packageManager` field                  |
+| API key         | Validated live before continuing                                      |
 
 ## What happens
 
@@ -40,14 +40,14 @@ The CLI detects your framework and package manager automatically and walks you t
 
 ## Framework → package mapping
 
-| Framework | Packages installed |
-|-----------|--------------------|
-| React | `@gebeta/react` `@gebeta/js` |
-| Next.js | `@gebeta/react` `@gebeta/js` |
-| Vue | `@gebeta/js` `@gebeta/core` |
-| Vanilla JS/TS | `@gebeta/js` |
-| React Native | `@gebeta/react-native` `@gebeta/core` `@gebeta/api` |
-| Node.js | `@gebeta/node` `@gebeta/core` `@gebeta/api` |
+| Framework     | Packages installed                                  |
+| ------------- | --------------------------------------------------- |
+| React         | `@gebeta/react` `@gebeta/js`                        |
+| Next.js       | `@gebeta/react` `@gebeta/js`                        |
+| Vue           | `@gebeta/js` `@gebeta/core`                         |
+| Vanilla JS/TS | `@gebeta/js`                                        |
+| React Native  | `@gebeta/react-native` `@gebeta/core` `@gebeta/api` |
+| Node.js       | `@gebeta/node` `@gebeta/core` `@gebeta/api`         |
 
 ## API keys
 

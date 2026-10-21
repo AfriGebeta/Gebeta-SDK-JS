@@ -95,10 +95,14 @@ export function runCmd(pm: PackageManager, script: string): string {
 
 export function dlxCmd(pm: PackageManager, pkg: string): string {
   switch (pm) {
-    case 'pnpm': return `pnpm dlx ${pkg}`;
-    case 'yarn': return `yarn dlx ${pkg}`;
-    case 'bun': return `bunx ${pkg}`;
-    default: return `npx ${pkg}`;
+    case 'pnpm':
+      return `pnpm dlx ${pkg}`;
+    case 'yarn':
+      return `yarn dlx ${pkg}`;
+    case 'bun':
+      return `bunx ${pkg}`;
+    default:
+      return `npx ${pkg}`;
   }
 }
 
@@ -132,7 +136,7 @@ export function spawnAndWaitFor(
   args: string[],
   cwd: string,
   waitFor: string,
-  timeoutMs = 120_000,
+  timeoutMs = 120_000
 ): Promise<import('node:child_process').ChildProcess> {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { cwd, stdio: ['ignore', 'pipe', 'pipe'], shell: true });
@@ -146,13 +150,20 @@ export function spawnAndWaitFor(
       const text = data.toString();
       output += text;
       process.stdout.write(text);
-      if (output.includes(waitFor)) { clearTimeout(timer); resolve(child); }
+      if (output.includes(waitFor)) {
+        clearTimeout(timer);
+        resolve(child);
+      }
     });
     child.stderr?.on('data', (data: Buffer) => process.stderr.write(data.toString()));
-    child.on('error', (err) => { clearTimeout(timer); reject(err); });
-    child.on('close', (code) => {
+    child.on('error', err => {
       clearTimeout(timer);
-      if (!output.includes(waitFor)) reject(new Error(`Process exited (${code}) before "${waitFor}"`));
+      reject(err);
+    });
+    child.on('close', code => {
+      clearTimeout(timer);
+      if (!output.includes(waitFor))
+        reject(new Error(`Process exited (${code}) before "${waitFor}"`));
     });
   });
 }

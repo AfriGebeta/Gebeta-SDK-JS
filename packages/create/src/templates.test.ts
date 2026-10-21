@@ -31,7 +31,9 @@ describe('envTemplate', () => {
   });
 
   it('uses NEXT_PUBLIC_ prefix for next', () => {
-    expect(envTemplate(cfg({ framework: 'next' }))).toContain('NEXT_PUBLIC_GEBETA_API_KEY=test-key-123');
+    expect(envTemplate(cfg({ framework: 'next' }))).toContain(
+      'NEXT_PUBLIC_GEBETA_API_KEY=test-key-123'
+    );
   });
 
   it('uses plain GEBETA_API_KEY for node', () => {
@@ -91,11 +93,15 @@ describe('vanillaMainTemplate', () => {
 
 describe('vanillaHtmlTemplate', () => {
   it('references the right script extension for TS', () => {
-    expect(vanillaHtmlTemplate(cfg({ framework: 'vanilla', typescript: true }))).toContain('main.ts');
+    expect(vanillaHtmlTemplate(cfg({ framework: 'vanilla', typescript: true }))).toContain(
+      'main.ts'
+    );
   });
 
   it('references .js for non-TS', () => {
-    expect(vanillaHtmlTemplate(cfg({ framework: 'vanilla', typescript: false }))).toContain('main.js');
+    expect(vanillaHtmlTemplate(cfg({ framework: 'vanilla', typescript: false }))).toContain(
+      'main.js'
+    );
   });
 
   it('has a #map div', () => {
@@ -129,7 +135,9 @@ describe('reactNativeAppTemplate', () => {
   });
 
   it('uses process.env.GEBETA_API_KEY', () => {
-    expect(reactNativeAppTemplate(cfg({ framework: 'react-native' }))).toContain('process.env.GEBETA_API_KEY');
+    expect(reactNativeAppTemplate(cfg({ framework: 'react-native' }))).toContain(
+      'process.env.GEBETA_API_KEY'
+    );
   });
 });
 
@@ -163,7 +171,9 @@ describe('nodeIndexTemplate', () => {
 
 describe('FRAMEWORK_PACKAGES', () => {
   it('react includes @gebeta/react and @gebeta/js', () => {
-    expect(FRAMEWORK_PACKAGES.react).toEqual(expect.arrayContaining(['@gebeta/react', '@gebeta/js']));
+    expect(FRAMEWORK_PACKAGES.react).toEqual(
+      expect.arrayContaining(['@gebeta/react', '@gebeta/js'])
+    );
   });
 
   it('react-native includes @gebeta/react-native', () => {

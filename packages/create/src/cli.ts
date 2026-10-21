@@ -60,21 +60,26 @@ function scaffoldVite(projectName: string, template: string, pm: PackageManager,
 
 function scaffoldNext(projectName: string, typescript: boolean, pm: PackageManager, cwd: string) {
   const tsFlag = typescript ? '' : '--no-typescript';
-  const base = pm === 'pnpm'
-    ? `pnpm create next-app@latest`
-    : pm === 'bun'
-    ? `bunx create-next-app@latest`
-    : `npx create-next-app@latest`;
-  exec(`${base} ${projectName} --app ${tsFlag} --no-eslint --no-tailwind --no-src-dir --no-import-alias`, cwd);
+  const base =
+    pm === 'pnpm'
+      ? `pnpm create next-app@latest`
+      : pm === 'bun'
+        ? `bunx create-next-app@latest`
+        : `npx create-next-app@latest`;
+  exec(
+    `${base} ${projectName} --app ${tsFlag} --no-eslint --no-tailwind --no-src-dir --no-import-alias`,
+    cwd
+  );
 }
 
 function scaffoldVue(projectName: string, typescript: boolean, pm: PackageManager, cwd: string) {
   // create-vue is the official scaffold — gives router, Pinia, etc. options
-  const base = pm === 'pnpm'
-    ? `pnpm create vue@latest`
-    : pm === 'bun'
-    ? `bunx create-vue@latest`
-    : `npx create-vue@latest`;
+  const base =
+    pm === 'pnpm'
+      ? `pnpm create vue@latest`
+      : pm === 'bun'
+        ? `bunx create-vue@latest`
+        : `npx create-vue@latest`;
   const tsFlag = typescript ? '--ts' : '--no-ts';
   // Run non-interactively with sensible defaults
   exec(`${base} ${projectName} ${tsFlag} --no-router --no-pinia --no-vitest --no-eslint`, cwd);
@@ -134,12 +139,19 @@ function writeStarterFile(cfg: TemplateConfig, targetDir: string) {
 
   if (framework === 'react') {
     const ext = typescript ? 'tsx' : 'jsx';
-    const written = writeFileSafe(path.join(targetDir, 'src', `App.${ext}`), reactAppTemplate(cfg), true);
+    const written = writeFileSafe(
+      path.join(targetDir, 'src', `App.${ext}`),
+      reactAppTemplate(cfg),
+      true
+    );
     if (written) p.log.success(`src/App.${ext} written`);
   } else if (framework === 'next') {
     const ext = typescript ? 'tsx' : 'jsx';
     fs.mkdirSync(path.join(targetDir, 'app', 'map'), { recursive: true });
-    const written = writeFileSafe(path.join(targetDir, 'app', 'map', `page.${ext}`), nextPageTemplate(cfg));
+    const written = writeFileSafe(
+      path.join(targetDir, 'app', 'map', `page.${ext}`),
+      nextPageTemplate(cfg)
+    );
     if (written) p.log.success(`app/map/page.${ext} written`);
   } else if (framework === 'vanilla') {
     const ext = typescript ? 'ts' : 'js';
@@ -180,22 +192,29 @@ async function main() {
   let projectName = 'my-gebeta-app';
 
   if (!isExistingProject) {
-    const mode = guard(await p.select({
-      message: 'What would you like to do?',
-      options: [
-        { value: 'new', label: 'Create a new project' },
-        { value: 'existing', label: 'Add Gebeta Maps to this directory' },
-      ],
-    }));
+    const mode = guard(
+      await p.select({
+        message: 'What would you like to do?',
+        options: [
+          { value: 'new', label: 'Create a new project' },
+          { value: 'existing', label: 'Add Gebeta Maps to this directory' },
+        ],
+      })
+    );
     isNewProject = mode === 'new';
   }
 
   if (isNewProject) {
-    const name = guard(await p.text({
-      message: 'Project name',
-      placeholder: 'my-gebeta-app',
-      validate: v => /^[a-z0-9-_]+$/i.test(v ?? '') ? undefined : 'Use only letters, numbers, dashes, underscores',
-    }));
+    const name = guard(
+      await p.text({
+        message: 'Project name',
+        placeholder: 'my-gebeta-app',
+        validate: v =>
+          /^[a-z0-9-_]+$/i.test(v ?? '')
+            ? undefined
+            : 'Use only letters, numbers, dashes, underscores',
+      })
+    );
     projectName = name;
     targetDir = path.join(cwd, projectName);
   } else {
@@ -205,26 +224,31 @@ async function main() {
   // ── Prompts group ─────────────────────────────────────────────────────────
   const answers = await p.group(
     {
-      framework: () => p.select<Framework>({
-        message: 'Framework',
-        initialValue: existingFramework ?? 'react',
-        options: (Object.entries(FRAMEWORK_LABELS) as [Framework, string][]).map(([value, label]) => ({
-          value,
-          label,
-          hint: value === existingFramework ? 'detected' : undefined,
-        })),
-      }),
+      framework: () =>
+        p.select<Framework>({
+          message: 'Framework',
+          initialValue: existingFramework ?? 'react',
+          options: (Object.entries(FRAMEWORK_LABELS) as [Framework, string][]).map(
+            ([value, label]) => ({
+              value,
+              label,
+              hint: value === existingFramework ? 'detected' : undefined,
+            })
+          ),
+        }),
 
-      typescript: () => p.confirm({
-        message: 'Use TypeScript?',
-        initialValue: true,
-      }),
+      typescript: () =>
+        p.confirm({
+          message: 'Use TypeScript?',
+          initialValue: true,
+        }),
 
       features: ({ results }) => {
         const fw = results.framework as Framework;
-        const available = fw === 'node'
-          ? ALL_FEATURES.filter(f => (NODE_FEATURES as string[]).includes(f.value))
-          : ALL_FEATURES;
+        const available =
+          fw === 'node'
+            ? ALL_FEATURES.filter(f => (NODE_FEATURES as string[]).includes(f.value))
+            : ALL_FEATURES;
 
         return p.multiselect<Feature>({
           message: 'Features to include',
@@ -234,23 +258,25 @@ async function main() {
         });
       },
 
-      pm: () => p.select<PackageManager>({
-        message: 'Package manager',
-        initialValue: detectedPm,
-        options: [
-          { value: 'pnpm', label: 'pnpm' },
-          { value: 'npm', label: 'npm' },
-          { value: 'yarn', label: 'yarn' },
-          { value: 'bun', label: 'bun' },
-        ],
-      }),
+      pm: () =>
+        p.select<PackageManager>({
+          message: 'Package manager',
+          initialValue: detectedPm,
+          options: [
+            { value: 'pnpm', label: 'pnpm' },
+            { value: 'npm', label: 'npm' },
+            { value: 'yarn', label: 'yarn' },
+            { value: 'bun', label: 'bun' },
+          ],
+        }),
 
-      apiKey: () => p.password({
-        message: 'Gebeta Maps API key',
-        validate: v => v ? undefined : 'Required — get one at https://gebeta.app/dashboard',
-      }),
+      apiKey: () =>
+        p.password({
+          message: 'Gebeta Maps API key',
+          validate: v => (v ? undefined : 'Required — get one at https://gebeta.app/dashboard'),
+        }),
     },
-    { onCancel: () => cancel() },
+    { onCancel: () => cancel() }
   );
 
   const { framework, typescript, features, pm, apiKey } = answers as {
@@ -273,7 +299,13 @@ async function main() {
     s.stop('API key validated');
   }
 
-  const cfg: TemplateConfig = { framework, typescript, features: features ?? [], apiKey, projectName };
+  const cfg: TemplateConfig = {
+    framework,
+    typescript,
+    features: features ?? [],
+    apiKey,
+    projectName,
+  };
 
   // ── Scaffold new project ──────────────────────────────────────────────────
   if (isNewProject) {
@@ -310,14 +342,19 @@ async function main() {
 
   // React Native iOS setup
   if (framework === 'react-native') {
-    const setupScript = path.join(targetDir, 'node_modules/@gebeta/react-native/scripts/setup-ios.js');
+    const setupScript = path.join(
+      targetDir,
+      'node_modules/@gebeta/react-native/scripts/setup-ios.js'
+    );
     if (fileExists(setupScript)) {
       p.log.step('Patching iOS Podfile…');
       try {
         exec(`node ${setupScript}`, targetDir);
         p.log.success('Podfile patched');
       } catch {
-        p.log.warn('iOS setup skipped — run: node node_modules/@gebeta/react-native/scripts/setup-ios.js');
+        p.log.warn(
+          'iOS setup skipped — run: node node_modules/@gebeta/react-native/scripts/setup-ios.js'
+        );
       }
     }
   }
@@ -339,7 +376,7 @@ async function main() {
   }
 
   p.outro(
-    `${pc.green('Done!')}  Docs: ${pc.underline('https://gebeta.app/docs')}  ·  Keys: ${pc.underline('https://gebeta.app/dashboard')}`,
+    `${pc.green('Done!')}  Docs: ${pc.underline('https://gebeta.app/docs')}  ·  Keys: ${pc.underline('https://gebeta.app/dashboard')}`
   );
 }
 

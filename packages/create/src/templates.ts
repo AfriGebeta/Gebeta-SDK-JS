@@ -1,6 +1,12 @@
 import type { Framework } from './utils.js';
 
-export type Feature = 'geocoding' | 'directions' | 'navigation' | 'clustering' | 'fencing' | 'tracking';
+export type Feature =
+  | 'geocoding'
+  | 'directions'
+  | 'navigation'
+  | 'clustering'
+  | 'fencing'
+  | 'tracking';
 
 export interface TemplateConfig {
   framework: Framework;
@@ -187,7 +193,7 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
       `const geocoding = new GeocodingManager({ apiKey: API_KEY });`,
       `const result = await geocoding.search('Bole, Addis Ababa');`,
       `console.log('Geocoding result:', result);`,
-      '',
+      ''
     );
   }
 
@@ -199,7 +205,7 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
       `  destination: [38.7969, 9.0527],`,
       `});`,
       `console.log('Route distance:', route?.distance, 'km');`,
-      '',
+      ''
     );
   }
 
@@ -207,7 +213,7 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
     body.push(
       `const tracking = new HttpTrackingManager({ apiKey: API_KEY });`,
       `// tracking.updateLocation({ latitude: 9.0227, longitude: 38.7469 });`,
-      '',
+      ''
     );
   }
 
@@ -222,16 +228,22 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
 // ─── tsconfig for new Node projects ──────────────────────────────────────────
 
 export function nodeTsConfigTemplate(): string {
-  return JSON.stringify({
-    compilerOptions: {
-      target: 'ES2022',
-      module: 'ESNext',
-      moduleResolution: 'bundler',
-      strict: true,
-      esModuleInterop: true,
-    },
-    include: ['src'],
-  }, null, 2) + '\n';
+  return (
+    JSON.stringify(
+      {
+        compilerOptions: {
+          target: 'ES2022',
+          module: 'ESNext',
+          moduleResolution: 'bundler',
+          strict: true,
+          esModuleInterop: true,
+        },
+        include: ['src'],
+      },
+      null,
+      2
+    ) + '\n'
+  );
 }
 
 // ─── Package mappings ─────────────────────────────────────────────────────────

@@ -23,7 +23,10 @@ const packages = path.resolve(monorepoRoot, 'packages');
  * @type {import('@react-native/metro-config').MetroConfig}
  */
 const gebetaEntries = {
-  '@gebeta/react-native': path.resolve(packages, 'client/react-native/src/index.ts'),
+  '@gebeta/react-native': path.resolve(
+    packages,
+    'client/react-native/src/index.ts',
+  ),
   '@gebeta/core': path.resolve(packages, 'core/dist/index.js'),
   '@gebeta/api': path.resolve(packages, 'api/dist/index.js'),
 };
@@ -35,7 +38,12 @@ const gebetaEntries = {
 // different TurboModuleRegistry than the native runtime, so `Modules loaded: []` and
 // getEnforcing('PlatformConstants') throws. Force these singletons to the app's copy always.
 const appNodeModules = path.resolve(__dirname, 'node_modules');
-const forcedSingletons = ['react', 'react-native', 'react/jsx-runtime', 'react/jsx-dev-runtime'];
+const forcedSingletons = [
+  'react',
+  'react-native',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
+];
 const singletonDir = {
   react: path.resolve(appNodeModules, 'react'),
   'react-native': path.resolve(appNodeModules, 'react-native'),
@@ -64,7 +72,7 @@ const config = {
         return context.resolveRequest(
           { ...context, originModulePath: path.join(appNodeModules, '_.js') },
           moduleName,
-          platform
+          platform,
         );
       }
       return context.resolveRequest(context, moduleName, platform);

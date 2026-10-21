@@ -44,7 +44,7 @@ import { useDirections } from '@gebeta/react-native';
 
 const { getRoute, clearRoute } = useDirections(gebetaMap);
 
-await getRoute({ start: [38.76, 9.01], end: [38.80, 9.03] });
+await getRoute({ start: [38.76, 9.01], end: [38.8, 9.03] });
 ```
 
 ### Navigation
@@ -54,7 +54,7 @@ import { useNavigation } from '@gebeta/react-native';
 
 const { startNavigation, stopNavigation, progress } = useNavigation(gebetaMap);
 
-await startNavigation({ start: [38.76, 9.01], end: [38.80, 9.03] });
+await startNavigation({ start: [38.76, 9.01], end: [38.8, 9.03] });
 ```
 
 ### Clustering
