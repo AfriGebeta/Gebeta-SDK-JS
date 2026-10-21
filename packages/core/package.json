@@ -1,6 +1,7 @@
 {
   "name": "@gebeta/core",
   "version": "3.2.0",
+  "type": "module",
   "description": "Core platform-agnostic implementation for Gebeta Maps SDKs",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -48,7 +49,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && node ../../scripts/fix-esm-imports.mjs dist",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "lint": "test -d src && eslint \"src/**/*.ts\" || echo 'No src directory - skipping lint'",
     "lint:fix": "test -d src && eslint \"src/**/*.ts\" --fix || echo 'No src directory - skipping lint'",
