@@ -148,7 +148,7 @@ API.Map.Constants.STYLES.terrain.url; // .../styles/standard/terrain/terrain.jso
 sdk.init({ container: 'map', styleUrl: API.Map.Constants.STYLES.satellite.url });
 
 // Geocoding → Array<{ name, lngLat: { lng, lat }, ...extraApiFields }>
-const results = await sdk.geocodingManager.geocode('Bole, Addis Ababa');
+const results = await sdk.geocodingManager.geocode('Bole');
 const places = await sdk.geocodingManager.reverseGeocode({ lat: 9.0161, lng: 38.7685 });
 
 // Directions (origin/destination are { lat, lng } objects)

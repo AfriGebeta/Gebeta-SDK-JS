@@ -6,7 +6,7 @@ Convert place names to coordinates (forward geocoding) and coordinates to place 
 
 ```js
 // Forward geocode
-const results = await gebetaMap.geocodingManager.geocode('Bole, Addis Ababa');
+const results = await gebetaMap.geocodingManager.geocode('Bole');
 // [{ name, lat, lng, ... }, ...]
 
 // Reverse geocode
@@ -22,7 +22,7 @@ import { GeocodingManager, AuthManager } from '@gebeta/js/geocoding';
 
 const geocoder = new GeocodingManager(new AuthManager({ accessToken, refreshToken }));
 
-const results = await geocoder.geocode('Bole, Addis Ababa');
+const results = await geocoder.geocode('Bole');
 const places = await geocoder.reverseGeocode({ lat: 9.0161, lng: 38.7685 });
 ```
 

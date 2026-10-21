@@ -90,7 +90,7 @@ export default function Geocoding({ auth }: { auth: Auth }) {
             value={placeInput}
             onChange={e => setPlaceInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && doGeocode()}
-            placeholder="e.g. Bole, Addis Ababa"
+            placeholder="e.g. Bole"
           />
           <button className="primary" onClick={doGeocode} disabled={!ready}>
             Search

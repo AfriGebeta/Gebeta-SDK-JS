@@ -54,12 +54,14 @@ describe('reactAppTemplate', () => {
     expect(reactAppTemplate(cfg())).toContain("from '@gebeta/react'");
   });
 
-  it('imports GeocodingManager when geocoding feature is selected', () => {
-    expect(reactAppTemplate(cfg({ features: ['geocoding'] }))).toContain('GeocodingManager');
+  it('geocodes on load when geocoding feature is selected', () => {
+    expect(reactAppTemplate(cfg({ features: ['geocoding'] }))).toContain(
+      'geocodingManager.geocode'
+    );
   });
 
-  it('does NOT import GeocodingManager when feature is absent', () => {
-    expect(reactAppTemplate(cfg({ features: [] }))).not.toContain('GeocodingManager');
+  it('does NOT geocode when feature is absent', () => {
+    expect(reactAppTemplate(cfg({ features: [] }))).not.toContain('geocodingManager');
   });
 
   it('imports the CSS file', () => {
@@ -147,13 +149,13 @@ describe('nodeIndexTemplate', () => {
   it('includes geocoding code when feature selected', () => {
     const out = nodeIndexTemplate(cfg({ framework: 'node', features: ['geocoding'] }));
     expect(out).toContain('GeocodingManager');
-    expect(out).toContain('geocoding.search');
+    expect(out).toContain('geocoding.geocode');
   });
 
   it('includes directions code when feature selected', () => {
     const out = nodeIndexTemplate(cfg({ framework: 'node', features: ['directions'] }));
     expect(out).toContain('DirectionsManager');
-    expect(out).toContain('directions.getRoute');
+    expect(out).toContain('directions.getDirections');
   });
 
   it('includes tracking code when feature selected', () => {

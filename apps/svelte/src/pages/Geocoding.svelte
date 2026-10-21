@@ -91,7 +91,7 @@
       <div class="control-panel">
         <h3>Geocoding</h3>
         <h4>Forward (search by name)</h4>
-        <input type="text" bind:value={placeInput} placeholder="e.g. Bole, Addis Ababa" />
+        <input type="text" bind:value={placeInput} placeholder="e.g. Bole" />
         <button class="primary" onclick={doGeocode} disabled={!mapReady}>Search</button>
 
         <h4>Reverse (search by coordinates)</h4>

@@ -22,7 +22,7 @@ const geocoder = new GeocodingManager(
 ## Forward geocoding
 
 ```ts
-const results = await geocoder.geocode('Bole, Addis Ababa');
+const results = await geocoder.geocode('Bole');
 // [{ name: 'Bole', lat: 9.0161, lng: 38.7685, ... }]
 ```
 

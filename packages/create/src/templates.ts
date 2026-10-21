@@ -38,7 +38,10 @@ export function envExampleTemplate(cfg: TemplateConfig): string {
 
 export function reactAppTemplate(cfg: TemplateConfig): string {
   const geocoding = cfg.features.includes('geocoding');
-  return `${geocoding ? `import { GeocodingManager } from '@gebeta/react';\n` : ''}import { GebetaMap } from '@gebeta/react';
+  const onLoad = geocoding
+    ? `\n        onLoad={async gebeta => {\n          const results = await gebeta.geocodingManager.geocode('Bole');\n          console.log('Geocoding results:', results);\n        }}`
+    : '';
+  return `import { GebetaMap } from '@gebeta/react';
 import '@gebeta/js/style.css';
 
 export default function App() {
@@ -47,7 +50,8 @@ export default function App() {
       <GebetaMap
         apiKey={import.meta.env.VITE_GEBETA_API_KEY}
         style={{ width: '100%', height: '100%' }}
-        initialViewState={{ longitude: 38.7469, latitude: 9.0227, zoom: 12 }}
+        center={[38.7469, 9.0227]}
+        zoom={12}${onLoad}
       />
     </div>
   );
@@ -69,7 +73,8 @@ export default function MapPage() {
       <GebetaMap
         apiKey={process.env.NEXT_PUBLIC_GEBETA_API_KEY!}
         style={{ width: '100%', height: '100%' }}
-        initialViewState={{ longitude: 38.7469, latitude: 9.0227, zoom: 12 }}
+        center={[38.7469, 9.0227]}
+        zoom={12}
       />
     </div>
   );
@@ -83,9 +88,10 @@ export function vanillaMainTemplate(_cfg: TemplateConfig): string {
   return `import { GebetaMaps } from '@gebeta/js';
 import '@gebeta/js/style.css';
 
-const map = new GebetaMaps({
+const gebeta = new GebetaMaps({ apiKey: import.meta.env.VITE_GEBETA_API_KEY });
+
+const map = gebeta.init({
   container: 'map',
-  apiKey: import.meta.env.VITE_GEBETA_API_KEY,
   center: [38.7469, 9.0227],
   zoom: 12,
 });
@@ -128,18 +134,18 @@ import { onMounted, onUnmounted } from 'vue';
 import { GebetaMaps } from '@gebeta/js';
 import '@gebeta/js/style.css';
 
-let map${cfg.typescript ? ': InstanceType<typeof GebetaMaps> | null' : ''} = null;
+let gebeta${cfg.typescript ? ': GebetaMaps | null' : ''} = null;
 
 onMounted(() => {
-  map = new GebetaMaps({
+  gebeta = new GebetaMaps({ apiKey: import.meta.env.VITE_GEBETA_API_KEY });
+  gebeta.init({
     container: 'map',
-    apiKey: import.meta.env.VITE_GEBETA_API_KEY,
     center: [38.7469, 9.0227],
     zoom: 12,
   });
 });
 
-onUnmounted(() => map?.remove());
+onUnmounted(() => gebeta?.getMap()?.remove());
 </script>
 
 <style scoped>
@@ -161,7 +167,8 @@ export default function App() {
       <GebetaMap
         apiKey={process.env.GEBETA_API_KEY ?? ''}
         style={styles.map}
-        initialViewState={{ longitude: 38.7469, latitude: 9.0227, zoom: 12 }}
+        center={[38.7469, 9.0227]}
+        zoom={12}
       />
     </View>
   );
@@ -184,34 +191,35 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
   const imports: string[] = [];
   if (hasGeocoding) imports.push(`import { GeocodingManager } from '@gebeta/core';`);
   if (hasDirections) imports.push(`import { DirectionsManager } from '@gebeta/core';`);
-  if (hasTracking) imports.push(`import { HttpTrackingManager } from '@gebeta/core';`);
+  if (hasTracking)
+    imports.push(`import { HttpTrackingManager, normalizeAuth } from '@gebeta/core';`);
 
   const body: string[] = [`const API_KEY = process.env.GEBETA_API_KEY ?? '';`, ''];
 
   if (hasGeocoding) {
     body.push(
-      `const geocoding = new GeocodingManager({ apiKey: API_KEY });`,
-      `const result = await geocoding.search('Bole, Addis Ababa');`,
-      `console.log('Geocoding result:', result);`,
+      `const geocoding = new GeocodingManager(API_KEY);`,
+      `const results = await geocoding.geocode('Bole');`,
+      `console.log('Geocoding results:', results);`,
       ''
     );
   }
 
   if (hasDirections) {
     body.push(
-      `const directions = new DirectionsManager({ apiKey: API_KEY });`,
-      `const route = await directions.getRoute({`,
-      `  origin: [38.7469, 9.0227],`,
-      `  destination: [38.7969, 9.0527],`,
-      `});`,
-      `console.log('Route distance:', route?.distance, 'km');`,
+      `const directions = new DirectionsManager(API_KEY);`,
+      `const route = await directions.getDirections(`,
+      `  { lng: 38.7469, lat: 9.0227 },`,
+      `  { lng: 38.7969, lat: 9.0527 }`,
+      `);`,
+      `console.log('Route distance:', route.distance);`,
       ''
     );
   }
 
   if (hasTracking) {
     body.push(
-      `const tracking = new HttpTrackingManager({ apiKey: API_KEY });`,
+      `const tracking = new HttpTrackingManager({ auth: normalizeAuth(API_KEY), userId: 'driver-1' });`,
       `// tracking.updateLocation({ latitude: 9.0227, longitude: 38.7469 });`,
       ''
     );
