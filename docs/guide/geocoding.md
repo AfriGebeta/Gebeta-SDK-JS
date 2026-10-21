@@ -7,7 +7,7 @@ Convert place names to coordinates (forward geocoding) and coordinates to place 
 ```js
 // Forward geocode
 const results = await gebetaMap.geocodingManager.geocode('Bole');
-// [{ name, lat, lng, ... }, ...]
+// [{ name, lngLat: { lng, lat }, id, display_name, category, address, neighborhood }, ...]
 
 // Reverse geocode
 const results = await gebetaMap.geocodingManager.reverseGeocode({ lat: 9.0161, lng: 38.7685 });
@@ -40,6 +40,12 @@ const geocoder = new GeocodingManager(
 );
 const results = await geocoder.geocode('Meskel Square');
 ```
+
+::: info Endpoints
+With an API key, forward geocoding uses the v2 search endpoint (`/v2/search/geocode`), which also returns
+`id`, `display_name`, `category`, `address` and `neighborhood`. Service-account auth and reverse
+geocoding use the v1 endpoints. Results always have `name` and `lngLat`.
+:::
 
 ::: tip Tree Shaking
 `@gebeta/js/geocoding` bundles only ~45 kB vs ~300 kB for the full SDK. Use it when you don't need map rendering.

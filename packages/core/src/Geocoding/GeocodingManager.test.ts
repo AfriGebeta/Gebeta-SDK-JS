@@ -3,7 +3,7 @@ import '../_test_utilities/consoleMock';
 import { GeocodingManager } from './GeocodingManager';
 import { API } from '@gebeta/api';
 import { ValidationError, NetworkError, BadRequestError } from '@gebeta/api';
-import { resolveAuth } from '../Auth/resolveAuth';
+import { resolveAuth, type ResolvedAuth } from '../Auth/resolveAuth';
 import { getRandomString } from '../_test_utilities/specialCharacters';
 import { setupFetchSpy } from '../_test_utilities/fetchSpy';
 import { EMPTY_VALUES } from '../_test_utilities/commonTestValues';
@@ -42,15 +42,19 @@ describe('GeocodingManager', () => {
 
     // the live API sends 'Ok'; older responses used 'ok'
     test.each(['ok', 'Ok', 'OK'])('geocode should treat msg "%s" as success', async givenMsg => {
-      // GIVEN the API returns a success message with the given casing
-      fetchSpy = setupFetchSpy(
-        200,
-        { msg: givenMsg, data: [givenResult] },
-        'application/json;charset=UTF-8'
-      );
+      // GIVEN a service-account manager (v1 endpoint)
+      const givenFetch = jest
+        .fn()
+        .mockResolvedValue(
+          new Response(JSON.stringify({ msg: givenMsg, data: [givenResult] }), { status: 200 })
+        );
+      const serviceAccountManager = new GeocodingManager({
+        type: 'SERVICE_ACCOUNT',
+        manager: { fetch: givenFetch },
+      } as unknown as ResolvedAuth);
 
       // WHEN geocoding
-      const results = await manager.geocode('bole');
+      const results = await serviceAccountManager.geocode('bole');
 
       // THEN it resolves with parsed results instead of throwing
       expect(results[0]).toMatchObject(expectedResult);
@@ -90,14 +94,10 @@ describe('GeocodingManager', () => {
     test('should make fetch request with correct URL and params', async () => {
       // GIVEN a valid name and API response
       const givenAPIResponse = {
-        msg: 'ok',
-        data: [
-          {
-            name: 'Addis Ababa',
-            latitude: 9.0,
-            longitude: 38.7,
-          },
-        ],
+        data: {
+          query: 'Addis Ababa',
+          results: [{ name: 'Addis Ababa', location: { lat: 9.0, lng: 38.7 } }],
+        },
       };
 
       fetchSpy = setupFetchSpy(200, givenAPIResponse, 'application/json;charset=UTF-8');
@@ -108,32 +108,40 @@ describe('GeocodingManager', () => {
       // THEN it should make a fetch request with the correct URL and parameters
       expect(fetchSpy).toHaveBeenCalledTimes(1);
       const callUrl = fetchSpy.mock.calls[0][0];
-      expect(callUrl).toContain('/geocoding');
-      expect(callUrl).toMatch(/name=Addis[+%]Ababa/);
+      expect(callUrl).toContain('/v2/search/geocode');
       const url = new URL(callUrl);
+      expect(url.searchParams.get('query')).toBe('Addis Ababa');
       expect(url.searchParams.get('apiKey')).toBe(apiKey);
     });
 
     test('should return geocoding results on success', async () => {
       // GIVEN a valid name and API response
       const mockApiResponse = {
-        msg: 'ok',
-        data: [
-          {
-            name: 'Addis Ababa',
-            latitude: 9.0,
-            longitude: 38.7,
-          },
-        ],
+        data: {
+          query: 'Bole',
+          results: [
+            {
+              id: 'forge-426326',
+              name: 'Addis Ababa / Bole, Shobe ayat',
+              display_name: 'Addis Ababa / Bole, Shobe ayat, Addis Ababa, Ethiopia',
+              category: 'school establishment',
+              location: { lat: 9.020122, lng: 38.878653 },
+              address: { city: 'Addis Ababa', country: 'Ethiopia', country_code: 'ET' },
+              neighborhood: 'Shobe ayat',
+            },
+          ],
+        },
       };
 
       const expectedResult: API.Geocoding.Types.Result[] = [
         {
-          name: 'Addis Ababa',
-          lngLat: {
-            lng: 38.7,
-            lat: 9.0,
-          },
+          id: 'forge-426326',
+          name: 'Addis Ababa / Bole, Shobe ayat',
+          display_name: 'Addis Ababa / Bole, Shobe ayat, Addis Ababa, Ethiopia',
+          category: 'school establishment',
+          lngLat: { lat: 9.020122, lng: 38.878653 },
+          address: { city: 'Addis Ababa', country: 'Ethiopia', country_code: 'ET' },
+          neighborhood: 'Shobe ayat',
         },
       ];
 
@@ -149,8 +157,7 @@ describe('GeocodingManager', () => {
     test('should handle empty results gracefully', async () => {
       // GIVEN a valid name and API response with empty results
       const givenAPIResponse = {
-        msg: 'ok',
-        data: [],
+        data: { query: 'NonexistentPlace12345XYZ', results: [] },
       };
 
       fetchSpy = setupFetchSpy(200, givenAPIResponse, 'application/json;charset=UTF-8');

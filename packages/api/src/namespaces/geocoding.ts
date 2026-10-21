@@ -7,5 +7,6 @@ export namespace Geocoding {
 
   export const Constants = {
     API_URL: API_BASE_URLS.geocoding,
+    SEARCH_URL: API_BASE_URLS.geocodingSearch,
   } as const;
 }

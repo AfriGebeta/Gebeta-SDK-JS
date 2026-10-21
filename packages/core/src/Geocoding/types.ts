@@ -13,6 +13,8 @@ export interface RawGeocodeResult {
   latitude?: number;
   /** Longitude (long form) */
   longitude?: number;
+  /** Coordinates (v2 search results) */
+  location?: { lat?: number; lng?: number };
   /** Additional properties from API */
   [key: string]: unknown;
 }
@@ -21,6 +23,16 @@ export enum GeocodingMessage {
   OK = 'ok',
   ERROR = 'error',
 }
+/**
+ * Raw API response structure for the v2 geocoding search endpoint.
+ */
+export interface GeocodingSearchApiResponse {
+  data?: {
+    query?: string;
+    results?: RawGeocodeResult[];
+  };
+}
+
 /**
  * Raw API response structure for geocoding endpoints.
  */

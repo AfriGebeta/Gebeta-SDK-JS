@@ -6,7 +6,7 @@ import {
   parseApiErrorResponse,
   ValidationError,
 } from '@gebeta/api';
-import { GeocodingApiResponse, GeocodingMessage } from './types';
+import { GeocodingApiResponse, GeocodingMessage, GeocodingSearchApiResponse } from './types';
 import { transformGeocodeResult } from './transform';
 import { createFetch } from '../utils/fetch';
 import { normalizeAuth, type AuthInput, type ResolvedAuth } from '../Auth/resolveAuth';
@@ -25,11 +25,13 @@ function isOkMessage(msg: unknown): boolean {
 export class GeocodingManager {
   private readonly auth: ResolvedAuth;
   private readonly baseUrl: string;
+  private readonly searchUrl: string;
   private readonly clientId?: string;
 
   constructor(auth: AuthInput, clientId?: string) {
     this.auth = normalizeAuth(auth);
     this.baseUrl = API.Geocoding.Constants.API_URL;
+    this.searchUrl = API.Geocoding.Constants.SEARCH_URL;
     this.clientId = clientId;
   }
 
@@ -43,10 +45,12 @@ export class GeocodingManager {
       throw new ValidationError('Name is required for geocoding', 'name');
     }
 
-    const params = new URLSearchParams({ name });
+    // The v2 search endpoint only accepts API keys; service accounts stay on v1.
     if (this.auth.type === AuthTypes.API_KEY) {
-      params.set('apiKey', this.auth.key);
+      return this.search(name);
     }
+
+    const params = new URLSearchParams({ name });
 
     const url = `${this.baseUrl}/geocoding?${params.toString()}`;
 
@@ -138,6 +142,33 @@ export class GeocodingManager {
       API.Errors.Codes.GEOCODING_REQUEST_FAILED,
       data.error?.message || data.msg || 'Reverse geocoding failed'
     );
+  }
+
+  private async search(query: string): Promise<API.Geocoding.Types.Result[]> {
+    // apiKey is appended by createFetch
+    const params = new URLSearchParams({ query });
+    const url = `${this.searchUrl}?${params.toString()}`;
+
+    let response: Response;
+    try {
+      response = await this.doFetch(url);
+    } catch (error) {
+      throw new NetworkError(
+        error instanceof Error
+          ? `Geocoding request failed: ${error.message}`
+          : 'Geocoding request failed',
+        API.Errors.Codes.NETWORK_REQUEST_FAILED,
+        error instanceof Error ? error : undefined
+      );
+    }
+
+    if (!response.ok) {
+      const errorResponse = await parseApiErrorResponse(response);
+      throw createApiError(response.status, errorResponse);
+    }
+
+    const data: GeocodingSearchApiResponse = await response.json();
+    return (data.data?.results ?? []).map(transformGeocodeResult);
   }
 
   private doFetch(url: string): Promise<Response> {

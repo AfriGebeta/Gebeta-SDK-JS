@@ -13,6 +13,7 @@ export function transformGeocodeResult(item: RawGeocodeResult): API.Geocoding.Ty
     lng: _lng,
     latitude: _latitude,
     longitude: _longitude,
+    location: _location,
     name: _name,
     ...rest
   } = item;
@@ -24,8 +25,8 @@ export function transformGeocodeResult(item: RawGeocodeResult): API.Geocoding.Ty
     );
   }
 
-  const lat = _lat ?? _latitude;
-  const lng = _lng ?? _longitude;
+  const lat = _lat ?? _latitude ?? _location?.lat;
+  const lng = _lng ?? _longitude ?? _location?.lng;
 
   if (lat == null || lng == null) {
     throw new GeocodingError(

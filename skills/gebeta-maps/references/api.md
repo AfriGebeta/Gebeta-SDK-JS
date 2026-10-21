@@ -93,7 +93,8 @@ carry a `code` from `API.Errors.Codes` (e.g. `PLATFORM_NOT_INITIALIZED`, `NETWOR
 
 ## Geocoding
 
-`geocode(name: string)` → `GET https://mapapi.gebeta.app/api/v1/route/geocoding?name=...`
+`geocode(name: string)` → `GET https://mapapi.gebeta.app/v2/search/geocode?query=...&proximity=ip` with an API key
+(service-account auth uses `.../api/v1/route/geocoding?name=...`)
 `reverseGeocode({ lat, lng })` → `.../revgeocoding?lat=..&lon=..`
 Both resolve to `Array<{ name, lngLat: { lng, lat }, ...rawFields }>` (empty array when nothing found).
 

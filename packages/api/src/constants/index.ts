@@ -73,6 +73,8 @@ export const API_BASE_URLS = {
   directions: 'https://mapapi.gebeta.app/api/route/direction/',
   /** Geocoding API endpoint */
   geocoding: 'https://mapapi.gebeta.app/api/v1/route',
+  /** Forward geocoding search endpoint (v2, API-key auth only) */
+  geocodingSearch: 'https://mapapi.gebeta.app/v2/search/geocode',
   /** WebSocket tracking endpoint */
   tracking: 'wss://track.gebeta.app/v1/track',
   /** HTTP tracking endpoint */
