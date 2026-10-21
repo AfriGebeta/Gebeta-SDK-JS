@@ -102,7 +102,7 @@ export function dlxCmd(pm: PackageManager, pkg: string): string {
     case 'bun':
       return `bunx ${pkg}`;
     default:
-      return `npx ${pkg}`;
+      return `npx -y ${pkg}`;
   }
 }
 
@@ -170,12 +170,44 @@ export function spawnAndWaitFor(
 
 // ─── Misc ─────────────────────────────────────────────────────────────────────
 
-export async function validateApiKey(key: string): Promise<boolean> {
+export type TokenTestResult =
+  | { ok: true; count: number; firstName?: string }
+  | { ok: false; reason: 'unauthorized' | 'network' | 'unexpected'; status?: number };
+
+/** Verify a token by running a real geocoding search for "Bole". */
+export async function testToken(token: string): Promise<TokenTestResult> {
+  const params = new URLSearchParams({ query: 'Bole', proximity: 'ip', apiKey: token });
+  let res: Response;
   try {
-    const url = `https://mapapi.gebeta.app/api/v1/route/geocoding?name=addis&api_key=${encodeURIComponent(key)}`;
-    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
-    return res.status !== 401 && res.status !== 403;
+    res = await fetch(`https://mapapi.gebeta.app/v2/search/geocode?${params.toString()}`, {
+      signal: AbortSignal.timeout(10000),
+    });
   } catch {
-    return true; // offline → let them proceed
+    return { ok: false, reason: 'network' };
   }
+  if (res.status === 401 || res.status === 403) {
+    return { ok: false, reason: 'unauthorized', status: res.status };
+  }
+  if (!res.ok) return { ok: false, reason: 'unexpected', status: res.status };
+
+  try {
+    const body = (await res.json()) as { data?: { results?: Array<{ name?: string }> } };
+    const results = body.data?.results ?? [];
+    return { ok: true, count: results.length, firstName: results[0]?.name };
+  } catch {
+    return { ok: false, reason: 'unexpected', status: res.status };
+  }
+}
+
+/** Read one variable from a .env file (undefined if the file or variable is missing/empty). */
+export function readEnvValue(envPath: string, name: string): string | undefined {
+  const content = readFileSafe(envPath);
+  if (!content) return undefined;
+  for (const line of content.split(/\r?\n/)) {
+    const match = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
+    if (!match || match[1] !== name) continue;
+    const value = match[2].trim().replace(/^(['"])(.*)\1$/, '$2');
+    return value || undefined;
+  }
+  return undefined;
 }

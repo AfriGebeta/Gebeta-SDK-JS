@@ -12,26 +12,28 @@ export interface TemplateConfig {
   framework: Framework;
   typescript: boolean;
   features: Feature[];
-  apiKey: string;
   projectName: string;
 }
 
 // ─── Env files ────────────────────────────────────────────────────────────────
 
-function envVarName(framework: Framework): string {
-  if (framework === 'next') return 'NEXT_PUBLIC_GEBETA_API_KEY';
-  if (framework === 'node') return 'GEBETA_API_KEY';
-  return 'VITE_GEBETA_API_KEY';
+/**
+ * Name of the token variable in .env. Bundlers only expose prefixed variables to browser code
+ * (Vite: VITE_, Next.js: NEXT_PUBLIC_); Node and React Native read GEBETA_TOKEN directly.
+ */
+export function tokenEnvVar(framework: Framework): string {
+  if (framework === 'next') return 'NEXT_PUBLIC_GEBETA_TOKEN';
+  if (framework === 'node' || framework === 'react-native') return 'GEBETA_TOKEN';
+  return 'VITE_GEBETA_TOKEN';
 }
 
+/** .env with an empty token for the user to fill in. */
 export function envTemplate(cfg: TemplateConfig): string {
-  const key = envVarName(cfg.framework);
-  return `# Gebeta Maps API key — get yours at https://gebeta.app/dashboard\n${key}=${cfg.apiKey}\n`;
+  return `# Gebeta Maps token — get yours at https://gebeta.app/dashboard\n${tokenEnvVar(cfg.framework)}=\n`;
 }
 
 export function envExampleTemplate(cfg: TemplateConfig): string {
-  const key = envVarName(cfg.framework);
-  return `# Gebeta Maps API key — get yours at https://gebeta.app/dashboard\n${key}=your_api_key_here\n`;
+  return `# Gebeta Maps token — get yours at https://gebeta.app/dashboard\n${tokenEnvVar(cfg.framework)}=your_token_here\n`;
 }
 
 // ─── React ────────────────────────────────────────────────────────────────────
@@ -48,7 +50,7 @@ export default function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <GebetaMap
-        apiKey={import.meta.env.VITE_GEBETA_API_KEY}
+        apiKey={import.meta.env.VITE_GEBETA_TOKEN}
         style={{ width: '100%', height: '100%' }}
         center={[38.7469, 9.0227]}
         zoom={12}${onLoad}
@@ -71,7 +73,7 @@ export default function MapPage() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <GebetaMap
-        apiKey={process.env.NEXT_PUBLIC_GEBETA_API_KEY!}
+        apiKey={process.env.NEXT_PUBLIC_GEBETA_TOKEN!}
         style={{ width: '100%', height: '100%' }}
         center={[38.7469, 9.0227]}
         zoom={12}
@@ -88,7 +90,7 @@ export function vanillaMainTemplate(_cfg: TemplateConfig): string {
   return `import { GebetaMaps } from '@gebeta/js';
 import '@gebeta/js/style.css';
 
-const gebeta = new GebetaMaps({ apiKey: import.meta.env.VITE_GEBETA_API_KEY });
+const gebeta = new GebetaMaps({ apiKey: import.meta.env.VITE_GEBETA_TOKEN });
 
 const map = gebeta.init({
   container: 'map',
@@ -137,7 +139,7 @@ import '@gebeta/js/style.css';
 let gebeta${cfg.typescript ? ': GebetaMaps | null' : ''} = null;
 
 onMounted(() => {
-  gebeta = new GebetaMaps({ apiKey: import.meta.env.VITE_GEBETA_API_KEY });
+  gebeta = new GebetaMaps({ apiKey: import.meta.env.VITE_GEBETA_TOKEN });
   gebeta.init({
     container: 'map',
     center: [38.7469, 9.0227],
@@ -165,7 +167,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <GebetaMap
-        apiKey={process.env.GEBETA_API_KEY ?? ''}
+        apiKey={process.env.GEBETA_TOKEN ?? ''}
         style={styles.map}
         center={[38.7469, 9.0227]}
         zoom={12}
@@ -194,11 +196,11 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
   if (hasTracking)
     imports.push(`import { HttpTrackingManager, normalizeAuth } from '@gebeta/core';`);
 
-  const body: string[] = [`const API_KEY = process.env.GEBETA_API_KEY ?? '';`, ''];
+  const body: string[] = [`const TOKEN = process.env.GEBETA_TOKEN ?? '';`, ''];
 
   if (hasGeocoding) {
     body.push(
-      `const geocoding = new GeocodingManager(API_KEY);`,
+      `const geocoding = new GeocodingManager(TOKEN);`,
       `const results = await geocoding.geocode('Bole');`,
       `console.log('Geocoding results:', results);`,
       ''
@@ -207,7 +209,7 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
 
   if (hasDirections) {
     body.push(
-      `const directions = new DirectionsManager(API_KEY);`,
+      `const directions = new DirectionsManager(TOKEN);`,
       `const route = await directions.getDirections(`,
       `  { lng: 38.7469, lat: 9.0227 },`,
       `  { lng: 38.7969, lat: 9.0527 }`,
@@ -219,7 +221,7 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
 
   if (hasTracking) {
     body.push(
-      `const tracking = new HttpTrackingManager({ auth: normalizeAuth(API_KEY), userId: 'driver-1' });`,
+      `const tracking = new HttpTrackingManager({ auth: normalizeAuth(TOKEN), userId: 'driver-1' });`,
       `// tracking.updateLocation({ latitude: 9.0227, longitude: 38.7469 });`,
       ''
     );
@@ -227,7 +229,7 @@ export function nodeIndexTemplate(cfg: TemplateConfig): string {
 
   if (imports.length === 0) {
     body.push(`// Add features during init to get starter code for each one.`);
-    body.push(`console.log('Gebeta Node.js SDK ready. API key:', API_KEY ? '✓' : '✗ missing');`);
+    body.push(`console.log('Gebeta Node.js SDK ready. Token:', TOKEN ? '✓' : '✗ missing');`);
   }
 
   return `${imports.join('\n')}${imports.length ? '\n\n' : ''}${body.join('\n')}`;

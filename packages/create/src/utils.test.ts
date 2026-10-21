@@ -131,7 +131,7 @@ describe('runCmd', () => {
 
 describe('dlxCmd', () => {
   it('pnpm uses dlx', () => expect(dlxCmd('pnpm', 'create-vite')).toBe('pnpm dlx create-vite'));
-  it('npm uses npx', () => expect(dlxCmd('npm', 'create-vite')).toBe('npx create-vite'));
+  it('npm uses npx -y', () => expect(dlxCmd('npm', 'create-vite')).toBe('npx -y create-vite'));
   it('bun uses bunx', () => expect(dlxCmd('bun', 'create-vite')).toBe('bunx create-vite'));
 });
 

@@ -17,7 +17,6 @@ function cfg(overrides: Partial<TemplateConfig> = {}): TemplateConfig {
     framework: 'react',
     typescript: true,
     features: [],
-    apiKey: 'test-key-123',
     projectName: 'my-app',
     ...overrides,
   };
@@ -27,23 +26,20 @@ function cfg(overrides: Partial<TemplateConfig> = {}): TemplateConfig {
 
 describe('envTemplate', () => {
   it('uses VITE_ prefix for react', () => {
-    expect(envTemplate(cfg())).toContain('VITE_GEBETA_API_KEY=test-key-123');
+    expect(envTemplate(cfg())).toContain('VITE_GEBETA_TOKEN=\n');
   });
 
   it('uses NEXT_PUBLIC_ prefix for next', () => {
-    expect(envTemplate(cfg({ framework: 'next' }))).toContain(
-      'NEXT_PUBLIC_GEBETA_API_KEY=test-key-123'
-    );
+    expect(envTemplate(cfg({ framework: 'next' }))).toContain('NEXT_PUBLIC_GEBETA_TOKEN=\n');
   });
 
-  it('uses plain GEBETA_API_KEY for node', () => {
-    expect(envTemplate(cfg({ framework: 'node' }))).toContain('GEBETA_API_KEY=test-key-123');
+  it('uses plain GEBETA_TOKEN for node and react-native', () => {
+    expect(envTemplate(cfg({ framework: 'node' }))).toMatch(/^GEBETA_TOKEN=$/m);
+    expect(envTemplate(cfg({ framework: 'react-native' }))).toMatch(/^GEBETA_TOKEN=$/m);
   });
 
-  it('example template never contains the real key', () => {
-    const out = envExampleTemplate(cfg());
-    expect(out).not.toContain('test-key-123');
-    expect(out).toContain('your_api_key_here');
+  it('example template has a placeholder token', () => {
+    expect(envExampleTemplate(cfg())).toContain('VITE_GEBETA_TOKEN=your_token_here');
   });
 });
 
@@ -77,7 +73,7 @@ describe('nextPageTemplate', () => {
   });
 
   it('uses NEXT_PUBLIC_ env var', () => {
-    expect(nextPageTemplate(cfg({ framework: 'next' }))).toContain('NEXT_PUBLIC_GEBETA_API_KEY');
+    expect(nextPageTemplate(cfg({ framework: 'next' }))).toContain('NEXT_PUBLIC_GEBETA_TOKEN');
   });
 });
 
@@ -89,7 +85,7 @@ describe('vanillaMainTemplate', () => {
   });
 
   it('uses VITE_ env var', () => {
-    expect(vanillaMainTemplate(cfg({ framework: 'vanilla' }))).toContain('VITE_GEBETA_API_KEY');
+    expect(vanillaMainTemplate(cfg({ framework: 'vanilla' }))).toContain('VITE_GEBETA_TOKEN');
   });
 });
 
@@ -136,9 +132,9 @@ describe('reactNativeAppTemplate', () => {
     expect(out).not.toContain('GebetaMaps');
   });
 
-  it('uses process.env.GEBETA_API_KEY', () => {
+  it('uses process.env.GEBETA_TOKEN', () => {
     expect(reactNativeAppTemplate(cfg({ framework: 'react-native' }))).toContain(
-      'process.env.GEBETA_API_KEY'
+      'process.env.GEBETA_TOKEN'
     );
   });
 });
@@ -165,7 +161,7 @@ describe('nodeIndexTemplate', () => {
 
   it('falls back to a helpful comment when no features selected', () => {
     const out = nodeIndexTemplate(cfg({ framework: 'node', features: [] }));
-    expect(out).toContain('API key');
+    expect(out).toContain('Token:');
   });
 });
 

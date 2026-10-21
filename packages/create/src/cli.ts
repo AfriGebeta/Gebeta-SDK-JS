@@ -14,7 +14,8 @@ import {
   readFileSafe,
   fileExists,
   exec,
-  validateApiKey,
+  testToken,
+  readEnvValue,
 } from './utils.js';
 import {
   type Feature,
@@ -33,6 +34,7 @@ import {
   FRAMEWORK_LABELS,
   ALL_FEATURES,
   NODE_FEATURES,
+  tokenEnvVar,
 } from './templates.js';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -54,7 +56,9 @@ function guard<T>(v: T): Exclude<T, symbol> {
 // ─── Scaffolders ──────────────────────────────────────────────────────────────
 
 function scaffoldVite(projectName: string, template: string, pm: PackageManager, cwd: string) {
-  const cmd = `${pm === 'bun' ? 'bun create vite' : `${dlxCmd(pm, 'create-vite@latest')}`} ${projectName} --template ${template}`;
+  // Non-interactive and no auto-install: create-vite otherwise prompts and runs its own install.
+  // Pinned to 8: the create-vite 9 templates crash `npm install` on npm 10 (Node 20's default npm).
+  const cmd = `${dlxCmd(pm, 'create-vite@8')} ${projectName} --template ${template} --no-interactive --no-immediate`;
   exec(cmd, cwd);
 }
 
@@ -65,7 +69,7 @@ function scaffoldNext(projectName: string, typescript: boolean, pm: PackageManag
       ? `pnpm create next-app@latest`
       : pm === 'bun'
         ? `bunx create-next-app@latest`
-        : `npx create-next-app@latest`;
+        : `npx -y create-next-app@latest`;
   exec(
     `${base} ${projectName} --app ${tsFlag} --no-eslint --no-tailwind --no-src-dir --no-import-alias`,
     cwd
@@ -79,7 +83,7 @@ function scaffoldVue(projectName: string, typescript: boolean, pm: PackageManage
       ? `pnpm create vue@latest`
       : pm === 'bun'
         ? `bunx create-vue@latest`
-        : `npx create-vue@latest`;
+        : `npx -y create-vue@latest`;
   const tsFlag = typescript ? '--ts' : '--no-ts';
   // Run non-interactively with sensible defaults
   exec(`${base} ${projectName} ${tsFlag} --no-router --no-pinia --no-vitest --no-eslint`, cwd);
@@ -93,8 +97,10 @@ function initBareProject(targetDir: string, projectName: string, typescript: boo
     private: true,
     type: 'module',
     scripts: {
-      start: typescript ? 'tsx src/index.ts' : 'node src/index.mjs',
-      dev: typescript ? 'tsx watch src/index.ts' : 'node --watch src/index.mjs',
+      start: typescript ? 'tsx --env-file=.env src/index.ts' : 'node --env-file=.env src/index.mjs',
+      dev: typescript
+        ? 'tsx watch --env-file=.env src/index.ts'
+        : 'node --watch --env-file=.env src/index.mjs',
     },
   };
   writeFileSafe(path.join(targetDir, 'package.json'), JSON.stringify(pkg, null, 2) + '\n');
@@ -111,9 +117,9 @@ function writeEnv(cfg: TemplateConfig, targetDir: string) {
   if (existing) {
     if (!existing.includes('GEBETA')) {
       fs.appendFileSync(envPath, '\n' + envTemplate(cfg), 'utf-8');
-      p.log.success('.env updated with Gebeta key');
+      p.log.success('.env updated with Gebeta token placeholder');
     } else {
-      p.log.warn('.env already has a GEBETA key — skipped');
+      p.log.warn('.env already has a GEBETA variable — skipped');
     }
   } else {
     writeFileSafe(envPath, envTemplate(cfg));
@@ -172,6 +178,57 @@ function writeStarterFile(cfg: TemplateConfig, targetDir: string) {
     fs.mkdirSync(path.join(targetDir, 'src'), { recursive: true });
     writeFileSafe(path.join(targetDir, 'src', `index.${ext}`), nodeIndexTemplate(cfg));
     p.log.success(`src/index.${ext} written`);
+  }
+}
+
+// ─── Token check ──────────────────────────────────────────────────────────────
+
+/**
+ * Ask the user to put their token in .env, then verify it with a real geocoding search.
+ * Returns true once a token has been verified; false if the user skips it.
+ */
+async function verifyToken(envPath: string, tokenVar: string): Promise<boolean> {
+  p.note(
+    `Open ${pc.cyan(envPath)} and set:\n${pc.green(`${tokenVar}=<your token>`)}\n\nGet a token at ${pc.underline('https://gebeta.app/dashboard')}`,
+    'Gebeta token'
+  );
+
+  let message = `Have you added ${tokenVar} to .env?`;
+  for (;;) {
+    const ready = guard(await p.confirm({ message, initialValue: true }));
+    if (!ready) {
+      p.log.info(`Skipped. Add ${tokenVar} to .env before running the app.`);
+      return false;
+    }
+
+    const token = readEnvValue(envPath, tokenVar);
+    if (!token) {
+      p.log.warn(`${tokenVar} is empty or missing in .env`);
+      message = 'Saved it? Check again?';
+      continue;
+    }
+
+    const s = p.spinner();
+    s.start('Testing token with a geocoding search for "Bole"…');
+    const result = await testToken(token);
+    if (result.ok) {
+      const example = result.firstName ? ` (e.g. ${result.firstName})` : '';
+      s.stop(pc.green(`Token works: found ${result.count} places for "Bole"${example}`));
+      return true;
+    }
+    if (result.reason === 'unauthorized') {
+      s.stop(pc.red(`Token rejected (${result.status}). Double-check it at gebeta.app/dashboard`));
+      message = 'Fixed it in .env? Check again?';
+      continue;
+    }
+    s.stop(
+      pc.yellow(
+        result.reason === 'network'
+          ? 'Could not reach Gebeta to test the token (offline?). Skipping the check.'
+          : `Unexpected response (${result.status}) while testing the token. Skipping the check.`
+      )
+    );
+    return false;
   }
 }
 
@@ -252,7 +309,7 @@ async function main() {
 
         return p.multiselect<Feature>({
           message: 'Features to include',
-          options: available.map(f => ({ ...f, label: `${f.label}  ${pc.dim(f.hint)}` })),
+          options: available,
           initialValues: ['geocoding'],
           required: false,
         });
@@ -269,41 +326,21 @@ async function main() {
             { value: 'bun', label: 'bun' },
           ],
         }),
-
-      apiKey: () =>
-        p.password({
-          message: 'Gebeta Maps API key',
-          validate: v => (v ? undefined : 'Required — get one at https://gebeta.app/dashboard'),
-        }),
     },
     { onCancel: () => cancel() }
   );
 
-  const { framework, typescript, features, pm, apiKey } = answers as {
+  const { framework, typescript, features, pm } = answers as {
     framework: Framework;
     typescript: boolean;
     features: Feature[];
     pm: PackageManager;
-    apiKey: string;
   };
-
-  // ── Validate API key ──────────────────────────────────────────────────────
-  const s = p.spinner();
-  s.start('Validating API key…');
-  const valid = await validateApiKey(apiKey);
-  if (!valid) {
-    s.stop(pc.yellow('API key returned 401/403 — double-check at gebeta.app/dashboard'));
-    const proceed = guard(await p.confirm({ message: 'Continue anyway?', initialValue: false }));
-    if (!proceed) cancel('Exiting. Get a valid key at https://gebeta.app/dashboard');
-  } else {
-    s.stop('API key validated');
-  }
 
   const cfg: TemplateConfig = {
     framework,
     typescript,
     features: features ?? [],
-    apiKey,
     projectName,
   };
 
@@ -331,6 +368,7 @@ async function main() {
 
   // ── Install packages ──────────────────────────────────────────────────────
   const pkgs = FRAMEWORK_PACKAGES[framework];
+  const s = p.spinner();
   s.start(`Installing ${pkgs.join(', ')}…`);
   try {
     exec(installCmd(pm, pkgs), targetDir);
@@ -364,9 +402,14 @@ async function main() {
   writeEnv(cfg, targetDir);
   writeStarterFile(cfg, targetDir);
 
+  // ── Token ─────────────────────────────────────────────────────────────────
+  const tokenVar = tokenEnvVar(framework);
+  const tokenVerified = await verifyToken(path.join(targetDir, '.env'), tokenVar);
+
   // ── Next steps ────────────────────────────────────────────────────────────
   const nextSteps: string[] = [];
   if (isNewProject) nextSteps.push(`cd ${projectName}`);
+  if (!tokenVerified) nextSteps.push(`Add your token to .env: ${tokenVar}=...`);
   nextSteps.push(runCmd(pm, framework === 'node' ? 'start' : 'dev'));
 
   p.note(nextSteps.join('\n'), 'Next steps');
