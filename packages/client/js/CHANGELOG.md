@@ -1,5 +1,13 @@
 # @gebeta/js
 
+## 3.3.0
+
+### Patch Changes
+
+- Updated dependencies [353b471]
+  - @gebeta/api@3.3.0
+  - @gebeta/core@3.3.0
+
 ## 3.2.0
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @gebeta/core
 
+## 3.3.0
+
+### Minor Changes
+
+- 353b471: Forward geocoding with an API key now uses the v2 search endpoint (`/v2/search/geocode`, with `proximity=ip`). Results keep the `{ name, lngLat }` shape and now also include `id`, `display_name`, `category`, `address` and `neighborhood`. Service-account auth and reverse geocoding stay on v1. Adds `API.Geocoding.Constants.SEARCH_URL`.
+
+### Patch Changes
+
+- Updated dependencies [353b471]
+  - @gebeta/api@3.3.0
+
 ## 3.2.0
 
 ### Patch Changes
