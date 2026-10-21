@@ -117,11 +117,19 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Verify npm auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+          npm whoami || { echo "NPM_TOKEN is missing, expired or invalid."; exit 1; }
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Bump versions
         run: |
+          # No changesets: publish the versions already in package.json (e.g. retrying a failed publish).
           if [ -z "$(ls .changeset/*.md 2>/dev/null | grep -v README)" ]; then
-            echo "No changesets found. Create one with 'yarn changeset' before releasing."
-            exit 1
+            echo "No changesets found. Publishing current versions."
+            exit 0
           fi
           yarn version:packages
 
@@ -144,17 +152,16 @@ jobs:
           yarn workspace @gebeta/create build
 
       - name: Configure npm auth
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-          yarn config set npmAuthToken "${NPM_TOKEN}"
+        run: yarn config set npmAuthToken "${NPM_TOKEN}"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
         run: |
+          set -e
           for pkg in packages/api packages/core packages/client/js packages/client/react packages/client/react-native packages/server/node packages/create; do
             echo "Publishing $pkg..."
-            yarn workspace $(node -p "require('./$pkg/package.json').name") npm publish --access public --tolerate-republish || true
+            yarn workspace $(node -p "require('./$pkg/package.json').name") npm publish --access public --tolerate-republish
           done
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
